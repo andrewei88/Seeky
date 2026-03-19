@@ -1,0 +1,7 @@
+[
+  { "word": "dog", "category": "animals" },
+  { "word": "car", "category": "outdoors" },
+  { "word": "cup", "category": "kitchen" },
+  { "word": "chair", "category": "home" },
+  { "word": "apple", "category": "food" }
+]

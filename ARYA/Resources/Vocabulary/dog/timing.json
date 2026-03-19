@@ -1,0 +1,8 @@
+{
+  "word": "dog",
+  "phonemes": [
+    { "phoneme": "D",  "letters": [0], "start": 0.00, "end": 0.40 },
+    { "phoneme": "AO", "letters": [1], "start": 0.40, "end": 0.95 },
+    { "phoneme": "G",  "letters": [2], "start": 0.95, "end": 1.40 }
+  ]
+}
