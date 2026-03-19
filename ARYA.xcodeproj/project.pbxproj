@@ -1,0 +1,395 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		10CCBD5038E4C0B3A9BA8009 /* ARYAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917798A36DA0CA699B4E5008 /* ARYAApp.swift */; };
+		919581DDCEBCFE1E71594B67 /* PlaceholderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27D357D1CCB9C8FA1DFFAAF /* PlaceholderTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ECFC7D5B7BCABC0A0C03BEB5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A3D0BA989538415A5A711719 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2B08535CBEB89D108D85ACE0;
+			remoteInfo = ARYA;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00533C8DA34B82A0C4DA11EF /* ARYATests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ARYATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		32C0835D1DA2E1CF023777A6 /* ARYA.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ARYA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		917798A36DA0CA699B4E5008 /* ARYAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARYAApp.swift; sourceTree = "<group>"; };
+		9D709EF933B8268E6CFD8014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C27D357D1CCB9C8FA1DFFAAF /* PlaceholderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTests.swift; sourceTree = "<group>"; };
+		C9975831D54C700FEF0244D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0C3BB3F243453DDDF629F2B4 /* ARYATests */ = {
+			isa = PBXGroup;
+			children = (
+				9D709EF933B8268E6CFD8014 /* Info.plist */,
+				C27D357D1CCB9C8FA1DFFAAF /* PlaceholderTests.swift */,
+			);
+			path = ARYATests;
+			sourceTree = "<group>";
+		};
+		4E7853FF851335A4CF5DC1CA /* ARYA */ = {
+			isa = PBXGroup;
+			children = (
+				C9975831D54C700FEF0244D4 /* Info.plist */,
+				715F03A39F8E621CDBF9300E /* App */,
+			);
+			path = ARYA;
+			sourceTree = "<group>";
+		};
+		67737D6CD5518C17633CC141 = {
+			isa = PBXGroup;
+			children = (
+				4E7853FF851335A4CF5DC1CA /* ARYA */,
+				0C3BB3F243453DDDF629F2B4 /* ARYATests */,
+				78C172D042ACE52B07CA3C32 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		715F03A39F8E621CDBF9300E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				917798A36DA0CA699B4E5008 /* ARYAApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		78C172D042ACE52B07CA3C32 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32C0835D1DA2E1CF023777A6 /* ARYA.app */,
+				00533C8DA34B82A0C4DA11EF /* ARYATests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1843146E876A0AB5CAC1F5B2 /* ARYATests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B85CAAE70E6A83181D0E6CB /* Build configuration list for PBXNativeTarget "ARYATests" */;
+			buildPhases = (
+				EBFEB93BC8067B925A1C3F8F /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				02D261550742814B4403A9FA /* PBXTargetDependency */,
+			);
+			name = ARYATests;
+			packageProductDependencies = (
+			);
+			productName = ARYATests;
+			productReference = 00533C8DA34B82A0C4DA11EF /* ARYATests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2B08535CBEB89D108D85ACE0 /* ARYA */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A6B087AE66BEC4A6ADFAE79E /* Build configuration list for PBXNativeTarget "ARYA" */;
+			buildPhases = (
+				8A542850F86F5EB847BEFFA4 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ARYA;
+			packageProductDependencies = (
+			);
+			productName = ARYA;
+			productReference = 32C0835D1DA2E1CF023777A6 /* ARYA.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A3D0BA989538415A5A711719 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = F8AD77CD10EAA01658A7B88C /* Build configuration list for PBXProject "ARYA" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 67737D6CD5518C17633CC141;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 78C172D042ACE52B07CA3C32 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2B08535CBEB89D108D85ACE0 /* ARYA */,
+				1843146E876A0AB5CAC1F5B2 /* ARYATests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8A542850F86F5EB847BEFFA4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10CCBD5038E4C0B3A9BA8009 /* ARYAApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBFEB93BC8067B925A1C3F8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				919581DDCEBCFE1E71594B67 /* PlaceholderTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		02D261550742814B4403A9FA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2B08535CBEB89D108D85ACE0 /* ARYA */;
+			targetProxy = ECFC7D5B7BCABC0A0C03BEB5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0CA3CE7AC3EAA4EE5B48C586 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ARYATests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.arya.ARYATests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARYA.app/ARYA";
+			};
+			name = Debug;
+		};
+		445DE6EDBFBC4397CF2E4BC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ARYATests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.arya.ARYATests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARYA.app/ARYA";
+			};
+			name = Release;
+		};
+		6164752405AAD9C4E86E49B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		8C6513219501C61C471970DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = ARYA/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.arya.objectlearning;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B4133496BA6001BF19F7D079 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = ARYA/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.arya.objectlearning;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DAD73ACE1A222CEE158BC540 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9B85CAAE70E6A83181D0E6CB /* Build configuration list for PBXNativeTarget "ARYATests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CA3CE7AC3EAA4EE5B48C586 /* Debug */,
+				445DE6EDBFBC4397CF2E4BC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A6B087AE66BEC4A6ADFAE79E /* Build configuration list for PBXNativeTarget "ARYA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C6513219501C61C471970DC /* Debug */,
+				B4133496BA6001BF19F7D079 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F8AD77CD10EAA01658A7B88C /* Build configuration list for PBXProject "ARYA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6164752405AAD9C4E86E49B7 /* Debug */,
+				DAD73ACE1A222CEE158BC540 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A3D0BA989538415A5A711719 /* Project object */;
+}
