@@ -14,6 +14,11 @@ targets:
     platform: iOS
     sources:
       - path: ARYA
+        excludes:
+          - "Resources/Vocabulary"
+      - path: ARYA/Resources/Vocabulary
+        type: folder
+        buildPhase: resources
     settings:
       base:
         INFOPLIST_FILE: ARYA/Info.plist

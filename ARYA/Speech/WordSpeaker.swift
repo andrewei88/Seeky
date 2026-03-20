@@ -1,7 +1,7 @@
 import AVFoundation
 import Combine
 
-final class WordSpeaker: ObservableObject {
+final class WordSpeaker: NSObject, ObservableObject {
     @Published private(set) var currentTime: Double = 0
     @Published private(set) var isPlaying: Bool = false
 

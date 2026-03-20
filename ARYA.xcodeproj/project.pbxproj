@@ -16,7 +16,6 @@
 		489837E4806D5AE5F231FFC2 /* LabelMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0F8B45500A3C8D7A0105ED /* LabelMapperTests.swift */; };
 		4E1BC4DC580758B2573813DD /* ClassificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A30E01E706C36903C6CD4C9 /* ClassificationEngine.swift */; };
 		4EB3D84185192595E155C3B6 /* vocabulary.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C09091C0002F055E737C8AE /* vocabulary.json */; };
-		4F80687663313BA396C097E3 /* timing.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9325EFEC21D182F8203FF /* timing.json */; };
 		60E20F62A04467221CC6046D /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E4CFCFBA408A665C1AAA56 /* CameraPreviewView.swift */; };
 		77B55AADA7EBB5B6D04F1416 /* WordSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB481F6493B9CBDE1CD262AF /* WordSpeaker.swift */; };
 		83BFB0CFD905FF46086E6D42 /* InstanceTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8A41BA2B3F263538A121DD /* InstanceTrackerTests.swift */; };
@@ -34,6 +33,7 @@
 		D8B8E166F5AD1A92806A53D4 /* TimingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE330D7CE0707441777D47B /* TimingData.swift */; };
 		EA7AFAEE27E16A19C499816A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4584035035FC1E58C1E78BD /* AppState.swift */; };
 		ED69E82443AB073BCDF14307 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2B249F085E2F3BCE92ABA /* ContentView.swift */; };
+		FAD1309E8FEFD057DB7F75B5 /* Vocabulary in Resources */ = {isa = PBXBuildFile; fileRef = 20AA462D5DA1DE165364F4C9 /* Vocabulary */; };
 		FFC7AD5A617A6C58D7C7E0A8 /* WordDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED76095032F83FCEEBE824BD /* WordDisplayView.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,12 +50,12 @@
 /* Begin PBXFileReference section */
 		00533C8DA34B82A0C4DA11EF /* ARYATests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ARYATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B0E185E60585DAD1D1BE6A7 /* OnboardingHintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHintView.swift; sourceTree = "<group>"; };
+		20AA462D5DA1DE165364F4C9 /* Vocabulary */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Vocabulary; path = ARYA/Resources/Vocabulary; sourceTree = SOURCE_ROOT; };
 		278984A88150CD544DFC634C /* LabelMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMapper.swift; sourceTree = "<group>"; };
 		282D3B7C56928FC301826480 /* SegmentationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentationEngine.swift; sourceTree = "<group>"; };
 		2D5FE5C43E739A2B27799731 /* label_mappings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = label_mappings.json; sourceTree = "<group>"; };
 		32C0835D1DA2E1CF023777A6 /* ARYA.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ARYA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35AE48AEE557FD8F60FEB54D /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
-		3AF9325EFEC21D182F8203FF /* timing.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = timing.json; sourceTree = "<group>"; };
 		3C09091C0002F055E737C8AE /* vocabulary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vocabulary.json; sourceTree = "<group>"; };
 		550B9CB9FE2CC13EE7F8BA73 /* TimingDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingDataTests.swift; sourceTree = "<group>"; };
 		5A30E01E706C36903C6CD4C9 /* ClassificationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationEngine.swift; sourceTree = "<group>"; };
@@ -136,7 +136,6 @@
 			children = (
 				2D5FE5C43E739A2B27799731 /* label_mappings.json */,
 				3C09091C0002F055E737C8AE /* vocabulary.json */,
-				A1A38A4A5C2D1C4AE307DECE /* Vocabulary */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -158,6 +157,7 @@
 		67737D6CD5518C17633CC141 = {
 			isa = PBXGroup;
 			children = (
+				20AA462D5DA1DE165364F4C9 /* Vocabulary */,
 				4E7853FF851335A4CF5DC1CA /* ARYA */,
 				0C3BB3F243453DDDF629F2B4 /* ARYATests */,
 				78C172D042ACE52B07CA3C32 /* Products */,
@@ -191,22 +191,6 @@
 				642C5CD0C1A3FF890F1C709B /* VocabularyStore.swift */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		9C4D7451383A1E75A835676B /* dog */ = {
-			isa = PBXGroup;
-			children = (
-				3AF9325EFEC21D182F8203FF /* timing.json */,
-			);
-			path = dog;
-			sourceTree = "<group>";
-		};
-		A1A38A4A5C2D1C4AE307DECE /* Vocabulary */ = {
-			isa = PBXGroup;
-			children = (
-				9C4D7451383A1E75A835676B /* dog */,
-			);
-			path = Vocabulary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,8 +268,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAD1309E8FEFD057DB7F75B5 /* Vocabulary in Resources */,
 				B7AF94556B8C26153D15164C /* label_mappings.json in Resources */,
-				4F80687663313BA396C097E3 /* timing.json in Resources */,
 				4EB3D84185192595E155C3B6 /* vocabulary.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
