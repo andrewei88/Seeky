@@ -1,0 +1,3 @@
+elevenlabs>=1.0.0
+montreal-forced-aligner>=3.0.0
+textgrid>=1.5

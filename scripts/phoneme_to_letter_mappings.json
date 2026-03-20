@@ -1,0 +1,28 @@
+{
+  "dog": [
+    { "phoneme": "D", "letters": [0] },
+    { "phoneme": "AO", "letters": [1] },
+    { "phoneme": "G", "letters": [2] }
+  ],
+  "car": [
+    { "phoneme": "K", "letters": [0] },
+    { "phoneme": "AA", "letters": [1] },
+    { "phoneme": "R", "letters": [2] }
+  ],
+  "cup": [
+    { "phoneme": "K", "letters": [0] },
+    { "phoneme": "AH", "letters": [1] },
+    { "phoneme": "P", "letters": [2] }
+  ],
+  "chair": [
+    { "phoneme": "CH", "letters": [0, 1] },
+    { "phoneme": "EH", "letters": [2] },
+    { "phoneme": "R", "letters": [3, 4] }
+  ],
+  "apple": [
+    { "phoneme": "AE", "letters": [0] },
+    { "phoneme": "P", "letters": [1, 2] },
+    { "phoneme": "AH", "letters": [3] },
+    { "phoneme": "L", "letters": [4] }
+  ]
+}

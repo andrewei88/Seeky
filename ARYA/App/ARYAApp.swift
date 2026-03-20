@@ -4,8 +4,7 @@ import SwiftUI
 struct ARYAApp: App {
     var body: some Scene {
         WindowGroup {
-            Text("ARYA")
-                .font(.largeTitle)
+            ContentView()
         }
     }
 }
