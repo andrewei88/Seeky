@@ -1,0 +1,37 @@
+{
+  "word": "tv",
+  "phonemes": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.124
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        0
+      ],
+      "start": 0.124,
+      "end": 0.259
+    },
+    {
+      "phoneme": "V",
+      "letters": [
+        1
+      ],
+      "start": 0.259,
+      "end": 0.357
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1
+      ],
+      "start": 0.357,
+      "end": 0.492
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "word": "face",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.19
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        1
+      ],
+      "start": 0.19,
+      "end": 0.4
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.4,
+      "end": 0.54
+    }
+  ]
+}

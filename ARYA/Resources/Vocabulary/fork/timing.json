@@ -1,0 +1,37 @@
+{
+  "word": "fork",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.161
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        1
+      ],
+      "start": 0.161,
+      "end": 0.327
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        2
+      ],
+      "start": 0.327,
+      "end": 0.424
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ],
+      "start": 0.424,
+      "end": 0.507
+    }
+  ]
+}

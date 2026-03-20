@@ -1,0 +1,62 @@
+{
+  "word": "umbrella",
+  "phonemes": [
+    {
+      "phoneme": "AH",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.146
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        1
+      ],
+      "start": 0.146,
+      "end": 0.223
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        2
+      ],
+      "start": 0.223,
+      "end": 0.281
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ],
+      "start": 0.281,
+      "end": 0.348
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        4
+      ],
+      "start": 0.348,
+      "end": 0.444
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5,
+        6
+      ],
+      "start": 0.444,
+      "end": 0.511
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        7
+      ],
+      "start": 0.511,
+      "end": 0.607
+    }
+  ]
+}

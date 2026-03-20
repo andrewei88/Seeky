@@ -1,29 +1,29 @@
 {
-  "word": "dog",
+  "word": "pig",
   "phonemes": [
     {
-      "phoneme": "D",
+      "phoneme": "P",
       "letters": [
         0
       ],
       "start": 0.05,
-      "end": 0.124
+      "end": 0.119
     },
     {
-      "phoneme": "AO",
+      "phoneme": "IH",
       "letters": [
         1
       ],
-      "start": 0.124,
-      "end": 0.271
+      "start": 0.119,
+      "end": 0.223
     },
     {
       "phoneme": "G",
       "letters": [
         2
       ],
-      "start": 0.271,
-      "end": 0.345
+      "start": 0.223,
+      "end": 0.292
     }
   ]
 }

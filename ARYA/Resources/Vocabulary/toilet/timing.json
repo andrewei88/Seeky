@@ -1,0 +1,46 @@
+{
+  "word": "toilet",
+  "phonemes": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.116
+    },
+    {
+      "phoneme": "OY",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.116,
+      "end": 0.26
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3
+      ],
+      "start": 0.26,
+      "end": 0.337
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.337,
+      "end": 0.448
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        5
+      ],
+      "start": 0.448,
+      "end": 0.514
+    }
+  ]
+}

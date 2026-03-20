@@ -1,0 +1,31 @@
+{
+  "word": "light",
+  "phonemes": [
+    {
+      "phoneme": "L",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.139
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.139,
+      "end": 0.305
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.305,
+      "end": 0.381
+    }
+  ]
+}

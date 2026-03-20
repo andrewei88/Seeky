@@ -1,0 +1,38 @@
+{
+  "word": "block",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.122
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ],
+      "start": 0.122,
+      "end": 0.206
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        2
+      ],
+      "start": 0.206,
+      "end": 0.35
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.35,
+      "end": 0.422
+    }
+  ]
+}

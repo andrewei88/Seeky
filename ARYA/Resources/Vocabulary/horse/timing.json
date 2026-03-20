@@ -1,0 +1,38 @@
+{
+  "word": "horse",
+  "phonemes": [
+    {
+      "phoneme": "HH",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.142
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        1
+      ],
+      "start": 0.142,
+      "end": 0.3
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        2
+      ],
+      "start": 0.3,
+      "end": 0.392
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.392,
+      "end": 0.497
+    }
+  ]
+}

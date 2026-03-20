@@ -1,29 +1,29 @@
 {
-  "word": "dog",
+  "word": "sun",
   "phonemes": [
     {
-      "phoneme": "D",
+      "phoneme": "S",
       "letters": [
         0
       ],
       "start": 0.05,
-      "end": 0.124
+      "end": 0.191
     },
     {
-      "phoneme": "AO",
+      "phoneme": "AH",
       "letters": [
         1
       ],
-      "start": 0.124,
-      "end": 0.271
+      "start": 0.191,
+      "end": 0.367
     },
     {
-      "phoneme": "G",
+      "phoneme": "N",
       "letters": [
         2
       ],
-      "start": 0.271,
-      "end": 0.345
+      "start": 0.367,
+      "end": 0.508
     }
   ]
 }

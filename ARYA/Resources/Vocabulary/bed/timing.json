@@ -1,29 +1,29 @@
 {
-  "word": "dog",
+  "word": "bed",
   "phonemes": [
     {
-      "phoneme": "D",
+      "phoneme": "B",
       "letters": [
         0
       ],
       "start": 0.05,
-      "end": 0.124
+      "end": 0.12
     },
     {
-      "phoneme": "AO",
+      "phoneme": "EH",
       "letters": [
         1
       ],
-      "start": 0.124,
-      "end": 0.271
+      "start": 0.12,
+      "end": 0.236
     },
     {
-      "phoneme": "G",
+      "phoneme": "D",
       "letters": [
         2
       ],
-      "start": 0.271,
-      "end": 0.345
+      "start": 0.236,
+      "end": 0.306
     }
   ]
 }

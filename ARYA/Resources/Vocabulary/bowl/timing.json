@@ -1,0 +1,30 @@
+{
+  "word": "bowl",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.111
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.111,
+      "end": 0.234
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3
+      ],
+      "start": 0.234,
+      "end": 0.306
+    }
+  ]
+}

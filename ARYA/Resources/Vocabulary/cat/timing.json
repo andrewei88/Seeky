@@ -1,29 +1,29 @@
 {
-  "word": "dog",
+  "word": "cat",
   "phonemes": [
     {
-      "phoneme": "D",
+      "phoneme": "K",
       "letters": [
         0
       ],
       "start": 0.05,
-      "end": 0.124
+      "end": 0.144
     },
     {
-      "phoneme": "AO",
+      "phoneme": "AE",
       "letters": [
         1
       ],
-      "start": 0.124,
-      "end": 0.271
+      "start": 0.144,
+      "end": 0.332
     },
     {
-      "phoneme": "G",
+      "phoneme": "T",
       "letters": [
         2
       ],
-      "start": 0.271,
-      "end": 0.345
+      "start": 0.332,
+      "end": 0.426
     }
   ]
 }

@@ -1,0 +1,37 @@
+{
+  "word": "sink",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.156
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ],
+      "start": 0.156,
+      "end": 0.275
+    },
+    {
+      "phoneme": "NG",
+      "letters": [
+        2
+      ],
+      "start": 0.275,
+      "end": 0.381
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ],
+      "start": 0.381,
+      "end": 0.461
+    }
+  ]
+}

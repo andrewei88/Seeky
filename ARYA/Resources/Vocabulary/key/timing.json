@@ -1,0 +1,22 @@
+{
+  "word": "key",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.158
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.158,
+      "end": 0.356
+    }
+  ]
+}

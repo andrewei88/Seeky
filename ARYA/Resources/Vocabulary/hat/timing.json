@@ -1,29 +1,29 @@
 {
-  "word": "dog",
+  "word": "hat",
   "phonemes": [
     {
-      "phoneme": "D",
+      "phoneme": "HH",
       "letters": [
         0
       ],
       "start": 0.05,
-      "end": 0.124
+      "end": 0.146
     },
     {
-      "phoneme": "AO",
+      "phoneme": "AE",
       "letters": [
         1
       ],
-      "start": 0.124,
-      "end": 0.271
+      "start": 0.146,
+      "end": 0.311
     },
     {
-      "phoneme": "G",
+      "phoneme": "T",
       "letters": [
         2
       ],
-      "start": 0.271,
-      "end": 0.345
+      "start": 0.311,
+      "end": 0.394
     }
   ]
 }

@@ -1,0 +1,63 @@
+{
+  "word": "butterfly",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.111
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ],
+      "start": 0.111,
+      "end": 0.213
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2
+      ],
+      "start": 0.213,
+      "end": 0.274
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.274,
+      "end": 0.386
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        5
+      ],
+      "start": 0.386,
+      "end": 0.467
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        6
+      ],
+      "start": 0.467,
+      "end": 0.538
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        7,
+        8
+      ],
+      "start": 0.538,
+      "end": 0.67
+    }
+  ]
+}

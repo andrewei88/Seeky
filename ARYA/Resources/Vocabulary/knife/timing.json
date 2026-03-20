@@ -1,0 +1,31 @@
+{
+  "word": "knife",
+  "phonemes": [
+    {
+      "phoneme": "N",
+      "letters": [
+        0,
+        1
+      ],
+      "start": 0.05,
+      "end": 0.171
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        2
+      ],
+      "start": 0.171,
+      "end": 0.368
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.368,
+      "end": 0.489
+    }
+  ]
+}

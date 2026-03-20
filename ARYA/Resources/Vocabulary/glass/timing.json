@@ -1,0 +1,38 @@
+{
+  "word": "glass",
+  "phonemes": [
+    {
+      "phoneme": "G",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.132
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ],
+      "start": 0.132,
+      "end": 0.227
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2
+      ],
+      "start": 0.227,
+      "end": 0.391
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.391,
+      "end": 0.5
+    }
+  ]
+}

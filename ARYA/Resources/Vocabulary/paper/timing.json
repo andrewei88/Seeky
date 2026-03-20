@@ -1,0 +1,38 @@
+{
+  "word": "paper",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.121
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        1
+      ],
+      "start": 0.121,
+      "end": 0.264
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        2
+      ],
+      "start": 0.264,
+      "end": 0.335
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.335,
+      "end": 0.466
+    }
+  ]
+}

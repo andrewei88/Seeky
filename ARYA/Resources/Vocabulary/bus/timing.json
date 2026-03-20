@@ -1,29 +1,29 @@
 {
-  "word": "dog",
+  "word": "bus",
   "phonemes": [
     {
-      "phoneme": "D",
+      "phoneme": "B",
       "letters": [
         0
       ],
       "start": 0.05,
-      "end": 0.124
+      "end": 0.143
     },
     {
-      "phoneme": "AO",
+      "phoneme": "AH",
       "letters": [
         1
       ],
-      "start": 0.124,
-      "end": 0.271
+      "start": 0.143,
+      "end": 0.298
     },
     {
-      "phoneme": "G",
+      "phoneme": "S",
       "letters": [
         2
       ],
-      "start": 0.271,
-      "end": 0.345
+      "start": 0.298,
+      "end": 0.422
     }
   ]
 }

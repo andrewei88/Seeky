@@ -1,29 +1,29 @@
 {
-  "word": "dog",
+  "word": "cup",
   "phonemes": [
     {
-      "phoneme": "D",
+      "phoneme": "K",
       "letters": [
         0
       ],
       "start": 0.05,
-      "end": 0.124
+      "end": 0.149
     },
     {
-      "phoneme": "AO",
+      "phoneme": "AH",
       "letters": [
         1
       ],
-      "start": 0.124,
-      "end": 0.271
+      "start": 0.149,
+      "end": 0.314
     },
     {
-      "phoneme": "G",
+      "phoneme": "P",
       "letters": [
         2
       ],
-      "start": 0.271,
-      "end": 0.345
+      "start": 0.314,
+      "end": 0.413
     }
   ]
 }

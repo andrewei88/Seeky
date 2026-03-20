@@ -1,0 +1,39 @@
+{
+  "word": "mirror",
+  "phonemes": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.128
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ],
+      "start": 0.128,
+      "end": 0.216
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.216,
+      "end": 0.285
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.285,
+      "end": 0.393
+    }
+  ]
+}

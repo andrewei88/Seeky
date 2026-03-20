@@ -1,0 +1,37 @@
+{
+  "word": "lamp",
+  "phonemes": [
+    {
+      "phoneme": "L",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.133
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.133,
+      "end": 0.275
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        2
+      ],
+      "start": 0.275,
+      "end": 0.37
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        3
+      ],
+      "start": 0.37,
+      "end": 0.441
+    }
+  ]
+}

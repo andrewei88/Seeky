@@ -1,0 +1,48 @@
+{
+  "word": "scissors",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.156
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ],
+      "start": 0.156,
+      "end": 0.276
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.276,
+      "end": 0.382
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.382,
+      "end": 0.528
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        6,
+        7
+      ],
+      "start": 0.528,
+      "end": 0.634
+    }
+  ]
+}

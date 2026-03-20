@@ -1,5 +1,5 @@
 {
-  "word": "dog",
+  "word": "door",
   "phonemes": [
     {
       "phoneme": "D",
@@ -7,23 +7,24 @@
         0
       ],
       "start": 0.05,
-      "end": 0.124
+      "end": 0.11
     },
     {
       "phoneme": "AO",
       "letters": [
-        1
-      ],
-      "start": 0.124,
-      "end": 0.271
-    },
-    {
-      "phoneme": "G",
-      "letters": [
+        1,
         2
       ],
-      "start": 0.271,
-      "end": 0.345
+      "start": 0.11,
+      "end": 0.229
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ],
+      "start": 0.229,
+      "end": 0.298
     }
   ]
 }

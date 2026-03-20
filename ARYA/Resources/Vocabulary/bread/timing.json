@@ -1,0 +1,38 @@
+{
+  "word": "bread",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.11
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ],
+      "start": 0.11,
+      "end": 0.18
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        2
+      ],
+      "start": 0.18,
+      "end": 0.28
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.28,
+      "end": 0.34
+    }
+  ]
+}

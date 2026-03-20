@@ -1,0 +1,46 @@
+{
+  "word": "orange",
+  "phonemes": [
+    {
+      "phoneme": "AO",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.173
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ],
+      "start": 0.173,
+      "end": 0.245
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ],
+      "start": 0.245,
+      "end": 0.347
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        3
+      ],
+      "start": 0.347,
+      "end": 0.429
+    },
+    {
+      "phoneme": "JH",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.429,
+      "end": 0.511
+    }
+  ]
+}

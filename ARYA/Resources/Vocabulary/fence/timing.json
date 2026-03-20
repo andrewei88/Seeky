@@ -1,0 +1,38 @@
+{
+  "word": "fence",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.174
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ],
+      "start": 0.174,
+      "end": 0.329
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ],
+      "start": 0.329,
+      "end": 0.453
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.453,
+      "end": 0.577
+    }
+  ]
+}

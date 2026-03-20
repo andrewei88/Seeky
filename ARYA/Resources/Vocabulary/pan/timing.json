@@ -1,29 +1,29 @@
 {
-  "word": "dog",
+  "word": "pan",
   "phonemes": [
     {
-      "phoneme": "D",
+      "phoneme": "P",
       "letters": [
         0
       ],
       "start": 0.05,
-      "end": 0.124
+      "end": 0.136
     },
     {
-      "phoneme": "AO",
+      "phoneme": "AE",
       "letters": [
         1
       ],
-      "start": 0.124,
-      "end": 0.271
+      "start": 0.136,
+      "end": 0.307
     },
     {
-      "phoneme": "G",
+      "phoneme": "N",
       "letters": [
         2
       ],
-      "start": 0.271,
-      "end": 0.345
+      "start": 0.307,
+      "end": 0.421
     }
   ]
 }

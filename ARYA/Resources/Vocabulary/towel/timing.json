@@ -1,0 +1,38 @@
+{
+  "word": "towel",
+  "phonemes": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.116
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.116,
+      "end": 0.259
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ],
+      "start": 0.259,
+      "end": 0.369
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        4
+      ],
+      "start": 0.369,
+      "end": 0.446
+    }
+  ]
+}

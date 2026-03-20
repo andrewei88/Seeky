@@ -1,0 +1,31 @@
+{
+  "word": "chair",
+  "phonemes": [
+    {
+      "phoneme": "CH",
+      "letters": [
+        0,
+        1
+      ],
+      "start": 0.05,
+      "end": 0.153
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        2
+      ],
+      "start": 0.153,
+      "end": 0.281
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.281,
+      "end": 0.371
+    }
+  ]
+}

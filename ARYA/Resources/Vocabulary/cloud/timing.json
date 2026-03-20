@@ -1,0 +1,38 @@
+{
+  "word": "cloud",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.123
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ],
+      "start": 0.123,
+      "end": 0.208
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.208,
+      "end": 0.366
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        4
+      ],
+      "start": 0.366,
+      "end": 0.439
+    }
+  ]
+}

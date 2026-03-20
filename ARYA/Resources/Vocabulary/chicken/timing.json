@@ -1,0 +1,47 @@
+{
+  "word": "chicken",
+  "phonemes": [
+    {
+      "phoneme": "CH",
+      "letters": [
+        0,
+        1
+      ],
+      "start": 0.05,
+      "end": 0.136
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        2
+      ],
+      "start": 0.136,
+      "end": 0.233
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ],
+      "start": 0.233,
+      "end": 0.298
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.298,
+      "end": 0.406
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        5,
+        6
+      ],
+      "start": 0.406,
+      "end": 0.492
+    }
+  ]
+}

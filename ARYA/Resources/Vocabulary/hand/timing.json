@@ -1,0 +1,37 @@
+{
+  "word": "hand",
+  "phonemes": [
+    {
+      "phoneme": "HH",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.13
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.13,
+      "end": 0.268
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ],
+      "start": 0.268,
+      "end": 0.36
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        3
+      ],
+      "start": 0.36,
+      "end": 0.429
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "word": "laptop",
+  "phonemes": [
+    {
+      "phoneme": "L",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.144
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.144,
+      "end": 0.305
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        2
+      ],
+      "start": 0.305,
+      "end": 0.385
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ],
+      "start": 0.385,
+      "end": 0.465
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        4
+      ],
+      "start": 0.465,
+      "end": 0.626
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        5
+      ],
+      "start": 0.626,
+      "end": 0.706
+    }
+  ]
+}

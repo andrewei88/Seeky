@@ -1,29 +1,29 @@
 {
-  "word": "dog",
+  "word": "pen",
   "phonemes": [
     {
-      "phoneme": "D",
+      "phoneme": "P",
       "letters": [
         0
       ],
       "start": 0.05,
-      "end": 0.124
+      "end": 0.137
     },
     {
-      "phoneme": "AO",
+      "phoneme": "EH",
       "letters": [
         1
       ],
-      "start": 0.124,
-      "end": 0.271
+      "start": 0.137,
+      "end": 0.282
     },
     {
-      "phoneme": "G",
+      "phoneme": "N",
       "letters": [
         2
       ],
-      "start": 0.271,
-      "end": 0.345
+      "start": 0.282,
+      "end": 0.398
     }
   ]
 }

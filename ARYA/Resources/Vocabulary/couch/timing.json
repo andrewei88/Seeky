@@ -1,0 +1,31 @@
+{
+  "word": "couch",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.154
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.154,
+      "end": 0.38
+    },
+    {
+      "phoneme": "CH",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.38,
+      "end": 0.519
+    }
+  ]
+}

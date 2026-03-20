@@ -1,0 +1,62 @@
+{
+  "word": "elephant",
+  "phonemes": [
+    {
+      "phoneme": "EH",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.144
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ],
+      "start": 0.144,
+      "end": 0.21
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ],
+      "start": 0.21,
+      "end": 0.304
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.304,
+      "end": 0.379
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ],
+      "start": 0.379,
+      "end": 0.473
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        6
+      ],
+      "start": 0.473,
+      "end": 0.548
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        7
+      ],
+      "start": 0.548,
+      "end": 0.605
+    }
+  ]
+}

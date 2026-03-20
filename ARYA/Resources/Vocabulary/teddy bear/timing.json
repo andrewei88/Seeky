@@ -1,0 +1,63 @@
+{
+  "word": "teddy bear",
+  "phonemes": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.116
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ],
+      "start": 0.116,
+      "end": 0.226
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.226,
+      "end": 0.292
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        4
+      ],
+      "start": 0.292,
+      "end": 0.413
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        6
+      ],
+      "start": 0.413,
+      "end": 0.479
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        7
+      ],
+      "start": 0.479,
+      "end": 0.589
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        8,
+        9
+      ],
+      "start": 0.589,
+      "end": 0.666
+    }
+  ]
+}

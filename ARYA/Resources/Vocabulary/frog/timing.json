@@ -1,0 +1,37 @@
+{
+  "word": "frog",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.155
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ],
+      "start": 0.155,
+      "end": 0.247
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        2
+      ],
+      "start": 0.247,
+      "end": 0.404
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        3
+      ],
+      "start": 0.404,
+      "end": 0.483
+    }
+  ]
+}
