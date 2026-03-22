@@ -6,7 +6,7 @@ struct ConsensusGate {
 
     init(
         clipSimilarityThreshold: Double = 0.20,
-        clipMarginMultiplier: Double = 1.05
+        clipMarginMultiplier: Double = 1.10
     ) {
         self.clipSimilarityThreshold = clipSimilarityThreshold
         self.clipMarginMultiplier = clipMarginMultiplier
