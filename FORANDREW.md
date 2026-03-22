@@ -62,19 +62,19 @@ When a tap lands on a stable instance, `ClassificationEngine.swift` crops just t
 
 1. **Apple's VNClassifyImageRequest** -- built into iOS, knows 1,303 categories. Very accurate but very specific. It'll say "golden retriever" when a kid just needs to hear "dog."
 
-2. **MobileCLIP** (a ~30MB CoreML model) -- compares the cropped image against pre-computed text embeddings for all ~120 child vocabulary words. It thinks in terms of "how much does this image look like 'a photo of a dog'?"
+2. **MobileCLIP S0** (Apple's 22MB CoreML model) -- compares the cropped image against pre-computed text embeddings for all 107 child vocabulary words. It thinks in terms of "how much does this image look like 'a photo of a dog'?"
 
-These two models see the world differently. VNClassify is a taxonomist -- precise, specific, sometimes pedantic. MobileCLIP is more like a vibes-based thinker -- it gets the gist. By requiring BOTH to agree, we get the best of both worlds.
+These two models see the world differently. VNClassify is a taxonomist -- precise, specific, sometimes pedantic ("golden retriever" when the kid needs "dog"). MobileCLIP is more like a vibes-based thinker -- it gets the gist. VNClassify also has blind spots where it returns unhelpful labels like "document" or "screenshot" for screens, returning nothing useful. In those cases, CLIP steps in as the sole classifier. When both models have opinions, CLIP is trusted as the primary signal because it classifies directly against our vocabulary rather than through a 1,303-category intermediary.
 
 ### The Consensus Gate: Trust, But Verify
 
-`ConsensusGate.swift` is the bouncer at the door. It takes the results from both classifiers and applies a strict set of rules:
+`ConsensusGate.swift` is the bouncer at the door. It uses a CLIP-primary strategy:
 
-- VNClassify's raw label (like "golden retriever") gets mapped to a child word (like "dog") through `LabelMapper`
-- The mapped VN word must match CLIP's top word
-- VN confidence must be at least 70%, AND at least 1.5x higher than its second guess
-- CLIP similarity must be at least 75%, AND at least 1.3x higher than its second guess
-- If ANY of these fail, the tap is silently rejected
+- VNClassify's raw label (like "golden retriever") gets mapped to a child word (like "dog") through `LabelMapper`. Confidence is **aggregated** across all VN labels that map to the same word (so `cup` + `mug` both contribute to the "cup" score).
+- If both models agree, accept with a lower bar (CLIP similarity ≥ 0.20)
+- If they disagree, trust CLIP if its similarity meets threshold and has sufficient margin over the second choice
+- If VN has NO mapped word (common when it returns "document" or "screenshot" for screens), CLIP classifies solo
+- If neither model is confident enough, the tap is silently rejected
 
 The thresholds are deliberately conservative. **It is better to miss 20 real objects than to tell a 2-year-old that a cat is a dog.** This is a fundamental design philosophy that should guide every children's app: when in doubt, do nothing. Kids don't get frustrated by silence. They just tap something else. But a wrong label could teach them an incorrect word they'll repeat for months.
 
@@ -124,13 +124,13 @@ At time 0.90 seconds, the highlighter would return: `[.spoken, .spoken, .spoken,
 
 ### Vocabulary
 
-103 words, all concrete physical nouns a 2-4 year old encounters in daily life. Categories include animals, food, home items, kitchen items, outdoor things, clothing, and more. Every word was chosen to be: pronounceable by a toddler, generic (never "Tesla" -- always "car"), and physically present in typical daily life.
+107 words, all concrete physical nouns a 2-4 year old encounters in daily life. Categories include animals, food, home items, kitchen items, outdoor things, clothing, and more. Every word was chosen to be: pronounceable by a toddler, generic (never "Tesla" -- always "car"), and physically present in typical daily life.
 
 ### CLIPEmbeddings: Pre-Computed Cleverness
 
-`CLIPEmbeddings.swift` is where a neat optimization lives. MobileCLIP has two halves: a text encoder and an image encoder. At build time, every vocabulary word is run through the text encoder as "a photo of a {word}" and the resulting 512-dimensional embedding vectors are saved as a binary file (`text_embeddings.bin`). At runtime, only the image encoder runs. Comparing an image to 120 words is then just a single matrix multiplication using Apple's Accelerate framework (vDSP). This is dramatically faster than running both encoders at runtime.
+`CLIPEmbeddings.swift` is where a neat optimization lives. MobileCLIP has two halves: a text encoder and an image encoder. At build time, every vocabulary word is run through the text encoder as "a photo of a {word}" and the resulting 512-dimensional embedding vectors are saved as a binary file (`text_embeddings.bin`, 214KB). At runtime, only the image encoder runs (22MB CoreML model, 1.5ms on Neural Engine). Comparing an image to 107 words is then just cosine similarity using Apple's Accelerate framework (vDSP). This is dramatically faster than running both encoders at runtime.
 
-The cosine similarity computation uses `vDSP_dotpr` for the dot product and norms -- hardware-accelerated vector math that runs on the CPU's SIMD units. For 120 words with 512-dimensional embeddings, this whole comparison takes microseconds.
+The image encoder expects 256x256 RGB input, so `CLIPEmbeddings` resizes the crop via CIImage before inference. The output embedding is L2-normalized before comparison. The cosine similarity computation uses `vDSP_dotpr` for the dot product and norms -- hardware-accelerated vector math that runs on the CPU's SIMD units. For 107 words with 512-dimensional embeddings, this comparison takes microseconds.
 
 ### Build-Time Audio Pipeline
 
@@ -141,7 +141,7 @@ This is the part that lives outside the app, in the `scripts/` directory. The pi
 3. A Python script converts MFA's TextGrid output into the `timing.json` format the app expects
 4. Hand-verified phoneme-to-letter mappings (from CMU Pronouncing Dictionary) ensure things like "ph" → one sound are correct
 
-All 103 words have pre-generated audio and timing data bundled into the app. The app is fully offline -- no internet needed, ever.
+All 107 words have pre-generated audio and timing data bundled into the app. The app is fully offline -- no internet needed, ever.
 
 ---
 
@@ -168,7 +168,7 @@ The `handleTap` method is worth studying. It checks the mode, performs a haptic,
 |---|---|
 | **SwiftUI** | The overlay animations (per-letter color transitions, opacity fades) are trivially declarative. UIKit would require significantly more animation management code. |
 | **Vision Framework** | `VNGenerateForegroundInstanceMaskRequest` gives pixel-perfect object silhouettes for free (no ML model needed). `VNClassifyImageRequest` provides 1,303-category classification built into iOS. No downloads, no API keys. |
-| **CoreML + MobileCLIP** | The only way to get CLIP-style zero-shot classification on-device. ~30MB model, 3-15ms inference on iPhone 12+. The text encoder runs at build time so only the lightweight image encoder ships in the app. |
+| **CoreML + MobileCLIP S0** | Apple's own lightweight CLIP model for on-device zero-shot classification. 22MB image encoder, 1.5ms inference on iPhone 12+ Neural Engine. Text encoder runs at build time to pre-compute 107 word embeddings (214KB); only the image encoder ships in the app. Downloaded from Apple's official HuggingFace repo (`apple/coreml-mobileclip`). |
 | **AVFoundation** | The only real option for camera access on iOS. We need raw pixel buffers (not just a viewfinder) so we can run Vision requests on them. |
 | **AVAudioPlayer + CADisplayLink** | `AVAudioPlayer.currentTime` gives ground-truth playback position. `CADisplayLink` fires at display refresh rate (~60fps). Together they provide frame-accurate audio-visual sync without timer drift. |
 | **XcodeGen** | The `project.yml` file is 40 lines. The generated `.xcodeproj` is thousands of lines of XML. Version-controlling a YAML file instead of an Xcode project file prevents merge conflicts and makes the project definition human-readable. |
@@ -243,7 +243,7 @@ This isn't laziness -- it's intentional design for a 2-year-old user. A toddler 
 
 ### 2. Conservative Thresholds for Children
 
-The confidence thresholds (70% VN, 75% CLIP, margin requirements, dual-model agreement) are deliberately high. We'd rather miss 50% of valid objects than mislabel a single one. In an adult app, you might show a "did you mean...?" prompt. A 2-year-old can't evaluate whether a suggestion is correct. Whatever the app says, they'll believe it.
+The thresholds (CLIP similarity >= 0.20 with margin >= 1.05x; VN-only fallback at 0.03 confidence) are calibrated to reject ambiguous results while still recognizing most common objects. We'd rather miss some valid objects than mislabel a single one. In an adult app, you might show a "did you mean...?" prompt. A 2-year-old can't evaluate whether a suggestion is correct. Whatever the app says, they'll believe it.
 
 This is a broader principle: **your error tolerance should match your user's ability to detect and recover from errors.** Programmers can handle error messages. Adults can evaluate suggestions. Toddlers cannot.
 
@@ -280,7 +280,7 @@ Instead of relying on Vision's instance IDs across frames (which aren't guarante
 
 ### CoreML Model Compatibility
 
-MobileCLIP's CoreML model needs to match the input dimensions and output feature names your code expects. If you swap in a different CLIP variant, you'll need to update the feature key strings in `CLIPEmbeddings.encodeImage()` (currently expects `"image"` input and `"embedding"` output). A model mismatch will return nil from prediction silently.
+MobileCLIP's CoreML model needs to match the input dimensions and output feature names your code expects. The S0 model takes 256x256 RGB images as `"image"` input and returns 512-dim embeddings as `"final_emb_1"` output. If you swap in a different CLIP variant (S1, S2, B), you'll need to verify these names match. A model mismatch will return nil from prediction silently. The `CLIPEmbeddings.resizePixelBuffer` helper handles resizing the crop to 256x256 automatically.
 
 ### Memory Pressure from CVPixelBuffers
 
@@ -300,7 +300,7 @@ If you regenerate audio files without regenerating timing data (or vice versa), 
 
 ### The "Phase Problem" in Phoneme Mapping
 
-Some English words have ambiguous phoneme-to-letter mappings. Consider "knight" -- is the "n" sound mapped to the letter "k" (which is silent) or "n"? The CMU Pronouncing Dictionary handles pronunciation, but the *mapping back to letters* requires manual verification. All 103 words have been hand-verified, but if you add new words, expect to spend a few minutes per word checking these mappings.
+Some English words have ambiguous phoneme-to-letter mappings. Consider "knight" -- is the "n" sound mapped to the letter "k" (which is silent) or "n"? The CMU Pronouncing Dictionary handles pronunciation, but the *mapping back to letters* requires manual verification. All 107 words have been hand-verified, but if you add new words, expect to spend a few minutes per word checking these mappings.
 
 ---
 
@@ -319,7 +319,7 @@ Let's trace what happens when a 3-year-old named Arya taps a dog on screen:
    - VNClassify returns "golden retriever" at 0.91 confidence (2nd place: "Labrador" at 0.04)
    - MobileCLIP returns "dog" at 0.89 similarity (2nd place: "cat" at 0.31)
 9. `LabelMapper` maps "golden retriever" to "dog".
-10. `ConsensusGate` checks: both say "dog" -- pass. VN 0.91 >= 0.70 -- pass. VN margin 0.91/0.04 = 22.75x >= 1.5x -- pass. CLIP 0.89 >= 0.75 -- pass. CLIP margin 0.89/0.31 = 2.87x >= 1.3x -- pass.
+10. `ConsensusGate` checks: both agree on "dog" -- accept. CLIP 0.89 >= 0.20 threshold -- pass.
 11. Mode changes to `.learning(word: "dog", instanceIndex: 2)`.
 12. `LearningOverlayView` appears. `MaskOverlayView` generates the dog's silhouette mask, dims everything else, adds gold glow.
 13. `WordDisplayView` shows "d o g" in 80pt SF Rounded Bold, initially dim white.
@@ -367,9 +367,10 @@ ARYA/
 │   │   └── OnboardingHintView.swift   ← First-launch pulsing tap hint
 │   └── Resources/
 │       ├── Vocabulary/            ← 103 subdirectories, each with audio.m4a + timing.json
-│       ├── vocabulary.json        ← Master word list
-│       ├── label_mappings.json    ← VNClassify → child word whitelist
-│       └── text_embeddings.bin    ← Pre-computed MobileCLIP text embeddings
+│       ├── vocabulary.json                    ← Master word list (107 words)
+│       ├── label_mappings.json                ← VNClassify → child word whitelist
+│       ├── text_embeddings.bin                ← Pre-computed MobileCLIP text embeddings (214KB)
+│       └── MobileCLIPImageEncoder.mlpackage/  ← MobileCLIP S0 image encoder (22MB, compiled by Xcode)
 ├── ARYATests/                     ← Unit tests for logic components
 └── scripts/                       ← Build-time audio generation pipeline
 ```
@@ -378,6 +379,6 @@ ARYA/
 
 ## Final Thought
 
-The best children's apps feel inevitable -- like of *course* you'd tap a thing and hear its name. But behind that simplicity is a dual-model consensus pipeline, frame-perfect audio synchronization, pixel-level mask rendering, and a carefully curated whitelist of 103 words. The complexity exists so the child never has to experience it.
+The best children's apps feel inevitable -- like of *course* you'd tap a thing and hear its name. But behind that simplicity is a dual-model consensus pipeline, frame-perfect audio synchronization, pixel-level mask rendering, and a carefully curated whitelist of 107 words. The complexity exists so the child never has to experience it.
 
 That's the job, really. Make the hard stuff invisible.
