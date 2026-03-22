@@ -1,5 +1,6 @@
 import Foundation
 import CoreML
+import CoreImage
 import Accelerate
 
 struct CLIPResult {
@@ -22,14 +23,18 @@ final class CLIPEmbeddings {
     static func load(vocabulary: [String], from bundle: Bundle = .main) -> CLIPEmbeddings? {
         guard let url = bundle.url(forResource: "text_embeddings", withExtension: "bin"),
               let data = try? Data(contentsOf: url) else {
+            print("[CLIP] text_embeddings.bin not found in bundle")
             return nil
         }
 
-        let embeddingDim = 512 // MobileCLIP S2 dimension
+        let embeddingDim = 512 // MobileCLIP S0 dimension
         let floatCount = data.count / MemoryLayout<Float>.size
         let vectorCount = floatCount / embeddingDim
 
-        guard vectorCount == vocabulary.count else { return nil }
+        guard vectorCount == vocabulary.count else {
+            print("[CLIP] Embedding count mismatch: file has \(vectorCount) but vocabulary has \(vocabulary.count)")
+            return nil
+        }
 
         var allFloats = [Float](repeating: 0, count: floatCount)
         data.withUnsafeBytes { ptr in
@@ -44,8 +49,18 @@ final class CLIPEmbeddings {
         }
 
         // Try to load the MobileCLIP image encoder model
-        let modelURL = bundle.url(forResource: "MobileCLIPImageEncoder", withExtension: "mlmodelc")
-        let model = modelURL.flatMap { try? MLModel(contentsOf: $0) }
+        // Xcode compiles .mlpackage → .mlmodelc at build time
+        var model: MLModel?
+        if let modelURL = bundle.url(forResource: "MobileCLIPImageEncoder", withExtension: "mlmodelc") {
+            do {
+                model = try MLModel(contentsOf: modelURL)
+                print("[CLIP] Image encoder loaded successfully")
+            } catch {
+                print("[CLIP] Failed to load image encoder: \(error)")
+            }
+        } else {
+            print("[CLIP] MobileCLIPImageEncoder.mlmodelc not found in bundle")
+        }
 
         return CLIPEmbeddings(vocabulary: vocabulary, embeddings: embeddings, imageEncoder: model)
     }
@@ -68,6 +83,10 @@ final class CLIPEmbeddings {
 
         guard similarities.count >= 2 else { return nil }
 
+        // Log top 5 for debugging
+        let top5 = similarities.prefix(5).map { "\($0.word)(\(String(format: "%.3f", $0.similarity)))" }
+        print("[CLIP] Top 5: \(top5.joined(separator: ", "))")
+
         return (
             top1: CLIPResult(word: similarities[0].word, similarity: similarities[0].similarity),
             top2: CLIPResult(word: similarities[1].word, similarity: similarities[1].similarity)
@@ -75,11 +94,18 @@ final class CLIPEmbeddings {
     }
 
     private func encodeImage(_ buffer: CVPixelBuffer, with model: MLModel) -> [Float]? {
+        // Resize to 256x256 as required by MobileCLIP S0
+        guard let resizedBuffer = resizePixelBuffer(buffer, to: CGSize(width: 256, height: 256)) else {
+            print("[CLIP] Failed to resize buffer to 256x256")
+            return nil
+        }
+
         // Create MLFeatureValue from pixel buffer
-        guard let input = try? MLDictionaryFeatureProvider(dictionary: ["image": MLFeatureValue(pixelBuffer: buffer)]),
+        guard let input = try? MLDictionaryFeatureProvider(dictionary: ["image": MLFeatureValue(pixelBuffer: resizedBuffer)]),
               let output = try? model.prediction(from: input),
-              let embeddingFeature = output.featureValue(for: "embedding"),
+              let embeddingFeature = output.featureValue(for: "final_emb_1"),
               let multiArray = embeddingFeature.multiArrayValue else {
+            print("[CLIP] Model prediction failed")
             return nil
         }
 
@@ -89,7 +115,33 @@ final class CLIPEmbeddings {
         for i in 0..<count {
             result[i] = ptr[i]
         }
+
+        // L2 normalize the embedding
+        var norm: Float = 0
+        vDSP_dotpr(result, 1, result, 1, &norm, vDSP_Length(count))
+        norm = sqrt(norm)
+        if norm > 0 {
+            var scale = 1.0 / norm
+            vDSP_vsmul(result, 1, &scale, &result, 1, vDSP_Length(count))
+        }
+
         return result
+    }
+
+    /// Resize a CVPixelBuffer to the target size using CIImage.
+    private func resizePixelBuffer(_ buffer: CVPixelBuffer, to size: CGSize) -> CVPixelBuffer? {
+        let ciImage = CIImage(cvPixelBuffer: buffer)
+        let scaleX = size.width / ciImage.extent.width
+        let scaleY = size.height / ciImage.extent.height
+        let resized = ciImage.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
+
+        let context = CIContext()
+        var outputBuffer: CVPixelBuffer?
+        CVPixelBufferCreate(kCFAllocatorDefault, Int(size.width), Int(size.height),
+                           kCVPixelFormatType_32BGRA, nil, &outputBuffer)
+        guard let output = outputBuffer else { return nil }
+        context.render(resized, to: output)
+        return output
     }
 
     private func cosineSimilarity(_ a: [Float], _ b: [Float]) -> Float {

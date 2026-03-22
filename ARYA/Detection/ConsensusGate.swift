@@ -1,50 +1,56 @@
 import Foundation
 
 struct ConsensusGate {
-    let vnConfidenceThreshold: Double
-    let vnMarginMultiplier: Double
     let clipSimilarityThreshold: Double
     let clipMarginMultiplier: Double
 
     init(
-        vnConfidenceThreshold: Double = 0.70,
-        vnMarginMultiplier: Double = 1.5,
-        clipSimilarityThreshold: Double = 0.75,
-        clipMarginMultiplier: Double = 1.3
+        clipSimilarityThreshold: Double = 0.20,
+        clipMarginMultiplier: Double = 1.05
     ) {
-        self.vnConfidenceThreshold = vnConfidenceThreshold
-        self.vnMarginMultiplier = vnMarginMultiplier
         self.clipSimilarityThreshold = clipSimilarityThreshold
         self.clipMarginMultiplier = clipMarginMultiplier
     }
 
-    /// Returns the agreed-upon child word if both classifiers agree with sufficient confidence, nil otherwise.
+    /// Evaluates dual-model consensus between VN and CLIP.
+    /// Strategy:
+    /// - If both agree → accept (highest confidence)
+    /// - If they disagree → trust CLIP if it meets similarity threshold
+    /// - VN is used as a tiebreaker / confirmation signal
     func evaluate(
-        vnClassifyWord: String?,
+        vnClassifyWord: String,
         vnConfidence: Double,
         vnSecondConfidence: Double,
         clipWord: String,
         clipSimilarity: Double,
         clipSecondSimilarity: Double
     ) -> String? {
-        // VN must have a mapped word
-        guard let vnWord = vnClassifyWord else { return nil }
+        let clipMargin = clipSecondSimilarity > 0
+            ? clipSimilarity / clipSecondSimilarity
+            : Double.infinity
 
-        // Both must agree
-        guard vnWord == clipWord else { return nil }
+        // Both models agree — accept with lower bar
+        if vnClassifyWord == clipWord {
+            guard clipSimilarity >= clipSimilarityThreshold else {
+                print("[Consensus] Both agree on '\(clipWord)' but CLIP similarity too low (\(String(format: "%.3f", clipSimilarity)))")
+                return nil
+            }
+            print("[Consensus] Agreement: '\(clipWord)' (CLIP=\(String(format: "%.3f", clipSimilarity)), VN=\(String(format: "%.4f", vnConfidence)))")
+            return clipWord
+        }
 
-        // VN confidence gate
-        guard vnConfidence >= vnConfidenceThreshold else { return nil }
+        // Models disagree — trust CLIP if it's confident and has margin
+        guard clipSimilarity >= clipSimilarityThreshold else {
+            print("[Consensus] Disagree: VN='\(vnClassifyWord)', CLIP='\(clipWord)' — CLIP too low (\(String(format: "%.3f", clipSimilarity)))")
+            return nil
+        }
 
-        // VN margin gate
-        guard vnSecondConfidence == 0 || vnConfidence >= vnSecondConfidence * vnMarginMultiplier else { return nil }
+        guard clipMargin >= clipMarginMultiplier else {
+            print("[Consensus] Disagree: VN='\(vnClassifyWord)', CLIP='\(clipWord)' — CLIP margin too narrow (\(String(format: "%.2f", clipMargin)))")
+            return nil
+        }
 
-        // CLIP similarity gate
-        guard clipSimilarity >= clipSimilarityThreshold else { return nil }
-
-        // CLIP margin gate
-        guard clipSecondSimilarity == 0 || clipSimilarity >= clipSecondSimilarity * clipMarginMultiplier else { return nil }
-
-        return vnWord
+        print("[Consensus] CLIP overrides VN: '\(clipWord)' (CLIP=\(String(format: "%.3f", clipSimilarity)), margin=\(String(format: "%.2f", clipMargin))) vs VN='\(vnClassifyWord)'")
+        return clipWord
     }
 }

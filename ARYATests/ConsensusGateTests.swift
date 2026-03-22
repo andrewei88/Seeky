@@ -5,59 +5,52 @@ final class ConsensusGateTests: XCTestCase {
 
     let gate = ConsensusGate()
 
-    func testBothAgreeHighConfidence_Accepts() {
+    func testBothAgree_Accepts() {
         let result = gate.evaluate(
-            vnClassifyWord: "dog", vnConfidence: 0.90, vnSecondConfidence: 0.10,
-            clipWord: "dog", clipSimilarity: 0.85, clipSecondSimilarity: 0.30
+            vnClassifyWord: "dog", vnConfidence: 0.10, vnSecondConfidence: 0.02,
+            clipWord: "dog", clipSimilarity: 0.30, clipSecondSimilarity: 0.20
         )
         XCTAssertEqual(result, "dog")
     }
 
-    func testDisagreement_Rejects() {
+    func testDisagreement_CLIPOverrides() {
+        // CLIP has good similarity and margin → trusts CLIP over VN
         let result = gate.evaluate(
-            vnClassifyWord: "dog", vnConfidence: 0.90, vnSecondConfidence: 0.10,
-            clipWord: "cat", clipSimilarity: 0.85, clipSecondSimilarity: 0.30
+            vnClassifyWord: "window", vnConfidence: 0.05, vnSecondConfidence: 0.02,
+            clipWord: "monitor", clipSimilarity: 0.30, clipSecondSimilarity: 0.20
+        )
+        XCTAssertEqual(result, "monitor")
+    }
+
+    func testDisagreement_CLIPTooLow_Rejects() {
+        let result = gate.evaluate(
+            vnClassifyWord: "window", vnConfidence: 0.05, vnSecondConfidence: 0.02,
+            clipWord: "monitor", clipSimilarity: 0.15, clipSecondSimilarity: 0.10
         )
         XCTAssertNil(result)
     }
 
-    func testVNConfidenceTooLow_Rejects() {
+    func testDisagreement_CLIPMarginTooNarrow_Rejects() {
         let result = gate.evaluate(
-            vnClassifyWord: "dog", vnConfidence: 0.50, vnSecondConfidence: 0.10,
-            clipWord: "dog", clipSimilarity: 0.85, clipSecondSimilarity: 0.30
+            vnClassifyWord: "window", vnConfidence: 0.05, vnSecondConfidence: 0.02,
+            clipWord: "monitor", clipSimilarity: 0.25, clipSecondSimilarity: 0.24
         )
         XCTAssertNil(result)
     }
 
-    func testCLIPSimilarityTooLow_Rejects() {
+    func testCLIPSimilarityBelowThreshold_Rejects() {
         let result = gate.evaluate(
-            vnClassifyWord: "dog", vnConfidence: 0.90, vnSecondConfidence: 0.10,
-            clipWord: "dog", clipSimilarity: 0.60, clipSecondSimilarity: 0.30
+            vnClassifyWord: "dog", vnConfidence: 0.10, vnSecondConfidence: 0.02,
+            clipWord: "dog", clipSimilarity: 0.10, clipSecondSimilarity: 0.05
         )
         XCTAssertNil(result)
     }
 
-    func testVNMarginTooSmall_Rejects() {
+    func testAgreementWithHighConfidence() {
         let result = gate.evaluate(
-            vnClassifyWord: "dog", vnConfidence: 0.80, vnSecondConfidence: 0.60,
-            clipWord: "dog", clipSimilarity: 0.85, clipSecondSimilarity: 0.30
+            vnClassifyWord: "cup", vnConfidence: 1.20, vnSecondConfidence: 0.10,
+            clipWord: "cup", clipSimilarity: 0.45, clipSecondSimilarity: 0.20
         )
-        XCTAssertNil(result)
-    }
-
-    func testCLIPMarginTooSmall_Rejects() {
-        let result = gate.evaluate(
-            vnClassifyWord: "dog", vnConfidence: 0.90, vnSecondConfidence: 0.10,
-            clipWord: "dog", clipSimilarity: 0.80, clipSecondSimilarity: 0.70
-        )
-        XCTAssertNil(result)
-    }
-
-    func testNilVNWord_Rejects() {
-        let result = gate.evaluate(
-            vnClassifyWord: nil, vnConfidence: 0.90, vnSecondConfidence: 0.10,
-            clipWord: "dog", clipSimilarity: 0.85, clipSecondSimilarity: 0.30
-        )
-        XCTAssertNil(result)
+        XCTAssertEqual(result, "cup")
     }
 }
