@@ -15,6 +15,7 @@
 		34CCC02A50FC83A741EA30A7 /* LabelMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278984A88150CD544DFC634C /* LabelMapper.swift */; };
 		3AA0E5EB2E2FEB150D0AE00C /* SegmentationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282D3B7C56928FC301826480 /* SegmentationEngine.swift */; };
 		3F0A7A082BEEAC943B382880 /* ClassificationEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9918AF027CFDE286AC876FDD /* ClassificationEngineTests.swift */; };
+		4314FD91CBE234CC4A25C085 /* CorrectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD58CB4BE7C734C2914C309C /* CorrectionPickerView.swift */; };
 		489837E4806D5AE5F231FFC2 /* LabelMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0F8B45500A3C8D7A0105ED /* LabelMapperTests.swift */; };
 		4E1BC4DC580758B2573813DD /* ClassificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A30E01E706C36903C6CD4C9 /* ClassificationEngine.swift */; };
 		4EB3D84185192595E155C3B6 /* vocabulary.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C09091C0002F055E737C8AE /* vocabulary.json */; };
@@ -30,6 +31,7 @@
 		98C38871A5D7F48548C407C2 /* VocabularyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642C5CD0C1A3FF890F1C709B /* VocabularyStore.swift */; };
 		9BD8A479CFDFD4D9287BFE19 /* CropPixelBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637F2A62E424AC93C7594806 /* CropPixelBufferTests.swift */; };
 		9ED776B3662B3964DAA933BF /* MaskOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FFF910C3A0AA71854E5C16 /* MaskOverlayView.swift */; };
+		B07BFB2AB048D986D67BDB96 /* CorrectionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B114D9BBACDAB54C76BC4FEA /* CorrectionStoreTests.swift */; };
 		B30FFB0C705838EC18963C58 /* LetterHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C204B3F3DC737FABA3F100 /* LetterHighlighter.swift */; };
 		B7AF94556B8C26153D15164C /* label_mappings.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D5FE5C43E739A2B27799731 /* label_mappings.json */; };
 		B90C8C7978548BDE92DFAA8C /* ClassificationIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF370A77111CA34453261CF /* ClassificationIntegrationTests.swift */; };
@@ -37,6 +39,7 @@
 		BB9B6970788FCA3553E8D4D7 /* ConsensusGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8D7D377371A16CBF59A585 /* ConsensusGate.swift */; };
 		BCB46011BF24470E42368077 /* VNTaxonomyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B6D51BB5B272681A3F85 /* VNTaxonomyTests.swift */; };
 		C11A4A579B305678003B4652 /* text_embeddings.bin in Resources */ = {isa = PBXBuildFile; fileRef = E3BC341EA9B35E93908E326D /* text_embeddings.bin */; };
+		C1D3268D45C0CCFB56D012C7 /* CorrectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F2A423CA826C44A4CF8712 /* CorrectionStore.swift */; };
 		D3F6D3CB5D2E9997A2C15A97 /* OnboardingHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0E185E60585DAD1D1BE6A7 /* OnboardingHintView.swift */; };
 		D6C881F5205F2921696F758C /* InstanceTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68571B1AA2A3D76BD890649D /* InstanceTracker.swift */; };
 		D7AA98441C176C36B65264E2 /* TimingDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550B9CB9FE2CC13EE7F8BA73 /* TimingDataTests.swift */; };
@@ -85,7 +88,9 @@
 		944EA8037444D1F323ACC3EC /* MobileCLIPImageEncoder.mlpackage */ = {isa = PBXFileReference; path = MobileCLIPImageEncoder.mlpackage; sourceTree = "<group>"; };
 		9918AF027CFDE286AC876FDD /* ClassificationEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationEngineTests.swift; sourceTree = "<group>"; };
 		9D709EF933B8268E6CFD8014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B114D9BBACDAB54C76BC4FEA /* CorrectionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionStoreTests.swift; sourceTree = "<group>"; };
 		B4584035035FC1E58C1E78BD /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		B8F2A423CA826C44A4CF8712 /* CorrectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionStore.swift; sourceTree = "<group>"; };
 		C27D357D1CCB9C8FA1DFFAAF /* PlaceholderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTests.swift; sourceTree = "<group>"; };
 		C9975831D54C700FEF0244D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CC9BE5296B1E6F06552D3BB0 /* CLIPEmbeddings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIPEmbeddings.swift; sourceTree = "<group>"; };
@@ -93,6 +98,7 @@
 		D59E8FFEF4D1C461065DEBD9 /* ConsensusGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsensusGateTests.swift; sourceTree = "<group>"; };
 		D6FFF910C3A0AA71854E5C16 /* MaskOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskOverlayView.swift; sourceTree = "<group>"; };
 		DB481F6493B9CBDE1CD262AF /* WordSpeaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSpeaker.swift; sourceTree = "<group>"; };
+		DD58CB4BE7C734C2914C309C /* CorrectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionPickerView.swift; sourceTree = "<group>"; };
 		DE0F8B45500A3C8D7A0105ED /* LabelMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMapperTests.swift; sourceTree = "<group>"; };
 		E3BC341EA9B35E93908E326D /* text_embeddings.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = text_embeddings.bin; sourceTree = "<group>"; };
 		E3E4CFCFBA408A665C1AAA56 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
@@ -112,6 +118,7 @@
 				9918AF027CFDE286AC876FDD /* ClassificationEngineTests.swift */,
 				5AF370A77111CA34453261CF /* ClassificationIntegrationTests.swift */,
 				D59E8FFEF4D1C461065DEBD9 /* ConsensusGateTests.swift */,
+				B114D9BBACDAB54C76BC4FEA /* CorrectionStoreTests.swift */,
 				7C0CC705FF87BDC8D9ECD8C9 /* CropLogicTests.swift */,
 				637F2A62E424AC93C7594806 /* CropPixelBufferTests.swift */,
 				9D709EF933B8268E6CFD8014 /* Info.plist */,
@@ -139,6 +146,7 @@
 			children = (
 				E3E4CFCFBA408A665C1AAA56 /* CameraPreviewView.swift */,
 				F5A2B249F085E2F3BCE92ABA /* ContentView.swift */,
+				DD58CB4BE7C734C2914C309C /* CorrectionPickerView.swift */,
 				7E40CB30D73F8A9152FBF914 /* LearningOverlayView.swift */,
 				D6FFF910C3A0AA71854E5C16 /* MaskOverlayView.swift */,
 				1B0E185E60585DAD1D1BE6A7 /* OnboardingHintView.swift */,
@@ -219,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				CC9BE5296B1E6F06552D3BB0 /* CLIPEmbeddings.swift */,
+				B8F2A423CA826C44A4CF8712 /* CorrectionStore.swift */,
 				278984A88150CD544DFC634C /* LabelMapper.swift */,
 				7EE330D7CE0707441777D47B /* TimingData.swift */,
 				642C5CD0C1A3FF890F1C709B /* VocabularyStore.swift */,
@@ -331,6 +340,8 @@
 				4E1BC4DC580758B2573813DD /* ClassificationEngine.swift in Sources */,
 				BB9B6970788FCA3553E8D4D7 /* ConsensusGate.swift in Sources */,
 				ED69E82443AB073BCDF14307 /* ContentView.swift in Sources */,
+				4314FD91CBE234CC4A25C085 /* CorrectionPickerView.swift in Sources */,
+				C1D3268D45C0CCFB56D012C7 /* CorrectionStore.swift in Sources */,
 				D6C881F5205F2921696F758C /* InstanceTracker.swift in Sources */,
 				34CCC02A50FC83A741EA30A7 /* LabelMapper.swift in Sources */,
 				94C2FA77E60B01E575115737 /* LearningOverlayView.swift in Sources */,
@@ -357,6 +368,7 @@
 				3F0A7A082BEEAC943B382880 /* ClassificationEngineTests.swift in Sources */,
 				B90C8C7978548BDE92DFAA8C /* ClassificationIntegrationTests.swift in Sources */,
 				33139B74B25A21A1A4431267 /* ConsensusGateTests.swift in Sources */,
+				B07BFB2AB048D986D67BDB96 /* CorrectionStoreTests.swift in Sources */,
 				EDFA191A34012A3CDBD5CCAA /* CropLogicTests.swift in Sources */,
 				9BD8A479CFDFD4D9287BFE19 /* CropPixelBufferTests.swift in Sources */,
 				83BFB0CFD905FF46086E6D42 /* InstanceTrackerTests.swift in Sources */,

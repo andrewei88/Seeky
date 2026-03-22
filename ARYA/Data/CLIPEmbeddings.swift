@@ -65,8 +65,14 @@ final class CLIPEmbeddings {
         return CLIPEmbeddings(vocabulary: vocabulary, embeddings: embeddings, imageEncoder: model)
     }
 
-    /// Classify a cropped image against the vocabulary. Returns top-2 results.
-    func classify(imageBuffer: CVPixelBuffer) -> (top1: CLIPResult, top2: CLIPResult)? {
+    /// Encode an image to a CLIP embedding vector (for storing corrections).
+    func encode(imageBuffer: CVPixelBuffer) -> [Float]? {
+        guard let encoder = imageEncoder else { return nil }
+        return encodeImage(imageBuffer, with: encoder)
+    }
+
+    /// Classify a cropped image against the vocabulary. Returns top-2 results + embedding.
+    func classify(imageBuffer: CVPixelBuffer) -> (top1: CLIPResult, top2: CLIPResult, embedding: [Float])? {
         guard let encoder = imageEncoder else { return nil }
 
         // Run image through MobileCLIP image encoder
@@ -89,7 +95,8 @@ final class CLIPEmbeddings {
 
         return (
             top1: CLIPResult(word: similarities[0].word, similarity: similarities[0].similarity),
-            top2: CLIPResult(word: similarities[1].word, similarity: similarities[1].similarity)
+            top2: CLIPResult(word: similarities[1].word, similarity: similarities[1].similarity),
+            embedding: imageEmbedding
         )
     }
 

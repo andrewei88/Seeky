@@ -4,12 +4,14 @@ import UIKit
 
 struct ClassificationResult {
     let word: String
+    let clipEmbedding: [Float]?
 }
 
 final class ClassificationEngine {
     private let labelMapper: LabelMapper
     private let clipEmbeddings: CLIPEmbeddings?
     private let consensusGate: ConsensusGate
+    var correctionStore: CorrectionStore?
 
     init(labelMapper: LabelMapper, clipEmbeddings: CLIPEmbeddings?, consensusGate: ConsensusGate = ConsensusGate()) {
         self.labelMapper = labelMapper
@@ -24,6 +26,12 @@ final class ClassificationEngine {
 
         let observations = await vnResult
         let clip = await clipResult
+
+        // Check stored corrections first (highest priority)
+        if let embedding = clip?.embedding, let correctionStore = correctionStore,
+           let correctedWord = correctionStore.lookup(embedding: embedding) {
+            return ClassificationResult(word: correctedWord, clipEmbedding: embedding)
+        }
 
         // Log buffer dimensions for debugging crop issues
         let w = CVPixelBufferGetWidth(imageBuffer)
@@ -85,7 +93,7 @@ final class ClassificationEngine {
                     clipSimilarity: clip.top1.similarity,
                     clipSecondSimilarity: clip.top2.similarity
                 ) {
-                    return ClassificationResult(word: word)
+                    return ClassificationResult(word: word, clipEmbedding: clip.embedding)
                 }
                 return nil
             }
@@ -106,7 +114,7 @@ final class ClassificationEngine {
             }
 
             print("[Classify] CLIP-only (VN had no mapped word): '\(clip.top1.word)' (sim=\(String(format: "%.3f", clip.top1.similarity)), margin=\(String(format: "%.2f", clipMargin)))")
-            return ClassificationResult(word: clip.top1.word)
+            return ClassificationResult(word: clip.top1.word, clipEmbedding: clip.embedding)
         }
 
         // No CLIP available — VN-only with permissive thresholds
@@ -126,7 +134,7 @@ final class ClassificationEngine {
         }
 
         print("[Classify] VN-only: accepted '\(best.key)' (conf=\(String(format: "%.4f", best.value)), margin=\(String(format: "%.2f", margin)))")
-        return ClassificationResult(word: best.key)
+        return ClassificationResult(word: best.key, clipEmbedding: nil)
     }
 
     private func runVNClassify(_ buffer: CVPixelBuffer) async -> [VNClassificationObservation]? {
@@ -150,7 +158,7 @@ final class ClassificationEngine {
         }
     }
 
-    private func runCLIP(_ buffer: CVPixelBuffer) async -> (top1: CLIPResult, top2: CLIPResult)? {
+    private func runCLIP(_ buffer: CVPixelBuffer) async -> (top1: CLIPResult, top2: CLIPResult, embedding: [Float])? {
         clipEmbeddings?.classify(imageBuffer: buffer)
     }
 }

@@ -18,6 +18,7 @@ final class AppState: ObservableObject {
     let vocabularyStore: VocabularyStore
     let labelMapper: LabelMapper
     let classificationEngine: ClassificationEngine
+    let correctionStore = CorrectionStore()
     var instanceTracker = InstanceTracker(tapPadding: 0.08)
     let objectTracker = ObjectTracker()
 
@@ -30,6 +31,12 @@ final class AppState: ObservableObject {
     // Raw screen-space tap location (points) for glow effect during learning
     @Published var tapScreenPoint: CGPoint = .zero
 
+    // CLIP embedding of the last classified image (for corrections)
+    private(set) var lastClipEmbedding: [Float]?
+
+    // Whether the correction picker is showing
+    @Published var showingCorrectionPicker = false
+
     init() {
         hasCompletedFirstTap = UserDefaults.standard.bool(forKey: "hasCompletedFirstTap")
         vocabularyStore = VocabularyStore.load()
@@ -37,6 +44,7 @@ final class AppState: ObservableObject {
 
         let clipEmbeddings = CLIPEmbeddings.load(vocabulary: vocabularyStore.entries.map(\.word))
         classificationEngine = ClassificationEngine(labelMapper: labelMapper, clipEmbeddings: clipEmbeddings)
+        classificationEngine.correctionStore = correctionStore
 
         cameraManager.delegate = self
     }
@@ -92,13 +100,31 @@ final class AppState: ObservableObject {
                 UserDefaults.standard.set(true, forKey: "hasCompletedFirstTap")
             }
 
+            lastClipEmbedding = result.clipEmbedding
             mode = .learning(word: result.word, instanceIndex: 0)
         }
     }
 
     func dismissLearning() {
         wordSpeaker.stop()
+        showingCorrectionPicker = false
         mode = .exploring
+    }
+
+    func startCorrection() {
+        wordSpeaker.stop()
+        showingCorrectionPicker = true
+    }
+
+    func applyCorrection(word: String) {
+        guard let embedding = lastClipEmbedding else {
+            print("[Correction] No CLIP embedding available for correction")
+            showingCorrectionPicker = false
+            return
+        }
+        correctionStore.addCorrection(embedding: embedding, word: word)
+        showingCorrectionPicker = false
+        mode = .learning(word: word, instanceIndex: 0)
     }
 
     /// Computes a normalized crop rect centered on the tap point.

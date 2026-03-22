@@ -28,6 +28,43 @@ struct ContentView: View {
                     wordSpeaker: appState.wordSpeaker
                 )
                 .allowsHitTesting(false)
+
+                // Correction button for parents (bottom-right)
+                if !appState.showingCorrectionPicker {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Button {
+                                appState.startCorrection()
+                            } label: {
+                                Image(systemName: "pencil.circle.fill")
+                                    .font(.system(size: 36))
+                                    .foregroundColor(.white.opacity(0.6))
+                            }
+                            .padding(.trailing, 24)
+                            .padding(.bottom, 60)
+                        }
+                    }
+                }
+            }
+
+            // Correction picker overlay
+            if appState.showingCorrectionPicker {
+                CorrectionPickerView(
+                    words: appState.vocabularyStore.entries.map(\.word).sorted(),
+                    currentWord: {
+                        if case .learning(let word, _) = appState.mode { return word }
+                        return ""
+                    }(),
+                    onSelect: { word in
+                        appState.applyCorrection(word: word)
+                    },
+                    onCancel: {
+                        appState.showingCorrectionPicker = false
+                    }
+                )
+                .transition(.move(edge: .bottom))
             }
 
             // First-launch hint
