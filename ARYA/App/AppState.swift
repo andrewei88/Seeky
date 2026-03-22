@@ -27,7 +27,7 @@ final class AppState: ObservableObject {
     // Bounding box of tracked object (updated at 30fps by ObjectTracker)
     @Published var learningBoundingBox: CGRect = .zero
 
-    // Screen-space tap location for spotlight effect during learning
+    // Raw screen-space tap location (points) for glow effect during learning
     @Published var tapScreenPoint: CGPoint = .zero
 
     init() {

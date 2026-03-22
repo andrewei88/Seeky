@@ -7,7 +7,6 @@ struct ContentView: View {
         ZStack {
             // Camera feed — always live
             CameraPreviewView(cameraManager: appState.cameraManager)
-                .ignoresSafeArea()
                 .onTapGesture { location in
                     if case .learning = appState.mode {
                         appState.dismissLearning()
@@ -15,12 +14,7 @@ struct ContentView: View {
                         // Use preview layer to properly convert screen→image coords,
                         // accounting for resizeAspectFill cropping
                         let imagePoint = appState.cameraManager.imagePoint(fromScreenPoint: location)
-                        let screenSize = UIScreen.main.bounds.size
-                        let normalizedScreen = CGPoint(
-                            x: location.x / screenSize.width,
-                            y: location.y / screenSize.height
-                        )
-                        appState.handleTap(imagePoint: imagePoint, screenPoint: normalizedScreen)
+                        appState.handleTap(imagePoint: imagePoint, screenPoint: location)
                     }
                 }
 
@@ -41,6 +35,7 @@ struct ContentView: View {
                 OnboardingHintView()
             }
         }
+        .ignoresSafeArea()
         .onAppear {
             appState.cameraManager.configure()
             appState.cameraManager.start()
