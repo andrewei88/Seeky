@@ -1,0 +1,35 @@
+{
+  "word": "speaker",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [0],
+      "start": 0.0,
+      "end": 0.1
+    },
+    {
+      "phoneme": "P",
+      "letters": [1],
+      "start": 0.1,
+      "end": 0.248
+    },
+    {
+      "phoneme": "IY",
+      "letters": [2, 3],
+      "start": 0.248,
+      "end": 0.452
+    },
+    {
+      "phoneme": "K",
+      "letters": [4],
+      "start": 0.452,
+      "end": 0.58
+    },
+    {
+      "phoneme": "ER",
+      "letters": [5, 6],
+      "start": 0.58,
+      "end": 0.798
+    }
+  ]
+}

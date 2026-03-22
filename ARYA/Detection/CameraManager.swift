@@ -23,6 +23,12 @@ final class CameraManager: NSObject {
         _previewLayer
     }
 
+    /// Convert a screen point (in the preview layer's coordinate system) to
+    /// normalized image coordinates (0-1), accounting for resizeAspectFill cropping.
+    func imagePoint(fromScreenPoint screenPoint: CGPoint) -> CGPoint {
+        previewLayer.captureDevicePointConverted(fromLayerPoint: screenPoint)
+    }
+
     func configure() {
         sessionQueue.async { [weak self] in
             self?.setupSession()

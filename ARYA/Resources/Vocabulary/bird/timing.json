@@ -6,8 +6,8 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.117
+      "start": 0.128,
+      "end": 0.233
     },
     {
       "phoneme": "ER",
@@ -15,16 +15,16 @@
         1,
         2
       ],
-      "start": 0.117,
-      "end": 0.239
+      "start": 0.233,
+      "end": 0.424
     },
     {
       "phoneme": "D",
       "letters": [
         3
       ],
-      "start": 0.239,
-      "end": 0.306
+      "start": 0.424,
+      "end": 0.528
     }
   ]
 }

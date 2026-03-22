@@ -6,40 +6,40 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.125
+      "start": 0.097,
+      "end": 0.186
     },
     {
       "phoneme": "AE",
       "letters": [
         1
       ],
-      "start": 0.125,
-      "end": 0.275
+      "start": 0.186,
+      "end": 0.365
     },
     {
       "phoneme": "N",
       "letters": [
         2
       ],
-      "start": 0.275,
-      "end": 0.375
+      "start": 0.365,
+      "end": 0.484
     },
     {
       "phoneme": "T",
       "letters": [
         3
       ],
-      "start": 0.375,
-      "end": 0.45
+      "start": 0.484,
+      "end": 0.573
     },
     {
       "phoneme": "S",
       "letters": [
         4
       ],
-      "start": 0.45,
-      "end": 0.55
+      "start": 0.573,
+      "end": 0.692
     }
   ]
 }

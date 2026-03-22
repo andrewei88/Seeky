@@ -6,8 +6,8 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.12
+      "start": 0.116,
+      "end": 0.205
     },
     {
       "phoneme": "UH",
@@ -15,16 +15,16 @@
         1,
         2
       ],
-      "start": 0.12,
-      "end": 0.236
+      "start": 0.205,
+      "end": 0.352
     },
     {
       "phoneme": "K",
       "letters": [
         3
       ],
-      "start": 0.236,
-      "end": 0.306
+      "start": 0.352,
+      "end": 0.441
     }
   ]
 }

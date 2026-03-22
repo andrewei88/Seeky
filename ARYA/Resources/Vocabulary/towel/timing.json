@@ -6,8 +6,8 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.116
+      "start": 0.1,
+      "end": 0.202
     },
     {
       "phoneme": "AW",
@@ -15,24 +15,24 @@
         1,
         2
       ],
-      "start": 0.116,
-      "end": 0.259
+      "start": 0.202,
+      "end": 0.422
     },
     {
       "phoneme": "AH",
       "letters": [
         3
       ],
-      "start": 0.259,
-      "end": 0.369
+      "start": 0.422,
+      "end": 0.592
     },
     {
       "phoneme": "L",
       "letters": [
         4
       ],
-      "start": 0.369,
-      "end": 0.446
+      "start": 0.592,
+      "end": 0.71
     }
   ]
 }

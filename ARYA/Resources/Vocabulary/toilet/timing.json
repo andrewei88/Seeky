@@ -6,8 +6,8 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.116
+      "start": 0.124,
+      "end": 0.189
     },
     {
       "phoneme": "OY",
@@ -15,32 +15,32 @@
         1,
         2
       ],
-      "start": 0.116,
-      "end": 0.26
+      "start": 0.189,
+      "end": 0.331
     },
     {
       "phoneme": "L",
       "letters": [
         3
       ],
-      "start": 0.26,
-      "end": 0.337
+      "start": 0.331,
+      "end": 0.407
     },
     {
       "phoneme": "AH",
       "letters": [
         4
       ],
-      "start": 0.337,
-      "end": 0.448
+      "start": 0.407,
+      "end": 0.517
     },
     {
       "phoneme": "T",
       "letters": [
         5
       ],
-      "start": 0.448,
-      "end": 0.514
+      "start": 0.517,
+      "end": 0.582
     }
   ]
 }

@@ -24,6 +24,8 @@ targets:
         INFOPLIST_FILE: ARYA/Info.plist
         PRODUCT_BUNDLE_IDENTIFIER: com.arya.objectlearning
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        DEVELOPMENT_TEAM: U5U8CN6FA9
+        CODE_SIGN_STYLE: Automatic
     scheme:
       testTargets:
         - ARYATests
@@ -37,3 +39,5 @@ targets:
     settings:
       base:
         INFOPLIST_FILE: ARYATests/Info.plist
+        DEVELOPMENT_TEAM: U5U8CN6FA9
+        CODE_SIGN_STYLE: Automatic

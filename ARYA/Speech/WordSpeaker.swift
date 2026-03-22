@@ -4,6 +4,7 @@ import Combine
 final class WordSpeaker: NSObject, ObservableObject {
     @Published private(set) var currentTime: Double = 0
     @Published private(set) var isPlaying: Bool = false
+    @Published private(set) var totalDuration: Double = 0
 
     private var audioPlayer: AVAudioPlayer?
     private var displayLink: CADisplayLink?
@@ -13,23 +14,37 @@ final class WordSpeaker: NSObject, ObservableObject {
         stop()
         self.onComplete = onComplete
 
-        guard let url = bundle.url(forResource: "audio", withExtension: "m4a", subdirectory: "Vocabulary/\(word)"),
-              let player = try? AVAudioPlayer(contentsOf: url) else {
+        // Use .playback so audio plays even when ringer is silent.
+        // .mixWithOthers prevents interrupting camera capture session (video-only, no mic).
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
+            try AVAudioSession.sharedInstance().setActive(true)
+            print("[WordSpeaker] Audio session configured: category=\(AVAudioSession.sharedInstance().category.rawValue)")
+        } catch {
+            print("[WordSpeaker] Audio session setup FAILED: \(error)")
+        }
+
+        // Load pre-recorded ElevenLabs audio from bundle
+        guard let url = bundle.url(forResource: "audio", withExtension: "m4a", subdirectory: "Vocabulary/\(word)") else {
+            print("[WordSpeaker] No audio file found for '\(word)', skipping")
             onComplete()
             return
         }
 
-        // Configure audio session for playback
-        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-        try? AVAudioSession.sharedInstance().setActive(true)
-
-        audioPlayer = player
-        player.delegate = self
-        player.prepareToPlay()
-        player.play()
-        isPlaying = true
-
-        startDisplayLink()
+        do {
+            let player = try AVAudioPlayer(contentsOf: url)
+            player.delegate = self
+            player.prepareToPlay()
+            self.audioPlayer = player
+            self.totalDuration = player.duration
+            self.isPlaying = true
+            startDisplayLink()
+            let started = player.play()
+            print("[WordSpeaker] Playing '\(word)': duration=\(String(format: "%.2f", player.duration))s, started=\(started), volume=\(player.volume)")
+        } catch {
+            print("[WordSpeaker] Failed to create player for '\(word)': \(error)")
+            onComplete()
+        }
     }
 
     func stop() {
@@ -60,12 +75,11 @@ final class WordSpeaker: NSObject, ObservableObject {
 
 extension WordSpeaker: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        // Keep final time for "all letters glow" state
-        currentTime = player.duration
+        currentTime = totalDuration
         isPlaying = false
         stopDisplayLink()
 
-        // Delay before calling completion to show all-glow state
+        // Brief delay to show all-glow state before dismissing
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.onComplete?()
         }

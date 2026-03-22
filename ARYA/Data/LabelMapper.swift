@@ -15,11 +15,18 @@ final class LabelMapper {
         }
         var mappings: [String: String?] = [:]
         for (key, value) in raw {
-            if let str = value as? String {
-                mappings[key] = str
-            } else {
-                mappings[key] = nil as String?
-            }
+            let mapped: String? = (value as? String)
+            // Store the original key
+            mappings[key] = mapped
+            // Also store normalized variants so VNClassify identifiers match
+            // VNClassify may return "golden_retriever" while JSON has "golden retriever"
+            let withSpaces = key.replacingOccurrences(of: "_", with: " ")
+            let withUnderscores = key.replacingOccurrences(of: " ", with: "_")
+            let lowered = key.lowercased()
+            mappings[withSpaces] = mapped
+            mappings[withUnderscores] = mapped
+            mappings[lowered] = mapped
+            mappings[lowered.replacingOccurrences(of: " ", with: "_")] = mapped
         }
         return LabelMapper(mappings: mappings)
     }

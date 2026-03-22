@@ -1,0 +1,47 @@
+{
+  "word": "picture",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.119,
+      "end": 0.204
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ],
+      "start": 0.204,
+      "end": 0.373
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ],
+      "start": 0.373,
+      "end": 0.458
+    },
+    {
+      "phoneme": "CH",
+      "letters": [
+        3
+      ],
+      "start": 0.458,
+      "end": 0.543
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5,
+        6
+      ],
+      "start": 0.543,
+      "end": 0.696
+    }
+  ]
+}

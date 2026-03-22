@@ -14,31 +14,42 @@ struct TrackedInstance {
 
 struct InstanceTracker {
     let stabilityDuration: Double
+    let gracePeriod: Double
+    let tapPadding: CGFloat
     private let iouThreshold: Double
     private(set) var trackedInstances: [TrackedInstance] = []
 
-    init(stabilityDuration: Double = 0.5, iouThreshold: Double = 0.3) {
+    init(stabilityDuration: Double = 0.3, iouThreshold: Double = 0.3, gracePeriod: Double = 1.5, tapPadding: CGFloat = 0.04) {
         self.stabilityDuration = stabilityDuration
         self.iouThreshold = iouThreshold
+        self.gracePeriod = gracePeriod
+        self.tapPadding = tapPadding
     }
 
     mutating func update(instances: [DetectedInstance], timestamp: Double) {
+        var matched = Set<Int>()
         var newTracked: [TrackedInstance] = []
 
         for instance in instances {
             if let matchIndex = bestMatch(for: instance) {
-                // Existing instance — update
                 var tracked = trackedInstances[matchIndex]
                 tracked.currentInstance = instance
                 tracked.lastSeenTimestamp = timestamp
                 newTracked.append(tracked)
+                matched.insert(matchIndex)
             } else {
-                // New instance
                 newTracked.append(TrackedInstance(
                     currentInstance: instance,
                     firstSeenTimestamp: timestamp,
                     lastSeenTimestamp: timestamp
                 ))
+            }
+        }
+
+        // Keep unmatched instances alive during grace period
+        for (index, tracked) in trackedInstances.enumerated() {
+            if !matched.contains(index) && (timestamp - tracked.lastSeenTimestamp) < gracePeriod {
+                newTracked.append(tracked)
             }
         }
 
@@ -54,7 +65,16 @@ struct InstanceTracker {
     func instance(at point: CGPoint) -> DetectedInstance? {
         trackedInstances
             .map(\.currentInstance)
-            .first { $0.boundingBox.contains(point) }
+            .first { paddedBox($0.boundingBox).contains(point) }
+    }
+
+    private func paddedBox(_ rect: CGRect) -> CGRect {
+        CGRect(
+            x: max(0, rect.origin.x - tapPadding),
+            y: max(0, rect.origin.y - tapPadding),
+            width: min(1.0 - max(0, rect.origin.x - tapPadding), rect.width + tapPadding * 2),
+            height: min(1.0 - max(0, rect.origin.y - tapPadding), rect.height + tapPadding * 2)
+        )
     }
 
     private func bestMatch(for instance: DetectedInstance) -> Int? {

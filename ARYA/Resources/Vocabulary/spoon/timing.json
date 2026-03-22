@@ -6,16 +6,16 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.169
+      "start": 0.0,
+      "end": 0.176
     },
     {
       "phoneme": "P",
       "letters": [
         1
       ],
-      "start": 0.169,
-      "end": 0.258
+      "start": 0.176,
+      "end": 0.307
     },
     {
       "phoneme": "UW",
@@ -23,16 +23,16 @@
         2,
         3
       ],
-      "start": 0.258,
-      "end": 0.422
+      "start": 0.307,
+      "end": 0.55
     },
     {
       "phoneme": "N",
       "letters": [
         4
       ],
-      "start": 0.422,
-      "end": 0.541
+      "start": 0.55,
+      "end": 0.726
     }
   ]
 }

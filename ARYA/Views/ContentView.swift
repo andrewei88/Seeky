@@ -5,31 +5,35 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            // Camera feed — always visible
+            // Camera feed — always live
             CameraPreviewView(cameraManager: appState.cameraManager)
                 .ignoresSafeArea()
                 .onTapGesture { location in
-                    let screenSize = UIScreen.main.bounds.size
-                    let normalized = CGPoint(
-                        x: location.x / screenSize.width,
-                        y: location.y / screenSize.height
-                    )
                     if case .learning = appState.mode {
                         appState.dismissLearning()
                     } else {
-                        appState.handleTap(at: normalized)
+                        // Use preview layer to properly convert screen→image coords,
+                        // accounting for resizeAspectFill cropping
+                        let imagePoint = appState.cameraManager.imagePoint(fromScreenPoint: location)
+                        let screenSize = UIScreen.main.bounds.size
+                        let normalizedScreen = CGPoint(
+                            x: location.x / screenSize.width,
+                            y: location.y / screenSize.height
+                        )
+                        appState.handleTap(imagePoint: imagePoint, screenPoint: normalizedScreen)
                     }
                 }
 
-            // Learning overlay
-            if case .learning(let word, let instanceIndex) = appState.mode {
+            // Glow + word display during learning
+            if case .learning(let word, _) = appState.mode {
+                TapGlowView(screenPoint: appState.tapScreenPoint)
+                    .allowsHitTesting(false)
+
                 LearningOverlayView(
                     word: word,
-                    instanceIndex: instanceIndex,
-                    segmentation: appState.latestSegmentation,
                     wordSpeaker: appState.wordSpeaker
                 )
-                .transition(.opacity.animation(.easeInOut(duration: 0.3)))
+                .allowsHitTesting(false)
             }
 
             // First-launch hint

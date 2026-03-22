@@ -1,105 +1,430 @@
 [
-  { "word": "dog", "category": "animals" },
-  { "word": "cat", "category": "animals" },
-  { "word": "bird", "category": "animals" },
-  { "word": "fish", "category": "animals" },
-  { "word": "horse", "category": "animals" },
-  { "word": "cow", "category": "animals" },
-  { "word": "pig", "category": "animals" },
-  { "word": "duck", "category": "animals" },
-  { "word": "rabbit", "category": "animals" },
-  { "word": "bear", "category": "animals" },
-  { "word": "elephant", "category": "animals" },
-  { "word": "lion", "category": "animals" },
-  { "word": "frog", "category": "animals" },
-  { "word": "butterfly", "category": "animals" },
-  { "word": "chicken", "category": "animals" },
-  { "word": "turtle", "category": "animals" },
-  { "word": "monkey", "category": "animals" },
-  { "word": "apple", "category": "food" },
-  { "word": "banana", "category": "food" },
-  { "word": "orange", "category": "food" },
-  { "word": "bread", "category": "food" },
-  { "word": "egg", "category": "food" },
-  { "word": "cheese", "category": "food" },
-  { "word": "pizza", "category": "food" },
-  { "word": "cake", "category": "food" },
-  { "word": "cookie", "category": "food" },
-  { "word": "chair", "category": "home" },
-  { "word": "table", "category": "home" },
-  { "word": "bed", "category": "home" },
-  { "word": "couch", "category": "home" },
-  { "word": "lamp", "category": "home" },
-  { "word": "door", "category": "home" },
-  { "word": "window", "category": "home" },
-  { "word": "pillow", "category": "home" },
-  { "word": "blanket", "category": "home" },
-  { "word": "towel", "category": "home" },
-  { "word": "mirror", "category": "home" },
-  { "word": "shelf", "category": "home" },
-  { "word": "clock", "category": "home" },
-  { "word": "fan", "category": "home" },
-  { "word": "cup", "category": "kitchen" },
-  { "word": "bowl", "category": "kitchen" },
-  { "word": "plate", "category": "kitchen" },
-  { "word": "spoon", "category": "kitchen" },
-  { "word": "fork", "category": "kitchen" },
-  { "word": "knife", "category": "kitchen" },
-  { "word": "bottle", "category": "kitchen" },
-  { "word": "pot", "category": "kitchen" },
-  { "word": "pan", "category": "kitchen" },
-  { "word": "glass", "category": "kitchen" },
-  { "word": "car", "category": "outdoors" },
-  { "word": "bus", "category": "outdoors" },
-  { "word": "truck", "category": "outdoors" },
-  { "word": "tree", "category": "outdoors" },
-  { "word": "flower", "category": "outdoors" },
-  { "word": "grass", "category": "outdoors" },
-  { "word": "rock", "category": "outdoors" },
-  { "word": "leaf", "category": "outdoors" },
-  { "word": "fence", "category": "outdoors" },
-  { "word": "bench", "category": "outdoors" },
-  { "word": "shoe", "category": "clothing" },
-  { "word": "hat", "category": "clothing" },
-  { "word": "shirt", "category": "clothing" },
-  { "word": "pants", "category": "clothing" },
-  { "word": "sock", "category": "clothing" },
-  { "word": "jacket", "category": "clothing" },
-  { "word": "glasses", "category": "clothing" },
-  { "word": "bag", "category": "clothing" },
-  { "word": "toothbrush", "category": "bathroom" },
-  { "word": "soap", "category": "bathroom" },
-  { "word": "toilet", "category": "bathroom" },
-  { "word": "sink", "category": "bathroom" },
-  { "word": "bathtub", "category": "bathroom" },
-  { "word": "phone", "category": "electronics" },
-  { "word": "tv", "category": "electronics" },
-  { "word": "laptop", "category": "electronics" },
-  { "word": "keyboard", "category": "electronics" },
-  { "word": "remote", "category": "electronics" },
-  { "word": "ball", "category": "toys" },
-  { "word": "teddy bear", "category": "toys" },
-  { "word": "block", "category": "toys" },
-  { "word": "doll", "category": "toys" },
-  { "word": "book", "category": "school" },
-  { "word": "pen", "category": "school" },
-  { "word": "pencil", "category": "school" },
-  { "word": "paper", "category": "school" },
-  { "word": "scissors", "category": "school" },
-  { "word": "crayon", "category": "school" },
-  { "word": "hand", "category": "body" },
-  { "word": "foot", "category": "body" },
-  { "word": "face", "category": "body" },
-  { "word": "eye", "category": "body" },
-  { "word": "nose", "category": "body" },
-  { "word": "ear", "category": "body" },
-  { "word": "key", "category": "other" },
-  { "word": "light", "category": "other" },
-  { "word": "box", "category": "other" },
-  { "word": "umbrella", "category": "other" },
-  { "word": "star", "category": "other" },
-  { "word": "moon", "category": "other" },
-  { "word": "sun", "category": "other" },
-  { "word": "cloud", "category": "other" },
-  { "word": "rain", "category": "other" }
+  {
+    "word": "apple",
+    "category": "food"
+  },
+  {
+    "word": "bag",
+    "category": "clothing"
+  },
+  {
+    "word": "ball",
+    "category": "toys"
+  },
+  {
+    "word": "banana",
+    "category": "food"
+  },
+  {
+    "word": "bathtub",
+    "category": "bathroom"
+  },
+  {
+    "word": "bear",
+    "category": "animals"
+  },
+  {
+    "word": "bed",
+    "category": "home"
+  },
+  {
+    "word": "bench",
+    "category": "outdoors"
+  },
+  {
+    "word": "bird",
+    "category": "animals"
+  },
+  {
+    "word": "blanket",
+    "category": "home"
+  },
+  {
+    "word": "block",
+    "category": "toys"
+  },
+  {
+    "word": "book",
+    "category": "school"
+  },
+  {
+    "word": "bottle",
+    "category": "kitchen"
+  },
+  {
+    "word": "bowl",
+    "category": "kitchen"
+  },
+  {
+    "word": "box",
+    "category": "other"
+  },
+  {
+    "word": "bread",
+    "category": "food"
+  },
+  {
+    "word": "bus",
+    "category": "outdoors"
+  },
+  {
+    "word": "butterfly",
+    "category": "animals"
+  },
+  {
+    "word": "cake",
+    "category": "food"
+  },
+  {
+    "word": "can",
+    "category": "household"
+  },
+  {
+    "word": "car",
+    "category": "outdoors"
+  },
+  {
+    "word": "cat",
+    "category": "animals"
+  },
+  {
+    "word": "chair",
+    "category": "home"
+  },
+  {
+    "word": "cheese",
+    "category": "food"
+  },
+  {
+    "word": "chicken",
+    "category": "animals"
+  },
+  {
+    "word": "clock",
+    "category": "home"
+  },
+  {
+    "word": "cloud",
+    "category": "other"
+  },
+  {
+    "word": "cookie",
+    "category": "food"
+  },
+  {
+    "word": "couch",
+    "category": "home"
+  },
+  {
+    "word": "cow",
+    "category": "animals"
+  },
+  {
+    "word": "crayon",
+    "category": "school"
+  },
+  {
+    "word": "cup",
+    "category": "kitchen"
+  },
+  {
+    "word": "dog",
+    "category": "animals"
+  },
+  {
+    "word": "doll",
+    "category": "toys"
+  },
+  {
+    "word": "door",
+    "category": "home"
+  },
+  {
+    "word": "duck",
+    "category": "animals"
+  },
+  {
+    "word": "ear",
+    "category": "body"
+  },
+  {
+    "word": "egg",
+    "category": "food"
+  },
+  {
+    "word": "elephant",
+    "category": "animals"
+  },
+  {
+    "word": "eye",
+    "category": "body"
+  },
+  {
+    "word": "face",
+    "category": "body"
+  },
+  {
+    "word": "fan",
+    "category": "home"
+  },
+  {
+    "word": "fence",
+    "category": "outdoors"
+  },
+  {
+    "word": "fish",
+    "category": "animals"
+  },
+  {
+    "word": "flower",
+    "category": "outdoors"
+  },
+  {
+    "word": "foot",
+    "category": "body"
+  },
+  {
+    "word": "fork",
+    "category": "kitchen"
+  },
+  {
+    "word": "frog",
+    "category": "animals"
+  },
+  {
+    "word": "glass",
+    "category": "kitchen"
+  },
+  {
+    "word": "glasses",
+    "category": "clothing"
+  },
+  {
+    "word": "grass",
+    "category": "outdoors"
+  },
+  {
+    "word": "hand",
+    "category": "body"
+  },
+  {
+    "word": "hat",
+    "category": "clothing"
+  },
+  {
+    "word": "horse",
+    "category": "animals"
+  },
+  {
+    "word": "jacket",
+    "category": "clothing"
+  },
+  {
+    "word": "key",
+    "category": "other"
+  },
+  {
+    "word": "keyboard",
+    "category": "electronics"
+  },
+  {
+    "word": "knife",
+    "category": "kitchen"
+  },
+  {
+    "word": "lamp",
+    "category": "home"
+  },
+  {
+    "word": "laptop",
+    "category": "electronics"
+  },
+  {
+    "word": "leaf",
+    "category": "outdoors"
+  },
+  {
+    "word": "light",
+    "category": "other"
+  },
+  {
+    "word": "lion",
+    "category": "animals"
+  },
+  {
+    "word": "mirror",
+    "category": "home"
+  },
+  {
+    "word": "monkey",
+    "category": "animals"
+  },
+  {
+    "word": "moon",
+    "category": "other"
+  },
+  {
+    "word": "nose",
+    "category": "body"
+  },
+  {
+    "word": "orange",
+    "category": "food"
+  },
+  {
+    "word": "pan",
+    "category": "kitchen"
+  },
+  {
+    "word": "pants",
+    "category": "clothing"
+  },
+  {
+    "word": "paper",
+    "category": "school"
+  },
+  {
+    "word": "pen",
+    "category": "school"
+  },
+  {
+    "word": "pencil",
+    "category": "school"
+  },
+  {
+    "word": "phone",
+    "category": "electronics"
+  },
+  {
+    "word": "picture",
+    "category": "home"
+  },
+  {
+    "word": "pig",
+    "category": "animals"
+  },
+  {
+    "word": "pillow",
+    "category": "home"
+  },
+  {
+    "word": "pizza",
+    "category": "food"
+  },
+  {
+    "word": "plate",
+    "category": "kitchen"
+  },
+  {
+    "word": "pot",
+    "category": "kitchen"
+  },
+  {
+    "word": "rabbit",
+    "category": "animals"
+  },
+  {
+    "word": "rain",
+    "category": "other"
+  },
+  {
+    "word": "remote",
+    "category": "electronics"
+  },
+  {
+    "word": "rock",
+    "category": "outdoors"
+  },
+  {
+    "word": "scissors",
+    "category": "school"
+  },
+  {
+    "word": "shelf",
+    "category": "home"
+  },
+  {
+    "word": "shirt",
+    "category": "clothing"
+  },
+  {
+    "word": "shoe",
+    "category": "clothing"
+  },
+  {
+    "word": "sink",
+    "category": "bathroom"
+  },
+  {
+    "word": "soap",
+    "category": "bathroom"
+  },
+  {
+    "word": "sock",
+    "category": "clothing"
+  },
+  {
+    "word": "speaker",
+    "category": "electronics"
+  },
+  {
+    "word": "spoon",
+    "category": "kitchen"
+  },
+  {
+    "word": "star",
+    "category": "other"
+  },
+  {
+    "word": "sun",
+    "category": "other"
+  },
+  {
+    "word": "table",
+    "category": "home"
+  },
+  {
+    "word": "teddy bear",
+    "category": "toys"
+  },
+  {
+    "word": "toilet",
+    "category": "bathroom"
+  },
+  {
+    "word": "toothbrush",
+    "category": "bathroom"
+  },
+  {
+    "word": "towel",
+    "category": "home"
+  },
+  {
+    "word": "tree",
+    "category": "outdoors"
+  },
+  {
+    "word": "truck",
+    "category": "outdoors"
+  },
+  {
+    "word": "turtle",
+    "category": "animals"
+  },
+  {
+    "word": "tv",
+    "category": "electronics"
+  },
+  {
+    "word": "umbrella",
+    "category": "other"
+  },
+  {
+    "word": "window",
+    "category": "home"
+  },
+  {
+    "word": "monitor",
+    "category": "electronics"
+  }
 ]

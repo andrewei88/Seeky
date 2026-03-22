@@ -6,8 +6,8 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.173
+      "start": 0.165,
+      "end": 0.301
     },
     {
       "phoneme": "OW",
@@ -15,16 +15,16 @@
         1,
         2
       ],
-      "start": 0.173,
-      "end": 0.358
+      "start": 0.301,
+      "end": 0.504
     },
     {
       "phoneme": "P",
       "letters": [
         3
       ],
-      "start": 0.358,
-      "end": 0.45
+      "start": 0.504,
+      "end": 0.606
     }
   ]
 }

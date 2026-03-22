@@ -22,8 +22,8 @@ def main():
     with open(VOCAB_PATH) as f:
         vocabulary = json.load(f)
 
-    # Use a warm, friendly voice. "Rachel" is a good default.
-    voice_id = "21m00Tcm4TlvDq8ikWAM"  # Rachel
+    # Use a warm, friendly voice suitable for toddlers.
+    voice_id = "cgSgspJ2msm6clMCkdW9"  # Jessica — Playful, Bright, Warm
 
     for entry in vocabulary:
         word = entry["word"]
