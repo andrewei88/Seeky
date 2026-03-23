@@ -10,18 +10,17 @@ enum LetterState: Equatable {
 struct LetterHighlighter {
     let timing: TimingData
     let letterCount: Int
+    private let allReferencedIndices: Set<Int>
 
     init(timing: TimingData) {
         self.timing = timing
         self.letterCount = timing.word.count
+        self.allReferencedIndices = Set(timing.phonemes.flatMap(\.letters))
     }
 
     func letterStates(at time: Double) -> [LetterState] {
         let activeIndices = Set(timing.activeLetterIndices(at: time))
         let spokenIndices = Set(timing.spokenLetterIndices(at: time))
-
-        // All letter indices referenced in any phoneme
-        let allReferencedIndices = Set(timing.phonemes.flatMap(\.letters))
 
         return (0..<letterCount).map { index in
             let char = timing.word[timing.word.index(timing.word.startIndex, offsetBy: index)]

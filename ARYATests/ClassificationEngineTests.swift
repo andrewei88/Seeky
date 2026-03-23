@@ -285,10 +285,10 @@ final class ClassificationEngineTests: XCTestCase {
         assertMapped("luggage", to: "bag")
 
         // More animals — user requested pandas, tigers, sharks, whales, etc.
-        assertMapped("panda", to: "bear")
-        assertMapped("giant_panda", to: "bear")
+        assertMapped("panda", to: "panda")
+        assertMapped("giant_panda", to: "panda")
         assertMapped("polar_bear", to: "bear")
-        assertMapped("tiger", to: "cat")
+        assertMapped("tiger", to: "tiger")
         assertMapped("leopard", to: "cat")
         assertMapped("shark", to: "fish")
         assertMapped("whale", to: "fish")
@@ -299,7 +299,7 @@ final class ClassificationEngineTests: XCTestCase {
         assertMapped("pug", to: "dog")
         assertMapped("eagle", to: "bird")
         assertMapped("owl", to: "bird")
-        assertMapped("penguin", to: "bird")
+        assertMapped("penguin", to: "penguin")
         assertMapped("parrot", to: "bird")
         assertMapped("swan", to: "duck")
         assertMapped("gorilla", to: "monkey")
@@ -760,11 +760,11 @@ final class ClassificationEngineTests: XCTestCase {
         XCTAssertEqual(result?.word, "cat")
     }
 
-    func testCatFromTiger() {
+    func testTigerFromTiger() {
         let result = simulateWithRealMappings(observations: [
             ("animal", 0.90), ("mammal", 0.85), ("tiger", 0.72), ("carnivore", 0.50)
         ])
-        XCTAssertEqual(result?.word, "cat")
+        XCTAssertEqual(result?.word, "tiger")
     }
 
     func testBirdFromEagle() {
@@ -781,18 +781,18 @@ final class ClassificationEngineTests: XCTestCase {
         XCTAssertEqual(result?.word, "bird")
     }
 
-    func testBirdFromPenguin() {
+    func testPenguinFromPenguin() {
         let result = simulateWithRealMappings(observations: [
-            ("animal", 0.82), ("bird", 0.70), ("penguin", 0.65)
+            ("animal", 0.82), ("penguin", 0.75), ("bird", 0.50)
         ])
-        XCTAssertEqual(result?.word, "bird")
+        XCTAssertEqual(result?.word, "penguin")
     }
 
-    func testBearFromPanda() {
+    func testPandaFromPanda() {
         let result = simulateWithRealMappings(observations: [
             ("animal", 0.90), ("mammal", 0.85), ("giant_panda", 0.70), ("panda", 0.65)
         ])
-        XCTAssertEqual(result?.word, "bear")
+        XCTAssertEqual(result?.word, "panda")
     }
 
     func testBearFromPolarBear() {

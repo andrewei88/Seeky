@@ -1,0 +1,78 @@
+{
+  "word": "watermelon",
+  "phonemes": [
+    {
+      "phoneme": "W",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.146
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        1
+      ],
+      "start": 0.146,
+      "end": 0.338
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2
+      ],
+      "start": 0.338,
+      "end": 0.434
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3
+      ],
+      "start": 0.434,
+      "end": 0.61
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        4
+      ],
+      "start": 0.61,
+      "end": 0.738
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        5
+      ],
+      "start": 0.738,
+      "end": 0.898
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        6
+      ],
+      "start": 0.898,
+      "end": 1.01
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        7
+      ],
+      "start": 1.01,
+      "end": 1.17
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        8,
+        9
+      ],
+      "start": 1.17,
+      "end": 1.298
+    }
+  ]
+}

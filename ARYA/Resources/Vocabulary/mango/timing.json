@@ -1,0 +1,45 @@
+{
+  "word": "mango",
+  "phonemes": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.226
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.226,
+      "end": 0.491
+    },
+    {
+      "phoneme": "NG",
+      "letters": [
+        2
+      ],
+      "start": 0.491,
+      "end": 0.667
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        3
+      ],
+      "start": 0.667,
+      "end": 0.799
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        4
+      ],
+      "start": 0.799,
+      "end": 1.064
+    }
+  ]
+}

@@ -5,7 +5,6 @@ struct LearningOverlayView: View {
     @ObservedObject var wordSpeaker: WordSpeaker
 
     @State private var letterHighlighter: LetterHighlighter?
-    @State private var timingData: TimingData?
     @State private var hasStartedSpeaking = false
 
     var body: some View {
@@ -30,7 +29,6 @@ struct LearningOverlayView: View {
         .onAppear {
             // Load timing data and start speaking
             if let timing = TimingData.load(word: word) {
-                timingData = timing
                 letterHighlighter = LetterHighlighter(timing: timing)
             }
 

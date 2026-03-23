@@ -1,0 +1,38 @@
+{
+  "word": "grape",
+  "phonemes": [
+    {
+      "phoneme": "G",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.219
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ],
+      "start": 0.219,
+      "end": 0.417
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        2
+      ],
+      "start": 0.417,
+      "end": 0.756
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.756,
+      "end": 0.925
+    }
+  ]
+}

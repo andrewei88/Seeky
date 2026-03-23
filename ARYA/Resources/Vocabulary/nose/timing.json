@@ -6,16 +6,16 @@
       "letters": [
         0
       ],
-      "start": 0.0,
-      "end": 0.174
+      "start": 0.05,
+      "end": 0.287
     },
     {
       "phoneme": "OW",
       "letters": [
         1
       ],
-      "start": 0.174,
-      "end": 0.435
+      "start": 0.287,
+      "end": 0.642
     },
     {
       "phoneme": "Z",
@@ -23,8 +23,8 @@
         2,
         3
       ],
-      "start": 0.435,
-      "end": 0.609
+      "start": 0.642,
+      "end": 0.879
     }
   ]
 }

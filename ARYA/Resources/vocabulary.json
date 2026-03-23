@@ -36,12 +36,20 @@
     "category": "animals"
   },
   {
+    "word": "blackberry",
+    "category": "food"
+  },
+  {
     "word": "blanket",
     "category": "home"
   },
   {
     "word": "block",
     "category": "toys"
+  },
+  {
+    "word": "blueberry",
+    "category": "food"
   },
   {
     "word": "book",
@@ -128,6 +136,10 @@
     "category": "kitchen"
   },
   {
+    "word": "deer",
+    "category": "animals"
+  },
+  {
     "word": "dog",
     "category": "animals"
   },
@@ -192,12 +204,20 @@
     "category": "animals"
   },
   {
+    "word": "giraffe",
+    "category": "animals"
+  },
+  {
     "word": "glass",
     "category": "kitchen"
   },
   {
     "word": "glasses",
     "category": "clothing"
+  },
+  {
+    "word": "grape",
+    "category": "food"
   },
   {
     "word": "grass",
@@ -228,6 +248,10 @@
     "category": "electronics"
   },
   {
+    "word": "kiwi",
+    "category": "food"
+  },
+  {
     "word": "knife",
     "category": "kitchen"
   },
@@ -244,6 +268,10 @@
     "category": "outdoors"
   },
   {
+    "word": "lemon",
+    "category": "food"
+  },
+  {
     "word": "light",
     "category": "other"
   },
@@ -252,8 +280,16 @@
     "category": "animals"
   },
   {
+    "word": "mango",
+    "category": "food"
+  },
+  {
     "word": "mirror",
     "category": "home"
+  },
+  {
+    "word": "monitor",
+    "category": "electronics"
   },
   {
     "word": "monkey",
@@ -276,6 +312,10 @@
     "category": "kitchen"
   },
   {
+    "word": "panda",
+    "category": "animals"
+  },
+  {
     "word": "pants",
     "category": "clothing"
   },
@@ -292,6 +332,10 @@
     "category": "school"
   },
   {
+    "word": "penguin",
+    "category": "animals"
+  },
+  {
     "word": "phone",
     "category": "electronics"
   },
@@ -306,6 +350,10 @@
   {
     "word": "pillow",
     "category": "home"
+  },
+  {
+    "word": "pineapple",
+    "category": "food"
   },
   {
     "word": "pizza",
@@ -328,6 +376,10 @@
     "category": "other"
   },
   {
+    "word": "raspberry",
+    "category": "food"
+  },
+  {
     "word": "remote",
     "category": "electronics"
   },
@@ -338,6 +390,10 @@
   {
     "word": "scissors",
     "category": "school"
+  },
+  {
+    "word": "sheep",
+    "category": "animals"
   },
   {
     "word": "shelf",
@@ -356,6 +412,10 @@
     "category": "bathroom"
   },
   {
+    "word": "snake",
+    "category": "animals"
+  },
+  {
     "word": "soap",
     "category": "bathroom"
   },
@@ -372,8 +432,16 @@
     "category": "kitchen"
   },
   {
+    "word": "stairs",
+    "category": "home"
+  },
+  {
     "word": "star",
     "category": "other"
+  },
+  {
+    "word": "strawberry",
+    "category": "food"
   },
   {
     "word": "sun",
@@ -388,7 +456,15 @@
     "category": "toys"
   },
   {
+    "word": "tiger",
+    "category": "animals"
+  },
+  {
     "word": "toilet",
+    "category": "bathroom"
+  },
+  {
+    "word": "toilet paper",
     "category": "bathroom"
   },
   {
@@ -420,11 +496,15 @@
     "category": "other"
   },
   {
+    "word": "watermelon",
+    "category": "food"
+  },
+  {
     "word": "window",
     "category": "home"
   },
   {
-    "word": "monitor",
-    "category": "electronics"
+    "word": "zebra",
+    "category": "animals"
   }
 ]

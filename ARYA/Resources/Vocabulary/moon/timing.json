@@ -6,8 +6,8 @@
       "letters": [
         0
       ],
-      "start": 0.0,
-      "end": 0.179
+      "start": 0.05,
+      "end": 0.337
     },
     {
       "phoneme": "UW",
@@ -15,16 +15,16 @@
         1,
         2
       ],
-      "start": 0.179,
-      "end": 0.425
+      "start": 0.337,
+      "end": 0.731
     },
     {
       "phoneme": "N",
       "letters": [
         3
       ],
-      "start": 0.425,
-      "end": 0.603
+      "start": 0.731,
+      "end": 1.018
     }
   ]
 }

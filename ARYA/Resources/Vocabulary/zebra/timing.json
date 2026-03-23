@@ -1,0 +1,45 @@
+{
+  "word": "zebra",
+  "phonemes": [
+    {
+      "phoneme": "Z",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.27
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1
+      ],
+      "start": 0.27,
+      "end": 0.572
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        2
+      ],
+      "start": 0.572,
+      "end": 0.737
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ],
+      "start": 0.737,
+      "end": 0.929
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.929,
+      "end": 1.204
+    }
+  ]
+}

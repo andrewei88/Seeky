@@ -17,7 +17,7 @@ The app is built like a layer cake, and each layer only talks to the ones direct
  Interaction Layer — What happens when they tap (AppState)
  Detection Layer   — What the camera sees (Vision + CoreML)
  Speech Layer      — What the app says (AVAudioPlayer + CADisplayLink)
- Data Layer        — What the app knows (vocabulary, embeddings, timing data)
+ Data Layer        — What the app knows (vocabulary, corrections, timing data)
 ```
 
 Why five layers instead of just writing everything in one ViewController like a cowboy? Because each layer has a fundamentally different job, and keeping them separate means you can change one without breaking the others. The detection layer doesn't know or care about SwiftUI. The speech layer has no idea there's a camera. AppState is the conductor of the orchestra -- it's the only thing that talks to everybody.
@@ -28,17 +28,23 @@ This is a pattern worth internalizing: **when you find yourself writing a class 
 
 ## The UI Layer: Zero Chrome, Maximum Trust
 
-Open `/ARYA/Views/ContentView.swift` and you'll notice something unusual: there's almost nothing there. No navigation bars. No buttons. No menus. The camera IS the interface. This is a deliberate design philosophy called "zero chrome," and it's perfect for a 2-year-old who can't read a menu anyway.
+Open `/ARYA/Views/ContentView.swift` and you'll notice something unusual: there's almost nothing there. No navigation bars. No buttons (almost). No menus. The camera IS the interface. This is a deliberate design philosophy called "zero chrome," and it's perfect for a 2-year-old who can't read a menu anyway.
 
-The entire view hierarchy is a ZStack with three possible layers:
+The entire view hierarchy is a ZStack with these layers:
 
 1. **CameraPreviewView** -- always visible, full screen, wrapping an AVCaptureVideoPreviewLayer
-2. **LearningOverlayView** -- appears when a word is being taught (dims the background, highlights the object, shows the word)
-3. **OnboardingHintView** -- a pulsing tap icon shown exactly once on first launch, then gone forever
-
-When the child taps an object and it's recognized, the `LearningOverlayView` takes over. This is where the magic happens visually. Look at `MaskOverlayView.swift` -- it uses the actual pixel-perfect silhouette mask from Vision framework (not a boring rectangle) to create a "spotlight" effect. Everything outside the object dims to 60% black, and the object itself gets a warm gold glow using CIGaussianBlur on the mask edges. The child literally sees the object "lift" off the screen. It's beautiful.
+2. **TapGlowView** -- a radial glow effect at the tap point, shown during learning or when prompting for correction
+3. **LearningOverlayView** -- appears when a word is being taught (shows the word with letter-by-letter highlighting)
+4. **CorrectionPickerView** -- a scrollable word list that slides up from the bottom, letting a parent correct a wrong label or identify an unrecognized object
+5. **OnboardingHintView** -- a pulsing tap icon shown exactly once on first launch, then gone forever
 
 The `WordDisplayView` renders each letter individually in 80pt SF Rounded Bold with 16pt spacing between letters. Each letter has its own color state (dim white for upcoming, bright gold for currently speaking, softer gold for already spoken), and transitions happen with 0.15s ease-in-out animations. The effect is like a karaoke bouncing ball, but for learning the word "elephant."
+
+### The Parent Correction Flow
+
+When the app gets a word wrong, a parent can tap the pencil icon (bottom-right corner during learning) to bring up the `CorrectionPickerView`. This shows all 127 vocabulary words in a searchable, scrollable list. The parent picks the right word, and two things happen: (1) the app immediately starts teaching the correct word, and (2) it stores the 1024-dimensional feature embedding of that object alongside the correct label in `CorrectionStore`. Next time the child taps something that looks similar, the correction kicks in before the models even have a say.
+
+This also works for objects the model doesn't recognize at all. When the consensus gate rejects a classification but the custom classifier still produced a feature embedding, the app shows the glow and the correction picker automatically -- inviting the parent to label the unknown object. The child sees a glow (something happened!), and the parent gets a chance to teach both the child and the model.
 
 ---
 
@@ -56,25 +62,30 @@ But here's the thing -- the child never sees any of this. There are no outlines,
 
 ### Subsystem B: On-Tap Classification (The Brain)
 
-Classification is the expensive part, so it only runs when the child actually taps something. This is a key architectural decision: **don't waste compute on things the user didn't ask about.** The child tapped ONE object. Classify that ONE object. Save all your GPU budget for getting that one right.
+Classification is the expensive part, so it only runs when the child actually taps something. This is a key architectural decision: **don't waste compute on things the user didn't ask about.** The child tapped ONE object. Classify that ONE object.
 
-When a tap lands on a stable instance, `ClassificationEngine.swift` crops just that object from the full-resolution frame and runs TWO classifiers in parallel using Swift's `async let`:
+When a tap lands, `AppState` crops a region centered on the tap point (25% of the shorter buffer dimension) and sends it to `ClassificationEngine.classify()`, which runs TWO classifiers in parallel using Swift's `async let`:
 
-1. **Apple's VNClassifyImageRequest** -- built into iOS, knows 1,303 categories. Very accurate but very specific. It'll say "golden retriever" when a kid just needs to hear "dog."
+1. **Apple's VNClassifyImageRequest** -- built into iOS, knows 1,303 categories. Very accurate but very specific. It'll say "golden retriever" when a kid just needs to hear "dog." Also has blind spots: screens, monitors, and similar objects often get unhelpful labels like "document" or "screenshot."
 
-2. **MobileCLIP S0** (Apple's 22MB CoreML model) -- compares the cropped image against pre-computed text embeddings for all 107 child vocabulary words. It thinks in terms of "how much does this image look like 'a photo of a dog'?"
+2. **ARYAClassifier** (Custom MobileNetV3-Small, 3.2MB CoreML model) -- trained on our own curated dataset of 127 child-vocabulary classes. Takes a 224x224 RGB image and outputs two things: a softmax probability distribution over all 127 classes, and a 1024-dimensional feature vector. The feature vector is the model's internal representation of the image -- think of it as a fingerprint that captures what the object "looks like" in a way that's useful for finding similar objects later.
 
-These two models see the world differently. VNClassify is a taxonomist -- precise, specific, sometimes pedantic ("golden retriever" when the kid needs "dog"). MobileCLIP is more like a vibes-based thinker -- it gets the gist. VNClassify also has blind spots where it returns unhelpful labels like "document" or "screenshot" for screens, returning nothing useful. In those cases, CLIP steps in as the sole classifier. When both models have opinions, CLIP is trusted as the primary signal because it classifies directly against our vocabulary rather than through a 1,303-category intermediary.
+We started with Apple's MobileCLIP S0 (a 22MB zero-shot CLIP model) as the second classifier. It worked, but had a fundamental limitation: it compared images against text descriptions ("a photo of a dog") rather than learning what each object actually looks like from training data. The custom MobileNetV3-Small replaced it because: (a) it's trained specifically on our 127 vocabulary words with curated images, (b) it's 7x smaller (3.2MB vs 22MB), (c) it produces a feature embedding we can use for the correction system, and (d) its softmax probabilities are easier to threshold than cosine similarities. The CLIP approach was a good stepping stone -- it let us ship something while we built the training pipeline -- but a purpose-trained model is always going to beat a general-purpose one on a specific task.
 
 ### The Consensus Gate: Trust, But Verify
 
-`ConsensusGate.swift` is the bouncer at the door. It uses a CLIP-primary strategy:
+`ConsensusGate.swift` is the bouncer at the door. It uses probability-based thresholds to decide when to trust which model:
 
 - VNClassify's raw label (like "golden retriever") gets mapped to a child word (like "dog") through `LabelMapper`. Confidence is **aggregated** across all VN labels that map to the same word (so `cup` + `mug` both contribute to the "cup" score).
-- If both models agree, accept with a lower bar (CLIP similarity ≥ 0.20)
-- If they disagree, trust CLIP if its similarity meets threshold and has sufficient margin over the second choice
-- If VN has NO mapped word (common when it returns "document" or "screenshot" for screens), CLIP classifies solo
-- If neither model is confident enough, the tap is silently rejected
+- **Custom very high confidence (>0.90)**: Accept the custom classifier's word outright. If the model trained on our data is 90%+ sure, trust it.
+- **Custom medium confidence (0.40-0.90), models agree**: Accept. Both brains think it's the same thing.
+- **Custom medium confidence (0.40-0.90), models disagree, VN strong (>0.45)**: Trust VN. Apple's model is a strong second opinion.
+- **Custom medium confidence with strong margin, VN weak**: Trust custom. If custom says "dog" at 0.55 and the second choice is at 0.15 (margin 3.7x), and VN is unsure, the custom model is probably right.
+- **Custom low confidence (<0.10)**: Fall back to VN alone, but only if VN is reasonably confident with margin.
+- **Custom-only path** (VN has no mapped word): Accept custom if confidence > 0.45. This handles cases where VN returns useless labels like "document."
+- **Neither model confident**: Reject silently. But if the custom classifier produced a feature embedding, pass it back so the parent can correct via CorrectionPickerView.
+
+Before any of this runs, `CorrectionStore` gets first crack. If the image's feature embedding is >0.85 cosine similar to a stored correction, that correction's word wins immediately, bypassing both models. This is how parent corrections stick.
 
 The thresholds are deliberately conservative. **It is better to miss 20 real objects than to tell a 2-year-old that a cat is a dog.** This is a fundamental design philosophy that should guide every children's app: when in doubt, do nothing. Kids don't get frustrated by silence. They just tap something else. But a wrong label could teach them an incorrect word they'll repeat for months.
 
@@ -100,6 +111,8 @@ Why does this matter? Timers drift. If you set a timer for "highlight the letter
 
 This is a principle worth remembering: **whenever you need two things in sync, derive them both from a single source of truth.** Don't have two independent clocks.
 
+The playback rate is set to 0.85x on top of ElevenLabs' 0.7x generation speed, making pronunciation slow and clear enough for toddlers to hear each phoneme distinctly. `AVAudioPlayer.enableRate` must be set to `true` before setting the rate -- a detail that's easy to miss.
+
 ### LetterHighlighter: The Choreographer
 
 `LetterHighlighter.swift` takes the current audio time and the word's timing data and produces a `[LetterState]` array -- one state per character. The timing data knows things like "the 'ph' in 'elephant' highlights together because they make one sound." This naturally teaches phonics without the app even trying.
@@ -124,24 +137,43 @@ At time 0.90 seconds, the highlighter would return: `[.spoken, .spoken, .spoken,
 
 ### Vocabulary
 
-107 words, all concrete physical nouns a 2-4 year old encounters in daily life. Categories include animals, food, home items, kitchen items, outdoor things, clothing, and more. Every word was chosen to be: pronounceable by a toddler, generic (never "Tesla" -- always "car"), and physically present in typical daily life.
+127 words, all concrete physical nouns a 2-4 year old encounters in daily life. Categories include animals (bear, cat, deer, dog, giraffe, panda, penguin, sheep, snake, tiger, zebra...), food (apple, banana, grape, kiwi, mango, pineapple, strawberry, watermelon...), home items (bathtub, bed, chair, lamp, stairs, toilet paper...), kitchen items (bowl, cup, fork, plate...), outdoor things (ball, bicycle, car, flower, tree...), clothing (hat, shirt, shoe...), and more. Every word was chosen to be: pronounceable by a toddler, generic (never "Tesla" -- always "car"), and physically present in typical daily life.
 
-### CLIPEmbeddings: Pre-Computed Cleverness
+### CorrectionStore: Learning from Mistakes
 
-`CLIPEmbeddings.swift` is where a neat optimization lives. MobileCLIP has two halves: a text encoder and an image encoder. At build time, every vocabulary word is run through the text encoder as "a photo of a {word}" and the resulting 512-dimensional embedding vectors are saved as a binary file (`text_embeddings.bin`, 214KB). At runtime, only the image encoder runs (22MB CoreML model, 1.5ms on Neural Engine). Comparing an image to 107 words is then just cosine similarity using Apple's Accelerate framework (vDSP). This is dramatically faster than running both encoders at runtime.
+`CorrectionStore.swift` is one of the cleverest parts of the system. When a parent corrects a misidentification, the store saves the 1024-dimensional feature embedding (from the custom classifier's penultimate layer) alongside the correct word. These corrections persist to disk as JSON in the app's documents directory.
 
-The image encoder expects 256x256 RGB input, so `CLIPEmbeddings` resizes the crop via CIImage before inference. The output embedding is L2-normalized before comparison. The cosine similarity computation uses `vDSP_dotpr` for the dot product and norms -- hardware-accelerated vector math that runs on the CPU's SIMD units. For 107 words with 512-dimensional embeddings, this comparison takes microseconds.
+On the next tap, before the consensus gate even runs, the store compares the new image's embedding against all stored corrections using cosine similarity. If any correction matches above 0.85 threshold, that word wins immediately. The embedding comparison uses the `cosineSimilarity` function from `ImageUtils.swift`, which computes the dot product of two L2-normalized vectors.
+
+This is a form of few-shot learning -- the parent provides one example ("this is a panda"), and the 1024-dim feature space is rich enough that similar-looking objects will match in the future. The 0.85 threshold is high enough to avoid false matches but low enough that the same object from a slightly different angle still hits.
+
+One important gotcha: if you retrain the custom classifier and the embedding dimensions change (or the feature space shifts significantly), existing corrections become invalid. The user needs to clear their corrections after a model update.
 
 ### Build-Time Audio Pipeline
 
 This is the part that lives outside the app, in the `scripts/` directory. The pipeline goes:
 
-1. **ElevenLabs API** generates voice recordings for each word at 0.7x speed (warm, friendly, slow enough for toddlers)
-2. **Montreal Forced Aligner** (MFA v3.3.9+) analyzes each audio file and identifies exactly when each phoneme starts and ends, with sub-20ms accuracy
-3. A Python script converts MFA's TextGrid output into the `timing.json` format the app expects
-4. Hand-verified phoneme-to-letter mappings (from CMU Pronouncing Dictionary) ensure things like "ph" → one sound are correct
+1. **ElevenLabs API** generates voice recordings for each word at 0.7x speed (warm, friendly, slow enough for toddlers). Voice: Jessica (`cgSgspJ2msm6clMCkdW9`) -- "Playful, Bright, Warm."
+2. **`build_timing_from_audio.py`** generates timing data by proportionally mapping phoneme durations to the actual audio length, using weighted phoneme profiles (vowels get more time than stops).
+3. Hand-verified phoneme-to-letter mappings (from CMU Pronouncing Dictionary) in `phoneme_to_letter_mappings.json` ensure things like "ph" -> one sound are correct.
 
-All 107 words have pre-generated audio and timing data bundled into the app. The app is fully offline -- no internet needed, ever.
+All 127 words have pre-generated audio and timing data bundled into the app. The app is fully offline -- no internet needed, ever.
+
+Note: Montreal Forced Aligner (MFA) can produce sub-20ms phoneme boundaries from real audio analysis, but it requires a conda environment and isn't currently installed. The proportional timing approach works well enough for the current vocabulary. If you need higher accuracy, install MFA and run `scripts/align_audio.py` followed by `scripts/build_timing_data.py`.
+
+### The Training Pipeline
+
+The custom classifier doesn't train itself. There's a four-stage pipeline in `scripts/`:
+
+1. **`collect_training_data.py`** -- Downloads training images from Open Images V7 and COCO via the `fiftyone` library. Each vocabulary word maps to one or more dataset classes (e.g., "deer" pulls from Open Images' "Deer" class; "bag" pulls from "Handbag"). Images are cropped to object bounding boxes and saved as JPGs. Some words (cloud, star, rock, berry varieties) need manual image collection because they aren't well-represented in standard datasets.
+
+2. **`curate_training_data.py`** -- Quality control. Removes duplicates, filters out images that are too small or too blurry, and ensures each class has enough samples. This step matters more than you'd think -- noisy training data is the #1 cause of confused classifiers.
+
+3. **`train_classifier.py`** -- Fine-tunes MobileNetV3-Small (pretrained on ImageNet) using PyTorch. The final layer is replaced with a 127-class head. Training produces both softmax probabilities and a 1024-dim feature vector from the penultimate layer. Class names use spaces (not underscores) to match `vocabulary.json` -- PyTorch's `ImageFolder` uses directory names as classes, and `train_classifier.py` explicitly replaces underscores with spaces during loading.
+
+4. **`convert_to_coreml.py`** -- Converts the PyTorch model to CoreML `.mlpackage` format using `coremltools`. The model is quantized to INT8 for smaller size and faster Neural Engine inference. The output is `ARYAClassifier.mlpackage`, which Xcode compiles to `.mlmodelc` at build time.
+
+There's also `verify_classifier.py` for spot-checking the converted model against known test images.
 
 ---
 
@@ -152,13 +184,18 @@ All 107 words have pre-generated audio and timing data bundled into the app. The
 - `CameraManager` -- delivers frames
 - `SegmentationEngine` -- finds objects in frames
 - `InstanceTracker` -- stabilizes detections
-- `ClassificationEngine` -- identifies tapped objects (which itself owns `LabelMapper`, `CLIPEmbeddings`, and `ConsensusGate`)
+- `ClassificationEngine` -- identifies tapped objects (which owns `CustomClassifier`, `LabelMapper`, `ConsensusGate`, and `CorrectionStore`)
 - `WordSpeaker` -- plays audio
 - `VocabularyStore` -- knows all the words
 
-The state machine is dead simple: `exploring` → `classifying` → `learning` → back to `exploring`. If classification fails at any point, it silently returns to `exploring`. No error dialogs. No "sorry, we couldn't identify that." Just... nothing happens. The child taps something else.
+The state machine has three modes: `exploring` -> `classifying` -> `learning(word, instanceIndex)` -> back to `exploring`. If classification fails at any point, it silently returns to `exploring`. No error dialogs. No "sorry, we couldn't identify that." The only exception: if classification fails but produced a feature embedding, the app shows the correction picker so a parent can label the object.
 
-The `handleTap` method is worth studying. It checks the mode, performs a haptic, sets mode to `.classifying`, crops the pixel buffer, runs dual classification through async/await, and either transitions to `.learning` or silently returns to `.exploring`. The entire flow is clean and linear despite being asynchronous.
+The `handleTap` method is worth studying. It checks the mode, fires a haptic, sets mode to `.classifying`, crops the pixel buffer around the tap point, runs dual classification through async/await, and then branches:
+- If a word was identified: transition to `.learning(word:instanceIndex:)`.
+- If no word but features exist: show `CorrectionPickerView` for parent labeling.
+- If nothing useful came back: silently return to `.exploring`.
+
+A `showGlow` computed property controls when the `TapGlowView` appears -- during learning mode OR when the correction picker is showing. This avoids duplicating the glow logic across multiple conditions.
 
 ---
 
@@ -168,19 +205,31 @@ The `handleTap` method is worth studying. It checks the mode, performs a haptic,
 |---|---|
 | **SwiftUI** | The overlay animations (per-letter color transitions, opacity fades) are trivially declarative. UIKit would require significantly more animation management code. |
 | **Vision Framework** | `VNGenerateForegroundInstanceMaskRequest` gives pixel-perfect object silhouettes for free (no ML model needed). `VNClassifyImageRequest` provides 1,303-category classification built into iOS. No downloads, no API keys. |
-| **CoreML + MobileCLIP S0** | Apple's own lightweight CLIP model for on-device zero-shot classification. 22MB image encoder, 1.5ms inference on iPhone 12+ Neural Engine. Text encoder runs at build time to pre-compute 107 word embeddings (214KB); only the image encoder ships in the app. Downloaded from Apple's official HuggingFace repo (`apple/coreml-mobileclip`). |
+| **CoreML + MobileNetV3-Small** | Custom-trained 3.2MB classifier with 127 classes. Outputs softmax probabilities (for thresholding) and 1024-dim feature vectors (for CorrectionStore). Runs on Neural Engine. INT8 quantized for speed and size. |
 | **AVFoundation** | The only real option for camera access on iOS. We need raw pixel buffers (not just a viewfinder) so we can run Vision requests on them. |
-| **AVAudioPlayer + CADisplayLink** | `AVAudioPlayer.currentTime` gives ground-truth playback position. `CADisplayLink` fires at display refresh rate (~60fps). Together they provide frame-accurate audio-visual sync without timer drift. |
+| **AVAudioPlayer + CADisplayLink** | `AVAudioPlayer.currentTime` gives ground-truth playback position. `CADisplayLink` fires at display refresh rate (~60fps). Together they provide frame-accurate audio-visual sync without timer drift. `enableRate` allows playback speed control for clearer pronunciation. |
 | **XcodeGen** | The `project.yml` file is 40 lines. The generated `.xcodeproj` is thousands of lines of XML. Version-controlling a YAML file instead of an Xcode project file prevents merge conflicts and makes the project definition human-readable. |
-| **Accelerate (vDSP)** | Hardware-accelerated vector math for cosine similarity. When you're comparing a 512-dimensional vector against 120 others, you want SIMD, not a for-loop. |
-| **ElevenLabs** | Natural-sounding TTS with speed control. The free tier (10,000 chars/month) covers the whole vocabulary (~720 chars) many times over for development. |
-| **Montreal Forced Aligner** | Sub-20ms phoneme boundary accuracy. This is what makes the letter highlighting feel magical instead of janky. |
+| **PyTorch + coremltools** | Training pipeline: fine-tune MobileNetV3-Small on curated data, convert to CoreML with INT8 quantization. The PyTorch ecosystem has the best training tooling; CoreML has the best on-device inference on Apple hardware. Use each where it's strongest. |
+| **fiftyone** | Open-source dataset library that provides easy access to Open Images V7 and COCO. One API call to download images with bounding boxes, filter by class, and crop to objects. Saved weeks of manual data collection. |
+| **ElevenLabs** | Natural-sounding TTS with speed control. Voice "Jessica" at 0.7x speed produces warm, clear pronunciation. The free tier (10,000 chars/month) covers the whole vocabulary. |
 
 ---
 
 ## Bugs We Hit and How We Fixed Them
 
-### 1. The WordSpeaker NSObject Saga
+### 1. The Model Confidence Trap
+
+Early in device testing, the custom classifier reported "cat" at 0.923 confidence for what was clearly a panda stuffed animal. The gut reaction was "well, the model is very confident, so it must be right." Wrong. The panda class didn't exist yet in the 107-word vocabulary -- the model had no choice but to pick the closest thing it knew, and it picked "cat" with high confidence because that was the best match in its limited world.
+
+This is the single most important lesson from the project: **high model confidence does not mean correctness.** A model can only choose from the classes it was trained on. If the right answer isn't in the class list, the model will confidently pick the wrong one. Always validate against ground truth. The fix was adding "panda" (and 19 other classes) to the vocabulary and retraining.
+
+### 2. The MobileCLIP to Custom Classifier Migration
+
+We initially used Apple's MobileCLIP S0 for zero-shot classification. It worked by comparing image embeddings against pre-computed text embeddings ("a photo of a dog") using cosine similarity. The approach had three problems: (a) the 22MB model was large, (b) cosine similarity thresholds were hard to tune because the similarity values are less interpretable than softmax probabilities, and (c) it confused similar-looking things that have different names (monitors vs TVs, cups vs mugs) because it was matching against text descriptions rather than learning visual features from labeled examples.
+
+The custom MobileNetV3-Small solved all three: 3.2MB, clean softmax probabilities, and trained on curated images of the actual objects kids encounter. The migration required removing three dead files (`CLIPEmbeddings.swift`, `MobileCLIPImageEncoder.mlpackage`, `text_embeddings.bin`) and rewiring `ClassificationEngine` to use `CustomClassifier` instead.
+
+### 3. The WordSpeaker NSObject Saga
 
 `WordSpeaker` needs to be an `AVAudioPlayerDelegate` to know when audio finishes playing. `AVAudioPlayerDelegate` is an Objective-C protocol, which means the conforming class must inherit from `NSObject`. But we also needed it to be an `ObservableObject` to publish `currentTime` to SwiftUI.
 
@@ -188,9 +237,9 @@ The fix: `final class WordSpeaker: NSObject, ObservableObject`. This works becau
 
 **Lesson:** When bridging Swift and Objective-C patterns (which happens a lot with AVFoundation and UIKit), you'll frequently need NSObject as a base class. Know when and why.
 
-### 2. The Vocabulary Folder Reference Collision
+### 4. The Vocabulary Folder Reference Collision
 
-Here's a sneaky one. XcodeGen was trying to compile the `Vocabulary/` folder contents as Swift source files. Audio files and JSON files being fed to the Swift compiler. Naturally, it exploded.
+XcodeGen was trying to compile the `Vocabulary/` folder contents as Swift source files. Audio files and JSON files being fed to the Swift compiler. Naturally, it exploded.
 
 The fix is in `project.yml`:
 
@@ -206,15 +255,21 @@ sources:
 
 You have to EXCLUDE the Vocabulary directory from the main source path, then re-add it explicitly as a folder reference with `type: folder` and `buildPhase: resources`. If you just mark it as a folder without excluding it first, XcodeGen sees it twice and complains. If you exclude it without re-adding it, the audio files don't get bundled.
 
-**Lesson:** XcodeGen's `type: folder` creates a folder reference (blue folder in Xcode) instead of a group (yellow folder). Folder references include ALL contents at build time without listing each file individually. This is essential when you have 103 subdirectories each containing audio and JSON files -- you don't want to enumerate them all in your project config.
+**Lesson:** XcodeGen's `type: folder` creates a folder reference (blue folder in Xcode) instead of a group (yellow folder). Folder references include ALL contents at build time without listing each file individually. This is essential when you have 127 subdirectories each containing audio and JSON files.
 
-### 3. ElevenLabs Free Tier Limitations
+### 5. The Glow Position Offset Bug
 
-The free tier generates great audio for development, but doesn't include commercial usage rights. If you ship to the App Store, you technically need the Starter plan ($5/month). The clever workaround: subscribe for one month, regenerate all 103 audio files with the commercial license, cancel the subscription. Total cost: $5. All audio lives in the app bundle forever.
+The `TapGlowView` appeared 59 points above where the user actually tapped. The cause: `ContentView` uses `.ignoresSafeArea()`, but the glow view's coordinate system still accounted for the 59pt status bar. When two views overlay each other and one ignores safe area while the other doesn't, their coordinate origins diverge silently.
 
-**Lesson:** Always check the licensing terms of third-party services BEFORE building your pipeline around them. We got lucky that ElevenLabs' paid tier is cheap and you can generate everything in one batch. Some services require ongoing subscriptions for any commercial use of previously generated content.
+**Lesson:** When multiple views overlay each other in a ZStack, confirm they share the same coordinate space. Safe area insets are the #1 cause of "everything is offset by a mysterious fixed amount" bugs on iOS.
 
-### 4. CameraManager Delegate Threading
+### 6. MLMultiArray Float16 on ANE
+
+The custom classifier runs on the Apple Neural Engine, which outputs MLMultiArray values in Float16 format. The naive approach -- `dataPointer.bindMemory(to: Float.self)` -- reads garbage because it interprets 2-byte Float16 as 4-byte Float32. The correct approach: use subscript access (`array[i].floatValue`), which handles the type conversion automatically.
+
+**Lesson:** Never assume the numeric type of MLMultiArray data. Check `dataType` at runtime and use subscript access unless you've explicitly verified the type.
+
+### 7. CameraManager Delegate Threading
 
 `CameraManager` delivers frames on its `outputQueue` (a background DispatchQueue), but `AppState` needs to update `@Published` properties on the main thread. The solution is the `nonisolated` keyword on the delegate method in AppState, which allows it to be called from any thread, combined with `Task { @MainActor in ... }` to bounce the state updates back to the main actor.
 
@@ -231,19 +286,25 @@ extension AppState: CameraManagerDelegate {
 
 **Lesson:** In Swift concurrency, be deliberate about what runs where. Heavy work (segmentation) should happen off the main thread. State updates (`@Published` properties) must happen on the main thread. The `nonisolated` keyword and `@MainActor` give you fine-grained control.
 
+### 8. SwiftUI Pattern Matching in View Builders
+
+Tried to write `if case .learning = mode || showingCorrectionPicker` to show the glow in two different states. Swift's pattern matching syntax can't be combined with `||` inside SwiftUI view builders. The compiler error is unhelpful.
+
+The fix: extract the condition into a computed property (`showGlow`) on AppState. Clean, readable, and avoids fighting the view builder DSL.
+
 ---
 
 ## Best Practices and How Good Engineers Think
 
 ### 1. "No Error States" Philosophy
 
-This app has zero error dialogs. Zero loading spinners. Zero "something went wrong" messages. If classification fails, nothing happens. If the camera can't start, the screen is just black. If audio files are missing, the word appears without sound.
+This app has zero error dialogs. Zero loading spinners. Zero "something went wrong" messages. If classification fails, nothing happens (or the correction picker appears for a parent to help). If the camera can't start, the screen is just black. If audio files are missing, the word appears without sound.
 
 This isn't laziness -- it's intentional design for a 2-year-old user. A toddler doesn't understand "classification confidence below threshold." They just tap something else. Every possible failure mode silently degrades to a reasonable state. This is called **graceful degradation** and it's especially important in apps for users who can't read error messages.
 
 ### 2. Conservative Thresholds for Children
 
-The thresholds (CLIP similarity >= 0.20 with margin >= 1.05x; VN-only fallback at 0.03 confidence) are calibrated to reject ambiguous results while still recognizing most common objects. We'd rather miss some valid objects than mislabel a single one. In an adult app, you might show a "did you mean...?" prompt. A 2-year-old can't evaluate whether a suggestion is correct. Whatever the app says, they'll believe it.
+The ConsensusGate thresholds (customHighConfidence=0.90, customMediumConfidence=0.40, customLowConfidence=0.10, customOnlyConfidence=0.45, vnTrustThreshold=0.45) are calibrated to reject ambiguous results while still recognizing most common objects. We'd rather miss some valid objects than mislabel a single one. In an adult app, you might show a "did you mean...?" prompt. A 2-year-old can't evaluate whether a suggestion is correct. Whatever the app says, they'll believe it.
 
 This is a broader principle: **your error tolerance should match your user's ability to detect and recover from errors.** Programmers can handle error messages. Adults can evaluate suggestions. Toddlers cannot.
 
@@ -270,37 +331,45 @@ The letter-highlighting system reads audio position from `AVAudioPlayer.currentT
 
 Instead of relying on Vision's instance IDs across frames (which aren't guaranteed stable), InstanceTracker uses Intersection over Union to match objects between frames. Two bounding boxes with IoU > 0.3 are considered the same object. This is robust to small movements and size changes, which happen constantly when a toddler holds a phone.
 
+### 7. Train on Your Actual Domain
+
+The biggest accuracy improvement didn't come from tuning thresholds or swapping model architectures. It came from training a classifier specifically on images of the objects kids encounter (household items, common animals, everyday food) rather than relying on a general-purpose model that knows 1,303 categories or a CLIP model matching text descriptions. A 3.2MB purpose-trained model outperforms a 22MB general-purpose one for this specific task. Match your model to your problem.
+
 ---
 
 ## Potential Pitfalls (And How to Avoid Them)
 
 ### Simulator Won't Work
 
-`VNGenerateForegroundInstanceMaskRequest` requires a physical device running iOS 17+. If you try to run on the simulator, segmentation silently returns empty results. There's no crash, no error -- just no objects detected. This can be very confusing if you don't know about it. Always test on a real device.
+`VNGenerateForegroundInstanceMaskRequest` requires a physical device running iOS 17+. If you try to run on the simulator, segmentation silently returns empty results. There's no crash, no error -- just no objects detected. Always test on a real device.
 
-### CoreML Model Compatibility
+### Class Naming Must Match Everywhere
 
-MobileCLIP's CoreML model needs to match the input dimensions and output feature names your code expects. The S0 model takes 256x256 RGB images as `"image"` input and returns 512-dim embeddings as `"final_emb_1"` output. If you swap in a different CLIP variant (S1, S2, B), you'll need to verify these names match. A model mismatch will return nil from prediction silently. The `CLIPEmbeddings.resizePixelBuffer` helper handles resizing the crop to 256x256 automatically.
+The vocabulary word list (`vocabulary.json`), the class list (`arya_classes.json`), the training data directories, and the label mappings (`label_mappings.json`) all must use the same names. A mismatch anywhere in the chain causes silent failures: the model outputs a class name that doesn't match the vocabulary, so the word is never shown. PyTorch's `ImageFolder` uses directory names as class labels; `train_classifier.py` replaces underscores with spaces to match. If you add a new word, update all four files.
+
+### Embedding Dimension Changes Invalidate Corrections
+
+`CorrectionStore` saves 1024-dim feature vectors from the custom classifier. If you retrain the model and the feature dimensions change (or even if the feature space shifts significantly due to different training data), existing corrections become meaningless -- the cosine similarity comparisons will produce garbage. Warn users to clear their corrections after a model update.
 
 ### Memory Pressure from CVPixelBuffers
 
-`CVPixelBuffer` objects from the camera can be large (1920x1080 BGRA = ~8MB each). The frame-skipping and `alwaysDiscardsLateVideoFrames = true` help, but be careful about retaining pixel buffers longer than necessary. The segmentation result stores a reference to the pixel buffer for mask generation, so it stays alive as long as `latestSegmentation` is set. If you ever add code that keeps old segmentation results around, you could accumulate significant memory pressure.
+`CVPixelBuffer` objects from the camera can be large (1920x1080 BGRA = ~8MB each). The frame-skipping and `alwaysDiscardsLateVideoFrames = true` help, but be careful about retaining pixel buffers longer than necessary. The segmentation result stores a reference to the pixel buffer for mask generation, so it stays alive as long as `liveSegmentation` is set.
 
 ### Audio Session Configuration
 
-`WordSpeaker` sets the audio session category to `.playback` before each play. If you don't do this, the audio might play at reduced volume or not at all when the phone is in silent mode. The `.playback` category means "this audio is the primary purpose of the app" -- which is true, since you're teaching a child a word.
+`WordSpeaker` sets the audio session category to `.playback` with `.mixWithOthers` before each play. `.playback` means audio plays even when the phone is in silent mode -- which is correct, since teaching a word IS the primary purpose. `.mixWithOthers` prevents the audio from interrupting the camera capture session. Using `.ambient` instead would cause audio to be silenced by the ringer switch, which is wrong for this app.
 
 ### CIContext Reuse
 
-`MaskUIView` creates a single `CIContext` and reuses it for all mask rendering. Creating a new `CIContext` for every frame would be extremely expensive. If you ever refactor the mask rendering, make sure the context is created once and reused. This is a common Core Image performance trap.
+`ImageUtils.swift` provides a shared `CIContext` (`sharedCIContext`) for all Core Image work. Creating a new `CIContext` for every operation is extremely expensive (GPU resource allocation, shader pipeline caching). If you add new image processing code, use the shared context.
 
 ### Timing Data Must Match Audio
 
-If you regenerate audio files without regenerating timing data (or vice versa), the letter highlights will be out of sync. The build pipeline generates both together, but if you manually replace an audio file, remember to re-run MFA alignment and rebuild the timing JSON.
+If you regenerate audio files without regenerating timing data (or vice versa), the letter highlights will be out of sync. The `scripts/generate_audio.py` and `scripts/build_timing_from_audio.py` should be run together for any changed words.
 
 ### The "Phase Problem" in Phoneme Mapping
 
-Some English words have ambiguous phoneme-to-letter mappings. Consider "knight" -- is the "n" sound mapped to the letter "k" (which is silent) or "n"? The CMU Pronouncing Dictionary handles pronunciation, but the *mapping back to letters* requires manual verification. All 107 words have been hand-verified, but if you add new words, expect to spend a few minutes per word checking these mappings.
+Some English words have ambiguous phoneme-to-letter mappings. Consider "knight" -- is the "n" sound mapped to the letter "k" (which is silent) or "n"? The CMU Pronouncing Dictionary handles pronunciation, but the *mapping back to letters* requires manual verification. All 127 words have been hand-verified in `phoneme_to_letter_mappings.json`, but if you add new words, expect to spend a few minutes per word checking these mappings.
 
 ---
 
@@ -311,21 +380,21 @@ Let's trace what happens when a 3-year-old named Arya taps a dog on screen:
 1. `CameraManager` is delivering 30fps frames. Every 3rd frame goes to `AppState` via the delegate.
 2. `SegmentationEngine.segment()` runs VNGenerateForegroundInstanceMaskRequest and finds 3 objects in the frame (a dog, a couch, a lamp).
 3. `InstanceTracker.update()` matches these to previously tracked instances via IoU. The dog has been stable for 2.1 seconds -- well past the 0.5s threshold. It's tappable.
-4. Arya's finger lands on the screen. `ContentView` normalizes the tap coordinates (0-1 range) and calls `AppState.handleTap()`.
-5. `InstanceTracker.instance(at:)` checks which tracked instance's bounding box contains the tap point. It's the dog.
-6. A light haptic fires. Mode changes to `.classifying`.
-7. `AppState.cropPixelBuffer()` extracts just the dog's bounding box region from the full-resolution frame.
-8. `ClassificationEngine.classify()` fires both models in parallel:
-   - VNClassify returns "golden retriever" at 0.91 confidence (2nd place: "Labrador" at 0.04)
-   - MobileCLIP returns "dog" at 0.89 similarity (2nd place: "cat" at 0.31)
-9. `LabelMapper` maps "golden retriever" to "dog".
-10. `ConsensusGate` checks: both agree on "dog" -- accept. CLIP 0.89 >= 0.20 threshold -- pass.
-11. Mode changes to `.learning(word: "dog", instanceIndex: 2)`.
-12. `LearningOverlayView` appears. `MaskOverlayView` generates the dog's silhouette mask, dims everything else, adds gold glow.
-13. `WordDisplayView` shows "d o g" in 80pt SF Rounded Bold, initially dim white.
-14. `WordSpeaker.speak(word: "dog")` loads `Vocabulary/dog/audio.m4a` and starts playing.
+4. Arya's finger lands on the screen. `ContentView` converts the screen point to image coordinates via `CameraManager.imagePoint(fromScreenPoint:)` and calls `AppState.handleTap()`.
+5. A light haptic fires. Mode changes to `.classifying`.
+6. `AppState` computes a tap-centered crop rect (25% of shorter dimension) and crops the pixel buffer.
+7. `ClassificationEngine.classify()` first checks `CorrectionStore` -- no match. Then fires both models in parallel:
+   - VNClassify returns "golden retriever" at 0.91 confidence
+   - Custom classifier returns "dog" at 0.87 probability (second: "cat" at 0.03), plus a 1024-dim feature vector
+8. `LabelMapper` maps "golden retriever" to "dog".
+9. `ConsensusGate.evaluate()` checks: custom at 0.87 (medium range), VN agrees on "dog" -- accept.
+10. `ClassificationResult(word: "dog", features: [...])` is returned. `lastFeatures` is saved for potential correction.
+11. Mode changes to `.learning(word: "dog", instanceIndex: 0)`.
+12. `TapGlowView` appears at the tap point.
+13. `LearningOverlayView` shows "d o g" in 80pt SF Rounded Bold, initially dim white.
+14. `WordSpeaker.speak(word: "dog")` loads `Vocabulary/dog/audio.m4a`, sets rate to 0.85x, and starts playing.
 15. `CADisplayLink` fires 60 times per second. Each tick, `WordSpeaker.currentTime` updates.
-16. `LetterHighlighter.letterStates(at:)` maps the current time to phoneme boundaries from `timing.json` and returns `[.active, .upcoming, .upcoming]` → `[.spoken, .active, .upcoming]` → `[.spoken, .spoken, .active]` as each sound plays.
+16. `LetterHighlighter.letterStates(at:)` maps the current time to phoneme boundaries from `timing.json` and returns `[.active, .upcoming, .upcoming]` -> `[.spoken, .active, .upcoming]` -> `[.spoken, .spoken, .active]` as each sound plays.
 17. `WordDisplayView` animates each letter's color transition with 0.15s ease-in-out.
 18. Audio finishes. All letters glow gold for 0.5 seconds.
 19. Arya taps the screen. `AppState.dismissLearning()` stops audio and returns to `.exploring`.
@@ -339,46 +408,56 @@ That's the whole app. One flow. Done right.
 
 ```
 ARYA/
-├── project.yml                  ← XcodeGen config (THE source of truth for project structure)
+├── project.yml                  <- XcodeGen config (THE source of truth for project structure)
 ├── ARYA/
 │   ├── App/
-│   │   ├── ARYAApp.swift        ← Entry point, camera permission
-│   │   └── AppState.swift       ← The conductor: owns all engines, manages state machine
+│   │   ├── ARYAApp.swift        <- Entry point, camera permission
+│   │   └── AppState.swift       <- The conductor: owns all engines, manages state machine
 │   ├── Data/
-│   │   ├── VocabularyStore.swift ← Loads vocabulary.json
-│   │   ├── LabelMapper.swift    ← VNClassify label → child word whitelist
-│   │   ├── TimingData.swift     ← Codable model for phoneme timing
-│   │   └── CLIPEmbeddings.swift ← Loads text embeddings, runs image encoder, cosine similarity
+│   │   ├── VocabularyStore.swift <- Loads vocabulary.json
+│   │   ├── LabelMapper.swift    <- VNClassify label -> child word whitelist
+│   │   ├── TimingData.swift     <- Codable model for phoneme timing
+│   │   ├── CorrectionStore.swift <- Stores parent corrections (embedding + word pairs)
+│   │   └── ImageUtils.swift     <- Shared CIContext, cosineSimilarity, pixel buffer helpers
 │   ├── Detection/
-│   │   ├── CameraManager.swift        ← AVCaptureSession, frame delivery, frame skipping
-│   │   ├── SegmentationEngine.swift   ← VNGenerateForegroundInstanceMaskRequest
-│   │   ├── InstanceTracker.swift      ← IoU-based tracking, 0.5s stability gate
-│   │   ├── ClassificationEngine.swift ← Dual-model (VNClassify + MobileCLIP) in parallel
-│   │   └── ConsensusGate.swift        ← Confidence thresholds, margin checks, agreement
+│   │   ├── CameraManager.swift        <- AVCaptureSession, frame delivery, frame skipping
+│   │   ├── SegmentationEngine.swift   <- VNGenerateForegroundInstanceMaskRequest
+│   │   ├── InstanceTracker.swift      <- IoU-based tracking, 0.5s stability gate
+│   │   ├── ClassificationEngine.swift <- Dual-model (VNClassify + custom) with CorrectionStore
+│   │   ├── CustomClassifier.swift     <- MobileNetV3-Small CoreML wrapper (3.2MB, 127 classes)
+│   │   └── ConsensusGate.swift        <- Probability thresholds, margin checks, agreement logic
 │   ├── Speech/
-│   │   ├── WordSpeaker.swift       ← AVAudioPlayer + CADisplayLink
-│   │   └── LetterHighlighter.swift ← Phoneme time → letter states
+│   │   ├── WordSpeaker.swift       <- AVAudioPlayer + CADisplayLink + rate control
+│   │   └── LetterHighlighter.swift <- Phoneme time -> letter states
 │   ├── Views/
-│   │   ├── CameraPreviewView.swift    ← UIViewRepresentable for camera preview
-│   │   ├── ContentView.swift          ← Root view: camera + overlays
-│   │   ├── LearningOverlayView.swift  ← Dim + glow + word display
-│   │   ├── MaskOverlayView.swift      ← Pixel-perfect object silhouette with CIFilter effects
-│   │   ├── WordDisplayView.swift      ← Per-letter color animation
-│   │   └── OnboardingHintView.swift   ← First-launch pulsing tap hint
+│   │   ├── CameraPreviewView.swift    <- UIViewRepresentable for camera preview
+│   │   ├── ContentView.swift          <- Root view: camera + overlays + correction flow
+│   │   ├── LearningOverlayView.swift  <- Word display during learning
+│   │   ├── TapGlowView.swift         <- Radial glow at tap point
+│   │   ├── WordDisplayView.swift      <- Per-letter color animation
+│   │   ├── CorrectionPickerView.swift <- Searchable word list for parent corrections
+│   │   └── OnboardingHintView.swift   <- First-launch pulsing tap hint
 │   └── Resources/
-│       ├── Vocabulary/            ← 103 subdirectories, each with audio.m4a + timing.json
-│       ├── vocabulary.json                    ← Master word list (107 words)
-│       ├── label_mappings.json                ← VNClassify → child word whitelist
-│       ├── text_embeddings.bin                ← Pre-computed MobileCLIP text embeddings (214KB)
-│       └── MobileCLIPImageEncoder.mlpackage/  ← MobileCLIP S0 image encoder (22MB, compiled by Xcode)
-├── ARYATests/                     ← Unit tests for logic components
-└── scripts/                       ← Build-time audio generation pipeline
+│       ├── Vocabulary/                         <- 127 subdirectories, each with audio.m4a + timing.json
+│       ├── vocabulary.json                     <- Master word list (127 words)
+│       ├── label_mappings.json                 <- VNClassify -> child word whitelist
+│       ├── arya_classes.json                   <- Ordered class list matching model output indices
+│       └── ARYAClassifier.mlpackage/           <- Custom MobileNetV3-Small (3.2MB, compiled by Xcode)
+├── ARYATests/                     <- Unit tests (151 tests covering logic components)
+└── scripts/                       <- Training pipeline + audio generation
+    ├── collect_training_data.py   <- Downloads from Open Images V7 + COCO via fiftyone
+    ├── curate_training_data.py    <- Deduplication, quality filtering
+    ├── train_classifier.py        <- Fine-tune MobileNetV3-Small, export PyTorch model
+    ├── convert_to_coreml.py       <- PyTorch -> CoreML with INT8 quantization
+    ├── verify_classifier.py       <- Spot-check converted model
+    ├── generate_audio.py          <- ElevenLabs TTS for vocabulary words
+    └── build_timing_from_audio.py <- Generate phoneme timing from audio duration
 ```
 
 ---
 
 ## Final Thought
 
-The best children's apps feel inevitable -- like of *course* you'd tap a thing and hear its name. But behind that simplicity is a dual-model consensus pipeline, frame-perfect audio synchronization, pixel-level mask rendering, and a carefully curated whitelist of 107 words. The complexity exists so the child never has to experience it.
+The best children's apps feel inevitable -- like of *course* you'd tap a thing and hear its name. But behind that simplicity is a dual-model consensus pipeline, a parent correction system that learns from one example, frame-perfect audio synchronization, and a carefully curated whitelist of 127 words. The complexity exists so the child never has to experience it.
 
 That's the job, really. Make the hard stuff invisible.

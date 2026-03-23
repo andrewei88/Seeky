@@ -9,6 +9,8 @@ enum AppMode: Equatable {
 
 @MainActor
 final class AppState: ObservableObject {
+    private static let hasCompletedFirstTapKey = "hasCompletedFirstTap"
+
     @Published var mode: AppMode = .exploring
     @Published private(set) var hasCompletedFirstTap: Bool
 
@@ -20,38 +22,37 @@ final class AppState: ObservableObject {
     let classificationEngine: ClassificationEngine
     let correctionStore = CorrectionStore()
     var instanceTracker = InstanceTracker(tapPadding: 0.08)
-    let objectTracker = ObjectTracker()
 
-    // Live segmentation (updates every frame during exploring)
     private var liveSegmentation: SegmentationResult?
 
-    // Bounding box of tracked object (updated at 30fps by ObjectTracker)
-    @Published var learningBoundingBox: CGRect = .zero
-
-    // Raw screen-space tap location (points) for glow effect during learning
     @Published var tapScreenPoint: CGPoint = .zero
 
-    // CLIP embedding of the last classified image (for corrections)
-    private(set) var lastClipEmbedding: [Float]?
+    private(set) var lastFeatures: [Float]?
 
-    // Whether the correction picker is showing
     @Published var showingCorrectionPicker = false
 
     init() {
-        hasCompletedFirstTap = UserDefaults.standard.bool(forKey: "hasCompletedFirstTap")
+        hasCompletedFirstTap = UserDefaults.standard.bool(forKey: Self.hasCompletedFirstTapKey)
         vocabularyStore = VocabularyStore.load()
         labelMapper = LabelMapper.load()
 
-        let clipEmbeddings = CLIPEmbeddings.load(vocabulary: vocabularyStore.entries.map(\.word))
-        classificationEngine = ClassificationEngine(labelMapper: labelMapper, clipEmbeddings: clipEmbeddings)
+        let customClassifier = CustomClassifier()
+        classificationEngine = ClassificationEngine(
+            labelMapper: labelMapper,
+            customClassifier: customClassifier
+        )
         classificationEngine.correctionStore = correctionStore
 
         cameraManager.delegate = self
     }
 
-    /// Whether camera buffers are landscape (needs coordinate transform) or portrait (direct mapping).
-    /// Set from the first camera frame's dimensions.
     var bufferIsLandscape: Bool = false
+    private var hasLoggedBufferDims = false
+
+    var showGlow: Bool {
+        if case .learning = mode { return true }
+        return showingCorrectionPicker
+    }
 
     func handleTap(imagePoint: CGPoint, screenPoint: CGPoint) {
         guard mode == .exploring else { return }
@@ -90,18 +91,27 @@ final class AppState: ObservableObject {
             }
 
             guard let result = await classificationEngine.classify(imageBuffer: croppedBuffer) else {
-                print("[Tap] Classification returned nil (thresholds not met)")
+                print("[Tap] Classification returned nil (no features)")
                 mode = .exploring
                 return
             }
 
             if !hasCompletedFirstTap {
                 hasCompletedFirstTap = true
-                UserDefaults.standard.set(true, forKey: "hasCompletedFirstTap")
+                UserDefaults.standard.set(true, forKey: Self.hasCompletedFirstTapKey)
             }
 
-            lastClipEmbedding = result.clipEmbedding
-            mode = .learning(word: result.word, instanceIndex: 0)
+            lastFeatures = result.features
+
+            if let word = result.word {
+                mode = .learning(word: word, instanceIndex: 0)
+            } else if result.features != nil {
+                // Consensus gate rejected but we have features — let user label it
+                print("[Tap] Unrecognized object — showing correction picker")
+                showingCorrectionPicker = true
+            } else {
+                mode = .exploring
+            }
         }
     }
 
@@ -117,8 +127,8 @@ final class AppState: ObservableObject {
     }
 
     func applyCorrection(word: String) {
-        guard let embedding = lastClipEmbedding else {
-            print("[Correction] No CLIP embedding available for correction")
+        guard let embedding = lastFeatures else {
+            print("[Correction] No feature embedding available for correction")
             showingCorrectionPicker = false
             return
         }
@@ -169,12 +179,11 @@ final class AppState: ObservableObject {
             .cropped(to: cropRect)
             .transformed(by: CGAffineTransform(translationX: -cropRect.origin.x, y: -cropRect.origin.y))
 
-        let context = CIContext()
         var croppedBuffer: CVPixelBuffer?
         CVPixelBufferCreate(kCFAllocatorDefault, Int(cropRect.width), Int(cropRect.height),
                            kCVPixelFormatType_32BGRA, nil, &croppedBuffer)
         guard let output = croppedBuffer else { return nil }
-        context.render(cropped, to: output)
+        sharedCIContext.render(cropped, to: output)
         return output
     }
 
@@ -186,14 +195,13 @@ extension AppState: CameraManagerDelegate {
         let bufH = CVPixelBufferGetHeight(pixelBuffer)
         let timeSeconds = CMTimeGetSeconds(timestamp)
 
-        struct Once { static var logged = false }
-        if !Once.logged {
-            let isLandscape = bufW > bufH
-            print("[Camera] Buffer dimensions: \(bufW)×\(bufH) (\(isLandscape ? "LANDSCAPE" : "PORTRAIT"))")
-            Once.logged = true
-            Task { @MainActor [isLandscape] in
-                self.bufferIsLandscape = isLandscape
+        let isLandscape = bufW > bufH
+        Task { @MainActor [isLandscape] in
+            if !self.hasLoggedBufferDims {
+                self.hasLoggedBufferDims = true
+                print("[Camera] Buffer dimensions: \(bufW)×\(bufH) (\(isLandscape ? "LANDSCAPE" : "PORTRAIT"))")
             }
+            self.bufferIsLandscape = isLandscape
         }
 
         // Exploring mode: run segmentation (~3fps)

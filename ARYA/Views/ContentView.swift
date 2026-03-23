@@ -8,6 +8,13 @@ struct ContentView: View {
             // Camera feed — always live
             CameraPreviewView(cameraManager: appState.cameraManager)
                 .onTapGesture { location in
+                    if appState.showingCorrectionPicker {
+                        appState.showingCorrectionPicker = false
+                        if case .classifying = appState.mode {
+                            appState.mode = .exploring
+                        }
+                        return
+                    }
                     if case .learning = appState.mode {
                         appState.dismissLearning()
                     } else {
@@ -18,11 +25,14 @@ struct ContentView: View {
                     }
                 }
 
-            // Glow + word display during learning
-            if case .learning(let word, _) = appState.mode {
+            // Glow at tap point (during learning or unrecognized correction)
+            if appState.showGlow {
                 TapGlowView(screenPoint: appState.tapScreenPoint)
                     .allowsHitTesting(false)
+            }
 
+            // Word display during learning
+            if case .learning(let word, _) = appState.mode {
                 LearningOverlayView(
                     word: word,
                     wordSpeaker: appState.wordSpeaker
@@ -52,7 +62,7 @@ struct ContentView: View {
             // Correction picker overlay
             if appState.showingCorrectionPicker {
                 CorrectionPickerView(
-                    words: appState.vocabularyStore.entries.map(\.word).sorted(),
+                    words: appState.vocabularyStore.sortedWords,
                     currentWord: {
                         if case .learning(let word, _) = appState.mode { return word }
                         return ""
@@ -62,6 +72,9 @@ struct ContentView: View {
                     },
                     onCancel: {
                         appState.showingCorrectionPicker = false
+                        if case .classifying = appState.mode {
+                            appState.mode = .exploring
+                        }
                     }
                 )
                 .transition(.move(edge: .bottom))

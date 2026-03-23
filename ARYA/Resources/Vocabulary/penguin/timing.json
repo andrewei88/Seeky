@@ -1,0 +1,61 @@
+{
+  "word": "penguin",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.175
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ],
+      "start": 0.175,
+      "end": 0.384
+    },
+    {
+      "phoneme": "NG",
+      "letters": [
+        2
+      ],
+      "start": 0.384,
+      "end": 0.551
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        3
+      ],
+      "start": 0.551,
+      "end": 0.676
+    },
+    {
+      "phoneme": "W",
+      "letters": [
+        4
+      ],
+      "start": 0.676,
+      "end": 0.801
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        5
+      ],
+      "start": 0.801,
+      "end": 0.989
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        6
+      ],
+      "start": 0.989,
+      "end": 1.156
+    }
+  ]
+}

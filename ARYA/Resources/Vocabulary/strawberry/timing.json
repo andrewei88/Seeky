@@ -1,0 +1,71 @@
+{
+  "word": "strawberry",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.193
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        1
+      ],
+      "start": 0.193,
+      "end": 0.3
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        2
+      ],
+      "start": 0.3,
+      "end": 0.425
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        3
+      ],
+      "start": 0.425,
+      "end": 0.64
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.64,
+      "end": 0.747
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        6
+      ],
+      "start": 0.747,
+      "end": 0.926
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        7
+      ],
+      "start": 0.926,
+      "end": 1.051
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        8,
+        9
+      ],
+      "start": 1.051,
+      "end": 1.248
+    }
+  ]
+}

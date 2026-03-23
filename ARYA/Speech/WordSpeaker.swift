@@ -6,6 +6,9 @@ final class WordSpeaker: NSObject, ObservableObject {
     @Published private(set) var isPlaying: Bool = false
     @Published private(set) var totalDuration: Double = 0
 
+    /// Playback rate (0.5 = half speed, 1.0 = normal). Applied on top of ElevenLabs 0.7x generation speed.
+    var playbackRate: Float = 0.85
+
     private var audioPlayer: AVAudioPlayer?
     private var displayLink: CADisplayLink?
     private var onComplete: (() -> Void)?
@@ -34,9 +37,11 @@ final class WordSpeaker: NSObject, ObservableObject {
         do {
             let player = try AVAudioPlayer(contentsOf: url)
             player.delegate = self
+            player.enableRate = true
+            player.rate = playbackRate
             player.prepareToPlay()
             self.audioPlayer = player
-            self.totalDuration = player.duration
+            self.totalDuration = player.duration / Double(playbackRate)
             self.isPlaying = true
             startDisplayLink()
             let started = player.play()

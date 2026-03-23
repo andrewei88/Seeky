@@ -1,0 +1,39 @@
+{
+  "word": "giraffe",
+  "phonemes": [
+    {
+      "phoneme": "JH",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.277
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        1
+      ],
+      "start": 0.277,
+      "end": 0.589
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.589,
+      "end": 0.93
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.93,
+      "end": 1.157
+    }
+  ]
+}

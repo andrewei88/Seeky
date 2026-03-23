@@ -42,6 +42,7 @@ final class SegmentationEngine {
     private func computeBoundingBox(from maskBuffer: CVPixelBuffer) -> CGRect {
         let width = CVPixelBufferGetWidth(maskBuffer)
         let height = CVPixelBufferGetHeight(maskBuffer)
+        let pixelFormat = CVPixelBufferGetPixelFormatType(maskBuffer)
 
         CVPixelBufferLockBaseAddress(maskBuffer, .readOnly)
         defer { CVPixelBufferUnlockBaseAddress(maskBuffer, .readOnly) }
@@ -51,14 +52,23 @@ final class SegmentationEngine {
         }
 
         let bytesPerRow = CVPixelBufferGetBytesPerRow(maskBuffer)
-        let buffer = baseAddress.assumingMemoryBound(to: UInt8.self)
-
         var minX = width, minY = height, maxX = 0, maxY = 0
+
+        // Mask can be UInt8 or Float32 depending on device/OS version.
+        // Float32 format code: kCVPixelFormatType_OneComponent32Float (0x4c303066)
+        let isFloat32 = pixelFormat == kCVPixelFormatType_OneComponent32Float
 
         for y in 0..<height {
             for x in 0..<width {
-                let pixel = buffer[y * bytesPerRow + x]
-                if pixel > 128 {
+                let isForeground: Bool
+                if isFloat32 {
+                    let ptr = (baseAddress + y * bytesPerRow).assumingMemoryBound(to: Float.self)
+                    isForeground = ptr[x] > 0.5
+                } else {
+                    let ptr = (baseAddress + y * bytesPerRow).assumingMemoryBound(to: UInt8.self)
+                    isForeground = ptr[x] > 128
+                }
+                if isForeground {
                     minX = min(minX, x)
                     minY = min(minY, y)
                     maxX = max(maxX, x)

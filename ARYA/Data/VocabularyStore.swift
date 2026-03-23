@@ -8,10 +8,12 @@ struct VocabularyEntry: Codable {
 final class VocabularyStore {
     let entries: [VocabularyEntry]
     let words: Set<String>
+    let sortedWords: [String]
 
     init(entries: [VocabularyEntry]) {
         self.entries = entries
         self.words = Set(entries.map(\.word))
+        self.sortedWords = entries.map(\.word).sorted()
     }
 
     static func load(from bundle: Bundle = .main) -> VocabularyStore {

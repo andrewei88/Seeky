@@ -1,0 +1,45 @@
+{
+  "word": "panda",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.188
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.188,
+      "end": 0.465
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ],
+      "start": 0.465,
+      "end": 0.649
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        3
+      ],
+      "start": 0.649,
+      "end": 0.787
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.787,
+      "end": 1.017
+    }
+  ]
+}

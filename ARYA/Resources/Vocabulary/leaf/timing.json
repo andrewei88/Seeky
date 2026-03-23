@@ -6,16 +6,16 @@
       "letters": [
         0
       ],
-      "start": 0.174,
-      "end": 0.312
+      "start": 0.05,
+      "end": 0.385
     },
     {
       "phoneme": "IY",
       "letters": [
         1
       ],
-      "start": 0.312,
-      "end": 0.527
+      "start": 0.385,
+      "end": 0.912
     },
     {
       "phoneme": "F",
@@ -23,8 +23,8 @@
         2,
         3
       ],
-      "start": 0.527,
-      "end": 0.684
+      "start": 0.912,
+      "end": 1.295
     }
   ]
 }

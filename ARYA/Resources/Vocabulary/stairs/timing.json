@@ -1,0 +1,46 @@
+{
+  "word": "stairs",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.268
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        1
+      ],
+      "start": 0.268,
+      "end": 0.431
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        2
+      ],
+      "start": 0.431,
+      "end": 0.703
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ],
+      "start": 0.703,
+      "end": 0.893
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.893,
+      "end": 1.111
+    }
+  ]
+}

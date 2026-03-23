@@ -1,0 +1,63 @@
+{
+  "word": "pineapple",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.171
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        1
+      ],
+      "start": 0.171,
+      "end": 0.432
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.432,
+      "end": 0.593
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        4
+      ],
+      "start": 0.593,
+      "end": 0.834
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        5
+      ],
+      "start": 0.834,
+      "end": 0.955
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        6
+      ],
+      "start": 0.955,
+      "end": 1.156
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        7,
+        8
+      ],
+      "start": 1.156,
+      "end": 1.297
+    }
+  ]
+}

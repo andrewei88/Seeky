@@ -1,0 +1,38 @@
+{
+  "word": "snake",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.289
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        1
+      ],
+      "start": 0.289,
+      "end": 0.528
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        2
+      ],
+      "start": 0.528,
+      "end": 0.886
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.886,
+      "end": 1.065
+    }
+  ]
+}

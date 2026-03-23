@@ -607,5 +607,158 @@
     { "phoneme": "R", "letters": [0] },
     { "phoneme": "EY", "letters": [1] },
     { "phoneme": "N", "letters": [2, 3] }
+  ],
+  "blackberry": [
+    { "phoneme": "B", "letters": [0] },
+    { "phoneme": "L", "letters": [1] },
+    { "phoneme": "AE", "letters": [2] },
+    { "phoneme": "K", "letters": [3, 4] },
+    { "phoneme": "B", "letters": [5] },
+    { "phoneme": "EH", "letters": [6] },
+    { "phoneme": "R", "letters": [7] },
+    { "phoneme": "IY", "letters": [8, 9] }
+  ],
+  "blueberry": [
+    { "phoneme": "B", "letters": [0] },
+    { "phoneme": "L", "letters": [1] },
+    { "phoneme": "UW", "letters": [2, 3] },
+    { "phoneme": "B", "letters": [4] },
+    { "phoneme": "EH", "letters": [5] },
+    { "phoneme": "R", "letters": [6] },
+    { "phoneme": "IY", "letters": [7, 8] }
+  ],
+  "deer": [
+    { "phoneme": "D", "letters": [0] },
+    { "phoneme": "IY", "letters": [1, 2] },
+    { "phoneme": "R", "letters": [3] }
+  ],
+  "giraffe": [
+    { "phoneme": "JH", "letters": [0] },
+    { "phoneme": "ER", "letters": [1] },
+    { "phoneme": "AE", "letters": [2, 3] },
+    { "phoneme": "F", "letters": [4, 5] }
+  ],
+  "grape": [
+    { "phoneme": "G", "letters": [0] },
+    { "phoneme": "R", "letters": [1] },
+    { "phoneme": "EY", "letters": [2] },
+    { "phoneme": "P", "letters": [3, 4] }
+  ],
+  "kiwi": [
+    { "phoneme": "K", "letters": [0] },
+    { "phoneme": "IY", "letters": [1] },
+    { "phoneme": "W", "letters": [2] },
+    { "phoneme": "IY", "letters": [3] }
+  ],
+  "lemon": [
+    { "phoneme": "L", "letters": [0] },
+    { "phoneme": "EH", "letters": [1] },
+    { "phoneme": "M", "letters": [2] },
+    { "phoneme": "AH", "letters": [3] },
+    { "phoneme": "N", "letters": [4] }
+  ],
+  "mango": [
+    { "phoneme": "M", "letters": [0] },
+    { "phoneme": "AE", "letters": [1] },
+    { "phoneme": "NG", "letters": [2] },
+    { "phoneme": "G", "letters": [3] },
+    { "phoneme": "OW", "letters": [4] }
+  ],
+  "panda": [
+    { "phoneme": "P", "letters": [0] },
+    { "phoneme": "AE", "letters": [1] },
+    { "phoneme": "N", "letters": [2] },
+    { "phoneme": "D", "letters": [3] },
+    { "phoneme": "AH", "letters": [4] }
+  ],
+  "penguin": [
+    { "phoneme": "P", "letters": [0] },
+    { "phoneme": "EH", "letters": [1] },
+    { "phoneme": "NG", "letters": [2] },
+    { "phoneme": "G", "letters": [3] },
+    { "phoneme": "W", "letters": [4] },
+    { "phoneme": "IH", "letters": [5] },
+    { "phoneme": "N", "letters": [6] }
+  ],
+  "pineapple": [
+    { "phoneme": "P", "letters": [0] },
+    { "phoneme": "AY", "letters": [1] },
+    { "phoneme": "N", "letters": [2, 3] },
+    { "phoneme": "AE", "letters": [4] },
+    { "phoneme": "P", "letters": [5] },
+    { "phoneme": "AH", "letters": [6] },
+    { "phoneme": "L", "letters": [7, 8] }
+  ],
+  "raspberry": [
+    { "phoneme": "R", "letters": [0] },
+    { "phoneme": "AE", "letters": [1] },
+    { "phoneme": "Z", "letters": [2] },
+    { "phoneme": "B", "letters": [3, 4] },
+    { "phoneme": "EH", "letters": [5] },
+    { "phoneme": "R", "letters": [6] },
+    { "phoneme": "IY", "letters": [7, 8] }
+  ],
+  "sheep": [
+    { "phoneme": "SH", "letters": [0, 1] },
+    { "phoneme": "IY", "letters": [2, 3] },
+    { "phoneme": "P", "letters": [4] }
+  ],
+  "snake": [
+    { "phoneme": "S", "letters": [0] },
+    { "phoneme": "N", "letters": [1] },
+    { "phoneme": "EY", "letters": [2] },
+    { "phoneme": "K", "letters": [3, 4] }
+  ],
+  "stairs": [
+    { "phoneme": "S", "letters": [0] },
+    { "phoneme": "T", "letters": [1] },
+    { "phoneme": "EH", "letters": [2] },
+    { "phoneme": "R", "letters": [3] },
+    { "phoneme": "Z", "letters": [4, 5] }
+  ],
+  "strawberry": [
+    { "phoneme": "S", "letters": [0] },
+    { "phoneme": "T", "letters": [1] },
+    { "phoneme": "R", "letters": [2] },
+    { "phoneme": "AO", "letters": [3] },
+    { "phoneme": "B", "letters": [4, 5] },
+    { "phoneme": "EH", "letters": [6] },
+    { "phoneme": "R", "letters": [7] },
+    { "phoneme": "IY", "letters": [8, 9] }
+  ],
+  "tiger": [
+    { "phoneme": "T", "letters": [0] },
+    { "phoneme": "AY", "letters": [1] },
+    { "phoneme": "G", "letters": [2] },
+    { "phoneme": "ER", "letters": [3, 4] }
+  ],
+  "toilet paper": [
+    { "phoneme": "T", "letters": [0] },
+    { "phoneme": "OY", "letters": [1, 2] },
+    { "phoneme": "L", "letters": [3] },
+    { "phoneme": "AH", "letters": [4] },
+    { "phoneme": "T", "letters": [5] },
+    { "phoneme": "P", "letters": [7] },
+    { "phoneme": "EY", "letters": [8] },
+    { "phoneme": "P", "letters": [9] },
+    { "phoneme": "ER", "letters": [10, 11] }
+  ],
+  "watermelon": [
+    { "phoneme": "W", "letters": [0] },
+    { "phoneme": "AO", "letters": [1] },
+    { "phoneme": "T", "letters": [2] },
+    { "phoneme": "ER", "letters": [3] },
+    { "phoneme": "M", "letters": [4] },
+    { "phoneme": "EH", "letters": [5] },
+    { "phoneme": "L", "letters": [6] },
+    { "phoneme": "AH", "letters": [7] },
+    { "phoneme": "N", "letters": [8, 9] }
+  ],
+  "zebra": [
+    { "phoneme": "Z", "letters": [0] },
+    { "phoneme": "IY", "letters": [1] },
+    { "phoneme": "B", "letters": [2] },
+    { "phoneme": "R", "letters": [3] },
+    { "phoneme": "AH", "letters": [4] }
   ]
 }
