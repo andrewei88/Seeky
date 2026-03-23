@@ -105,11 +105,10 @@ final class AppState: ObservableObject {
 
             if let word = result.word {
                 mode = .learning(word: word, instanceIndex: 0)
-            } else if result.features != nil {
-                // Consensus gate rejected but we have features — let user label it
-                print("[Tap] Unrecognized object — showing correction picker")
-                showingCorrectionPicker = true
             } else {
+                // Consensus gate rejected — silently return to exploring.
+                // Parent can use the pencil button during learning to correct.
+                print("[Tap] Unrecognized object — returning to exploring")
                 mode = .exploring
             }
         }
