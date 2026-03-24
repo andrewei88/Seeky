@@ -42,6 +42,13 @@ SUPPLEMENTS = {
         "pendant light hanging",
         "ceiling light looking up",
         "light fixture on ceiling photo",
+        # Round 2: improve recognition from desk angle
+        "ceiling light from below bright",
+        "overhead light looking up from desk",
+        "flush mount ceiling light",
+        "round ceiling light fixture white",
+        "kitchen ceiling light bright",
+        "bathroom ceiling light close",
     ],
     "monitor": [
         "computer monitor on desk",
@@ -54,6 +61,17 @@ SUPPLEMENTS = {
         "monitor with text on screen",
         "computer monitor angle view desk",
         "iMac on desk",
+        # Round 2: screen content visible — teach model to see the device frame
+        "monitor with code on screen",
+        "monitor displaying spreadsheet",
+        "monitor with dark mode website",
+        "dual monitor setup showing apps",
+        "monitor with colorful wallpaper",
+        "Dell monitor front view on desk",
+        "monitor with email open",
+        "computer monitor with video playing",
+        "monitor screen with browser tabs",
+        "wide monitor with multiple windows",
     ],
     "laptop": [
         "open laptop on table",
@@ -68,6 +86,17 @@ SUPPLEMENTS = {
         "MacBook Pro open on table angle",
         "laptop screen glowing in room",
         "open laptop side angle desk",
+        # Round 2: screen content visible — teach model to see the physical laptop
+        "laptop with code editor open",
+        "laptop showing YouTube video",
+        "laptop with dark screen in room",
+        "MacBook with browser open angle",
+        "laptop displaying presentation slides",
+        "laptop with Zoom meeting on screen",
+        "laptop screen with bright colors",
+        "thin laptop open on wooden desk",
+        "laptop from slight angle with website",
+        "laptop open next to coffee cup",
     ],
     "lamp": [
         "table lamp bedroom",
@@ -86,6 +115,19 @@ SUPPLEMENTS = {
         "bookshelf speaker",
         "small speaker on table",
         "speaker front view",
+    ],
+    "glass": [
+        # Round 2: transparent/reflective objects are hard to classify
+        "drinking glass on table",
+        "empty glass on counter",
+        "water glass close up",
+        "clear glass on wooden table",
+        "glass of water on desk",
+        "drinking glass kitchen counter",
+        "tall glass tumbler",
+        "short glass on table",
+        "glass cup transparent",
+        "clear drinking glass side view",
     ],
 }
 
