@@ -2,7 +2,6 @@
 """Run Montreal Forced Aligner on generated audio files."""
 
 import json
-import os
 import subprocess
 import tempfile
 from pathlib import Path
@@ -29,7 +28,10 @@ def main():
 
             # Convert m4a to wav for MFA
             wav_path = tmp / f"{word}.wav"
-            os.system(f'ffmpeg -i "{audio_path}" -ar 16000 -ac 1 "{wav_path}" -y -loglevel quiet')
+            subprocess.run(
+                ["ffmpeg", "-i", str(audio_path), "-ar", "16000", "-ac", "1", str(wav_path), "-y", "-loglevel", "quiet"],
+                check=True,
+            )
 
             # Create transcript file
             txt_path = tmp / f"{word}.txt"

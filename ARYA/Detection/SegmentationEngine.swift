@@ -1,12 +1,10 @@
 import Vision
 import CoreImage
-import UIKit
 
 struct SegmentationResult {
     let instances: [DetectedInstance]
     let observation: VNInstanceMaskObservation?
     let pixelBuffer: CVPixelBuffer
-    let requestHandler: VNImageRequestHandler?
 }
 
 final class SegmentationEngine {
@@ -18,11 +16,11 @@ final class SegmentationEngine {
             try handler.perform([request])
         } catch {
             print("[Segmentation] Error: \(error.localizedDescription)")
-            return SegmentationResult(instances: [], observation: nil, pixelBuffer: pixelBuffer, requestHandler: nil)
+            return SegmentationResult(instances: [], observation: nil, pixelBuffer: pixelBuffer)
         }
 
         guard let observation = request.results?.first else {
-            return SegmentationResult(instances: [], observation: nil, pixelBuffer: pixelBuffer, requestHandler: nil)
+            return SegmentationResult(instances: [], observation: nil, pixelBuffer: pixelBuffer)
         }
 
         let allInstances = observation.allInstances
@@ -36,7 +34,7 @@ final class SegmentationEngine {
             }
         }
 
-        return SegmentationResult(instances: detected, observation: observation, pixelBuffer: pixelBuffer, requestHandler: handler)
+        return SegmentationResult(instances: detected, observation: observation, pixelBuffer: pixelBuffer)
     }
 
     private func computeBoundingBox(from maskBuffer: CVPixelBuffer) -> CGRect {

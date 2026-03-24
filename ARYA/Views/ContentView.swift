@@ -32,7 +32,7 @@ struct ContentView: View {
             }
 
             // Word display during learning
-            if case .learning(let word, _) = appState.mode {
+            if case .learning(let word) = appState.mode {
                 LearningOverlayView(
                     word: word,
                     wordSpeaker: appState.wordSpeaker
@@ -64,11 +64,15 @@ struct ContentView: View {
                 CorrectionPickerView(
                     words: appState.vocabularyStore.sortedWords,
                     currentWord: {
-                        if case .learning(let word, _) = appState.mode { return word }
+                        if case .learning(let word) = appState.mode { return word }
                         return ""
                     }(),
+                    correctionCount: appState.correctionStore.count,
                     onSelect: { word in
                         appState.applyCorrection(word: word)
+                    },
+                    onUndo: {
+                        appState.undoLastCorrection()
                     },
                     onCancel: {
                         appState.showingCorrectionPicker = false

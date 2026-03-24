@@ -5,6 +5,7 @@ struct Correction: Codable {
     let embedding: [Float]
 }
 
+@MainActor
 final class CorrectionStore {
     private var corrections: [Correction] = []
     private let fileURL: URL
@@ -16,7 +17,7 @@ final class CorrectionStore {
         load()
     }
 
-    /// Check if a CLIP embedding matches any stored correction.
+    /// Check if a feature embedding matches any stored correction.
     func lookup(embedding: [Float]) -> String? {
         var bestWord: String?
         var bestSimilarity: Float = 0
@@ -37,13 +38,28 @@ final class CorrectionStore {
         return word
     }
 
-    /// Save a correction: the CLIP embedding of the image + the correct word.
+    /// Save a correction: the feature embedding of the image + the correct word.
     func addCorrection(embedding: [Float], word: String) {
         // Remove any existing correction with very similar embedding (update, don't duplicate)
         corrections.removeAll { cosineSimilarity($0.embedding, embedding) >= 0.95 }
         corrections.append(Correction(word: word, embedding: embedding))
         save()
         print("[Correction] Saved correction: '\(word)' (total stored: \(corrections.count))")
+    }
+
+    /// Remove the most recently added correction.
+    func undoLastCorrection() -> String? {
+        guard let last = corrections.popLast() else { return nil }
+        save()
+        print("[Correction] Undid last correction: '\(last.word)' (total stored: \(corrections.count))")
+        return last.word
+    }
+
+    /// Remove all stored corrections.
+    func clearAll() {
+        corrections.removeAll()
+        save()
+        print("[Correction] Cleared all corrections")
     }
 
     var count: Int { corrections.count }

@@ -21,6 +21,7 @@
 		59F69412AE1A1D013CC81470 /* arya_classes.json in Resources */ = {isa = PBXBuildFile; fileRef = 26009E17E525DE2CE50A03DA /* arya_classes.json */; };
 		60E20F62A04467221CC6046D /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E4CFCFBA408A665C1AAA56 /* CameraPreviewView.swift */; };
 		7375358872CD95727BB0F2B6 /* TapGlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D390466691EE638D22742E6D /* TapGlowView.swift */; };
+		75C38E66DD6B60DF919D2EF0 /* TrainingCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C703C375A6A34E17D5FDBDD8 /* TrainingCapture.swift */; };
 		77B55AADA7EBB5B6D04F1416 /* WordSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB481F6493B9CBDE1CD262AF /* WordSpeaker.swift */; };
 		794149BC1172B6B25071C6A9 /* ARYAClassifier.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 178FD26B81E8C575E121E68C /* ARYAClassifier.mlpackage */; };
 		83BFB0CFD905FF46086E6D42 /* InstanceTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8A41BA2B3F263538A121DD /* InstanceTrackerTests.swift */; };
@@ -93,6 +94,7 @@
 		B4584035035FC1E58C1E78BD /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B8F2A423CA826C44A4CF8712 /* CorrectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionStore.swift; sourceTree = "<group>"; };
 		C27D357D1CCB9C8FA1DFFAAF /* PlaceholderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTests.swift; sourceTree = "<group>"; };
+		C703C375A6A34E17D5FDBDD8 /* TrainingCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingCapture.swift; sourceTree = "<group>"; };
 		C9975831D54C700FEF0244D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D390466691EE638D22742E6D /* TapGlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGlowView.swift; sourceTree = "<group>"; };
 		D59E8FFEF4D1C461065DEBD9 /* ConsensusGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsensusGateTests.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				13B2083C1C9913738FDA34B1 /* ImageUtils.swift */,
 				278984A88150CD544DFC634C /* LabelMapper.swift */,
 				7EE330D7CE0707441777D47B /* TimingData.swift */,
+				C703C375A6A34E17D5FDBDD8 /* TrainingCapture.swift */,
 				642C5CD0C1A3FF890F1C709B /* VocabularyStore.swift */,
 			);
 			path = Data;
@@ -350,6 +353,7 @@
 				3AA0E5EB2E2FEB150D0AE00C /* SegmentationEngine.swift in Sources */,
 				7375358872CD95727BB0F2B6 /* TapGlowView.swift in Sources */,
 				D8B8E166F5AD1A92806A53D4 /* TimingData.swift in Sources */,
+				75C38E66DD6B60DF919D2EF0 /* TrainingCapture.swift in Sources */,
 				98C38871A5D7F48548C407C2 /* VocabularyStore.swift in Sources */,
 				FFC7AD5A617A6C58D7C7E0A8 /* WordDisplayView.swift in Sources */,
 				77B55AADA7EBB5B6D04F1416 /* WordSpeaker.swift in Sources */,

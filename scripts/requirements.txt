@@ -1,3 +1,10 @@
+torch>=2.0.0
+torchvision>=0.15.0
+coremltools>=7.0
+numpy>=1.24.0
+Pillow>=10.0.0
+fiftyone>=0.23.0
+icrawler>=0.6.0
 elevenlabs>=1.0.0
 montreal-forced-aligner>=3.0.0
 textgrid>=1.5

@@ -10,9 +10,7 @@ struct CameraPreviewView: UIViewRepresentable {
         return view
     }
 
-    func updateUIView(_ uiView: CameraUIView, context: Context) {
-        uiView.updateLayout()
-    }
+    func updateUIView(_ uiView: CameraUIView, context: Context) {}
 }
 
 class CameraUIView: UIView {
@@ -28,10 +26,6 @@ class CameraUIView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        previewLayer?.frame = bounds
-    }
-
-    func updateLayout() {
         previewLayer?.frame = bounds
     }
 }

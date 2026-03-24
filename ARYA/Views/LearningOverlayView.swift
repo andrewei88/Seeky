@@ -8,34 +8,35 @@ struct LearningOverlayView: View {
     @State private var hasStartedSpeaking = false
 
     var body: some View {
-        VStack {
-            Spacer()
-                .frame(height: UIScreen.main.bounds.height * 0.3)
+        GeometryReader { geo in
+            VStack {
+                Spacer()
+                    .frame(height: geo.size.height * 0.3)
 
-            if let highlighter = letterHighlighter {
-                WordDisplayView(
-                    word: word,
-                    letterStates: highlighter.letterStates(at: wordSpeaker.currentTime)
-                )
-            } else {
-                // Fallback: show word without animation
-                Text(word)
-                    .font(.system(size: 80, weight: .bold, design: .rounded))
-                    .foregroundColor(Color(red: 1.0, green: 0.85, blue: 0.24))
+                if let highlighter = letterHighlighter {
+                    WordDisplayView(
+                        word: word,
+                        letterStates: highlighter.letterStates(at: wordSpeaker.currentTime)
+                    )
+                } else {
+                    // Fallback: show word without animation
+                    Text(word)
+                        .font(.system(size: 80, weight: .bold, design: .rounded))
+                        .foregroundColor(Color(red: 1.0, green: 0.85, blue: 0.24))
+                }
+
+                Spacer()
             }
+            .onAppear {
+                if let timing = TimingData.load(word: word) {
+                    letterHighlighter = LetterHighlighter(timing: timing)
+                }
 
-            Spacer()
-        }
-        .onAppear {
-            // Load timing data and start speaking
-            if let timing = TimingData.load(word: word) {
-                letterHighlighter = LetterHighlighter(timing: timing)
-            }
-
-            if !hasStartedSpeaking {
-                hasStartedSpeaking = true
-                wordSpeaker.speak(word: word) {
-                    // Audio complete — stay in learning mode until child taps
+                if !hasStartedSpeaking {
+                    hasStartedSpeaking = true
+                    wordSpeaker.speak(word: word) {
+                        // Audio complete — stay in learning mode until child taps
+                    }
                 }
             }
         }

@@ -3,7 +3,9 @@ import SwiftUI
 struct CorrectionPickerView: View {
     let words: [String]
     let currentWord: String
+    let correctionCount: Int
     let onSelect: (String) -> Void
+    let onUndo: () -> Void
     let onCancel: () -> Void
 
     @State private var searchText = ""
@@ -42,6 +44,24 @@ struct CorrectionPickerView: View {
             // Word list
             ScrollView {
                 LazyVStack(spacing: 2) {
+                    if correctionCount > 0 && searchText.isEmpty {
+                        Button {
+                            onUndo()
+                        } label: {
+                            HStack {
+                                Image(systemName: "arrow.uturn.backward")
+                                Text("Undo last correction")
+                                    .font(.system(size: 18, weight: .medium, design: .rounded))
+                                Spacer()
+                            }
+                            .foregroundColor(.orange)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 14)
+                        }
+
+                        Divider().background(Color.gray.opacity(0.3))
+                    }
+
                     ForEach(filteredWords, id: \.self) { word in
                         Button {
                             onSelect(word)

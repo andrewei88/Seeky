@@ -1,6 +1,7 @@
 import XCTest
 @testable import ARYA
 
+@MainActor
 final class CorrectionStoreTests: XCTestCase {
 
     func testAddAndLookupCorrection() {

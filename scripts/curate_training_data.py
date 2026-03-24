@@ -105,7 +105,6 @@ def main():
     with open(classes_path) as f:
         classes = json.load(f)
     num_classes = len(classes)
-    class_to_idx = {c: i for i, c in enumerate(classes)}
     print(f"Classes: {num_classes}")
 
     # Load model

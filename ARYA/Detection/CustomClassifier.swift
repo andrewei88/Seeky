@@ -5,7 +5,6 @@ import CoreImage
 struct CustomClassifierResult {
     let word: String
     let confidence: Double      // softmax probability 0-1
-    let secondWord: String
     let secondConfidence: Double
     let features: [Float]       // 1024-dim L2-normalized feature vector (for CorrectionStore)
 }
@@ -123,14 +122,8 @@ final class CustomClassifier {
         return CustomClassifierResult(
             word: classes[top1Idx],
             confidence: Double(probs[top1Idx]),
-            secondWord: classes[top2Idx],
             secondConfidence: Double(probs[top2Idx]),
             features: features
         )
-    }
-
-    /// Extract feature vector only (for CorrectionStore).
-    func extractFeatures(imageBuffer: CVPixelBuffer) -> [Float]? {
-        classify(imageBuffer: imageBuffer)?.features
     }
 }

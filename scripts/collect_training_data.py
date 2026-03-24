@@ -100,7 +100,7 @@ WORD_TO_SOURCES = {
     "lamp":       [("oi7", "Lamp"), ("oi7", "Table lamp")],
     "laptop":     [("oi7", "Laptop"), ("coco", "laptop")],
     "leaf":       [],  # manual — leaves are too generic in detection datasets
-    "light":      [("oi7", "Light bulb"), ("oi7", "Traffic light"), ("coco", "traffic light")],
+    "light":      [("oi7", "Light bulb"), ("oi7", "Lantern"), ("oi7", "Flashlight")],
     "lion":       [("oi7", "Lion")],
     "mirror":     [("oi7", "Mirror")],
     "monkey":     [("oi7", "Monkey")],
@@ -145,7 +145,7 @@ WORD_TO_SOURCES = {
     "tv":         [("oi7", "Television"), ("coco", "tv")],
     "umbrella":   [("oi7", "Umbrella"), ("coco", "umbrella")],
     "window":     [("oi7", "Window")],
-    "monitor":    [("oi7", "Computer monitor"), ("coco", "tv")],
+    "monitor":    [("oi7", "Computer monitor")],
     # ── New classes (v2) ────────────────────────────────────────────────────
     "blackberry":  [],  # manual — not in standard detection datasets
     "blueberry":   [],  # manual — not in standard detection datasets
@@ -155,7 +155,7 @@ WORD_TO_SOURCES = {
     "kiwi":        [],  # manual — kiwi fruit not reliably in detection datasets
     "lemon":       [("oi7", "Lemon")],
     "mango":       [("oi7", "Mango")],
-    "panda":       [("oi7", "Giant panda"), ("oi7", "Red panda")],
+    "panda":       [("oi7", "Panda")],
     "penguin":     [("oi7", "Penguin")],
     "pineapple":   [("oi7", "Pineapple")],
     "raspberry":   [],  # manual — not in standard detection datasets
@@ -375,8 +375,8 @@ def main():
 
     # Collect from datasets
     stats = {}
-    for word in words:
-        print(f"[{words.index(word)+1}/{len(words)}] Collecting: {word}")
+    for i, word in enumerate(words, 1):
+        print(f"[{i}/{len(words)}] Collecting: {word}")
         count = collect_for_word(word)
         stats[word] = count
 

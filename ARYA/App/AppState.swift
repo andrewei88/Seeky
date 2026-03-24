@@ -4,7 +4,7 @@ import Vision
 enum AppMode: Equatable {
     case exploring
     case classifying
-    case learning(word: String, instanceIndex: Int)
+    case learning(word: String)
 }
 
 @MainActor
@@ -21,13 +21,15 @@ final class AppState: ObservableObject {
     let labelMapper: LabelMapper
     let classificationEngine: ClassificationEngine
     let correctionStore = CorrectionStore()
-    var instanceTracker = InstanceTracker(tapPadding: 0.08)
+    let trainingCapture = TrainingCapture()
+    private var instanceTracker = InstanceTracker(tapPadding: 0.08)
 
     private var liveSegmentation: SegmentationResult?
 
     @Published var tapScreenPoint: CGPoint = .zero
 
     private(set) var lastFeatures: [Float]?
+    private var lastCroppedBuffer: CVPixelBuffer?
 
     @Published var showingCorrectionPicker = false
 
@@ -39,9 +41,9 @@ final class AppState: ObservableObject {
         let customClassifier = CustomClassifier()
         classificationEngine = ClassificationEngine(
             labelMapper: labelMapper,
-            customClassifier: customClassifier
+            customClassifier: customClassifier,
+            correctionStore: correctionStore
         )
-        classificationEngine.correctionStore = correctionStore
 
         cameraManager.delegate = self
     }
@@ -102,9 +104,10 @@ final class AppState: ObservableObject {
             }
 
             lastFeatures = result.features
+            lastCroppedBuffer = croppedBuffer
 
             if let word = result.word {
-                mode = .learning(word: word, instanceIndex: 0)
+                mode = .learning(word: word)
             } else {
                 // Consensus gate rejected — silently return to exploring.
                 // Parent can use the pencil button during learning to correct.
@@ -125,6 +128,14 @@ final class AppState: ObservableObject {
         showingCorrectionPicker = true
     }
 
+    func undoLastCorrection() {
+        if let word = correctionStore.undoLastCorrection() {
+            print("[AppState] Undid correction for '\(word)'")
+        }
+        showingCorrectionPicker = false
+        mode = .exploring
+    }
+
     func applyCorrection(word: String) {
         guard let embedding = lastFeatures else {
             print("[Correction] No feature embedding available for correction")
@@ -132,8 +143,11 @@ final class AppState: ObservableObject {
             return
         }
         correctionStore.addCorrection(embedding: embedding, word: word)
+        if let buffer = lastCroppedBuffer {
+            trainingCapture.save(imageBuffer: buffer, word: word)
+        }
         showingCorrectionPicker = false
-        mode = .learning(word: word, instanceIndex: 0)
+        mode = .learning(word: word)
     }
 
     /// Computes a normalized crop rect centered on the tap point.

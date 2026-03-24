@@ -83,51 +83,6 @@ def load_model(num_classes: int) -> ARYAClassifier:
 
 
 def convert_to_coreml(model: ARYAClassifierForExport, classes: list[str]):
-    """Convert PyTorch model to CoreML with proper preprocessing."""
-
-    # Trace the model
-    example_input = torch.randn(1, 3, IMAGE_SIZE, IMAGE_SIZE)
-    traced = torch.jit.trace(model, example_input)
-
-    # CoreML conversion with ImageType input
-    # ImageType handles: RGB pixel data → scale + bias normalization
-    #
-    # CRITICAL: ImageNet normalization in CoreML
-    # PyTorch does: (pixel/255 - mean) / std
-    # CoreML ImageType does: pixel * scale + bias (per channel)
-    # So: scale = 1/(255*std), bias = -mean/std
-    scale = 1.0 / 255.0  # CoreML applies per-channel bias AFTER this global scale
-    # We'll use the preprocessing built into ct.ImageType
-
-    mlmodel = ct.convert(
-        traced,
-        inputs=[
-            ct.ImageType(
-                name="image",
-                shape=(1, 3, IMAGE_SIZE, IMAGE_SIZE),
-                scale=1.0 / (255.0 * 0.226),  # approximate — we'll use channel-specific below
-                color_layout=ct.colorlayout.RGB,
-            )
-        ],
-        outputs=[
-            ct.TensorType(name="probabilities"),
-            ct.TensorType(name="features"),
-        ],
-        minimum_deployment_target=ct.target.iOS17,
-    )
-
-    # Fix: CoreML ImageType's single scale+bias is imprecise for per-channel normalization.
-    # Instead, use the scale=1/255 and add a custom bias, or use the "neural network" approach.
-    # Actually, the cleanest way: use scale=1/255 and handle normalization in the model itself.
-    # Let's redo with a preprocessing wrapper.
-
-    # Better approach: embed normalization in the traced model
-    mlmodel = None  # discard
-
-    return _convert_with_embedded_normalization(model, classes)
-
-
-def _convert_with_embedded_normalization(model: ARYAClassifierForExport, classes: list[str]):
     """Convert with normalization baked into the model (most reliable approach)."""
 
     class NormalizedModel(nn.Module):
@@ -259,7 +214,7 @@ def main():
 
     # Convert
     print("Converting to CoreML...")
-    mlmodel = _convert_with_embedded_normalization(export_model, classes)
+    mlmodel = convert_to_coreml(export_model, classes)
 
     # Save
     output_path = RESOURCES_DIR / "ARYAClassifier.mlpackage"

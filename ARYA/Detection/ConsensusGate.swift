@@ -27,6 +27,7 @@ struct ConsensusGate {
     /// Decision logic:
     /// - Custom >0.90 → accept custom (very high confidence)
     /// - Custom 0.40-0.90, VN agrees → accept custom word
+    /// - Custom >=0.70, margin >=5.0, VN <0.60 → trust custom (overrides marginal VN)
     /// - Custom 0.40-0.90, VN disagrees + VN >0.45 → trust VN
     /// - Custom 0.40-0.90, VN weak + custom margin strong → trust custom
     /// - Custom <0.10 → fall back to VN if VN is confident
@@ -43,7 +44,13 @@ struct ConsensusGate {
             : Double.infinity
 
         // Very high confidence from custom classifier — trust it
+        // UNLESS VN very strongly disagrees (>= 0.80), which suggests
+        // custom is outside its training distribution for this input.
         if customConfidence >= customHighConfidence {
+            if vnClassifyWord != customWord && vnConfidence >= 0.80 {
+                print("[Consensus] Custom high-conf BUT VN strongly disagrees: custom='\(customWord)'(\(String(format: "%.3f", customConfidence))), VN='\(vnClassifyWord)'(\(String(format: "%.4f", vnConfidence))) — trusting VN")
+                return vnClassifyWord
+            }
             print("[Consensus] Custom high-conf: '\(customWord)' (conf=\(String(format: "%.3f", customConfidence)), margin=\(String(format: "%.1f", customMargin)))")
             return customWord
         }
@@ -55,15 +62,25 @@ struct ConsensusGate {
                 return customWord
             }
 
+            // Very strong custom overrides marginally-confident VN.
+            // When custom is overwhelmingly confident with a dominant margin, VN
+            // barely clearing its trust threshold shouldn't override that signal.
+            if customConfidence >= 0.70 && customMargin >= 5.0 && vnConfidence < 0.60 {
+                print("[Consensus] Custom override (very strong custom, marginal VN): '\(customWord)' (custom=\(String(format: "%.3f", customConfidence)), margin=\(String(format: "%.1f", customMargin)), VN='\(vnClassifyWord)'(\(String(format: "%.4f", vnConfidence))))")
+                return customWord
+            }
+
             // Disagreement — if VN is strongly confident, trust VN
             if vnConfidence >= vnTrustThreshold {
                 print("[Consensus] VN trusted (strong VN, disagreement): '\(vnClassifyWord)' (VN=\(String(format: "%.4f", vnConfidence)), custom='\(customWord)'(\(String(format: "%.3f", customConfidence))))")
                 return vnClassifyWord
             }
 
-            // VN is weak — custom has decent margin? Trust custom.
-            if customMargin >= 3.0 && vnConfidence < 0.20 {
-                print("[Consensus] Custom override (strong margin, weak VN): '\(customWord)' (custom=\(String(format: "%.3f", customConfidence)), margin=\(String(format: "%.1f", customMargin)))")
+            // VN is below trust threshold — custom has decent margin? Trust custom.
+            // VN often returns moderate confidence (0.20-0.45) on unrelated labels,
+            // so we don't require VN to be near-zero for custom to win.
+            if customMargin >= 2.0 {
+                print("[Consensus] Custom override (strong margin, untrusted VN): '\(customWord)' (custom=\(String(format: "%.3f", customConfidence)), margin=\(String(format: "%.1f", customMargin)), VN=\(String(format: "%.4f", vnConfidence)))")
                 return customWord
             }
 

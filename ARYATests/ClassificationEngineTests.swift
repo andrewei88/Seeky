@@ -1,7 +1,7 @@
 import XCTest
 @testable import ARYA
 
-/// Tests for the VN-only classification path (no CLIP).
+/// Tests for the classification path: label mapping, threshold logic, and confidence aggregation.
 /// We can't run the full Vision pipeline in unit tests, but we can verify
 /// the label mapping and threshold logic by testing LabelMapper with the
 /// exact label sequences VNClassify produces.

@@ -1,6 +1,5 @@
 import Vision
 import CoreImage
-import UIKit
 
 struct ClassificationResult {
     let word: String?        // nil when consensus gate rejects but features available
@@ -11,11 +10,12 @@ final class ClassificationEngine {
     private let labelMapper: LabelMapper
     private let customClassifier: CustomClassifier?
     private let consensusGate: ConsensusGate
-    var correctionStore: CorrectionStore?
+    private let correctionStore: CorrectionStore
 
-    init(labelMapper: LabelMapper, customClassifier: CustomClassifier?, consensusGate: ConsensusGate = ConsensusGate()) {
+    init(labelMapper: LabelMapper, customClassifier: CustomClassifier?, correctionStore: CorrectionStore, consensusGate: ConsensusGate = ConsensusGate()) {
         self.labelMapper = labelMapper
         self.customClassifier = customClassifier
+        self.correctionStore = correctionStore
         self.consensusGate = consensusGate
     }
 
@@ -27,8 +27,8 @@ final class ClassificationEngine {
         let observations = await vnResult
 
         // Check stored corrections first (highest priority)
-        if let features = customResult?.features, let correctionStore = correctionStore,
-           let correctedWord = correctionStore.lookup(embedding: features) {
+        if let features = customResult?.features,
+           let correctedWord = await correctionStore.lookup(embedding: features) {
             return ClassificationResult(word: correctedWord, features: features)
         }
 
@@ -40,14 +40,13 @@ final class ClassificationEngine {
         // Process VN observations
         var vnBest: (key: String, value: Float)?
         var vnSecondBest: (key: String, value: Float)?
+        var wordConfidences: [String: Float] = [:]
 
         if let observations = observations, !observations.isEmpty {
             let top20 = observations.prefix(20).map { "\($0.identifier)(\(String(format: "%.3f", $0.confidence)))" }
             print("[VNClassify] Top 20: \(top20.joined(separator: ", "))")
 
             // Aggregate confidence across ALL VN labels that map to the same word.
-            var wordConfidences: [String: Float] = [:]
-
             for obs in observations {
                 if obs.confidence < 0.02 { break }
 
@@ -143,6 +142,7 @@ final class ClassificationEngine {
             do {
                 try handler.perform([request])
             } catch {
+                print("[VNClassify] Error: \(error)")
                 continuation.resume(returning: nil)
             }
         }
