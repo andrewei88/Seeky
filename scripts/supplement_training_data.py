@@ -32,6 +32,13 @@ SUPPLEMENTS = {
         "panda teddy bear toy",
         "cute panda plushie",
         "black white panda toy",
+        # Round 3: non-plush pandas — wall art, rugs, prints
+        "panda wall hanging tapestry",
+        "panda rug nursery",
+        "panda print on blanket",
+        "panda face pillow",
+        "panda wall decor kids room",
+        "panda embroidered patch close up",
     ],
     "light": [
         "ceiling light fixture",
@@ -72,6 +79,15 @@ SUPPLEMENTS = {
         "computer monitor with video playing",
         "monitor screen with browser tabs",
         "wide monitor with multiple windows",
+        # Round 3: close-up partial views, bezels visible, oblique angles
+        "monitor bezel close up",
+        "monitor edge side view desk",
+        "computer screen close up text",
+        "monitor from below looking up",
+        "monitor at angle showing reflection",
+        "iMac screen close up with dock",
+        "monitor partial view with keyboard",
+        "desktop monitor zoomed in corner",
     ],
     "laptop": [
         "open laptop on table",
@@ -97,6 +113,15 @@ SUPPLEMENTS = {
         "thin laptop open on wooden desk",
         "laptop from slight angle with website",
         "laptop open next to coffee cup",
+        # Round 3: oblique/partial views, close-ups showing screen + frame edge
+        "laptop side angle showing screen edge",
+        "MacBook half closed angle view",
+        "laptop from the side on desk",
+        "laptop screen and hinge close up",
+        "laptop oblique angle with text on screen",
+        "laptop close up screen with taskbar",
+        "laptop partial view from right side",
+        "laptop screen edge and keyboard corner",
     ],
     "lamp": [
         "table lamp bedroom",
@@ -115,6 +140,28 @@ SUPPLEMENTS = {
         "bookshelf speaker",
         "small speaker on table",
         "speaker front view",
+    ],
+    "doll": [
+        # Round 3: small figurines and plush dolls — prevent confusion with panda/bear
+        "small doll figurine close up",
+        "stuffed animal doll on shelf",
+        "cute plush doll toy",
+        "action figure toy close up",
+        "small doll on table",
+        "plush character toy on bed",
+        "miniature doll in costume",
+        "stuffed doll toy for kids",
+    ],
+    "paper": [
+        # Round 3: actual paper/documents — NOT screens
+        "sheet of paper on desk",
+        "white paper on table",
+        "paper document on wooden desk",
+        "notebook paper close up",
+        "piece of paper with writing",
+        "blank paper on desk from above",
+        "paper with text on table",
+        "crumpled paper on desk",
     ],
     "glass": [
         # Round 2: transparent/reflective objects are hard to classify
