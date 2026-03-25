@@ -84,8 +84,26 @@ struct ContentView: View {
                 .transition(.move(edge: .bottom))
             }
 
+            // Camera permission denied
+            if appState.cameraManager.status == .denied {
+                VStack(spacing: 16) {
+                    Image(systemName: "camera.fill")
+                        .font(.system(size: 48))
+                        .foregroundColor(.white.opacity(0.6))
+                    Text("Camera access needed")
+                        .font(.system(size: 24, weight: .medium, design: .rounded))
+                        .foregroundColor(.white)
+                    Text("Open Settings to allow camera access")
+                        .font(.system(size: 16, design: .rounded))
+                        .foregroundColor(.white.opacity(0.6))
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black)
+            }
+
             // First-launch hint
-            if !appState.hasCompletedFirstTap && appState.mode == .exploring {
+            if !appState.hasCompletedFirstTap && appState.mode == .exploring
+                && appState.cameraManager.status != .denied {
                 OnboardingHintView()
             }
         }

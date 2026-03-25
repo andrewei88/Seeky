@@ -1,3 +1,4 @@
+import os
 import SwiftUI
 import Vision
 
@@ -33,6 +34,11 @@ final class AppState: ObservableObject {
 
     @Published var showingCorrectionPicker = false
 
+    /// Idle timeout: skip segmentation after this many seconds with no taps.
+    /// Uses atomic storage so the camera delegate (nonisolated) can read it safely.
+    private let idleTimeout: TimeInterval = 30
+    private let _lastTapTime = OSAllocatedUnfairLock(initialState: Date())
+
     init() {
         hasCompletedFirstTap = UserDefaults.standard.bool(forKey: Self.hasCompletedFirstTapKey)
         vocabularyStore = VocabularyStore.load()
@@ -61,11 +67,14 @@ final class AppState: ObservableObject {
 
     var showGlow: Bool {
         if case .learning = mode { return true }
-        return showingCorrectionPicker
+        if showingCorrectionPicker { return true }
+        return false
     }
 
     func handleTap(imagePoint: CGPoint, screenPoint: CGPoint) {
         guard mode == .exploring else { return }
+
+        _lastTapTime.withLock { $0 = Date() }
 
         let generator = UIImpactFeedbackGenerator(style: .light)
         generator.impactOccurred()
@@ -75,6 +84,8 @@ final class AppState: ObservableObject {
 
         guard let segResult = liveSegmentation else {
             print("[Tap] No segmentation data available")
+            let errorGenerator = UINotificationFeedbackGenerator()
+            errorGenerator.notificationOccurred(.error)
             mode = .exploring
             return
         }
@@ -102,6 +113,8 @@ final class AppState: ObservableObject {
 
             guard let result = await classificationEngine.classify(imageBuffer: croppedBuffer) else {
                 print("[Tap] Classification returned nil (no features)")
+                let errorGenerator = UINotificationFeedbackGenerator()
+                errorGenerator.notificationOccurred(.error)
                 mode = .exploring
                 return
             }
@@ -117,10 +130,12 @@ final class AppState: ObservableObject {
             if let word = result.word {
                 mode = .learning(word: word)
             } else {
-                // Consensus gate rejected — silently return to exploring.
-                // Parent can use the pencil button during learning to correct.
-                print("[Tap] Unrecognized object — returning to exploring")
-                mode = .exploring
+                // Consensus gate rejected but we have features — show correction picker
+                // so parent can label the object. Stay in classifying mode with glow visible.
+                print("[Tap] Unrecognized object — showing correction picker")
+                let errorGenerator = UINotificationFeedbackGenerator()
+                errorGenerator.notificationOccurred(.warning)
+                showingCorrectionPicker = true
             }
         }
     }
@@ -224,6 +239,10 @@ extension AppState: CameraManagerDelegate {
             }
             self.bufferIsLandscape = isLandscape
         }
+
+        // Skip segmentation when idle to save battery
+        let lastTap = _lastTapTime.withLock { $0 }
+        if Date().timeIntervalSince(lastTap) > idleTimeout { return }
 
         // Exploring mode: run segmentation (~3fps)
         let result = segmentationEngine.segment(pixelBuffer: pixelBuffer)

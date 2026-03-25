@@ -5,13 +5,20 @@ protocol CameraManagerDelegate: AnyObject {
     func cameraManager(_ manager: CameraManager, didOutput pixelBuffer: CVPixelBuffer, timestamp: CMTime)
 }
 
-final class CameraManager: NSObject {
+enum CameraStatus {
+    case notDetermined
+    case authorized
+    case denied
+}
+
+final class CameraManager: NSObject, ObservableObject {
     private let captureSession = AVCaptureSession()
     private let videoOutput = AVCaptureVideoDataOutput()
     private let sessionQueue = DispatchQueue(label: "com.arya.camera.session")
     private let outputQueue = DispatchQueue(label: "com.arya.camera.output")
 
     weak var delegate: CameraManagerDelegate?
+    @Published var status: CameraStatus = .notDetermined
     private var frameCount = 0
     private lazy var _previewLayer: AVCaptureVideoPreviewLayer = {
         let layer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -31,7 +38,7 @@ final class CameraManager: NSObject {
 
     func configure() {
         sessionQueue.async { [weak self] in
-            self?.setupSession()
+            self?.checkAuthorizationAndSetup()
         }
     }
 
@@ -44,6 +51,25 @@ final class CameraManager: NSObject {
     func stop() {
         sessionQueue.async { [weak self] in
             self?.captureSession.stopRunning()
+        }
+    }
+
+    private func checkAuthorizationAndSetup() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            setupSession()
+            DispatchQueue.main.async { self.status = .authorized }
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+                if granted {
+                    self?.sessionQueue.async { self?.setupSession() }
+                    DispatchQueue.main.async { self?.status = .authorized }
+                } else {
+                    DispatchQueue.main.async { self?.status = .denied }
+                }
+            }
+        default:
+            DispatchQueue.main.async { self.status = .denied }
         }
     }
 
