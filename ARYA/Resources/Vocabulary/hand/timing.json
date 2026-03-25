@@ -7,31 +7,31 @@
         0
       ],
       "start": 0.05,
-      "end": 0.245
+      "end": 0.16
     },
     {
       "phoneme": "AE",
       "letters": [
         1
       ],
-      "start": 0.245,
-      "end": 0.58
+      "start": 0.16,
+      "end": 0.36
     },
     {
       "phoneme": "N",
       "letters": [
         2
       ],
-      "start": 0.58,
-      "end": 0.803
+      "start": 0.36,
+      "end": 0.46
     },
     {
       "phoneme": "D",
       "letters": [
         3
       ],
-      "start": 0.803,
-      "end": 0.97
+      "start": 0.46,
+      "end": 0.57
     }
   ]
 }

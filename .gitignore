@@ -22,3 +22,6 @@ venv/
 
 # Project
 .superpowers/
+/data/
+/voice_comparison/
+.playwright-mcp/

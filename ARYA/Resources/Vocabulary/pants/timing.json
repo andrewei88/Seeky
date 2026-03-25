@@ -7,39 +7,39 @@
         0
       ],
       "start": 0.05,
-      "end": 0.195
+      "end": 0.13
     },
     {
       "phoneme": "AE",
       "letters": [
         1
       ],
-      "start": 0.195,
-      "end": 0.485
+      "start": 0.13,
+      "end": 0.3
     },
     {
       "phoneme": "N",
       "letters": [
         2
       ],
-      "start": 0.485,
-      "end": 0.679
+      "start": 0.3,
+      "end": 0.47
     },
     {
       "phoneme": "T",
       "letters": [
         3
       ],
-      "start": 0.679,
-      "end": 0.824
+      "start": 0.47,
+      "end": 0.64
     },
     {
       "phoneme": "S",
       "letters": [
         4
       ],
-      "start": 0.824,
-      "end": 1.018
+      "start": 0.64,
+      "end": 0.71
     }
   ]
 }

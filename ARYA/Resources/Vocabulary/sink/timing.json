@@ -6,32 +6,32 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.276
+      "start": 0.0,
+      "end": 0.07
     },
     {
       "phoneme": "IH",
       "letters": [
         1
       ],
-      "start": 0.276,
-      "end": 0.53
+      "start": 0.07,
+      "end": 0.32
     },
     {
       "phoneme": "NG",
       "letters": [
         2
       ],
-      "start": 0.53,
-      "end": 0.756
+      "start": 0.32,
+      "end": 0.45
     },
     {
       "phoneme": "K",
       "letters": [
         3
       ],
-      "start": 0.756,
-      "end": 0.925
+      "start": 0.45,
+      "end": 0.58
     }
   ]
 }

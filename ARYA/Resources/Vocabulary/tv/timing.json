@@ -6,32 +6,32 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.196
+      "start": 0.07,
+      "end": 0.24
     },
     {
       "phoneme": "IY",
       "letters": [
         0
       ],
-      "start": 0.196,
-      "end": 0.463
+      "start": 0.24,
+      "end": 0.42
     },
     {
       "phoneme": "V",
       "letters": [
         1
       ],
-      "start": 0.463,
-      "end": 0.657
+      "start": 0.42,
+      "end": 0.6
     },
     {
       "phoneme": "IY",
       "letters": [
         1
       ],
-      "start": 0.657,
-      "end": 0.924
+      "start": 0.6,
+      "end": 0.77
     }
   ]
 }

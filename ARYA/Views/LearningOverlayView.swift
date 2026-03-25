@@ -11,7 +11,6 @@ struct LearningOverlayView: View {
         GeometryReader { geo in
             VStack {
                 Spacer()
-                    .frame(height: geo.size.height * 0.3)
 
                 if let highlighter = letterHighlighter {
                     WordDisplayView(

@@ -6,24 +6,24 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.305
+      "start": 0.27,
+      "end": 0.41
     },
     {
       "phoneme": "AE",
       "letters": [
         1
       ],
-      "start": 0.305,
-      "end": 0.816
+      "start": 0.41,
+      "end": 0.56
     },
     {
       "phoneme": "N",
       "letters": [
         2
       ],
-      "start": 0.816,
-      "end": 1.157
+      "start": 0.56,
+      "end": 0.71
     }
   ]
 }

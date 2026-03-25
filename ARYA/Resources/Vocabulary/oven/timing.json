@@ -1,0 +1,37 @@
+{
+  "word": "oven",
+  "phonemes": [
+    {
+      "phoneme": "AH",
+      "letters": [
+        0
+      ],
+      "start": 0.02,
+      "end": 0.09
+    },
+    {
+      "phoneme": "V",
+      "letters": [
+        1
+      ],
+      "start": 0.09,
+      "end": 0.22
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ],
+      "start": 0.22,
+      "end": 0.35
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        3
+      ],
+      "start": 0.35,
+      "end": 0.61
+    }
+  ]
+}

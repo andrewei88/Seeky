@@ -6,48 +6,48 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.173
+      "start": 0.08,
+      "end": 0.24
     },
     {
       "phoneme": "AH",
       "letters": [
         1
       ],
-      "start": 0.173,
-      "end": 0.378
+      "start": 0.24,
+      "end": 0.32
     },
     {
       "phoneme": "N",
       "letters": [
         2
       ],
-      "start": 0.378,
-      "end": 0.542
+      "start": 0.32,
+      "end": 0.41
     },
     {
       "phoneme": "AE",
       "letters": [
         3
       ],
-      "start": 0.542,
-      "end": 0.788
+      "start": 0.41,
+      "end": 0.57
     },
     {
       "phoneme": "N",
       "letters": [
         4
       ],
-      "start": 0.788,
-      "end": 0.952
+      "start": 0.57,
+      "end": 0.74
     },
     {
       "phoneme": "AH",
       "letters": [
         5
       ],
-      "start": 0.952,
-      "end": 1.157
+      "start": 0.74,
+      "end": 0.87
     }
   ]
 }

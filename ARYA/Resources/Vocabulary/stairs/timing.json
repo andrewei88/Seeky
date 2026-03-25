@@ -6,32 +6,32 @@
       "letters": [
         0
       ],
-      "start": 0.05,
-      "end": 0.268
+      "start": 0.0,
+      "end": 0.15
     },
     {
       "phoneme": "T",
       "letters": [
         1
       ],
-      "start": 0.268,
-      "end": 0.431
+      "start": 0.15,
+      "end": 0.31
     },
     {
       "phoneme": "EH",
       "letters": [
         2
       ],
-      "start": 0.431,
-      "end": 0.703
+      "start": 0.31,
+      "end": 0.47
     },
     {
       "phoneme": "R",
       "letters": [
         3
       ],
-      "start": 0.703,
-      "end": 0.893
+      "start": 0.47,
+      "end": 0.63
     },
     {
       "phoneme": "Z",
@@ -39,8 +39,8 @@
         4,
         5
       ],
-      "start": 0.893,
-      "end": 1.111
+      "start": 0.63,
+      "end": 0.83
     }
   ]
 }

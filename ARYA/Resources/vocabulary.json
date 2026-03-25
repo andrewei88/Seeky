@@ -136,8 +136,16 @@
     "category": "kitchen"
   },
   {
+    "word": "cupboard",
+    "category": "kitchen"
+  },
+  {
     "word": "deer",
     "category": "animals"
+  },
+  {
+    "word": "dishwasher",
+    "category": "kitchen"
   },
   {
     "word": "dog",
@@ -197,6 +205,10 @@
   },
   {
     "word": "fork",
+    "category": "kitchen"
+  },
+  {
+    "word": "fridge",
     "category": "kitchen"
   },
   {
@@ -284,6 +296,10 @@
     "category": "food"
   },
   {
+    "word": "microwave",
+    "category": "kitchen"
+  },
+  {
     "word": "mirror",
     "category": "home"
   },
@@ -306,6 +322,10 @@
   {
     "word": "orange",
     "category": "food"
+  },
+  {
+    "word": "oven",
+    "category": "kitchen"
   },
   {
     "word": "pan",
@@ -458,6 +478,10 @@
   {
     "word": "tiger",
     "category": "animals"
+  },
+  {
+    "word": "toaster",
+    "category": "kitchen"
   },
   {
     "word": "toilet",

@@ -1,0 +1,54 @@
+{
+  "word": "cupboard",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.15
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ],
+      "start": 0.15,
+      "end": 0.25
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        2
+      ],
+      "start": 0.25,
+      "end": 0.36
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        3
+      ],
+      "start": 0.36,
+      "end": 0.46
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.46,
+      "end": 0.56
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        6
+      ],
+      "start": 0.56,
+      "end": 0.67
+    }
+  ]
+}

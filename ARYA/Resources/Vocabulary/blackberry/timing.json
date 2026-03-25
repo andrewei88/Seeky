@@ -7,23 +7,23 @@
         0
       ],
       "start": 0.05,
-      "end": 0.165
+      "end": 0.18
     },
     {
       "phoneme": "L",
       "letters": [
         1
       ],
-      "start": 0.165,
-      "end": 0.299
+      "start": 0.18,
+      "end": 0.28
     },
     {
       "phoneme": "AE",
       "letters": [
         2
       ],
-      "start": 0.299,
-      "end": 0.529
+      "start": 0.28,
+      "end": 0.38
     },
     {
       "phoneme": "K",
@@ -31,32 +31,32 @@
         3,
         4
       ],
-      "start": 0.529,
-      "end": 0.644
+      "start": 0.38,
+      "end": 0.54
     },
     {
       "phoneme": "B",
       "letters": [
         5
       ],
-      "start": 0.644,
-      "end": 0.759
+      "start": 0.54,
+      "end": 0.62
     },
     {
       "phoneme": "EH",
       "letters": [
         6
       ],
-      "start": 0.759,
-      "end": 0.951
+      "start": 0.62,
+      "end": 0.71
     },
     {
       "phoneme": "R",
       "letters": [
         7
       ],
-      "start": 0.951,
-      "end": 1.085
+      "start": 0.71,
+      "end": 0.84
     },
     {
       "phoneme": "IY",
@@ -64,8 +64,8 @@
         8,
         9
       ],
-      "start": 1.085,
-      "end": 1.296
+      "start": 0.84,
+      "end": 0.98
     }
   ]
 }

@@ -7,32 +7,32 @@
         0,
         1
       ],
-      "start": 0.05,
-      "end": 0.23
+      "start": 0.06,
+      "end": 0.18
     },
     {
       "phoneme": "IH",
       "letters": [
         2
       ],
-      "start": 0.23,
-      "end": 0.432
+      "start": 0.18,
+      "end": 0.3
     },
     {
       "phoneme": "K",
       "letters": [
         3
       ],
-      "start": 0.432,
-      "end": 0.567
+      "start": 0.3,
+      "end": 0.43
     },
     {
       "phoneme": "AH",
       "letters": [
         4
       ],
-      "start": 0.567,
-      "end": 0.792
+      "start": 0.43,
+      "end": 0.55
     },
     {
       "phoneme": "N",
@@ -40,8 +40,8 @@
         5,
         6
       ],
-      "start": 0.792,
-      "end": 0.972
+      "start": 0.55,
+      "end": 0.68
     }
   ]
 }
