@@ -8,11 +8,11 @@ struct ClassificationResult {
 
 final class ClassificationEngine {
     private let labelMapper: LabelMapper
-    private let customClassifier: CustomClassifier?
+    var customClassifier: CustomClassifier?
     private let consensusGate: ConsensusGate
     private let correctionStore: CorrectionStore
 
-    init(labelMapper: LabelMapper, customClassifier: CustomClassifier?, correctionStore: CorrectionStore, consensusGate: ConsensusGate = ConsensusGate()) {
+    init(labelMapper: LabelMapper, customClassifier: CustomClassifier? = nil, correctionStore: CorrectionStore, consensusGate: ConsensusGate = ConsensusGate()) {
         self.labelMapper = labelMapper
         self.customClassifier = customClassifier
         self.correctionStore = correctionStore

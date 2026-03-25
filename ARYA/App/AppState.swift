@@ -38,14 +38,22 @@ final class AppState: ObservableObject {
         vocabularyStore = VocabularyStore.load()
         labelMapper = LabelMapper.load()
 
-        let customClassifier = CustomClassifier()
         classificationEngine = ClassificationEngine(
             labelMapper: labelMapper,
-            customClassifier: customClassifier,
             correctionStore: correctionStore
         )
 
         cameraManager.delegate = self
+
+        // Load the ML model in the background so the camera starts immediately.
+        // Classification falls back to VN-only until the model is ready.
+        Task.detached(priority: .userInitiated) {
+            let classifier = CustomClassifier()
+            await MainActor.run {
+                self.classificationEngine.customClassifier = classifier
+                print("[AppState] Custom classifier ready")
+            }
+        }
     }
 
     var bufferIsLandscape: Bool = false
