@@ -130,12 +130,12 @@ final class AppState: ObservableObject {
             if let word = result.word {
                 mode = .learning(word: word)
             } else {
-                // Consensus gate rejected but we have features — show correction picker
-                // so parent can label the object. Stay in classifying mode with glow visible.
-                print("[Tap] Unrecognized object — showing correction picker")
+                // Consensus gate rejected — return to exploring with haptic feedback.
+                // Parent can use the pencil button during learning mode to correct.
+                print("[Tap] Unrecognized object — returning to exploring")
                 let errorGenerator = UINotificationFeedbackGenerator()
                 errorGenerator.notificationOccurred(.warning)
-                showingCorrectionPicker = true
+                mode = .exploring
             }
         }
     }
