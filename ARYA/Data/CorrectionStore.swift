@@ -53,7 +53,7 @@ final class CorrectionStore {
     private var corrections: [Correction] = []
     private var wordGroups: [String: WordGroup] = [:]
     private let fileURL: URL
-    private let similarityThreshold: Float = 0.80
+    private let similarityThreshold: Float = 0.70
 
     init() {
         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]

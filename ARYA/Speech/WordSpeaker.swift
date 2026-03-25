@@ -41,7 +41,7 @@ final class WordSpeaker: NSObject, ObservableObject {
             player.rate = playbackRate
             player.prepareToPlay()
             self.audioPlayer = player
-            self.totalDuration = player.duration / Double(playbackRate)
+            self.totalDuration = player.duration
             self.isPlaying = true
             startDisplayLink()
             let started = player.play()
