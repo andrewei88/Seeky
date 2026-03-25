@@ -61,6 +61,11 @@ final class CorrectionStore {
         load()
     }
 
+    /// Test-only initializer that uses a custom file path (no loading from disk).
+    init(fileURL: URL) {
+        self.fileURL = fileURL
+    }
+
     /// Check if a feature embedding matches any stored correction.
     /// Checks both individual embeddings and per-word centroids for best coverage.
     func lookup(embedding: [Float]) -> String? {
