@@ -1,0 +1,31 @@
+{
+  "word": "whale",
+  "phonemes": [
+    {
+      "phoneme": "W",
+      "letters": [
+        0,
+        1
+      ],
+      "start": 0.0,
+      "end": 0.22
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        2
+      ],
+      "start": 0.22,
+      "end": 0.44
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.44,
+      "end": 0.66
+    }
+  ]
+}

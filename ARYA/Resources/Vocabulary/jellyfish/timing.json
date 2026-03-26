@@ -1,0 +1,63 @@
+{
+  "word": "jellyfish",
+  "phonemes": [
+    {
+      "phoneme": "JH",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.23
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ],
+      "start": 0.23,
+      "end": 0.45
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.45,
+      "end": 0.56
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        4
+      ],
+      "start": 0.56,
+      "end": 0.68
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        5
+      ],
+      "start": 0.68,
+      "end": 0.82
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        6
+      ],
+      "start": 0.82,
+      "end": 0.88
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        7,
+        8
+      ],
+      "start": 0.88,
+      "end": 1.01
+    }
+  ]
+}

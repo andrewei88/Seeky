@@ -123,6 +123,10 @@ def get_data_loaders():
     classes = [c.replace("_", " ") for c in train_dataset.classes]
     with open(MODEL_DIR / "arya_classes.json", "w") as f:
         json.dump(classes, f, indent=2)
+    # Also copy to app Resources so the bundle stays in sync
+    resources_dir = PROJECT_ROOT / "ARYA" / "Resources"
+    import shutil
+    shutil.copy2(MODEL_DIR / "arya_classes.json", resources_dir / "arya_classes.json")
     print(f"Classes ({len(classes)}): {classes[:5]}...{classes[-5:]}")
 
     train_loader = DataLoader(

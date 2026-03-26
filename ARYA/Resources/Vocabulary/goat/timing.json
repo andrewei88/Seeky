@@ -1,0 +1,30 @@
+{
+  "word": "goat",
+  "phonemes": [
+    {
+      "phoneme": "G",
+      "letters": [
+        0
+      ],
+      "start": 0.0,
+      "end": 0.22
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.22,
+      "end": 0.45
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ],
+      "start": 0.45,
+      "end": 0.55
+    }
+  ]
+}

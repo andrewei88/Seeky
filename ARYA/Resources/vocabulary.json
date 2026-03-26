@@ -4,6 +4,10 @@
     "category": "food"
   },
   {
+    "word": "avocado",
+    "category": "food"
+  },
+  {
     "word": "bag",
     "category": "clothing"
   },
@@ -80,8 +84,16 @@
     "category": "animals"
   },
   {
+    "word": "cactus",
+    "category": "outdoors"
+  },
+  {
     "word": "cake",
     "category": "food"
+  },
+  {
+    "word": "camel",
+    "category": "animals"
   },
   {
     "word": "can",
@@ -104,6 +116,10 @@
     "category": "food"
   },
   {
+    "word": "cherry",
+    "category": "food"
+  },
+  {
     "word": "chicken",
     "category": "animals"
   },
@@ -116,6 +132,10 @@
     "category": "other"
   },
   {
+    "word": "coconut",
+    "category": "food"
+  },
+  {
     "word": "cookie",
     "category": "food"
   },
@@ -125,6 +145,10 @@
   },
   {
     "word": "cow",
+    "category": "animals"
+  },
+  {
+    "word": "crab",
     "category": "animals"
   },
   {
@@ -154,6 +178,10 @@
   {
     "word": "doll",
     "category": "toys"
+  },
+  {
+    "word": "dolphin",
+    "category": "animals"
   },
   {
     "word": "door",
@@ -208,6 +236,10 @@
     "category": "kitchen"
   },
   {
+    "word": "fox",
+    "category": "animals"
+  },
+  {
     "word": "fridge",
     "category": "kitchen"
   },
@@ -228,6 +260,10 @@
     "category": "clothing"
   },
   {
+    "word": "goat",
+    "category": "animals"
+  },
+  {
     "word": "grape",
     "category": "food"
   },
@@ -244,12 +280,20 @@
     "category": "clothing"
   },
   {
+    "word": "hippo",
+    "category": "animals"
+  },
+  {
     "word": "horse",
     "category": "animals"
   },
   {
     "word": "jacket",
     "category": "clothing"
+  },
+  {
+    "word": "jellyfish",
+    "category": "animals"
   },
   {
     "word": "key",
@@ -316,8 +360,16 @@
     "category": "other"
   },
   {
+    "word": "mushroom",
+    "category": "food"
+  },
+  {
     "word": "nose",
     "category": "body"
+  },
+  {
+    "word": "octopus",
+    "category": "animals"
   },
   {
     "word": "orange",
@@ -326,6 +378,10 @@
   {
     "word": "oven",
     "category": "kitchen"
+  },
+  {
+    "word": "owl",
+    "category": "animals"
   },
   {
     "word": "pan",
@@ -342,6 +398,18 @@
   {
     "word": "paper",
     "category": "school"
+  },
+  {
+    "word": "parrot",
+    "category": "animals"
+  },
+  {
+    "word": "peach",
+    "category": "food"
+  },
+  {
+    "word": "pear",
+    "category": "food"
   },
   {
     "word": "pen",
@@ -412,6 +480,14 @@
     "category": "school"
   },
   {
+    "word": "seal",
+    "category": "animals"
+  },
+  {
+    "word": "shark",
+    "category": "animals"
+  },
+  {
     "word": "sheep",
     "category": "animals"
   },
@@ -452,6 +528,10 @@
     "category": "kitchen"
   },
   {
+    "word": "squirrel",
+    "category": "animals"
+  },
+  {
     "word": "stairs",
     "category": "home"
   },
@@ -466,6 +546,10 @@
   {
     "word": "sun",
     "category": "other"
+  },
+  {
+    "word": "sunflower",
+    "category": "outdoors"
   },
   {
     "word": "table",
@@ -522,6 +606,10 @@
   {
     "word": "watermelon",
     "category": "food"
+  },
+  {
+    "word": "whale",
+    "category": "animals"
   },
   {
     "word": "window",

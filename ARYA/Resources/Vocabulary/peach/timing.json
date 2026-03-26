@@ -1,0 +1,31 @@
+{
+  "word": "peach",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.07,
+      "end": 0.16
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.16,
+      "end": 0.55
+    },
+    {
+      "phoneme": "CH",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.55,
+      "end": 0.72
+    }
+  ]
+}

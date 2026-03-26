@@ -1,0 +1,39 @@
+{
+  "word": "cherry",
+  "phonemes": [
+    {
+      "phoneme": "CH",
+      "letters": [
+        0,
+        1
+      ],
+      "start": 0.05,
+      "end": 0.19
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        2
+      ],
+      "start": 0.19,
+      "end": 0.49
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ],
+      "start": 0.49,
+      "end": 0.64
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.64,
+      "end": 0.8
+    }
+  ]
+}

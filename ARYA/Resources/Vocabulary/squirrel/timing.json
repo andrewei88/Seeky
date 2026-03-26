@@ -1,0 +1,55 @@
+{
+  "word": "squirrel",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.0,
+      "end": 0.2
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        1
+      ],
+      "start": 0.2,
+      "end": 0.3
+    },
+    {
+      "phoneme": "W",
+      "letters": [
+        2
+      ],
+      "start": 0.3,
+      "end": 0.41
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.41,
+      "end": 0.52
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ],
+      "start": 0.52,
+      "end": 0.64
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        6,
+        7
+      ],
+      "start": 0.64,
+      "end": 0.74
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "word": "sunflower",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.02,
+      "end": 0.15
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ],
+      "start": 0.15,
+      "end": 0.29
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ],
+      "start": 0.29,
+      "end": 0.43
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        3
+      ],
+      "start": 0.43,
+      "end": 0.57
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        4
+      ],
+      "start": 0.57,
+      "end": 0.71
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        5
+      ],
+      "start": 0.71,
+      "end": 0.85
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        6,
+        7,
+        8
+      ],
+      "start": 0.85,
+      "end": 0.99
+    }
+  ]
+}

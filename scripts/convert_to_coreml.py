@@ -228,7 +228,7 @@ def main():
     verify_outputs(export_model, mlmodel, classes)
 
     # Quantize
-    int8_path = RESOURCES_DIR / "ARYAClassifier_int8.mlpackage"
+    int8_path = MODEL_DIR / "ARYAClassifier_int8.mlpackage"
     quantize_int8(output_path, int8_path)
 
     print(f"\n{'='*60}")

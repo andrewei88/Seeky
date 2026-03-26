@@ -46,7 +46,6 @@
 		EA7AFAEE27E16A19C499816A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4584035035FC1E58C1E78BD /* AppState.swift */; };
 		ED69E82443AB073BCDF14307 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2B249F085E2F3BCE92ABA /* ContentView.swift */; };
 		EDFA191A34012A3CDBD5CCAA /* CropLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0CC705FF87BDC8D9ECD8C9 /* CropLogicTests.swift */; };
-		EE3D637F9A223538D2F9145F /* ARYAClassifier_int8.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 287945236CD4DB1967185CF4 /* ARYAClassifier_int8.mlpackage */; };
 		FAD1309E8FEFD057DB7F75B5 /* Vocabulary in Resources */ = {isa = PBXBuildFile; fileRef = 20AA462D5DA1DE165364F4C9 /* Vocabulary */; };
 		FFC7AD5A617A6C58D7C7E0A8 /* WordDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED76095032F83FCEEBE824BD /* WordDisplayView.swift */; };
 /* End PBXBuildFile section */
@@ -70,7 +69,6 @@
 		26009E17E525DE2CE50A03DA /* arya_classes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = arya_classes.json; sourceTree = "<group>"; };
 		278984A88150CD544DFC634C /* LabelMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMapper.swift; sourceTree = "<group>"; };
 		282D3B7C56928FC301826480 /* SegmentationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentationEngine.swift; sourceTree = "<group>"; };
-		287945236CD4DB1967185CF4 /* ARYAClassifier_int8.mlpackage */ = {isa = PBXFileReference; path = ARYAClassifier_int8.mlpackage; sourceTree = "<group>"; };
 		2D5FE5C43E739A2B27799731 /* label_mappings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = label_mappings.json; sourceTree = "<group>"; };
 		32C0835D1DA2E1CF023777A6 /* ARYA.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ARYA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35AE48AEE557FD8F60FEB54D /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				26009E17E525DE2CE50A03DA /* arya_classes.json */,
-				287945236CD4DB1967185CF4 /* ARYAClassifier_int8.mlpackage */,
 				178FD26B81E8C575E121E68C /* ARYAClassifier.mlpackage */,
 				2D5FE5C43E739A2B27799731 /* label_mappings.json */,
 				3C09091C0002F055E737C8AE /* vocabulary.json */,
@@ -334,7 +331,6 @@
 			files = (
 				10CCBD5038E4C0B3A9BA8009 /* ARYAApp.swift in Sources */,
 				794149BC1172B6B25071C6A9 /* ARYAClassifier.mlpackage in Sources */,
-				EE3D637F9A223538D2F9145F /* ARYAClassifier_int8.mlpackage in Sources */,
 				EA7AFAEE27E16A19C499816A /* AppState.swift in Sources */,
 				BAF73C6EE981FCA42300CE24 /* CameraManager.swift in Sources */,
 				60E20F62A04467221CC6046D /* CameraPreviewView.swift in Sources */,
