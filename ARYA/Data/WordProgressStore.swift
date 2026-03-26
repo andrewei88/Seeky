@@ -1,43 +1,27 @@
 import Foundation
 
-enum WordEnvironment: String, Codable {
-    case indoor
-    case outdoor
-    case both
-}
-
-/// Granular locations where a child might use the app.
-/// Each word can appear in multiple locations.
+/// Broad locations where a scavenger hunt takes place.
+/// Matches the mental model: "We're at the zoo, start a hunt!" not "We're in the kitchen."
 enum WordLocation: String, CaseIterable, Codable {
-    case kitchen = "Kitchen"
-    case livingRoom = "Living Room"
-    case bedroom = "Bedroom"
-    case bathroom = "Bathroom"
+    case home = "Home"
     case backyard = "Backyard"
-    case park = "Park"
     case neighborhood = "Neighborhood"
     case zoo = "Zoo"
     case aquarium = "Aquarium"
     case farm = "Farm"
     case beach = "Beach"
-    case store = "Store"
-    case school = "School"
+    case forest = "Forest"
 
     var icon: String {
         switch self {
-        case .kitchen: return "fork.knife"
-        case .livingRoom: return "sofa.fill"
-        case .bedroom: return "bed.double.fill"
-        case .bathroom: return "shower.fill"
+        case .home: return "house.fill"
         case .backyard: return "leaf.fill"
-        case .park: return "tree.fill"
         case .neighborhood: return "car.fill"
         case .zoo: return "pawprint.fill"
         case .aquarium: return "fish.fill"
         case .farm: return "hare.fill"
         case .beach: return "beach.umbrella.fill"
-        case .store: return "cart.fill"
-        case .school: return "pencil.and.ruler.fill"
+        case .forest: return "tree.fill"
         }
     }
 }
@@ -127,10 +111,13 @@ final class WordProgressStore: ObservableObject {
         "toaster", "toilet", "toilet paper",
     ]
 
-    /// Objects excluded from quiz pool because children should not be asked to find them.
+    /// Objects excluded from quiz pool because they're unsafe or too unreliable for fair quizzing.
     /// These remain in the classifier for explore-mode identification but are never quiz targets.
     static let unsafeForQuiz: Set<String> = [
-        "sun",  // harmful to look at directly
+        "sun",      // harmful to look at directly
+        "knife",    // unsafe for toddler to seek out
+        "scissors", // unsafe for toddler to seek out
+        "oven",     // 80.4% accuracy, confused with microwave/cupboard/dishwasher
     ]
 
     /// Quiz-friendly category groups for category challenges ("Find an animal").
@@ -149,7 +136,7 @@ final class WordProgressStore: ObservableObject {
         "kitchen item": ["bottle", "bowl", "cup", "cupboard", "dishwasher", "fork", "fridge",
                          "glass", "knife", "microwave", "oven", "pan", "plate", "pot",
                          "spoon", "toaster"],
-        "furniture": ["bed", "blanket", "chair", "clock", "couch", "door", "fan", "lamp",
+        "furniture": ["bed", "blanket", "chair", "clock", "couch", "door", "fan", "light",
                       "mirror", "picture", "pillow", "shelf", "stairs", "table", "towel",
                       "window"],
         "body part": ["ear", "eye", "face", "foot", "hand", "nose"],
@@ -157,7 +144,7 @@ final class WordProgressStore: ObservableObject {
         "toy": ["ball", "block", "doll", "teddy bear"],
         "bathroom item": ["bathtub", "sink", "soap", "toilet", "toilet paper", "toothbrush"],
         "school supply": ["book", "crayon", "paper", "pen", "pencil", "scissors"],
-        "electronics": ["keyboard", "laptop", "monitor", "phone", "remote", "speaker", "tv"],
+        "electronics": ["keyboard", "laptop", "phone", "remote", "speaker", "tv"],
     ]
 
     /// Reverse lookup: word -> category name. Built lazily from quizCategories.
@@ -172,31 +159,28 @@ final class WordProgressStore: ObservableObject {
     }()
 
     /// Words available at each location. A word can appear in multiple locations.
-    /// Location-first grouping is easier to maintain than per-word tagging.
+    /// "Home" merges all indoor rooms (kitchen, living room, bedroom, bathroom).
     nonisolated static let locationWords: [WordLocation: Set<String>] = [
-        .kitchen: [
+        .home: [
+            // Kitchen
             "apple", "avocado", "banana", "bottle", "bowl", "bread", "cake", "can",
             "cheese", "cherry", "coconut", "cookie", "cup", "cupboard", "dishwasher",
-            "egg", "fork", "fridge", "glass", "grape", "knife", "lemon", "light",
-            "mango", "microwave", "mushroom", "orange", "oven", "pan", "peach", "pear",
+            "egg", "fork", "fridge", "glass", "grape", "knife", "lemon", "mango",
+            "microwave", "mushroom", "orange", "oven", "pan", "peach", "pear",
             "pineapple", "pizza", "plate", "pot", "spoon", "strawberry", "toaster",
-            "watermelon", "window",
-        ],
-        .livingRoom: [
+            "watermelon",
+            // Living room
             "ball", "blanket", "block", "book", "box", "cat", "chair", "clock",
             "couch", "doll", "dog", "door", "ear", "eye", "fan", "foot", "glasses",
-            "hand", "key", "lamp", "laptop", "light", "mirror", "monitor", "nose",
+            "hand", "key", "laptop", "light", "mirror", "nose",
             "phone", "picture", "pillow", "remote", "shelf", "shoe", "speaker",
             "stairs", "table", "teddy bear", "tv", "umbrella", "window",
-        ],
-        .bedroom: [
-            "bag", "bed", "blanket", "book", "clock", "doll", "door", "glasses",
-            "hat", "jacket", "lamp", "light", "mirror", "pants", "phone", "picture",
-            "pillow", "shelf", "shirt", "shoe", "sock", "teddy bear", "window",
-        ],
-        .bathroom: [
-            "bathtub", "bottle", "cup", "door", "light", "mirror", "sink", "soap",
-            "toilet", "toilet paper", "toothbrush", "towel", "window",
+            // Bedroom
+            "bag", "bed", "hat", "jacket", "pants", "shirt", "sock",
+            // Bathroom
+            "bathtub", "sink", "soap", "toilet", "toilet paper", "toothbrush", "towel",
+            // School supplies (found at home too)
+            "crayon", "globe", "keyboard", "paper", "pen", "pencil", "scissors",
         ],
         .backyard: [
             "ball", "bird", "butterfly", "cat", "cloud", "dog", "door", "fence",
@@ -204,15 +188,10 @@ final class WordProgressStore: ObservableObject {
             "snake", "squirrel", "star", "sunflower", "tree", "turtle", "umbrella",
             "window",
         ],
-        .park: [
-            "ball", "bench", "bird", "butterfly", "cloud", "dog", "duck", "flower",
-            "frog", "grass", "leaf", "moon", "rain", "rock", "squirrel", "star",
-            "sun", "tree", "umbrella",
-        ],
         .neighborhood: [
-            "bench", "bird", "bus", "car", "cat", "cloud", "dog", "door", "fence",
-            "flower", "grass", "key", "leaf", "light", "moon", "rain", "rock", "star",
-            "sun", "tree", "truck", "umbrella", "window",
+            "bench", "bird", "bus", "car", "cat", "cloud", "dog", "door", "duck",
+            "fence", "flower", "grass", "key", "leaf", "light", "moon", "rain",
+            "rock", "squirrel", "star", "sun", "tree", "truck", "umbrella", "window",
         ],
         .zoo: [
             "bear", "bird", "butterfly", "camel", "chicken", "cow", "crab", "deer",
@@ -234,16 +213,10 @@ final class WordProgressStore: ObservableObject {
             "moon", "octopus", "rock", "seal", "shark", "shell", "star", "sun",
             "sunflower", "tree", "turtle", "umbrella", "whale",
         ],
-        .store: [
-            "apple", "avocado", "bag", "banana", "bottle", "bread", "cake", "can",
-            "cheese", "cherry", "coconut", "cookie", "egg", "grape", "lemon", "mango",
-            "mushroom", "orange", "peach", "pear", "pineapple", "pizza", "strawberry",
-            "watermelon",
-        ],
-        .school: [
-            "bag", "ball", "block", "book", "box", "chair", "clock", "crayon", "door",
-            "globe", "keyboard", "light", "paper", "pen", "pencil", "scissors",
-            "shelf", "table", "window",
+        .forest: [
+            "bear", "bird", "butterfly", "cloud", "deer", "flower", "fox", "frog",
+            "grass", "leaf", "moon", "mushroom", "owl", "rabbit", "rain", "rock",
+            "snake", "squirrel", "star", "sun", "tree", "turtle",
         ],
     ]
 
@@ -257,42 +230,6 @@ final class WordProgressStore: ObservableObject {
         }
         return map
     }()
-
-    /// Legacy environment tagging derived from location data. Used for backward compat.
-    static let wordEnvironments: [String: WordEnvironment] = {
-        let indoorLocations: Set<WordLocation> = [.kitchen, .livingRoom, .bedroom, .bathroom]
-        let outdoorLocations: Set<WordLocation> = [.backyard, .park, .neighborhood, .zoo, .aquarium, .farm, .beach]
-
-        var map: [String: WordEnvironment] = [:]
-        for (word, locations) in wordLocations {
-            let hasIndoor = !locations.intersection(indoorLocations).isEmpty
-            let hasOutdoor = !locations.intersection(outdoorLocations).isEmpty
-            if hasIndoor && hasOutdoor {
-                map[word] = .both
-            } else if hasIndoor {
-                map[word] = .indoor
-            } else if hasOutdoor {
-                map[word] = .outdoor
-            } else {
-                map[word] = .both
-            }
-        }
-        return map
-    }()
-
-    /// VN classification labels that indicate an outdoor environment.
-    static let outdoorVNLabels: Set<String> = [
-        "sky", "cloud", "tree", "grass", "outdoor", "landscape", "garden",
-        "sidewalk", "road", "street", "park", "field", "forest", "beach",
-        "mountain", "hill", "playground", "yard", "pavement", "driveway",
-    ]
-
-    /// VN classification labels that indicate an indoor environment.
-    static let indoorVNLabels: Set<String> = [
-        "indoor", "room", "kitchen", "bathroom", "bedroom", "living room",
-        "wall", "ceiling", "floor", "furniture", "carpet", "tile",
-        "countertop", "cabinet", "shelf", "table", "desk",
-    ]
 
     init() {
         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -388,25 +325,6 @@ final class WordProgressStore: ObservableObject {
         }
 
         return selectFromPool(eligible: allEligible, count: count)
-    }
-
-    /// Legacy overload for backward compatibility with environment-based selection.
-    func selectQuizWords(count: Int = 5, environment: WordEnvironment?) -> [String] {
-        // Map legacy environment to a representative location (or nil for full pool)
-        // This keeps existing tests working while the new location system is the primary API
-        guard let env = environment, env != .both else {
-            return selectQuizWords(count: count)
-        }
-        // For legacy indoor/outdoor, filter using the derived wordEnvironments map
-        var eligible = Set(quizEligibleWords())
-        let preferred = eligible.filter { word in
-            let wordEnv = Self.wordEnvironments[word] ?? .both
-            return wordEnv == env || wordEnv == .both
-        }
-        if preferred.count >= count {
-            eligible = preferred
-        }
-        return selectFromPool(eligible: eligible, count: count)
     }
 
     /// Shared selection logic: picks words from an eligible set with spaced repetition priority.

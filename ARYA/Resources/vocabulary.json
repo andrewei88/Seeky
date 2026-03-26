@@ -312,10 +312,6 @@
     "category": "kitchen"
   },
   {
-    "word": "lamp",
-    "category": "home"
-  },
-  {
     "word": "laptop",
     "category": "electronics"
   },
@@ -346,10 +342,6 @@
   {
     "word": "mirror",
     "category": "home"
-  },
-  {
-    "word": "monitor",
-    "category": "electronics"
   },
   {
     "word": "monkey",

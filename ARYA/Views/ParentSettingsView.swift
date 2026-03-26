@@ -6,7 +6,6 @@ struct ParentSettingsView: View {
     let trainingCapture: TrainingCapture
     let correctionStore: CorrectionStore
     @ObservedObject var wordProgressStore: WordProgressStore
-    @Binding var environmentOverride: WordEnvironment?
     @Binding var selectedLocation: WordLocation?
     @Binding var selectedCategories: Set<String>
     let onStartQuiz: () -> Void

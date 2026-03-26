@@ -52,7 +52,7 @@
 - Run `xcodegen generate` after adding/removing files
 - Five layers: Views → App (state) → Detection → Speech → Data
 - Single-model classification: Custom classifier (CoreML) with confidence threshold (0.40). CorrectionStore checked first.
-- VNClassifyImageRequest used ONLY for environment detection (indoor/outdoor scene labels), NOT for object classification.
+- VNClassifyImageRequest is NOT used. Removed from classification and environment detection. Vision framework used only for segmentation.
 - Custom classifier: ARYAClassifier.mlpackage (151 classes, 12.9MB). Input: 224x224 RGB. Outputs: softmax probabilities + 1024-dim feature vector
 - Backbone: FastViT-T12 (Apple, 6.7M params, 79.3% ImageNet). Val accuracy: 95.2% (top-5: 99.1%). Upgraded from MobileNetV3-Small (91.3% val). Training uses timm (`fastvit_t12`) with class-weighted loss.
 - MLMultiArray on ANE outputs Float16 — always use subscript access (`array[i].floatValue`), never `dataPointer.bindMemory(to: Float.self)`
@@ -89,8 +89,8 @@
 
 ### Detection
 - `VNGenerateForegroundInstanceMaskRequest` for segmentation (~10fps, every 3rd frame)
-- `VNClassifyImageRequest` for classification (1,303 categories mapped to 155 child words via `label_mappings.json`)
-- MobileCLIP S0 for zero-shot image classification against vocabulary text embeddings
+- Classification: single custom FastViT-T12 model (CorrectionStore checked first, then model with 0.40 confidence threshold)
+- MobileCLIP S0 files are legacy — kept for fallback but not in active classification path
 - `InstanceTracker` has a 1.5s grace period — instances survive brief segmentation dropouts
 - Tap hit testing uses padded bounding boxes (4% padding)
 - Null-mapped labels (document, screenshot, machine, etc.) are skipped when ranking classification results

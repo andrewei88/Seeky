@@ -229,11 +229,11 @@ final class ClassificationEngineTests: XCTestCase {
         assertMapped("notebook computer", to: "laptop")
         assertMapped("MacBook", to: "laptop")
 
-        // External monitor labels → "monitor"
-        assertMapped("computer_monitor", to: "monitor")
-        assertMapped("display", to: "monitor")
-        assertMapped("screen", to: "monitor")
-        assertMapped("desktop_computer", to: "monitor")
+        // External monitor labels → "tv" (merged)
+        assertMapped("computer_monitor", to: "tv")
+        assertMapped("display", to: "tv")
+        assertMapped("screen", to: "tv")
+        assertMapped("desktop_computer", to: "tv")
 
         // TV labels → "tv"
         assertMapped("television", to: "tv")
@@ -321,7 +321,7 @@ final class ClassificationEngineTests: XCTestCase {
 
         // Screen/monitor mappings
         assertMapped("television", to: "tv")
-        assertMapped("computer_monitor", to: "monitor")
+        assertMapped("computer_monitor", to: "tv")
 
         // Abstract labels should be null-mapped
         assertNullMapped("painting")
@@ -544,7 +544,7 @@ final class ClassificationEngineTests: XCTestCase {
             "consumer_electronics": nil,
             "television": "tv",
             "computer": nil,
-            "computer_monitor": "monitor",
+            "computer_monitor": "tv",
         ]
 
         let result = simulateVNOnlyClassification(observations: observations, mappings: mappings)
@@ -650,13 +650,13 @@ final class ClassificationEngineTests: XCTestCase {
             "machine": nil,
             "consumer_electronics": nil,
             "computer": nil,
-            "computer_monitor": "monitor",
-            "display": "monitor",
+            "computer_monitor": "tv",
+            "display": "tv",
         ]
 
         let result = simulateVNOnlyClassification(observations: observations, mappings: mappings)
-        XCTAssertNotNil(result, "Should detect monitor — computer is null-mapped, no ambiguity")
-        XCTAssertEqual(result?.word, "monitor")
+        XCTAssertNotNil(result, "Should detect tv — computer is null-mapped, no ambiguity")
+        XCTAssertEqual(result?.word, "tv")
     }
 
     /// Soda can should map to can.
@@ -1051,7 +1051,7 @@ final class ClassificationEngineTests: XCTestCase {
         let result = simulateWithRealMappings(observations: [
             ("lamp", 0.80), ("light_fixture", 0.60)
         ])
-        XCTAssertEqual(result?.word, "lamp")
+        XCTAssertEqual(result?.word, "light")
     }
 
     func testPillow() {
@@ -1169,7 +1169,7 @@ final class ClassificationEngineTests: XCTestCase {
             ("machine", 0.80), ("consumer_electronics", 0.78),
             ("computer", 0.65), ("computer_monitor", 0.64)
         ])
-        XCTAssertEqual(result?.word, "monitor")
+        XCTAssertEqual(result?.word, "tv")
     }
 
     func testTVFromTelevision() {

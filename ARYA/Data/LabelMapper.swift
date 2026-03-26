@@ -18,8 +18,7 @@ final class LabelMapper {
             let mapped: String? = (value as? String)
             // Store the original key
             mappings[key] = mapped
-            // Also store normalized variants so VNClassify identifiers match
-            // VNClassify may return "golden_retriever" while JSON has "golden retriever"
+            // Also store normalized variants (underscore vs space, case differences)
             let withSpaces = key.replacingOccurrences(of: "_", with: " ")
             let withUnderscores = key.replacingOccurrences(of: " ", with: "_")
             let lowered = key.lowercased()
@@ -31,7 +30,7 @@ final class LabelMapper {
         return LabelMapper(mappings: mappings)
     }
 
-    /// Returns the child-friendly word for a VNClassify label, or nil if unmapped/rejected.
+    /// Returns the child-friendly word for a classifier label, or nil if unmapped/rejected.
     func childWord(for classifierLabel: String) -> String? {
         guard let mapping = mappings[classifierLabel] else {
             return nil // Not in whitelist

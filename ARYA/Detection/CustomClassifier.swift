@@ -13,6 +13,13 @@ final class CustomClassifier {
     private static let probabilitiesOutputName = "probabilities"
     private static let featuresOutputName = "features"
 
+    /// Classes where the model has separate outputs but the app treats them as one word.
+    /// Key = model class name, Value = merged word. Classes not in this map keep their original name.
+    static let classMerges: [String: String] = [
+        "monitor": "tv",
+        "lamp": "light",
+    ]
+
     private let model: MLModel
     private let classes: [String]  // ordered class list matching model output indices
 
@@ -112,21 +119,28 @@ final class CustomClassifier {
             features[i] = featsArray[i].floatValue
         }
 
-        // Find top-2
-        var indices = Array(0..<numClasses)
-        indices.sort { probs[$0] > probs[$1] }
+        // Aggregate probabilities for merged classes (e.g., monitor+tv → tv)
+        var mergedProbs: [String: Float] = [:]
+        for i in 0..<numClasses {
+            let rawName = classes[i]
+            let mergedName = Self.classMerges[rawName] ?? rawName
+            mergedProbs[mergedName, default: 0] += probs[i]
+        }
 
-        let top1Idx = indices[0]
-        let top2Idx = indices[1]
+        // Sort merged results by probability
+        let sorted = mergedProbs.sorted { $0.value > $1.value }
+        let topWord = sorted[0].key
+        let topConf = sorted[0].value
+        let secondConf = sorted.count > 1 ? sorted[1].value : 0
 
-        // Log top 5 for debugging
-        let top5 = indices.prefix(5).map { "\(classes[$0])(\(String(format: "%.3f", probs[$0])))" }
+        // Log top 5 for debugging (show merged probabilities)
+        let top5 = sorted.prefix(5).map { "\($0.key)(\(String(format: "%.3f", $0.value)))" }
         print("[CustomClassifier] Top 5: \(top5.joined(separator: ", "))")
 
         return CustomClassifierResult(
-            word: classes[top1Idx],
-            confidence: Double(probs[top1Idx]),
-            secondConfidence: Double(probs[top2Idx]),
+            word: topWord,
+            confidence: Double(topConf),
+            secondConfidence: Double(secondConf),
             features: features
         )
     }

@@ -183,42 +183,31 @@ final class WordProgressStoreTests: XCTestCase {
         XCTAssertEqual(store.quizPoolSize, expectedPool.count)
     }
 
-    // MARK: - Environment-aware selection
+    // MARK: - Location-aware selection
 
-    func testSelectQuizWordsIndoorPreference() {
+    func testSelectQuizWordsLocationFiltering() {
         let store = freshStore()
-        let selected = store.selectQuizWords(count: 5, environment: .indoor)
+        let selected = store.selectQuizWords(count: 5, location: .home)
         XCTAssertEqual(selected.count, 5)
+        let homeWords = WordProgressStore.locationWords[.home] ?? []
         for word in selected {
-            let env = WordProgressStore.wordEnvironments[word] ?? .both
-            XCTAssertTrue(env == .indoor || env == .both,
-                          "'\(word)' is \(env.rawValue), expected indoor or both")
+            XCTAssertTrue(homeWords.contains(word),
+                          "'\(word)' not in home location words")
         }
     }
 
-    func testSelectQuizWordsOutdoorPreference() {
+    func testSelectQuizWordsNilLocationUsesFullPool() {
         let store = freshStore()
-        let selected = store.selectQuizWords(count: 5, environment: .outdoor)
-        XCTAssertEqual(selected.count, 5)
-        for word in selected {
-            let env = WordProgressStore.wordEnvironments[word] ?? .both
-            XCTAssertTrue(env == .outdoor || env == .both,
-                          "'\(word)' is \(env.rawValue), expected outdoor or both")
-        }
-    }
-
-    func testSelectQuizWordsNilEnvironmentUsesFullPool() {
-        let store = freshStore()
-        let selected = store.selectQuizWords(count: 5, environment: nil)
+        let selected = store.selectQuizWords(count: 5)
         XCTAssertEqual(selected.count, 5)
     }
 
-    func testAllSeededWordsHaveEnvironmentTag() {
+    func testAllSeededWordsHaveLocation() {
         let seeded = WordProgressStore.seededHighConfidenceWords
-        let tagged = Set(WordProgressStore.wordEnvironments.keys)
-        let untagged = seeded.subtracting(tagged)
+        let allLocationWords = Set(WordProgressStore.locationWords.values.flatMap { $0 })
+        let untagged = seeded.subtracting(allLocationWords)
         XCTAssertTrue(untagged.isEmpty,
-                      "Seeded words missing environment tag: \(untagged.sorted())")
+                      "Seeded words missing from all locations: \(untagged.sorted())")
     }
 
     // MARK: - Persistence

@@ -136,10 +136,7 @@ final class AppState: ObservableObject {
     @Published var showingCorrectionPicker = false
     @Published var showingParentSettings = false
 
-    /// Manual environment override for quiz word selection (legacy, kept for backward compat).
-    @Published var environmentOverride: WordEnvironment? = nil
-
-    /// Granular location for quiz word filtering. nil = use all locations.
+    /// Location for quiz word filtering. nil = use all locations.
     @Published var selectedLocation: WordLocation? = nil {
         didSet { UserDefaults.standard.set(selectedLocation?.rawValue, forKey: "selectedLocation") }
     }

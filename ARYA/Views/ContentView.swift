@@ -184,7 +184,6 @@ struct ContentView: View {
                     trainingCapture: appState.trainingCapture,
                     correctionStore: appState.correctionStore,
                     wordProgressStore: appState.wordProgressStore,
-                    environmentOverride: $appState.environmentOverride,
                     selectedLocation: $appState.selectedLocation,
                     selectedCategories: $appState.selectedCategories,
                     onStartQuiz: { appState.startScavengerHunt() },
