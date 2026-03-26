@@ -51,12 +51,26 @@
 - iOS 17+, Swift 5.9, XcodeGen (`project.yml` → `ARYA.xcodeproj`)
 - Run `xcodegen generate` after adding/removing files
 - Five layers: Views → App (state) → Detection → Speech → Data
-- Dual-model classification: VNClassifyImageRequest + Custom MobileNetV3-Small classifier (CoreML)
-- Custom classifier: ARYAClassifier.mlpackage (3.3MB, 151 classes). Input: 224x224 RGB. Outputs: softmax probabilities + 1024-dim feature vector
-- ConsensusGate uses probability-based thresholds (customHighConfidence=0.90, vnTrustThreshold=0.45)
+- Single-model classification: Custom classifier (CoreML) with confidence threshold (0.40). CorrectionStore checked first.
+- VNClassifyImageRequest used ONLY for environment detection (indoor/outdoor scene labels), NOT for object classification.
+- Custom classifier: ARYAClassifier.mlpackage (151 classes, 12.9MB). Input: 224x224 RGB. Outputs: softmax probabilities + 1024-dim feature vector
+- Backbone: FastViT-T12 (Apple, 6.7M params, 79.3% ImageNet). Val accuracy: 95.2% (top-5: 99.1%). Upgraded from MobileNetV3-Small (91.3% val). Training uses timm (`fastvit_t12`) with class-weighted loss.
 - MLMultiArray on ANE outputs Float16 — always use subscript access (`array[i].floatValue`), never `dataPointer.bindMemory(to: Float.self)`
 - Training pipeline: `collect_training_data.py` → `curate_training_data.py` → `train_classifier.py` → `convert_to_coreml.py` → `verify_classifier.py`
+- Retraining pipeline: Parent exports captures from app → `ingest_phone_captures.py [zip]` → `train_classifier.py` → `convert_to_coreml.py`
+- Learning progression: `WordProgressStore` dual-tracks explore (feeds quiz pool) and quiz (feeds mastery/spaced repetition). Mastery levels 0-4 based on consecutive quiz correct answers.
+- Quiz/scavenger hunt mode: Primary feature. 5 words/session from quiz pool. Child taps matching object. Parent pencil override in both directions.
+- Quiz pool: Seeded with high-confidence objects, expanded by explore mode identifications (2+ IDs, 0 corrections per word)
+- Explore mode: Secondary feature, accessible from scavenger hunt screen. Free-roaming object identification.
+- Parent settings: Gear icon in top-right corner. Shows quiz mode, learning progress, capture stats, export/clear actions.
+- ConsensusGate.swift deleted (VN removed from classification path, March 2026). LabelMapper.swift kept for test utilities.
 - MobileCLIP S0 files (CLIPEmbeddings.swift, MobileCLIPImageEncoder.mlpackage, text_embeddings.bin) are legacy — kept for fallback but no longer in the active classification path
+- **Planned rebrand: ARYA -> Seeky** (scavenger hunt concept: seek + playful suffix)
+
+### Known Device Issues (March 2025)
+- **Laptop/monitor confusion**: Custom classifier splits ~0.52/0.47 when tapping screen portion. White screen content triggers it. Web val accuracy (94.2% laptop, 90.7% monitor) overstates real-world performance because web photos show distinctive hinges/keyboards.
+- **Light/moon VN confusion**: FIXED by removing VN from classification. Custom correctly identifies lights (0.81-0.88).
+- **Slow app startup**: 12.9MB FastViT model takes longer for CoreML to compile on first launch vs old 3.3MB model. Investigate lazy loading or INT8 (6.7MB).
 
 ### Camera & Coordinates
 - **Tap-to-pixel coordinate offsets are the #1 recurring bug.** Never assume screen coordinates, device coordinates, and buffer coordinates are in the same space. They aren't. Log all three at the point of conversion and verify on device before trusting the math.
@@ -110,5 +124,7 @@
 - `InstanceTrackerTests` covers grace period, tap padding, IoU matching
 - `LetterHighlighterTests` covers letter state transitions, multi-letter phonemes, space handling
 - `CropLogicTests` tests tap-centered crop and device-to-buffer coordinate conversion
+- `TrainingCaptureTests` covers stats, export zip creation, clear, underscore word handling
+- `WordProgressStoreTests` covers explore/quiz dual tracking, quiz eligibility, mastery progression, word selection, persistence
 - `ClassificationIntegrationTests` runs VN on real images (device-only, downloads from Unsplash)
 - Tests that require Vision framework or bundle resources only pass on device, not simulator

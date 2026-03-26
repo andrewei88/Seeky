@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Convert trained ARYA MobileNetV3-Small to CoreML format.
+"""Convert trained ARYA FastViT-T12 to CoreML format.
 
 Produces two CoreML models:
   1. ARYAClassifier.mlpackage — full model (classify + feature vector)
-  2. ARYAClassifier_int8.mlpackage — INT8 quantized version (~1.5MB)
+  2. ARYAClassifier_int8.mlpackage — INT8 quantized version
 
 Includes verification: compares PyTorch vs CoreML outputs on a test image.
 
 Usage:
-    pip install coremltools torch torchvision Pillow numpy
+    pip install coremltools torch timm Pillow numpy
     python scripts/convert_to_coreml.py
 
 Input:  models/arya_classifier_best.pth + models/arya_classes.json
@@ -20,9 +20,10 @@ from pathlib import Path
 
 import coremltools as ct
 import numpy as np
+import timm
 import torch
 import torch.nn as nn
-from torchvision import models, transforms
+from torchvision import transforms
 from PIL import Image
 
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -33,27 +34,21 @@ IMAGE_SIZE = 224
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
 IMAGENET_STD = [0.229, 0.224, 0.225]
 
+# Must match train_classifier.py
+BACKBONE = "fastvit_t12"
+
 
 class ARYAClassifier(nn.Module):
     """Must match train_classifier.py exactly."""
 
     def __init__(self, num_classes: int):
         super().__init__()
-        base = models.mobilenet_v3_small(weights=None)
-        self.features = base.features
-        self.avgpool = base.avgpool
-        self.feature_head = nn.Sequential(
-            base.classifier[0],
-            base.classifier[1],
-            base.classifier[2],
-        )
-        self.class_head = nn.Linear(1024, num_classes)
+        self.backbone = timm.create_model(BACKBONE, pretrained=False, num_classes=0)
+        self.feat_dim = self.backbone.num_features
+        self.class_head = nn.Linear(self.feat_dim, num_classes)
 
     def forward(self, x):
-        x = self.features(x)
-        x = self.avgpool(x)
-        x = torch.flatten(x, 1)
-        features = self.feature_head(x)
+        features = self.backbone(x)
         logits = self.class_head(features)
         return logits, features
 
@@ -83,7 +78,7 @@ def load_model(num_classes: int) -> ARYAClassifier:
 
 
 def convert_to_coreml(model: ARYAClassifierForExport, classes: list[str]):
-    """Convert with normalization baked into the model (most reliable approach)."""
+    """Convert with normalization baked into the model."""
 
     class NormalizedModel(nn.Module):
         """Wraps model with ImageNet normalization from 0-1 input."""
@@ -94,7 +89,6 @@ def convert_to_coreml(model: ARYAClassifierForExport, classes: list[str]):
             self.register_buffer("std", torch.tensor(IMAGENET_STD).view(1, 3, 1, 1))
 
         def forward(self, x):
-            # x comes in as 0-1 from CoreML's scale=1/255
             x = (x - self.mean) / self.std
             return self.inner(x)
 
@@ -124,14 +118,13 @@ def convert_to_coreml(model: ARYAClassifierForExport, classes: list[str]):
     # Add metadata
     mlmodel.author = "ARYA"
     mlmodel.short_description = (
-        "MobileNetV3-Small fine-tuned for 107-word children's vocabulary. "
+        f"FastViT-T12 fine-tuned for {len(classes)}-word children's vocabulary. "
         "Outputs class probabilities and 1024-dim feature vector."
     )
     mlmodel.input_description["image"] = "224x224 RGB image of an object"
     mlmodel.output_description["probabilities"] = f"Probability for each of {len(classes)} classes"
     mlmodel.output_description["features"] = "1024-dim L2-normalized feature vector for CorrectionStore"
 
-    # Add class labels as user-defined metadata
     mlmodel.user_defined_metadata["classes"] = json.dumps(classes)
 
     return mlmodel
@@ -141,7 +134,6 @@ def verify_outputs(pytorch_model: ARYAClassifierForExport, coreml_model, classes
     """Compare PyTorch and CoreML outputs on a synthetic test image."""
     print("\nVerifying PyTorch vs CoreML output consistency...")
 
-    # Create a test image (random but deterministic)
     np.random.seed(42)
     test_pixels = np.random.randint(0, 255, (IMAGE_SIZE, IMAGE_SIZE, 3), dtype=np.uint8)
     test_image = Image.fromarray(test_pixels, "RGB")
@@ -167,8 +159,8 @@ def verify_outputs(pytorch_model: ARYAClassifierForExport, coreml_model, classes
     feat_diff = np.max(np.abs(pt_features - cm_features))
     cosine_sim = np.dot(pt_features, cm_features) / (np.linalg.norm(pt_features) * np.linalg.norm(cm_features))
 
-    print(f"  Probability max diff: {prob_diff:.6f} (should be < 0.001)")
-    print(f"  Feature max diff:     {feat_diff:.6f} (should be < 0.001)")
+    print(f"  Probability max diff: {prob_diff:.6f} (should be < 0.01)")
+    print(f"  Feature max diff:     {feat_diff:.6f} (should be < 0.01)")
     print(f"  Feature cosine sim:   {cosine_sim:.6f} (should be > 0.999)")
 
     pt_top = np.argsort(pt_probs)[-5:][::-1]
@@ -177,11 +169,11 @@ def verify_outputs(pytorch_model: ARYAClassifierForExport, coreml_model, classes
     print(f"  CoreML  top-5: {[classes[i] for i in cm_top]}")
 
     if prob_diff > 0.01 or feat_diff > 0.01:
-        print("\n  ⚠ WARNING: Large discrepancy between PyTorch and CoreML outputs!")
+        print("\n  WARNING: Large discrepancy between PyTorch and CoreML outputs!")
         print("  Check that ImageNet normalization is applied consistently.")
         return False
 
-    print("  ✓ Outputs match within tolerance")
+    print("  Outputs match within tolerance")
     return True
 
 
@@ -201,22 +193,18 @@ def quantize_int8(model_path: Path, output_path: Path):
 
 
 def main():
-    # Load classes
     classes_path = MODEL_DIR / "arya_classes.json"
     with open(classes_path) as f:
         classes = json.load(f)
     print(f"Classes: {len(classes)}")
 
-    # Load PyTorch model
     print("Loading PyTorch model...")
     base_model = load_model(len(classes))
     export_model = ARYAClassifierForExport(base_model)
 
-    # Convert
     print("Converting to CoreML...")
     mlmodel = convert_to_coreml(export_model, classes)
 
-    # Save
     output_path = RESOURCES_DIR / "ARYAClassifier.mlpackage"
     mlmodel.save(str(output_path))
     print(f"Saved to: {output_path}")
@@ -224,10 +212,8 @@ def main():
     model_size = sum(f.stat().st_size for f in output_path.rglob("*") if f.is_file())
     print(f"Model size: {model_size / 1024 / 1024:.1f} MB")
 
-    # Verify
     verify_outputs(export_model, mlmodel, classes)
 
-    # Quantize
     int8_path = MODEL_DIR / "ARYAClassifier_int8.mlpackage"
     quantize_int8(output_path, int8_path)
 
@@ -236,7 +222,6 @@ def main():
     print(f"  Full model:  {output_path}")
     print(f"  INT8 model:  {int8_path}")
     print(f"{'='*60}")
-    print(f"\nNext: Integrate into Swift (see Task 4 in the plan)")
 
 
 if __name__ == "__main__":

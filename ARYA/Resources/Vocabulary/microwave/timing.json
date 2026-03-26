@@ -60,7 +60,8 @@
     {
       "phoneme": "V",
       "letters": [
-        7
+        7,
+        8
       ],
       "start": 0.86,
       "end": 0.97

@@ -6,13 +6,14 @@ to the app's documents directory. This script copies those images into the
 training data, re-splits train/val, and optionally retrains the model.
 
 Usage:
-    # 1. Export training_captures/ from iOS app (via Files app or AirDrop)
-    # 2. Place the folder at: data/phone_captures/
-    # 3. Run:
+    # From exported zip (via share sheet in the app):
+    python scripts/ingest_phone_captures.py path/to/arya_training_captures.zip
+
+    # From a folder already placed at data/phone_captures/:
     python scripts/ingest_phone_captures.py
 
     # To also retrain and convert in one step:
-    python scripts/ingest_phone_captures.py --retrain
+    python scripts/ingest_phone_captures.py --retrain [path/to/zip]
 """
 
 import argparse
@@ -21,6 +22,7 @@ import random
 import shutil
 import subprocess
 import sys
+import zipfile
 from pathlib import Path
 
 from PIL import Image
@@ -120,10 +122,40 @@ def resplit_classes(classes: list[str] | None = None):
         print(f"  {word}: {len(train_images)} train, {len(val_images)} val")
 
 
+def extract_zip(zip_path: Path):
+    """Extract a zip file exported from the app into the captures directory."""
+    print(f"Extracting zip: {zip_path}")
+    if not zip_path.exists():
+        print(f"Zip file not found: {zip_path}")
+        return False
+
+    if CAPTURES_DIR.exists():
+        shutil.rmtree(CAPTURES_DIR)
+
+    with zipfile.ZipFile(zip_path, "r") as zf:
+        zf.extractall(CAPTURES_DIR)
+
+    # The zip may contain a top-level directory (training_captures/). Flatten if needed.
+    subdirs = [d for d in CAPTURES_DIR.iterdir() if d.is_dir()]
+    if len(subdirs) == 1 and not list(CAPTURES_DIR.glob("*.jpg")):
+        nested = subdirs[0]
+        for item in nested.iterdir():
+            shutil.move(str(item), str(CAPTURES_DIR / item.name))
+        nested.rmdir()
+
+    print(f"Extracted to: {CAPTURES_DIR}")
+    return True
+
+
 def main():
     parser = argparse.ArgumentParser(description="Ingest phone captures into training pipeline")
+    parser.add_argument("zip_path", nargs="?", help="Path to exported zip file (optional)")
     parser.add_argument("--retrain", action="store_true", help="Also retrain and convert the model")
     args = parser.parse_args()
+
+    if args.zip_path:
+        if not extract_zip(Path(args.zip_path)):
+            sys.exit(1)
 
     print("Ingesting phone captures into training pipeline")
     print(f"Captures: {CAPTURES_DIR}")

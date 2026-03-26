@@ -24,8 +24,12 @@ final class CustomClassifier {
         }
 
         do {
-            self.model = try MLModel(contentsOf: modelURL)
-            print("[CustomClassifier] Model loaded successfully")
+            let startTime = CFAbsoluteTimeGetCurrent()
+            let config = MLModelConfiguration()
+            config.computeUnits = .cpuAndNeuralEngine
+            self.model = try MLModel(contentsOf: modelURL, configuration: config)
+            let elapsed = CFAbsoluteTimeGetCurrent() - startTime
+            print("[CustomClassifier] Model loaded in \(String(format: "%.2f", elapsed))s")
         } catch {
             print("[CustomClassifier] Failed to load model: \(error)")
             return nil
@@ -52,7 +56,7 @@ final class CustomClassifier {
 
     /// Classify a cropped object image. Returns top results + feature vector.
     func classify(imageBuffer: CVPixelBuffer) -> CustomClassifierResult? {
-        // Resize to 224x224 as required by MobileNetV3
+        // Resize to 224x224 as required by the model
         guard let resizedBuffer = resizePixelBuffer(imageBuffer, to: CGSize(width: 224, height: 224)) else {
             print("[CustomClassifier] Failed to resize buffer to 224x224")
             return nil

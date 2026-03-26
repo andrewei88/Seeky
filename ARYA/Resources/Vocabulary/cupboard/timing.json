@@ -45,7 +45,8 @@
     {
       "phoneme": "D",
       "letters": [
-        6
+        6,
+        7
       ],
       "start": 0.56,
       "end": 0.67

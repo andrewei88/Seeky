@@ -9,11 +9,15 @@ import UIKit
 /// Directory structure:
 ///   Documents/training_captures/{word}/{timestamp}.jpg
 final class TrainingCapture {
-    private let baseDir: URL
+    let baseDir: URL
 
     init() {
         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         baseDir = docs.appendingPathComponent("training_captures")
+    }
+
+    init(baseDir: URL) {
+        self.baseDir = baseDir
     }
 
     /// Save a cropped image buffer with its corrected label.
@@ -43,6 +47,49 @@ final class TrainingCapture {
         }
     }
 
+    /// Returns per-word capture counts and total.
+    func stats() -> (perWord: [(word: String, count: Int)], total: Int) {
+        let fm = FileManager.default
+        guard let wordDirs = try? fm.contentsOfDirectory(at: baseDir, includingPropertiesForKeys: nil,
+                                                          options: .skipsHiddenFiles) else {
+            return ([], 0)
+        }
+
+        var results: [(word: String, count: Int)] = []
+        var total = 0
+
+        for dir in wordDirs where dir.hasDirectoryPath {
+            let word = dir.lastPathComponent.replacingOccurrences(of: "_", with: " ")
+            let files = (try? fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil,
+                                                      options: .skipsHiddenFiles)) ?? []
+            let jpgCount = files.filter { $0.pathExtension.lowercased() == "jpg" }.count
+            if jpgCount > 0 {
+                results.append((word: word, count: jpgCount))
+                total += jpgCount
+            }
+        }
+
+        results.sort { $0.word < $1.word }
+        return (results, total)
+    }
+
+    /// Create a zip archive of all captures. Returns the zip file URL, or nil if no captures exist.
+    func createExportArchive() -> URL? {
+        let (_, total) = stats()
+        guard total > 0 else { return nil }
+
+        let tempDir = FileManager.default.temporaryDirectory
+        let zipURL = tempDir.appendingPathComponent("arya_training_captures.zip")
+
+        // Remove old export if it exists
+        try? FileManager.default.removeItem(at: zipURL)
+
+        guard let archive = createZip(sourceDir: baseDir, destURL: zipURL) else {
+            return nil
+        }
+        return archive
+    }
+
     /// Remove all captured training data.
     func clearAll() {
         try? FileManager.default.removeItem(at: baseDir)
@@ -55,5 +102,30 @@ final class TrainingCapture {
             return nil
         }
         return UIImage(cgImage: cgImage).jpegData(compressionQuality: 0.90)
+    }
+
+    /// Create a zip file from a directory using NSFileCoordinator.
+    /// iOS provides built-in zip support via NSFileCoordinator with .forUploading intent.
+    private func createZip(sourceDir: URL, destURL: URL) -> URL? {
+        var error: NSError?
+        var resultURL: URL?
+        let coordinator = NSFileCoordinator()
+
+        // NSFileCoordinator.coordinate with .forUploading on a directory creates a zip
+        coordinator.coordinate(readingItemAt: sourceDir, options: .forUploading, error: &error) { zipURL in
+            do {
+                try FileManager.default.copyItem(at: zipURL, to: destURL)
+                resultURL = destURL
+            } catch {
+                print("[TrainingCapture] Failed to copy zip: \(error)")
+            }
+        }
+
+        if let error = error {
+            print("[TrainingCapture] Failed to create zip: \(error)")
+            return nil
+        }
+
+        return resultURL
     }
 }

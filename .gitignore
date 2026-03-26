@@ -26,3 +26,7 @@ venv/
 /models/
 /voice_comparison/
 .playwright-mcp/
+
+# Private notes (local only)
+ANDREWNOTES.md
+FORANDREW.md

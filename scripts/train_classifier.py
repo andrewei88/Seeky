@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Train MobileNetV3-Small for ARYA's 107-word vocabulary.
+"""Train FastViT-T12 for ARYA's vocabulary.
 
 Two-phase training:
   Phase 1: Freeze backbone, train classifier head (5 epochs)
   Phase 2: Unfreeze all, fine-tune end-to-end (15 epochs)
 
 Dual output:
-  1. 107-class softmax probabilities (for classification)
+  1. N-class softmax probabilities (for classification)
   2. 1024-dim feature vector from penultimate layer (for CorrectionStore)
 
 Usage:
-    pip install torch torchvision
+    pip install torch torchvision timm
     python scripts/train_classifier.py
 
 Input:  data/arya_training/{train,val}/{word}/*.jpg
@@ -23,11 +23,13 @@ import os
 import time
 from pathlib import Path
 
+import timm
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
-from torchvision import datasets, models, transforms
+from torchvision import datasets, transforms
+from collections import Counter
 
 # ── Config ──────────────────────────────────────────────────────────────────
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -39,11 +41,14 @@ MODEL_DIR.mkdir(parents=True, exist_ok=True)
 BATCH_SIZE = 64
 NUM_WORKERS = 4
 PHASE1_EPOCHS = 5       # frozen backbone
-PHASE2_EPOCHS = 15      # full fine-tune
+PHASE2_EPOCHS = 25      # full fine-tune (longer for heavier augmentations)
 PHASE1_LR = 1e-3
 PHASE2_LR = 1e-4
 WEIGHT_DECAY = 1e-4
-IMAGE_SIZE = 224         # MobileNetV3 standard input
+IMAGE_SIZE = 224
+
+# Backbone: FastViT-T12 (Apple, 6.7M params, 79.3% ImageNet, 1024-dim features)
+BACKBONE = "fastvit_t12"
 
 # ImageNet normalization
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
@@ -51,38 +56,24 @@ IMAGENET_STD = [0.229, 0.224, 0.225]
 
 
 class ARYAClassifier(nn.Module):
-    """MobileNetV3-Small with dual output: class probabilities + feature vector.
+    """FastViT-T12 with dual output: class probabilities + feature vector.
 
-    The feature vector is the 1024-dim output of the penultimate layer,
-    used by CorrectionStore for embedding-based correction (same role as
-    CLIP embeddings in the Tier 3 architecture).
+    The feature vector is the 1024-dim output of the backbone's global average pooling,
+    used by CorrectionStore for embedding-based correction.
     """
 
     def __init__(self, num_classes: int):
         super().__init__()
-        base = models.mobilenet_v3_small(weights=models.MobileNet_V3_Small_Weights.IMAGENET1K_V1)
+        # Load pretrained backbone as feature extractor (num_classes=0 removes head)
+        self.backbone = timm.create_model(BACKBONE, pretrained=True, num_classes=0)
+        self.feat_dim = self.backbone.num_features  # 1024 for fastvit_t12
 
-        # Backbone: everything up to the classifier
-        self.features = base.features
-        self.avgpool = base.avgpool
-
-        # The MobileNetV3 classifier is: Linear(576, 1024) → Hardswish → Dropout → Linear(1024, 1000)
-        # We keep the first part (576 → 1024 + activation) as our feature extractor
-        self.feature_head = nn.Sequential(
-            base.classifier[0],   # Linear(576, 1024)
-            base.classifier[1],   # Hardswish
-            base.classifier[2],   # Dropout
-        )
-
-        # New classification head: 1024 → num_classes
-        self.class_head = nn.Linear(1024, num_classes)
+        # Classification head: feat_dim -> num_classes
+        self.class_head = nn.Linear(self.feat_dim, num_classes)
 
     def forward(self, x):
-        x = self.features(x)
-        x = self.avgpool(x)
-        x = torch.flatten(x, 1)         # [B, 576]
-        features = self.feature_head(x)  # [B, 1024]
-        logits = self.class_head(features)  # [B, num_classes]
+        features = self.backbone(x)           # [B, 1024]
+        logits = self.class_head(features)    # [B, num_classes]
         return logits, features
 
     def forward_classify(self, x):
@@ -96,14 +87,50 @@ class ARYAClassifier(nn.Module):
         return nn.functional.normalize(features, p=2, dim=1)
 
 
+def compute_class_weights(dataset, num_classes, device):
+    """Compute inverse-frequency class weights, clamped to [0.5, 3.0].
+
+    Boosts rare/weak classes without destabilizing training on common classes.
+    """
+    counts = Counter()
+    for _, label in dataset.samples:
+        counts[label] += 1
+
+    total = sum(counts.values())
+    weights = []
+    for i in range(num_classes):
+        freq = counts.get(i, 1) / total
+        # inverse frequency, normalized so mean weight = 1.0
+        w = (1.0 / num_classes) / freq
+        weights.append(w)
+
+    weights = torch.tensor(weights, dtype=torch.float32)
+    # Clamp to avoid extreme weights on tiny classes
+    weights = weights.clamp(min=0.5, max=3.0)
+    # Normalize so mean = 1.0
+    weights = weights / weights.mean()
+    return weights.to(device)
+
+
 def get_data_loaders():
-    """Create train and val data loaders with augmentation."""
+    """Create train and val data loaders with augmentation.
+
+    Augmentations designed to bridge web-image → phone-camera distribution gap:
+    - RandomResizedCrop with wider scale range (objects at varying distances)
+    - RandomPerspective (phone held at different angles)
+    - GaussianBlur (camera focus issues, motion blur)
+    - RandomErasing (partial occlusion from clutter, hands, other objects)
+    - Strong ColorJitter (household lighting varies from dim to bright, warm to cool)
+    """
     train_transform = transforms.Compose([
-        transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.7, 1.0)),
+        transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.5, 1.0)),
         transforms.RandomHorizontalFlip(),
-        transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3, hue=0.1),
-        transforms.RandomRotation(15),
+        transforms.RandomPerspective(distortion_scale=0.2, p=0.3),
+        transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.15),
+        transforms.RandomRotation(20),
+        transforms.GaussianBlur(kernel_size=5, sigma=(0.1, 2.0)),
         transforms.ToTensor(),
+        transforms.RandomErasing(p=0.2, scale=(0.02, 0.15)),
         transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD),
     ])
 
@@ -119,7 +146,6 @@ def get_data_loaders():
 
     # Save class ordering (folder names sorted alphabetically by ImageFolder)
     # Replace underscores with spaces to match vocabulary.json naming convention
-    # (e.g., "teddy_bear" folder → "teddy bear" class, "toilet_paper" → "toilet paper")
     classes = [c.replace("_", " ") for c in train_dataset.classes]
     with open(MODEL_DIR / "arya_classes.json", "w") as f:
         json.dump(classes, f, indent=2)
@@ -139,7 +165,7 @@ def get_data_loaders():
     )
 
     print(f"Train: {len(train_dataset)} images, Val: {len(val_dataset)} images")
-    return train_loader, val_loader, len(classes)
+    return train_loader, val_loader, len(classes), train_dataset
 
 
 def train_one_epoch(model, loader, criterion, optimizer, device):
@@ -204,20 +230,30 @@ def main():
         device = torch.device("cpu")
         print("Using CPU (this will be slow)")
 
-    train_loader, val_loader, num_classes = get_data_loaders()
+    train_loader, val_loader, num_classes, train_dataset = get_data_loaders()
 
     model = ARYAClassifier(num_classes).to(device)
-    criterion = nn.CrossEntropyLoss()
+    print(f"Backbone: {BACKBONE} ({model.feat_dim}-dim features)")
+    param_count = sum(p.numel() for p in model.parameters())
+    print(f"Parameters: {param_count:,}")
+
+    # Class-weighted loss with label smoothing to boost underrepresented classes
+    # and reduce overconfidence on web images (improves generalization to phone camera)
+    class_weights = compute_class_weights(train_dataset, num_classes, device)
+    criterion = nn.CrossEntropyLoss(weight=class_weights, label_smoothing=0.1)
+    print(f"Class weights: min={class_weights.min():.2f}, max={class_weights.max():.2f}, mean={class_weights.mean():.2f}")
+    print(f"Label smoothing: 0.1")
+
+    # Unweighted criterion for validation (fair comparison)
+    val_criterion = nn.CrossEntropyLoss()
 
     # ── Phase 1: Freeze backbone, train head ────────────────────────────────
     print(f"\n{'='*60}")
     print(f"PHASE 1: Train classifier head ({PHASE1_EPOCHS} epochs, backbone frozen)")
     print(f"{'='*60}")
 
-    # Freeze everything except class_head
-    for param in model.features.parameters():
-        param.requires_grad = False
-    for param in model.feature_head.parameters():
+    # Freeze backbone
+    for param in model.backbone.parameters():
         param.requires_grad = False
 
     optimizer = optim.Adam(model.class_head.parameters(), lr=PHASE1_LR, weight_decay=WEIGHT_DECAY)
@@ -226,7 +262,7 @@ def main():
     for epoch in range(PHASE1_EPOCHS):
         t0 = time.time()
         train_loss, train_acc = train_one_epoch(model, train_loader, criterion, optimizer, device)
-        val_loss, val_acc, val_top5 = validate(model, val_loader, criterion, device)
+        val_loss, val_acc, val_top5 = validate(model, val_loader, val_criterion, device)
         elapsed = time.time() - t0
 
         print(f"  Epoch {epoch+1}/{PHASE1_EPOCHS} ({elapsed:.0f}s) — "
@@ -252,7 +288,7 @@ def main():
     for epoch in range(PHASE2_EPOCHS):
         t0 = time.time()
         train_loss, train_acc = train_one_epoch(model, train_loader, criterion, optimizer, device)
-        val_loss, val_acc, val_top5 = validate(model, val_loader, criterion, device)
+        val_loss, val_acc, val_top5 = validate(model, val_loader, val_criterion, device)
         scheduler.step()
         elapsed = time.time() - t0
 
@@ -264,13 +300,14 @@ def main():
         if val_acc > best_val_acc:
             best_val_acc = val_acc
             torch.save(model.state_dict(), MODEL_DIR / "arya_classifier_best.pth")
-            print(f"    ✓ New best: {val_acc:.1%}")
+            print(f"    New best: {val_acc:.1%}")
 
     # Save final model too
     torch.save(model.state_dict(), MODEL_DIR / "arya_classifier_final.pth")
 
     print(f"\n{'='*60}")
     print(f"TRAINING COMPLETE")
+    print(f"  Backbone: {BACKBONE}")
     print(f"  Best validation accuracy: {best_val_acc:.1%}")
     print(f"  Model saved to: {MODEL_DIR / 'arya_classifier_best.pth'}")
     print(f"  Classes saved to: {MODEL_DIR / 'arya_classes.json'}")
