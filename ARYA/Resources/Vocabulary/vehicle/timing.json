@@ -1,0 +1,54 @@
+{
+  "word": "vehicle",
+  "phonemes": [
+    {
+      "phoneme": "V",
+      "letters": [
+        0
+      ],
+      "start": 0.0,
+      "end": 0.11
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1
+      ],
+      "start": 0.11,
+      "end": 0.23
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.23,
+      "end": 0.35
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        4
+      ],
+      "start": 0.35,
+      "end": 0.46
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ],
+      "start": 0.46,
+      "end": 0.58
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        6
+      ],
+      "start": 0.58,
+      "end": 0.7
+    }
+  ]
+}

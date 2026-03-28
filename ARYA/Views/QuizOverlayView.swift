@@ -17,9 +17,16 @@ struct QuizOverlayView: View {
     let onReplay: () -> Void
 
     // Animation state
-    @State private var wordBounce: CGFloat = 1.0
+    @State private var wordBounceY: CGFloat = 0
     @State private var wordShakeOffset: CGFloat = 0
     @State private var celebratingIndex: Int? = nil
+
+    // Letter highlight state
+    @State private var isCelebrating: Bool = false
+    /// Tracks which word's audio has finished playing (nil = no word spoken yet this challenge).
+    /// Using the word string instead of a boolean so that skips (which replace the challenge
+    /// at the same index) automatically invalidate the state.
+    @State private var spokenWord: String? = nil
 
     var body: some View {
         if session.isComplete {
@@ -48,39 +55,38 @@ struct QuizOverlayView: View {
             // Target prompt
             if let challenge = session.currentChallenge {
                 VStack(spacing: 4) {
-                    if case .category(let category) = challenge.target {
-                        // Category challenge: show "Find a..." label + category name
-                        Text(categoryArticle(category))
-                            .font(.system(size: 20, weight: .medium, design: .rounded))
-                            .foregroundColor(.white.opacity(0.5))
-                            .padding(.top, 8)
+                    // Unified display: both word and category challenges show just the name
+                    WordDisplayView(
+                        word: challenge.displayText,
+                        letterStates: currentLetterStates(for: challenge.displayText),
+                        fontSize: 56,
+                        upcomingColor: .white
+                    )
+                    .shadow(color: .black.opacity(0.5), radius: 4, y: 2)
 
-                        Text(category)
-                            .font(.system(size: 56, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-                            .shadow(color: .black.opacity(0.5), radius: 4, y: 2)
+                    // Category: show the found word after correct match
+                    if case .category = challenge.target,
+                       let found = session.lastFoundWord,
+                       session.lastResult == .correct {
+                        Text(found)
+                            .font(.system(size: 28, weight: .semibold, design: .rounded))
+                            .foregroundColor(.green)
+                            .transition(.scale.combined(with: .opacity))
+                    }
 
-                        // Show the found word after correct match
-                        if let found = session.lastFoundWord, session.lastResult == .correct {
-                            Text(found)
-                                .font(.system(size: 28, weight: .semibold, design: .rounded))
-                                .foregroundColor(.green)
-                                .transition(.scale.combined(with: .opacity))
-                        }
-                    } else {
-                        // Word challenge: letter-by-letter highlighting
-                        WordDisplayView(
-                            word: challenge.displayText,
-                            letterStates: currentLetterStates(for: challenge.displayText),
-                            fontSize: 56,
-                            upcomingColor: .white
-                        )
-                        .shadow(color: .black.opacity(0.5), radius: 4, y: 2)
+                    // Hint after 2+ failed attempts on word challenges
+                    if case .word(let targetWord) = challenge.target,
+                       session.attemptsOnCurrent >= 2,
+                       mode == .quizPrompting {
+                        let hint = String(targetWord.prefix(1)).uppercased()
+                        Text("Hint: starts with \(hint)")
+                            .font(.system(size: 18, weight: .medium, design: .rounded))
+                            .foregroundColor(.yellow.opacity(0.8))
+                            .transition(.opacity)
                     }
                 }
                 .padding(.top, 12)
-                .scaleEffect(wordBounce)
-                .offset(x: wordShakeOffset)
+                .offset(x: wordShakeOffset, y: wordBounceY)
 
                 // Replay speaker icon (hidden during celebration/result)
                 if mode == .quizPrompting {
@@ -135,6 +141,19 @@ struct QuizOverlayView: View {
         .onChange(of: session.lastResult) { _, newResult in
             handleResultChange(newResult)
         }
+        .onChange(of: wordSpeaker.isPlayingWord) { oldValue, newValue in
+            // Word audio finished → record which word was spoken.
+            // Uses lastPlayedLabel (stable) instead of session.currentWord
+            // (which may have changed by the time this deferred callback fires).
+            if oldValue && !newValue {
+                spokenWord = wordSpeaker.lastPlayedLabel
+            }
+        }
+        .onChange(of: session.currentWord) { _, _ in
+            // New challenge (advance, skip, or goBack) — reset highlight state
+            isCelebrating = false
+            spokenWord = nil
+        }
     }
 
     // MARK: - Completion
@@ -143,22 +162,37 @@ struct QuizOverlayView: View {
         VStack(spacing: 24) {
             Spacer()
 
-            Text("Great job!")
+            Text(completionTitle)
                 .font(.system(size: 40, weight: .bold, design: .rounded))
                 .foregroundColor(.white)
 
-            Text("\(session.correctCount) out of \(session.results.count)")
+            Text("\(session.correctCount) out of \(session.challenges.count)")
                 .font(.system(size: 24, design: .rounded))
                 .foregroundColor(.white.opacity(0.7))
 
-            HStack(spacing: 8) {
-                ForEach(0..<session.results.count, id: \.self) { i in
-                    Circle()
-                        .fill(session.results[i].correct ? Color.green : Color.white.opacity(0.2))
-                        .frame(width: session.results[i].correct ? 12 : 10,
-                               height: session.results[i].correct ? 12 : 10)
+            // Word-by-word results (in challenge order)
+            VStack(spacing: 8) {
+                ForEach(0..<session.challenges.count, id: \.self) { i in
+                    let challenge = session.challenges[i]
+                    let isCorrect = session.result(at: i)?.correct ?? false
+                    HStack(spacing: 10) {
+                        if isCorrect {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                                .font(.system(size: 18))
+                        } else {
+                            Circle()
+                                .fill(Color.white.opacity(0.15))
+                                .frame(width: 18, height: 18)
+                        }
+                        Text(challenge.displayText)
+                            .font(.system(size: 20, weight: .medium, design: .rounded))
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
                 }
             }
+            .padding(.horizontal, 60)
 
             Spacer()
 
@@ -191,18 +225,31 @@ struct QuizOverlayView: View {
         guard let result else { return }
 
         if case .correct = result {
-            // Word bounce: 1.0 → 1.15 → 1.0
-            withAnimation(.spring(response: 0.35, dampingFraction: 0.5)) {
-                wordBounce = 1.15
-                celebratingIndex = session.currentIndex
+            print("[Animation] Correct! Triggering bounce + golden flash at index \(session.currentIndex)")
+            celebratingIndex = session.currentIndex
+            isCelebrating = true
+
+            // Word jumps up — pure vertical movement, no scaling.
+            // Spring with low damping (0.3) overshoots, creating a physical bounce.
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.3)) {
+                wordBounceY = -50
             }
-            withAnimation(.spring(response: 0.3, dampingFraction: 0.7).delay(0.35)) {
-                wordBounce = 1.0
+            // Spring back down after holding at peak
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                withAnimation(.spring(response: 0.35, dampingFraction: 0.35)) {
+                    wordBounceY = 0
+                }
+            }
+            // End golden flash after 1s, settle to dim yellow
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                withAnimation(.easeOut(duration: 0.3)) {
+                    isCelebrating = false
+                }
             }
         } else {
             // Word shake: quick horizontal wiggle
             let shakeSequence: [(CGFloat, Double)] = [
-                (8, 0.0), (-6, 0.06), (4, 0.12), (-2, 0.18), (0, 0.24)
+                (10, 0.0), (-8, 0.06), (6, 0.12), (-3, 0.18), (0, 0.24)
             ]
             for (offset, delay) in shakeSequence {
                 withAnimation(.easeInOut(duration: 0.06).delay(delay)) {
@@ -215,23 +262,34 @@ struct QuizOverlayView: View {
     // MARK: - Letter states
 
     private func currentLetterStates(for word: String) -> [LetterState] {
-        guard wordSpeaker.isPlayingWord,
-              let timing = TimingData.load(word: word) else {
-            // Not playing word audio — all letters white (upcoming with full-white color)
-            return word.map { $0 == " " ? .space : .upcoming }
+        // Celebration flash: all letters bright gold with glow
+        if isCelebrating {
+            return word.map { $0 == " " ? .space : .active }
         }
-        let highlighter = LetterHighlighter(timing: timing)
-        return highlighter.letterStates(at: wordSpeaker.currentTime)
+
+        // Live highlighting during word audio playback
+        if wordSpeaker.isPlayingWord,
+           let timing = TimingData.load(word: word) {
+            let highlighter = LetterHighlighter(timing: timing)
+            return highlighter.letterStates(at: wordSpeaker.currentTime)
+        }
+
+        // After pronunciation: letters stay dim yellow (only for the current word)
+        if spokenWord == word {
+            return word.map { $0 == " " ? .space : .spoken }
+        }
+
+        // Default: white (word hasn't been spoken yet)
+        return word.map { $0 == " " ? .space : .upcoming }
     }
 
     // MARK: - Dot styling
 
     private func dotColor(for index: Int) -> Color {
-        if index < session.results.count {
-            // Completed word: green if correct, empty/dim if wrong
-            return session.results[index].correct ? .green : .white.opacity(0.15)
-        } else if index == session.currentIndex {
-            // Currently celebrating correct answer
+        if let result = session.result(at: index) {
+            return result.correct ? .green : .white.opacity(0.15)
+        }
+        if index == session.currentIndex {
             if celebratingIndex == index { return .green }
             return .white
         }
@@ -239,11 +297,10 @@ struct QuizOverlayView: View {
     }
 
     private func dotSize(for index: Int) -> CGFloat {
-        // Celebrating dot grows briefly
         if index == celebratingIndex && index == session.currentIndex {
             return 14
         }
-        if index < session.results.count && session.results[index].correct {
+        if let result = session.result(at: index), result.correct {
             return 10
         }
         return 8
@@ -256,12 +313,13 @@ struct QuizOverlayView: View {
         return .clear
     }
 
-    /// Returns "Find a" or "Find an" depending on the category name.
-    private func categoryArticle(_ category: String) -> String {
-        let vowels: Set<Character> = ["a", "e", "i", "o", "u"]
-        if let first = category.lowercased().first, vowels.contains(first) {
-            return "Find an"
-        }
-        return "Find a"
+    private var completionTitle: String {
+        let total = session.challenges.count
+        let ratio = total == 0 ? 0 : Double(session.correctCount) / Double(total)
+        if ratio >= 1.0 { return "Perfect!" }
+        if ratio >= 0.6 { return "Great job!" }
+        if ratio > 0 { return "Good try!" }
+        return "Keep going!"
     }
+
 }

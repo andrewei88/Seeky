@@ -38,9 +38,9 @@ struct ContentView: View {
                     }
                 }
 
-            // Glow at tap point (during learning or unrecognized correction)
-            if appState.showGlow {
-                TapGlowView(screenPoint: appState.tapScreenPoint)
+            // Brief ripple at tap point (both explore and quiz mode)
+            if appState.showTapRipple {
+                TapRippleView(screenPoint: appState.tapScreenPoint)
                     .allowsHitTesting(false)
             }
 
@@ -162,17 +162,17 @@ struct ContentView: View {
                     Button {
                         appState.startScavengerHunt()
                     } label: {
-                        HStack(spacing: 6) {
+                        HStack(spacing: 8) {
                             Image(systemName: "magnifyingglass")
-                                .font(.system(size: 14, weight: .medium))
+                                .font(.system(size: 20, weight: .semibold))
                             Text("Start Hunt")
-                                .font(.system(size: 14, weight: .medium, design: .rounded))
+                                .font(.system(size: 18, weight: .semibold, design: .rounded))
                         }
-                        .foregroundColor(.white.opacity(0.5))
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(Color.white.opacity(0.1))
-                        .cornerRadius(16)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 14)
+                        .background(Color.green.opacity(0.6))
+                        .cornerRadius(20)
                     }
                     .padding(.bottom, 50)
                 }
@@ -186,7 +186,8 @@ struct ContentView: View {
                     wordProgressStore: appState.wordProgressStore,
                     selectedLocation: $appState.selectedLocation,
                     selectedCategories: $appState.selectedCategories,
-                    onStartQuiz: { appState.startScavengerHunt() },
+                    onStartQuiz: { appState.startScavengerHunt(); appState.showingParentSettings = false },
+                    onExplore: { appState.switchToExplore(); appState.showingParentSettings = false },
                     onDismiss: { appState.showingParentSettings = false }
                 )
             }

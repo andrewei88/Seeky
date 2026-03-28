@@ -4,6 +4,7 @@ import Foundation
 /// Matches the mental model: "We're at the zoo, start a hunt!" not "We're in the kitchen."
 enum WordLocation: String, CaseIterable, Codable {
     case home = "Home"
+    case body = "Body"
     case backyard = "Backyard"
     case neighborhood = "Neighborhood"
     case zoo = "Zoo"
@@ -15,6 +16,7 @@ enum WordLocation: String, CaseIterable, Codable {
     var icon: String {
         switch self {
         case .home: return "house.fill"
+        case .body: return "figure.stand"
         case .backyard: return "leaf.fill"
         case .neighborhood: return "car.fill"
         case .zoo: return "pawprint.fill"
@@ -94,7 +96,7 @@ final class WordProgressStore: ObservableObject {
         "bear", "blanket", "bowl", "cheese", "cow", "horse", "penguin",
         "shelf", "shirt", "watermelon", "window",
         // 95%+ val accuracy
-        "book", "cherry", "couch", "coconut", "dog", "light", "picture",
+        "book", "cherry", "couch", "coconut", "dog", "face", "light", "picture",
         // 94%+ val accuracy
         "bench", "cake", "hand",
         // 93%+ val accuracy
@@ -109,15 +111,14 @@ final class WordProgressStore: ObservableObject {
         "bathtub", "dishwasher", "knife", "microwave", "oven",
         "rain", "scissors", "snake", "stairs",
         "toaster", "toilet", "toilet paper",
+        // Electronics (TV/monitor separated, both quiz-worthy)
+        "laptop", "monitor", "tv",
     ]
 
     /// Objects excluded from quiz pool because they're unsafe or too unreliable for fair quizzing.
     /// These remain in the classifier for explore-mode identification but are never quiz targets.
     static let unsafeForQuiz: Set<String> = [
         "sun",      // harmful to look at directly
-        "knife",    // unsafe for toddler to seek out
-        "scissors", // unsafe for toddler to seek out
-        "oven",     // 80.4% accuracy, confused with microwave/cupboard/dishwasher
     ]
 
     /// Quiz-friendly category groups for category challenges ("Find an animal").
@@ -134,7 +135,7 @@ final class WordProgressStore: ObservableObject {
         "food": ["avocado", "bread", "cake", "cheese", "cookie", "egg", "mushroom", "pizza"],
         "clothing": ["bag", "glasses", "hat", "jacket", "pants", "shirt", "shoe", "sock"],
         "kitchen item": ["bottle", "bowl", "cup", "cupboard", "dishwasher", "fork", "fridge",
-                         "glass", "knife", "microwave", "oven", "pan", "plate", "pot",
+                         "glass", "microwave", "pan", "plate", "pot",
                          "spoon", "toaster"],
         "furniture": ["bed", "blanket", "chair", "clock", "couch", "door", "fan", "light",
                       "mirror", "picture", "pillow", "shelf", "stairs", "table", "towel",
@@ -143,8 +144,7 @@ final class WordProgressStore: ObservableObject {
         "vehicle": ["bus", "car", "truck"],
         "toy": ["ball", "block", "doll", "teddy bear"],
         "bathroom item": ["bathtub", "sink", "soap", "toilet", "toilet paper", "toothbrush"],
-        "school supply": ["book", "crayon", "paper", "pen", "pencil", "scissors"],
-        "electronics": ["keyboard", "laptop", "phone", "remote", "speaker", "tv"],
+        "school supply": ["book", "crayon", "paper", "pen", "pencil"],
     ]
 
     /// Reverse lookup: word -> category name. Built lazily from quizCategories.
@@ -171,8 +171,8 @@ final class WordProgressStore: ObservableObject {
             "watermelon",
             // Living room
             "ball", "blanket", "block", "book", "box", "cat", "chair", "clock",
-            "couch", "doll", "dog", "door", "ear", "eye", "fan", "foot", "glasses",
-            "hand", "key", "laptop", "light", "mirror", "nose",
+            "couch", "doll", "dog", "door", "fan", "glasses",
+            "key", "laptop", "light", "mirror", "monitor",
             "phone", "picture", "pillow", "remote", "shelf", "shoe", "speaker",
             "stairs", "table", "teddy bear", "tv", "umbrella", "window",
             // Bedroom
@@ -181,6 +181,9 @@ final class WordProgressStore: ObservableObject {
             "bathtub", "sink", "soap", "toilet", "toilet paper", "toothbrush", "towel",
             // School supplies (found at home too)
             "crayon", "globe", "keyboard", "paper", "pen", "pencil", "scissors",
+        ],
+        .body: [
+            "ear", "eye", "face", "foot", "hand", "nose",
         ],
         .backyard: [
             "ball", "bird", "butterfly", "cat", "cloud", "dog", "door", "fence",
@@ -288,6 +291,15 @@ final class WordProgressStore: ObservableObject {
         print("[Progress] '\(word)' quiz wrong (mastery: \(entry.masteryLevel))")
     }
 
+    /// Record that a quiz word was skipped (updates timestamp for cooldown without penalizing).
+    func recordQuizSkip(word: String) {
+        var entry = progress[word] ?? WordProgress(word: word)
+        entry.quizLastDate = Date()
+        progress[word] = entry
+        save()
+        print("[Progress] '\(word)' quiz skipped (cooldown reset)")
+    }
+
     // MARK: - Quiz Pool
 
     /// Words eligible for quiz mode: seeded high-confidence words minus unsafe ones.
@@ -304,11 +316,11 @@ final class WordProgressStore: ObservableObject {
         if let loc = location {
             let locationPool = Self.locationWords[loc] ?? []
             let filtered = allEligible.intersection(locationPool)
-            if filtered.count >= count {
+            if !filtered.isEmpty {
                 allEligible = filtered
                 print("[Quiz] Location=\(loc.rawValue): \(filtered.count) matching words")
             } else {
-                print("[Quiz] Location=\(loc.rawValue): only \(filtered.count) matching, using full pool")
+                print("[Quiz] Location=\(loc.rawValue): 0 matching, using full pool")
             }
         }
 
@@ -316,11 +328,11 @@ final class WordProgressStore: ObservableObject {
         if let cats = categories, !cats.isEmpty {
             let categoryPool = Set(cats.flatMap { Self.quizCategories[$0] ?? [] })
             let filtered = allEligible.intersection(categoryPool)
-            if filtered.count >= count {
+            if !filtered.isEmpty {
                 allEligible = filtered
                 print("[Quiz] Categories=\(cats.sorted()): \(filtered.count) matching words")
             } else {
-                print("[Quiz] Categories=\(cats.sorted()): only \(filtered.count) matching, expanded to full pool")
+                print("[Quiz] Categories=\(cats.sorted()): 0 matching, expanded to full pool")
             }
         }
 
@@ -328,35 +340,66 @@ final class WordProgressStore: ObservableObject {
     }
 
     /// Shared selection logic: picks words from an eligible set with spaced repetition priority.
+    ///
+    /// Priority tiers (fill slots in order):
+    /// 1. Due for review: words the child has actually answered (correct or wrong) and enough
+    ///    time has passed based on mastery level. Skipped-only words are excluded.
+    /// 2. Needs practice: words with wrong answers at low mastery.
+    /// 3. Never quizzed: words that have never been answered. Shuffled for variety.
+    /// 4. Remaining: anything left, shuffled.
     private func selectFromPool(eligible: Set<String>, count: Int) -> [String] {
         guard !eligible.isEmpty else { return [] }
         var selected: [String] = []
         let now = Date()
 
+        // Tier 1: Words the child has actually answered and are due for review.
+        // Only includes words with at least one correct or wrong answer (not just skipped).
         let dueForReview = progress.values
             .filter { eligible.contains($0.word) && $0.quizLastDate != nil }
             .filter { entry in
+                // Must have been actually answered, not just skipped
+                guard entry.quizCorrect > 0 || entry.quizWrong > 0 else { return false }
                 let level = min(entry.masteryLevel, Self.reviewIntervals.count - 1)
-                return now.timeIntervalSince(entry.quizLastDate!) >= Self.reviewIntervals[level]
+                guard now.timeIntervalSince(entry.quizLastDate!) >= Self.reviewIntervals[level] else { return false }
+                // Cooldown for mastery-0 words with no correct streak: wait 1 hour.
+                if entry.masteryLevel == 0, entry.quizConsecutiveCorrect == 0,
+                   entry.quizWrong > 0,
+                   now.timeIntervalSince(entry.quizLastDate!) < 3600 {
+                    return false
+                }
+                return true
             }
             .sorted { ($0.quizLastDate ?? .distantPast) < ($1.quizLastDate ?? .distantPast) }
             .map(\.word)
         for word in dueForReview where selected.count < count { selected.append(word) }
 
+        // Tier 2: Words that need practice (have wrong answers), with cooldown for failures.
         let needsPractice = progress.values
-            .filter { eligible.contains($0.word) && $0.quizWrong > 0 && !selected.contains($0.word) }
+            .filter { entry in
+                guard eligible.contains(entry.word), entry.quizWrong > 0, !selected.contains(entry.word) else { return false }
+                if entry.masteryLevel == 0, entry.quizConsecutiveCorrect == 0,
+                   let lastDate = entry.quizLastDate,
+                   now.timeIntervalSince(lastDate) < 3600 {
+                    return false
+                }
+                return true
+            }
             .sorted { $0.masteryLevel < $1.masteryLevel }
             .map(\.word)
         for word in needsPractice where selected.count < count { selected.append(word) }
 
-        let neverQuizzed = eligible
+        // Tier 3: Never answered (no correct or wrong). Includes words only ever skipped.
+        // Shuffled so the child sees new words each session.
+        let neverAnswered = eligible
             .filter { word in
-                guard let entry = progress[word] else { return !selected.contains(word) }
-                return entry.quizCorrect == 0 && entry.quizWrong == 0 && !selected.contains(word)
+                guard !selected.contains(word) else { return false }
+                guard let entry = progress[word] else { return true }
+                return entry.quizCorrect == 0 && entry.quizWrong == 0
             }
             .shuffled()
-        for word in neverQuizzed where selected.count < count { selected.append(word) }
+        for word in neverAnswered where selected.count < count { selected.append(word) }
 
+        // Tier 4: Everything else, shuffled.
         let remaining = eligible.filter { !selected.contains($0) }.shuffled()
         for word in remaining where selected.count < count { selected.append(word) }
 

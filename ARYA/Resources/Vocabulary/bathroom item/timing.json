@@ -1,0 +1,87 @@
+{
+  "word": "bathroom item",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.08,
+      "end": 0.16
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.16,
+      "end": 0.25
+    },
+    {
+      "phoneme": "TH",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.25,
+      "end": 0.34
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        4
+      ],
+      "start": 0.34,
+      "end": 0.43
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        5,
+        6
+      ],
+      "start": 0.43,
+      "end": 0.52
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        7
+      ],
+      "start": 0.52,
+      "end": 0.61
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        9
+      ],
+      "start": 0.61,
+      "end": 0.7
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        10
+      ],
+      "start": 0.7,
+      "end": 0.79
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        11
+      ],
+      "start": 0.79,
+      "end": 0.88
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        12
+      ],
+      "start": 0.88,
+      "end": 0.97
+    }
+  ]
+}

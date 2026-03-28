@@ -45,6 +45,14 @@
 - "Task complete" means the new code is RUNNING, not just compiling — check that the old code path is no longer executing
 - When changing embedding dimensions (e.g., 512→1024), existing CorrectionStore data becomes invalid — warn the user to clear corrections
 
+### Never git checkout over unstaged generated artifacts
+- Before ANY `git checkout` that touches file paths, run `git status` and check for unstaged changes in those paths
+- If unstaged changes exist, `git stash` or copy files to a safe location first
+- For model files: always save versioned copies to `models/versions/` BEFORE any git operations
+- `git checkout HEAD --` restores to last committed state, NOT to what was there before a previous checkout
+- Prefer `git diff` or `git show` to inspect old versions without modifying the working tree
+- **Incident (2026-03-27):** `git checkout` destroyed the retrained CoreML model that had just been converted. PyTorch checkpoint survived only because it was in a different directory.
+
 ## Project-Specific Knowledge
 
 ### Architecture

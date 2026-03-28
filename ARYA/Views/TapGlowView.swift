@@ -1,38 +1,26 @@
 import SwiftUI
 
-/// A soft pulsing glow circle at the tap point.
-/// Simple visual indicator for children — no bounding box, no frozen frame.
-struct TapGlowView: View {
-    let screenPoint: CGPoint // Raw screen coordinates (points)
+/// Brief concentric ripple at the tap point.
+/// Expands outward and fades in ~0.5s. Confirms "I heard your tap, right here"
+/// without obscuring the object or competing with the word label.
+struct TapRippleView: View {
+    let screenPoint: CGPoint
 
-    @State private var pulse: CGFloat = 0.8
-    @State private var opacity: Double = 0.7
+    @State private var scale: CGFloat = 0.3
+    @State private var opacity: Double = 0.6
 
     var body: some View {
         Circle()
-            .fill(
-                RadialGradient(
-                    gradient: Gradient(colors: [
-                        Color.white.opacity(0.5),
-                        Color.yellow.opacity(0.3),
-                        Color.yellow.opacity(0.0)
-                    ]),
-                    center: .center,
-                    startRadius: 10,
-                    endRadius: 80
-                )
-            )
-            .frame(width: 160, height: 160)
-            .scaleEffect(pulse)
+            .strokeBorder(Color.white.opacity(0.8), lineWidth: 2.5)
+            .frame(width: 80, height: 80)
+            .scaleEffect(scale)
             .opacity(opacity)
             .position(screenPoint)
-            .animation(
-                .easeInOut(duration: 1.0).repeatForever(autoreverses: true),
-                value: pulse
-            )
             .onAppear {
-                pulse = 1.1
-                opacity = 0.9
+                withAnimation(.easeOut(duration: 0.45)) {
+                    scale = 1.2
+                    opacity = 0.0
+                }
             }
     }
 }

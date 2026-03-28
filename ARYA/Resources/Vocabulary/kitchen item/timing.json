@@ -1,0 +1,79 @@
+{
+  "word": "kitchen item",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.04,
+      "end": 0.11
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ],
+      "start": 0.11,
+      "end": 0.19
+    },
+    {
+      "phoneme": "CH",
+      "letters": [
+        2,
+        3,
+        4
+      ],
+      "start": 0.19,
+      "end": 0.26
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ],
+      "start": 0.26,
+      "end": 0.34
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        6
+      ],
+      "start": 0.34,
+      "end": 0.49
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        8
+      ],
+      "start": 0.49,
+      "end": 0.64
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        9
+      ],
+      "start": 0.64,
+      "end": 0.71
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        10
+      ],
+      "start": 0.71,
+      "end": 0.82
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        11
+      ],
+      "start": 0.82,
+      "end": 0.94
+    }
+  ]
+}

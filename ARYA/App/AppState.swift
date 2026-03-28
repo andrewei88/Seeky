@@ -45,9 +45,13 @@ struct Challenge: Equatable {
 }
 
 /// Manages a quiz session: challenge list, current index, attempts, results.
+///
+/// Skip = remove + replace: skipping removes the current challenge and draws a fresh
+/// replacement from the pool so the child always gets the same number of real attempts.
+/// Back = undo skip: restores the skipped challenge and removes the replacement.
 @MainActor
 final class QuizSession: ObservableObject {
-    let challenges: [Challenge]
+    var challenges: [Challenge]
     @Published var currentIndex: Int = 0
     @Published var attemptsOnCurrent: Int = 0
     @Published var lastResult: QuizAnswerResult?
@@ -56,10 +60,16 @@ final class QuizSession: ObservableObject {
     /// The word found on correct category challenges (shown briefly after match).
     @Published var lastFoundWord: String?
 
+    /// Undo stack for skips. Each entry records the original challenge and the index it was at.
+    var skipStack: [(original: Challenge, index: Int)] = []
+
+    /// All words skipped this session (prevents recycling into replacements).
+    var skippedWords: Set<String> = []
+
     static let maxAttempts = 3
     static let challengesPerSession = 5
 
-    /// Convenience: all display words for dot tracking (backwards compat).
+    /// Convenience: all display words for dot tracking.
     var words: [String] { challenges.map(\.displayText) }
 
     var currentChallenge: Challenge? {
@@ -72,7 +82,24 @@ final class QuizSession: ObservableObject {
 
     var isComplete: Bool { currentIndex >= challenges.count }
     var correctCount: Int { results.filter(\.correct).count }
-    var canGoBack: Bool { currentIndex > 0 }
+
+    /// Can go back if there's a skip to undo, or a previous non-correct challenge to revisit.
+    var canGoBack: Bool {
+        if !skipStack.isEmpty { return true }
+        // Check if any previous challenge was NOT correctly answered
+        for i in (0..<currentIndex).reversed() {
+            if let r = result(at: i), r.correct { continue }
+            return true
+        }
+        return false
+    }
+
+    /// Look up the result for a specific challenge index (nil if not yet attempted).
+    func result(at index: Int) -> (correct: Bool, foundWord: String?)? {
+        guard index < challenges.count else { return nil }
+        let challenge = challenges[index]
+        return results.first(where: { $0.challenge == challenge }).map { ($0.correct, $0.foundWord) }
+    }
 
     init(challenges: [Challenge]) {
         self.challenges = challenges
@@ -85,6 +112,8 @@ final class QuizSession: ObservableObject {
 
     func recordResult(correct: Bool, foundWord: String? = nil) {
         guard let challenge = currentChallenge else { return }
+        // Replace existing result for this challenge (prevents duplicates on re-attempt)
+        results.removeAll { $0.challenge == challenge }
         results.append((challenge: challenge, correct: correct, foundWord: foundWord))
         lastFoundWord = correct ? foundWord : nil
     }
@@ -96,12 +125,73 @@ final class QuizSession: ObservableObject {
         currentIndex += 1
     }
 
+    /// Skip the current challenge: remove it, append a replacement (if provided).
+    /// Returns the removed challenge for undo tracking.
+    @discardableResult
+    func skip(replacement: Challenge?) -> Challenge {
+        let removed = challenges.remove(at: currentIndex)
+        skippedWords.insert(removed.displayText)
+        skipStack.append((original: removed, index: currentIndex))
+
+        if let replacement {
+            challenges.append(replacement)
+        }
+        // currentIndex now points to the next challenge (since we removed one)
+        // If we're past the end, don't advance further
+        if currentIndex > challenges.count {
+            currentIndex = challenges.count
+        }
+
+        attemptsOnCurrent = 0
+        lastResult = nil
+        lastFoundWord = nil
+        return removed
+    }
+
+    /// Undo the last skip: restore the original challenge, remove the replacement.
+    func undoSkip() {
+        guard let entry = skipStack.popLast() else { return }
+        skippedWords.remove(entry.original.displayText)
+
+        // Remove the replacement (last element, added during skip)
+        if challenges.count > entry.index {
+            challenges.removeLast()
+        }
+
+        // Re-insert the original at its old position
+        challenges.insert(entry.original, at: entry.index)
+        currentIndex = entry.index
+
+        attemptsOnCurrent = 0
+        lastResult = nil
+        lastFoundWord = nil
+    }
+
     func goBack() {
         guard canGoBack else { return }
-        if !results.isEmpty && results.count >= currentIndex {
-            results.removeLast()
+
+        // If last skip was at or after current position, undo it
+        if let lastSkip = skipStack.last, lastSkip.index <= currentIndex {
+            undoSkip()
+            return
         }
-        currentIndex -= 1
+
+        // Go back to nearest previous non-correct challenge
+        var targetIndex = currentIndex - 1
+        while targetIndex >= 0 {
+            if let r = result(at: targetIndex), r.correct {
+                targetIndex -= 1
+            } else {
+                break
+            }
+        }
+        guard targetIndex >= 0 else { return }
+
+        // Remove the wrong result for the target challenge so it can be re-attempted
+        let challenge = challenges[targetIndex]
+        results.removeAll { $0.challenge == challenge }
+
+        currentIndex = targetIndex
         attemptsOnCurrent = 0
         lastResult = nil
         lastFoundWord = nil
@@ -129,6 +219,8 @@ final class AppState: ObservableObject {
     private var liveSegmentation: SegmentationResult?
 
     @Published var tapScreenPoint: CGPoint = .zero
+    @Published var showTapRipple: Bool = false
+    private var rippleDismissTask: Task<Void, Never>?
 
     private(set) var lastFeatures: [Float]?
     private var lastCroppedBuffer: CVPixelBuffer?
@@ -190,10 +282,15 @@ final class AppState: ObservableObject {
     var bufferIsLandscape: Bool = false
     private var hasLoggedBufferDims = false
 
-    var showGlow: Bool {
-        if case .learning = mode { return true }
-        if showingCorrectionPicker { return true }
-        return false
+    /// Triggers a brief ripple animation at tapScreenPoint, auto-dismissed after 0.5s.
+    private func triggerTapRipple() {
+        rippleDismissTask?.cancel()
+        showTapRipple = true
+        rippleDismissTask = Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(500))
+            guard !Task.isCancelled else { return }
+            showTapRipple = false
+        }
     }
 
     func handleTap(imagePoint: CGPoint, screenPoint: CGPoint) {
@@ -205,6 +302,7 @@ final class AppState: ObservableObject {
         generator.impactOccurred()
 
         tapScreenPoint = screenPoint
+        triggerTapRipple()
         mode = .classifying
 
         guard let segResult = liveSegmentation else {
@@ -223,8 +321,7 @@ final class AppState: ObservableObject {
         // via videoRotationAngle=90. Convert: buffer(x,y) = (1 - device.y, device.x)
         let bufferPoint = CGPoint(x: 1.0 - imagePoint.y, y: imagePoint.x)
 
-        let cropRect = tapCenteredCropRect(tapPoint: bufferPoint, cropFraction: 0.25,
-                                           bufferWidth: bufW, bufferHeight: bufH)
+        let cropRect = instanceAwareCropRect(tapPoint: bufferPoint, bufferWidth: bufW, bufferHeight: bufH)
         print("[Tap] screen=\(screenPoint) → device=\(imagePoint) → buffer=\(bufferPoint), crop=\(cropRect)")
 
         Task {
@@ -256,11 +353,13 @@ final class AppState: ObservableObject {
                 wordProgressStore.recordExploreIdentification(word: word)
                 mode = .learning(word: word)
             } else {
-                // Consensus gate rejected — return to exploring with haptic feedback.
-                // Parent can use the pencil button during learning mode to correct.
+                // Unrecognized — haptic + gentle audio feedback, then return to exploring.
                 print("[Tap] Unrecognized object — returning to exploring")
                 let errorGenerator = UINotificationFeedbackGenerator()
                 errorGenerator.notificationOccurred(.warning)
+                wordSpeaker.speakUnrecognized {
+                    // Audio done, no state change needed
+                }
                 mode = .exploring
             }
         }
@@ -313,6 +412,7 @@ final class AppState: ObservableObject {
         generator.impactOccurred()
 
         tapScreenPoint = screenPoint
+        triggerTapRipple()
         mode = .quizClassifying
 
         guard let segResult = liveSegmentation else {
@@ -324,8 +424,7 @@ final class AppState: ObservableObject {
         let bufW = CVPixelBufferGetWidth(segResult.pixelBuffer)
         let bufH = CVPixelBufferGetHeight(segResult.pixelBuffer)
         let bufferPoint = CGPoint(x: 1.0 - imagePoint.y, y: imagePoint.x)
-        let cropRect = tapCenteredCropRect(tapPoint: bufferPoint, cropFraction: 0.25,
-                                           bufferWidth: bufW, bufferHeight: bufH)
+        let cropRect = instanceAwareCropRect(tapPoint: bufferPoint, bufferWidth: bufW, bufferHeight: bufH)
 
         Task {
             let croppedBuffer = cropPixelBuffer(segResult.pixelBuffer, to: cropRect)
@@ -355,15 +454,22 @@ final class AppState: ObservableObject {
                 let foundWord = word
                 print("[Quiz] Correct! Found '\(foundWord)' for challenge '\(challenge.displayText)'")
 
-                wordSpeaker.speakCelebration(word: foundWord) { [weak self] in
-                    // Auto-advance after celebration audio finishes
+                let advanceAfterCelebration: () -> Void = { [weak self] in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                         guard let self, self.quizGeneration == gen else { return }
                         self.advanceQuiz()
                     }
                 }
+
+                // Category challenges: name the found word (new info for the child).
+                // Word challenges: celebration only (child already knows the word from the prompt).
+                if case .category = challenge.target {
+                    wordSpeaker.speakCelebration(word: foundWord, onComplete: advanceAfterCelebration)
+                } else {
+                    wordSpeaker.speakCelebrationOnly(onComplete: advanceAfterCelebration)
+                }
             } else {
-                // Wrong — shake + haptic only. No audio naming (risk of teaching wrong info).
+                // Wrong — shake + haptic + encouragement audio, then retry or advance.
                 session.attemptsOnCurrent += 1
                 session.lastResult = .wrong(actual: result.word)
                 let errorGenerator = UINotificationFeedbackGenerator()
@@ -372,10 +478,8 @@ final class AppState: ObservableObject {
 
                 let hasRetries = session.attemptsOnCurrent < QuizSession.maxAttempts
 
-                // Brief pause for shake animation, then auto-retry or advance.
-                // Uses generation counter to prevent stale callbacks from interfering
-                // with later correct answers (the root cause of the quiz freeze bug).
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
+                // Play encouragement audio, then retry or advance.
+                wordSpeaker.speakEncouragement { [weak self] in
                     guard let self, self.quizGeneration == gen else { return }
                     if hasRetries {
                         self.retryQuizWord()
@@ -447,8 +551,7 @@ final class AppState: ObservableObject {
         session.advance()
 
         if session.isComplete {
-            print("[Quiz] Session complete: \(session.correctCount)/\(session.words.count)")
-            // Stay in quizResult mode — UI will show completion
+            print("[Quiz] Session complete: \(session.correctCount)/\(session.results.count)")
         } else {
             mode = .quizPrompting
             speakCurrentQuizWord()
@@ -456,18 +559,61 @@ final class AppState: ObservableObject {
     }
 
     /// Skip the current quiz word (target not in room).
+    /// Removes the challenge and draws a fresh replacement so the child still gets the same
+    /// number of real attempts. Child can press back to undo the skip.
     func skipQuizWord() {
         guard let session = quizSession else { return }
         wordSpeaker.stop()
-        // Don't record anything — skip doesn't count as right or wrong
-        session.advance()
+        quizGeneration += 1
+
+        guard session.currentIndex < session.challenges.count else { return }
+
+        // Draw a replacement challenge (excluding current session words + all skipped words)
+        let replacement = drawReplacementChallenge(session: session)
+
+        // Don't allow skipping the last challenge if there's no replacement.
+        // Otherwise the session shrinks to 0 challenges and ends with 0/0.
+        if session.challenges.count <= 1 && replacement == nil {
+            print("[Quiz] Can't skip last challenge — no replacements available")
+            mode = .quizPrompting
+            speakCurrentQuizWord()
+            return
+        }
+
+        let removed = session.skip(replacement: replacement)
+        let word = removed.displayText
+        print("[Quiz] Skipped '\(word)' → replaced with '\(replacement?.displayText ?? "none")' (\(session.challenges.count) challenges)")
+
+        // Update cooldown so this word doesn't dominate future sessions
+        if case .word(let w) = removed.target {
+            wordProgressStore.recordQuizSkip(word: w)
+        }
 
         if session.isComplete {
-            print("[Quiz] Session complete: \(session.correctCount)/\(session.words.count)")
+            wordSpeaker.stop()
+            print("[Quiz] Session complete: \(session.correctCount)/\(session.results.count)")
         } else {
             mode = .quizPrompting
             speakCurrentQuizWord()
         }
+    }
+
+    /// Draw a replacement challenge for a skipped word.
+    /// Excludes all current session words and previously skipped words.
+    private func drawReplacementChallenge(session: QuizSession) -> Challenge? {
+        let currentWords = Set(session.challenges.map(\.displayText))
+        let excluded = currentWords.union(session.skippedWords)
+
+        let cats = selectedCategories.isEmpty ? nil : selectedCategories
+        let candidates = wordProgressStore.selectQuizWords(
+            count: 20, location: selectedLocation, categories: cats
+        ).filter { !excluded.contains($0) }
+
+        guard let word = candidates.first else {
+            print("[Quiz] No replacement available — pool exhausted")
+            return nil
+        }
+        return Challenge(target: .word(word))
     }
 
     /// Try again on the same quiz word (after wrong answer, if attempts remain).
@@ -481,11 +627,14 @@ final class AppState: ObservableObject {
         speakCurrentQuizWord()
     }
 
-    /// Go back to the previous quiz word.
+    /// Go back to the previous quiz word, or undo the last skip.
     func goBackQuizWord() {
         guard let session = quizSession, session.canGoBack else { return }
         wordSpeaker.stop()
+        let wasSameIndex = session.currentIndex
         session.goBack()
+        let action = session.currentIndex == wasSameIndex ? "undo skip" : "go back"
+        print("[Quiz] \(action) → now at '\(session.currentChallenge?.displayText ?? "?")'")
         mode = .quizPrompting
         speakCurrentQuizWord()
     }
@@ -603,6 +752,46 @@ final class AppState: ObservableObject {
         y = max(0, min(y, 1.0 - cropH))
 
         return CGRect(x: x, y: y, width: cropW, height: cropH)
+    }
+
+    /// Computes a tap-centered square crop for classification.
+    /// Uses instance bounding box to inform crop size (so large objects get a bigger crop),
+    /// but always centers on the tap point and caps the size so the model sees the object,
+    /// not the entire room.
+    ///
+    /// Crop size logic:
+    /// - No instance: fixed 270px crop (25% of 1080)
+    /// - Instance bbox small: use bbox's larger dimension + 20% padding
+    /// - Instance bbox large: cap at 500px (46% of 1080) so the object stays dominant
+    private func instanceAwareCropRect(tapPoint: CGPoint, bufferWidth: Int, bufferHeight: Int) -> CGRect {
+        let w = CGFloat(bufferWidth)
+        let h = CGFloat(bufferHeight)
+        let minDim = min(w, h)
+
+        let minCropFraction: CGFloat = 0.25   // ~270px on 1080 buffer
+        let maxCropFraction: CGFloat = 0.46    // ~500px on 1080 buffer
+
+        var cropFraction = minCropFraction
+
+        if let instance = instanceTracker.instance(at: tapPoint) {
+            let bbox = instance.boundingBox
+            // Use the larger bbox dimension (in pixels) to set crop size
+            let bboxPxW = bbox.width * w
+            let bboxPxH = bbox.height * h
+            let bboxMaxPx = max(bboxPxW, bboxPxH)
+            // Add 20% padding around the bbox dimension
+            let desiredPx = bboxMaxPx * 1.2
+            let desiredFraction = desiredPx / minDim
+            // Clamp between min and max
+            cropFraction = min(max(desiredFraction, minCropFraction), maxCropFraction)
+            let cropPx = Int(cropFraction * minDim)
+            print("[Crop] Instance bbox=\(bbox) (px: \(Int(bboxPxW))x\(Int(bboxPxH))) → tap-centered \(cropPx)x\(cropPx)px crop")
+        } else {
+            print("[Crop] No instance at tap point — using fixed \(Int(minCropFraction * minDim))px crop")
+        }
+
+        return tapCenteredCropRect(tapPoint: tapPoint, cropFraction: cropFraction,
+                                   bufferWidth: bufferWidth, bufferHeight: bufferHeight)
     }
 
     private func cropPixelBuffer(_ buffer: CVPixelBuffer, to normalizedRect: CGRect) -> CVPixelBuffer? {

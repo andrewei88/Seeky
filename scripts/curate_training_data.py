@@ -20,9 +20,10 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+import timm
 import torch
 import torch.nn as nn
-from torchvision import models, transforms
+from torchvision import transforms
 from PIL import Image
 
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -31,6 +32,9 @@ DATA_DIR = PROJECT_ROOT / "data" / "arya_training"
 ALL_DIR = DATA_DIR / "all"
 QUARANTINE_DIR = DATA_DIR / "quarantined"
 IMAGE_SIZE = 224
+
+# Backbone must match train_classifier.py
+BACKBONE = "fastvit_t12"
 
 # Confidence threshold: if model is THIS confident the image belongs to a
 # DIFFERENT class, quarantine it. Set conservatively — we'd rather keep a
@@ -45,21 +49,12 @@ class ARYAClassifier(nn.Module):
 
     def __init__(self, num_classes: int):
         super().__init__()
-        base = models.mobilenet_v3_small(weights=None)
-        self.features = base.features
-        self.avgpool = base.avgpool
-        self.feature_head = nn.Sequential(
-            base.classifier[0],
-            base.classifier[1],
-            base.classifier[2],
-        )
-        self.class_head = nn.Linear(1024, num_classes)
+        self.backbone = timm.create_model(BACKBONE, pretrained=False, num_classes=0)
+        self.feat_dim = self.backbone.num_features
+        self.class_head = nn.Linear(self.feat_dim, num_classes)
 
     def forward(self, x):
-        x = self.features(x)
-        x = self.avgpool(x)
-        x = torch.flatten(x, 1)
-        features = self.feature_head(x)
+        features = self.backbone(x)
         logits = self.class_head(features)
         return logits, features
 

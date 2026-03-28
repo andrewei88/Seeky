@@ -1,0 +1,69 @@
+{
+  "word": "body part",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.02,
+      "end": 0.12
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ],
+      "start": 0.12,
+      "end": 0.22
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        2
+      ],
+      "start": 0.22,
+      "end": 0.33
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        3
+      ],
+      "start": 0.33,
+      "end": 0.43
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        5
+      ],
+      "start": 0.43,
+      "end": 0.53
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        6
+      ],
+      "start": 0.53,
+      "end": 0.64
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        7
+      ],
+      "start": 0.64,
+      "end": 0.74
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        8
+      ],
+      "start": 0.74,
+      "end": 0.85
+    }
+  ]
+}

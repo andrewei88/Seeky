@@ -116,6 +116,45 @@ final class CategoryChallengeTests: XCTestCase {
         XCTAssertTrue(session.results[0].correct)
     }
 
+    func testWrongAnswerStoresActualWord() {
+        let session = QuizSession(challenges: [
+            Challenge(target: .word("cat")),
+        ])
+        session.lastResult = .wrong(actual: "dog")
+        session.attemptsOnCurrent = 1
+
+        // The actual word is accessible from the result
+        if case .wrong(let actual) = session.lastResult {
+            XCTAssertEqual(actual, "dog")
+        } else {
+            XCTFail("Expected wrong result")
+        }
+    }
+
+    func testWrongAnswerNilActualWhenRejected() {
+        let session = QuizSession(challenges: [
+            Challenge(target: .word("cat")),
+        ])
+        session.lastResult = .wrong(actual: nil)
+
+        if case .wrong(let actual) = session.lastResult {
+            XCTAssertNil(actual)
+        } else {
+            XCTFail("Expected wrong result")
+        }
+    }
+
+    func testHintAvailableAfterTwoAttempts() {
+        let session = QuizSession(challenges: [
+            Challenge(target: .word("elephant")),
+        ])
+        // After 2 attempts, hint should show first letter
+        session.attemptsOnCurrent = 2
+        let targetWord = session.currentChallenge!.displayText
+        let hint = String(targetWord.prefix(1)).uppercased()
+        XCTAssertEqual(hint, "E")
+    }
+
     func testAdvanceClearsFoundWord() {
         let session = QuizSession(challenges: [
             Challenge(target: .category("animal")),
@@ -155,7 +194,8 @@ final class CategoryChallengeTests: XCTestCase {
     func testKitchenItemCategoryMembers() {
         let challenge = Challenge(target: .category("kitchen item"))
         XCTAssertTrue(challenge.matches(word: "fork"))
-        XCTAssertTrue(challenge.matches(word: "oven"))
+        XCTAssertTrue(challenge.matches(word: "plate"))
+        XCTAssertFalse(challenge.matches(word: "knife"), "knife is unsafe for quiz")
         XCTAssertFalse(challenge.matches(word: "bed"))
     }
 

@@ -11,6 +11,10 @@ final class WordSpeaker: NSObject, ObservableObject {
     /// Playback rate (0.5 = half speed, 1.0 = normal). Applied on top of ElevenLabs 0.7x generation speed.
     var playbackRate: Float = 0.85
 
+    /// Label of the word/category whose prompt audio was most recently started.
+    /// Used by the UI to track which word has been spoken. Not cleared on stop().
+    private(set) var lastPlayedLabel: String?
+
     private var audioPlayer: AVAudioPlayer?
     private var displayLink: CADisplayLink?
     private var onComplete: (() -> Void)?
@@ -21,10 +25,14 @@ final class WordSpeaker: NSObject, ObservableObject {
     /// Celebration clip filenames (randomly selected on correct answer).
     private static let celebrationClips = ["yes", "thats_right", "great_job", "you_found_it"]
 
+    /// Encouragement clip filenames (randomly selected on wrong quiz answer).
+    private static let encouragementClips = ["keep_looking", "try_again", "almost", "hmm"]
+
     /// Play a single word's pre-recorded audio.
     func speak(word: String, from bundle: Bundle = .main, onComplete: @escaping () -> Void) {
         stop()
         self.onComplete = onComplete
+        self.lastPlayedLabel = word
 
         configureAudioSession()
 
@@ -42,6 +50,7 @@ final class WordSpeaker: NSObject, ObservableObject {
     func speakHuntPrompt(word: String, from bundle: Bundle = .main, onComplete: @escaping () -> Void) {
         stop()
         self.onComplete = onComplete
+        self.lastPlayedLabel = word
 
         configureAudioSession()
 
@@ -64,7 +73,7 @@ final class WordSpeaker: NSObject, ObservableObject {
         playChain(urls)
     }
 
-    /// Celebration: random celebration clip, then the word (reinforcement).
+    /// Celebration with word naming — used for category challenges where the specific word is new info.
     func speakCelebration(word: String, from bundle: Bundle = .main, onComplete: @escaping () -> Void) {
         stop()
         self.onComplete = onComplete
@@ -91,24 +100,94 @@ final class WordSpeaker: NSObject, ObservableObject {
         playChain(urls)
     }
 
-    /// Category hunt prompt: plays pre-recorded "Can you find a/an [category]?" audio.
-    func speakCategoryPrompt(category: String, from bundle: Bundle = .main, onComplete: @escaping () -> Void) {
+    /// Celebration only (no word) — used for word challenges where the child already knows the word.
+    func speakCelebrationOnly(from bundle: Bundle = .main, onComplete: @escaping () -> Void) {
         stop()
         self.onComplete = onComplete
 
         configureAudioSession()
 
-        // Category audio files: find_animal.m4a, find_kitchen_item.m4a, etc.
-        let filename = "find_\(category.replacingOccurrences(of: " ", with: "_"))"
-        guard let url = bundle.url(forResource: filename, withExtension: "m4a", subdirectory: "Vocabulary/_prompts") else {
-            print("[WordSpeaker] No category prompt audio for '\(category)' (expected \(filename).m4a)")
+        let clip = Self.celebrationClips.randomElement()!
+        guard let celebURL = bundle.url(forResource: clip, withExtension: "m4a", subdirectory: "Vocabulary/_prompts") else {
+            print("[WordSpeaker] No celebration clip found")
             onComplete()
             return
         }
 
         isPlaying = true
-        print("[WordSpeaker] Category prompt: '\(category)' -> \(filename).m4a")
+        print("[WordSpeaker] Celebration only: '\(clip)'")
+        playURL(celebURL, label: clip)
+    }
+
+    /// Category hunt prompt: chains "Can you find a/an..." + category name (same pattern as word prompts).
+    func speakCategoryPrompt(category: String, from bundle: Bundle = .main, onComplete: @escaping () -> Void) {
+        stop()
+        self.onComplete = onComplete
+        self.lastPlayedLabel = category
+
+        configureAudioSession()
+
+        let catFilename = "cat_\(category.replacingOccurrences(of: " ", with: "_"))"
+
+        // Try chained approach first: prefix (find_a/find_an) + category name
+        let vowels: Set<Character> = ["a", "e", "i", "o", "u"]
+        let prefix = (category.first.map { vowels.contains($0) } ?? false) ? "find_an" : "find_a"
+
+        if let prefixURL = bundle.url(forResource: prefix, withExtension: "m4a", subdirectory: "Vocabulary/_prompts"),
+           let catURL = bundle.url(forResource: catFilename, withExtension: "m4a", subdirectory: "Vocabulary/_prompts") {
+            print("[WordSpeaker] Category prompt (chained): '\(prefix)' + '\(catFilename)'")
+            playChain([prefixURL, catURL])
+            return
+        }
+
+        // Fallback: single-file prompt (find_animal.m4a etc.)
+        let fallbackFilename = "find_\(category.replacingOccurrences(of: " ", with: "_"))"
+        guard let url = bundle.url(forResource: fallbackFilename, withExtension: "m4a", subdirectory: "Vocabulary/_prompts") else {
+            print("[WordSpeaker] No category prompt audio for '\(category)'")
+            onComplete()
+            return
+        }
+
+        isPlaying = true
+        print("[WordSpeaker] Category prompt (fallback): '\(fallbackFilename).m4a'")
         playURL(url, label: "category-\(category)")
+    }
+
+    /// Play a random encouragement clip (wrong quiz answer).
+    func speakEncouragement(from bundle: Bundle = .main, onComplete: @escaping () -> Void) {
+        stop()
+        self.onComplete = onComplete
+
+        configureAudioSession()
+
+        let clip = Self.encouragementClips.randomElement()!
+        guard let url = bundle.url(forResource: clip, withExtension: "m4a", subdirectory: "Vocabulary/_prompts") else {
+            print("[WordSpeaker] No encouragement clip found")
+            onComplete()
+            return
+        }
+
+        isPlaying = true
+        print("[WordSpeaker] Encouragement: '\(clip)'")
+        playURL(url, label: clip)
+    }
+
+    /// Play the "not sure" clip (unrecognized explore tap).
+    func speakUnrecognized(from bundle: Bundle = .main, onComplete: @escaping () -> Void) {
+        stop()
+        self.onComplete = onComplete
+
+        configureAudioSession()
+
+        guard let url = bundle.url(forResource: "not_sure", withExtension: "m4a", subdirectory: "Vocabulary/_prompts") else {
+            print("[WordSpeaker] No 'not_sure' clip found")
+            onComplete()
+            return
+        }
+
+        isPlaying = true
+        print("[WordSpeaker] Unrecognized tap audio")
+        playURL(url, label: "not_sure")
     }
 
     func stop() {
@@ -202,6 +281,7 @@ extension WordSpeaker: AVAudioPlayerDelegate {
         // Chain complete
         currentTime = totalDuration
         isPlaying = false
+        isPlayingWord = false
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.onComplete?()

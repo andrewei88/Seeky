@@ -229,11 +229,11 @@ final class ClassificationEngineTests: XCTestCase {
         assertMapped("notebook computer", to: "laptop")
         assertMapped("MacBook", to: "laptop")
 
-        // External monitor labels → "tv" (merged)
-        assertMapped("computer_monitor", to: "tv")
-        assertMapped("display", to: "tv")
-        assertMapped("screen", to: "tv")
-        assertMapped("desktop_computer", to: "tv")
+        // External monitor labels → "monitor" (separated from tv)
+        assertMapped("computer_monitor", to: "monitor")
+        assertMapped("display", to: "monitor")
+        assertMapped("screen", to: "monitor")
+        assertMapped("desktop_computer", to: "monitor")
 
         // TV labels → "tv"
         assertMapped("television", to: "tv")
@@ -321,7 +321,7 @@ final class ClassificationEngineTests: XCTestCase {
 
         // Screen/monitor mappings
         assertMapped("television", to: "tv")
-        assertMapped("computer_monitor", to: "tv")
+        assertMapped("computer_monitor", to: "monitor")
 
         // Abstract labels should be null-mapped
         assertNullMapped("painting")
@@ -1169,7 +1169,7 @@ final class ClassificationEngineTests: XCTestCase {
             ("machine", 0.80), ("consumer_electronics", 0.78),
             ("computer", 0.65), ("computer_monitor", 0.64)
         ])
-        XCTAssertEqual(result?.word, "tv")
+        XCTAssertEqual(result?.word, "monitor")
     }
 
     func testTVFromTelevision() {

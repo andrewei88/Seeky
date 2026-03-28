@@ -9,6 +9,7 @@ struct ParentSettingsView: View {
     @Binding var selectedLocation: WordLocation?
     @Binding var selectedCategories: Set<String>
     let onStartQuiz: () -> Void
+    let onExplore: () -> Void
     let onDismiss: () -> Void
 
     @State private var captureStats: [(word: String, count: Int)] = []
@@ -17,6 +18,7 @@ struct ParentSettingsView: View {
     @State private var showShareSheet = false
     @State private var exportURL: URL?
     @State private var showClearConfirm = false
+    @State private var showDataSection = false
 
     var body: some View {
         ZStack {
@@ -57,17 +59,32 @@ struct ParentSettingsView: View {
                                     .font(.system(size: 14, design: .rounded))
                                     .foregroundColor(.white.opacity(0.7))
 
-                                Button { onStartQuiz() } label: {
-                                    HStack {
-                                        Image(systemName: "magnifyingglass")
-                                        Text("New Hunt")
+                                HStack(spacing: 8) {
+                                    Button { onStartQuiz() } label: {
+                                        HStack {
+                                            Image(systemName: "magnifyingglass")
+                                            Text("New Hunt")
+                                        }
+                                        .font(.system(size: 16, weight: .medium, design: .rounded))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 12)
+                                        .background(Color.green.opacity(0.6))
+                                        .cornerRadius(10)
                                     }
-                                    .font(.system(size: 16, weight: .medium, design: .rounded))
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 12)
-                                    .background(Color.green.opacity(0.6))
-                                    .cornerRadius(10)
+
+                                    Button { onExplore() } label: {
+                                        HStack {
+                                            Image(systemName: "eye")
+                                            Text("Explore")
+                                        }
+                                        .font(.system(size: 16, weight: .medium, design: .rounded))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 12)
+                                        .background(Color.blue.opacity(0.4))
+                                        .cornerRadius(10)
+                                    }
                                 }
                             } else {
                                 Text("Keep exploring to unlock quiz mode. The app needs to reliably identify at least 3 words in your environment first (\(poolSize) so far).")
@@ -116,39 +133,6 @@ struct ParentSettingsView: View {
                             }
                         }
 
-                        // Training captures section
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Training Captures")
-                                .font(.system(size: 16, weight: .medium, design: .rounded))
-                                .foregroundColor(.white)
-
-                            if totalCaptures == 0 {
-                                Text("No captures yet. Correct misidentified objects using the pencil button to build training data.")
-                                    .font(.system(size: 14, design: .rounded))
-                                    .foregroundColor(.white.opacity(0.5))
-                            } else {
-                                Text("\(totalCaptures) images across \(captureStats.count) words")
-                                    .font(.system(size: 14, design: .rounded))
-                                    .foregroundColor(.white.opacity(0.7))
-
-                                // Per-word breakdown
-                                LazyVGrid(columns: [
-                                    GridItem(.flexible(), alignment: .leading),
-                                    GridItem(.fixed(40), alignment: .trailing)
-                                ], spacing: 4) {
-                                    ForEach(captureStats, id: \.word) { stat in
-                                        Text(stat.word)
-                                            .font(.system(size: 13, design: .rounded))
-                                            .foregroundColor(.white.opacity(0.8))
-                                        Text("\(stat.count)")
-                                            .font(.system(size: 13, weight: .medium, design: .monospaced))
-                                            .foregroundColor(.white.opacity(0.6))
-                                    }
-                                }
-                                .padding(.vertical, 8)
-                            }
-                        }
-
                         // Learning progress section
                         if wordProgressStore.wordsSeen > 0 {
                             VStack(alignment: .leading, spacing: 8) {
@@ -176,68 +160,126 @@ struct ParentSettingsView: View {
                             }
                         }
 
-                        // Corrections section
+                        // Collapsible data section (captures, corrections, export/clear)
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("Stored Corrections")
-                                .font(.system(size: 16, weight: .medium, design: .rounded))
-                                .foregroundColor(.white)
-                            Text("\(correctionStore.count) correction embeddings")
-                                .font(.system(size: 14, design: .rounded))
-                                .foregroundColor(.white.opacity(0.7))
-                        }
-
-                        // Actions
-                        VStack(spacing: 12) {
-                            if totalCaptures > 0 {
-                                Button {
-                                    exportCaptures()
-                                } label: {
-                                    HStack {
-                                        if isExporting {
-                                            ProgressView()
-                                                .tint(.white)
-                                        } else {
-                                            Image(systemName: "square.and.arrow.up")
-                                        }
-                                        Text(isExporting ? "Preparing..." : "Export Captures")
-                                    }
-                                    .font(.system(size: 16, weight: .medium, design: .rounded))
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 12)
-                                    .background(Color.blue.opacity(0.6))
-                                    .cornerRadius(10)
+                            Button {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    showDataSection.toggle()
                                 }
-                                .disabled(isExporting)
+                            } label: {
+                                HStack {
+                                    Text("Data")
+                                        .font(.system(size: 16, weight: .medium, design: .rounded))
+                                        .foregroundColor(.white)
+                                    Spacer()
+                                    let summary = dataSummary
+                                    if !summary.isEmpty {
+                                        Text(summary)
+                                            .font(.system(size: 13, design: .rounded))
+                                            .foregroundColor(.white.opacity(0.4))
+                                    }
+                                    Image(systemName: showDataSection ? "chevron.up" : "chevron.down")
+                                        .font(.system(size: 12, weight: .medium))
+                                        .foregroundColor(.white.opacity(0.4))
+                                }
                             }
 
-                            if totalCaptures > 0 || correctionStore.count > 0 || wordProgressStore.wordsSeen > 0 {
-                                Button {
-                                    showClearConfirm = true
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "trash")
-                                        Text("Clear All Data")
+                            if showDataSection {
+                                VStack(alignment: .leading, spacing: 16) {
+                                    // Training captures
+                                    if totalCaptures > 0 {
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text("Training Captures")
+                                                .font(.system(size: 14, weight: .medium, design: .rounded))
+                                                .foregroundColor(.white.opacity(0.8))
+                                            Text("\(totalCaptures) images across \(captureStats.count) words")
+                                                .font(.system(size: 13, design: .rounded))
+                                                .foregroundColor(.white.opacity(0.5))
+
+                                            LazyVGrid(columns: [
+                                                GridItem(.flexible(), alignment: .leading),
+                                                GridItem(.fixed(40), alignment: .trailing)
+                                            ], spacing: 4) {
+                                                ForEach(captureStats, id: \.word) { stat in
+                                                    Text(stat.word)
+                                                        .font(.system(size: 13, design: .rounded))
+                                                        .foregroundColor(.white.opacity(0.8))
+                                                    Text("\(stat.count)")
+                                                        .font(.system(size: 13, weight: .medium, design: .monospaced))
+                                                        .foregroundColor(.white.opacity(0.6))
+                                                }
+                                            }
+                                            .padding(.vertical, 4)
+                                        }
                                     }
-                                    .font(.system(size: 16, weight: .medium, design: .rounded))
-                                    .foregroundColor(.red.opacity(0.8))
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 12)
-                                    .background(Color.red.opacity(0.15))
-                                    .cornerRadius(10)
+
+                                    // Corrections
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Stored Corrections")
+                                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                                            .foregroundColor(.white.opacity(0.8))
+                                        Text("\(correctionStore.count) correction embeddings")
+                                            .font(.system(size: 13, design: .rounded))
+                                            .foregroundColor(.white.opacity(0.5))
+                                    }
+
+                                    // Actions
+                                    VStack(spacing: 12) {
+                                        if totalCaptures > 0 {
+                                            Button {
+                                                exportCaptures()
+                                            } label: {
+                                                HStack {
+                                                    if isExporting {
+                                                        ProgressView()
+                                                            .tint(.white)
+                                                    } else {
+                                                        Image(systemName: "square.and.arrow.up")
+                                                    }
+                                                    Text(isExporting ? "Preparing..." : "Export Captures")
+                                                }
+                                                .font(.system(size: 16, weight: .medium, design: .rounded))
+                                                .foregroundColor(.white)
+                                                .frame(maxWidth: .infinity)
+                                                .padding(.vertical, 12)
+                                                .background(Color.blue.opacity(0.6))
+                                                .cornerRadius(10)
+                                            }
+                                            .disabled(isExporting)
+                                        }
+
+                                        if totalCaptures > 0 || correctionStore.count > 0 || wordProgressStore.wordsSeen > 0 {
+                                            Button {
+                                                showClearConfirm = true
+                                            } label: {
+                                                HStack {
+                                                    Image(systemName: "trash")
+                                                    Text("Clear All Data")
+                                                }
+                                                .font(.system(size: 16, weight: .medium, design: .rounded))
+                                                .foregroundColor(.red.opacity(0.8))
+                                                .frame(maxWidth: .infinity)
+                                                .padding(.vertical, 12)
+                                                .background(Color.red.opacity(0.15))
+                                                .cornerRadius(10)
+                                            }
+                                        }
+                                    }
                                 }
+                                .padding(.top, 4)
                             }
                         }
                     }
                     .padding(20)
                 }
             }
-            .frame(maxWidth: 360)
+            .frame(maxWidth: 360, maxHeight: UIScreen.main.bounds.height - 80)
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color(white: 0.15))
             )
-            .padding(24)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 40)
             .alert("Clear All Data?", isPresented: $showClearConfirm) {
                 Button("Cancel", role: .cancel) {}
                 Button("Clear", role: .destructive) {
@@ -256,6 +298,13 @@ struct ParentSettingsView: View {
             }
         }
         .onAppear { refreshStats() }
+    }
+
+    private var dataSummary: String {
+        var parts: [String] = []
+        if totalCaptures > 0 { parts.append("\(totalCaptures) captures") }
+        if correctionStore.count > 0 { parts.append("\(correctionStore.count) corrections") }
+        return parts.joined(separator: ", ")
     }
 
     private func refreshStats() {

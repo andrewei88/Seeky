@@ -16,7 +16,6 @@ final class CustomClassifier {
     /// Classes where the model has separate outputs but the app treats them as one word.
     /// Key = model class name, Value = merged word. Classes not in this map keep their original name.
     static let classMerges: [String: String] = [
-        "monitor": "tv",
         "lamp": "light",
     ]
 

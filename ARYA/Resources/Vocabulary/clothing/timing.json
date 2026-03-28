@@ -1,0 +1,55 @@
+{
+  "word": "clothing",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.03,
+      "end": 0.14
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ],
+      "start": 0.14,
+      "end": 0.26
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        2
+      ],
+      "start": 0.26,
+      "end": 0.38
+    },
+    {
+      "phoneme": "DH",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.38,
+      "end": 0.5
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        5
+      ],
+      "start": 0.5,
+      "end": 0.62
+    },
+    {
+      "phoneme": "NG",
+      "letters": [
+        6,
+        7
+      ],
+      "start": 0.62,
+      "end": 0.75
+    }
+  ]
+}

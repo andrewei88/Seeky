@@ -1,0 +1,30 @@
+{
+  "word": "food",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.12,
+      "end": 0.23
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.23,
+      "end": 0.35
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        3
+      ],
+      "start": 0.35,
+      "end": 0.48
+    }
+  ]
+}

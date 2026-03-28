@@ -4390,5 +4390,25 @@
         4
       ]
     }
+  ],
+  "can": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    }
   ]
 }
