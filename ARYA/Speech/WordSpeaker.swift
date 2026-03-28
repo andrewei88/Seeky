@@ -243,7 +243,10 @@ final class WordSpeaker: NSObject, ObservableObject {
 
     @objc private func displayLinkFired() {
         guard let player = audioPlayer else { return }
-        currentTime = player.currentTime
+        // Compensate for display pipeline latency: CADisplayLink read → SwiftUI render → screen
+        // is ~2 frames (~33ms wall-clock). Convert to audio-file time (* playbackRate).
+        let renderOffset = 0.033 * Double(playbackRate)
+        currentTime = player.currentTime + renderOffset
     }
 
     private func configureAudioSession() {

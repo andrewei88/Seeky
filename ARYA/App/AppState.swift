@@ -83,6 +83,11 @@ final class QuizSession: ObservableObject {
     var isComplete: Bool { currentIndex >= challenges.count }
     var correctCount: Int { results.filter(\.correct).count }
 
+    /// End the session immediately (e.g., pool exhausted on last challenge).
+    func forceComplete() {
+        currentIndex = challenges.count
+    }
+
     /// Can go back if there's a skip to undo, or a previous non-correct challenge to revisit.
     var canGoBack: Bool {
         if !skipStack.isEmpty { return true }
@@ -571,12 +576,15 @@ final class AppState: ObservableObject {
         // Draw a replacement challenge (excluding current session words + all skipped words)
         let replacement = drawReplacementChallenge(session: session)
 
-        // Don't allow skipping the last challenge if there's no replacement.
-        // Otherwise the session shrinks to 0 challenges and ends with 0/0.
+        // Last challenge with no replacement: end the session rather than trapping the user.
         if session.challenges.count <= 1 && replacement == nil {
-            print("[Quiz] Can't skip last challenge — no replacements available")
-            mode = .quizPrompting
-            speakCurrentQuizWord()
+            print("[Quiz] Skipping last challenge — pool exhausted, ending session")
+            if case .word(let w) = session.challenges[session.currentIndex].target {
+                wordProgressStore.recordQuizSkip(word: w)
+            }
+            session.forceComplete()
+            wordSpeaker.stop()
+            mode = .quizResult
             return
         }
 

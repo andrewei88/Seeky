@@ -43,7 +43,7 @@ struct WordDisplayView: View {
                             .font(.system(size: size, weight: .bold, design: .rounded))
                             .foregroundColor(color(for: letterState(at: globalIndex)))
                             .shadow(color: glowColor(for: letterState(at: globalIndex)), radius: size * 0.25)
-                            .animation(.easeInOut(duration: 0.15), value: letterState(at: globalIndex))
+                            .animation(nil, value: letterState(at: globalIndex))
                     }
                 }
             }

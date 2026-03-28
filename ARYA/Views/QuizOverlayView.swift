@@ -27,6 +27,9 @@ struct QuizOverlayView: View {
     /// Using the word string instead of a boolean so that skips (which replace the challenge
     /// at the same index) automatically invalidate the state.
     @State private var spokenWord: String? = nil
+    /// Cached timing data to avoid disk I/O on every frame render.
+    @State private var cachedTiming: TimingData? = nil
+    @State private var cachedTimingWord: String? = nil
 
     var body: some View {
         if session.isComplete {
@@ -269,7 +272,7 @@ struct QuizOverlayView: View {
 
         // Live highlighting during word audio playback
         if wordSpeaker.isPlayingWord,
-           let timing = TimingData.load(word: word) {
+           let timing = loadCachedTiming(for: word) {
             let highlighter = LetterHighlighter(timing: timing)
             return highlighter.letterStates(at: wordSpeaker.currentTime)
         }
@@ -281,6 +284,18 @@ struct QuizOverlayView: View {
 
         // Default: white (word hasn't been spoken yet)
         return word.map { $0 == " " ? .space : .upcoming }
+    }
+
+    /// Load timing data from cache, only hitting disk when the word changes.
+    private func loadCachedTiming(for word: String) -> TimingData? {
+        if cachedTimingWord == word { return cachedTiming }
+        // Word changed — load from disk once and cache
+        let timing = TimingData.load(word: word)
+        DispatchQueue.main.async {
+            cachedTimingWord = word
+            cachedTiming = timing
+        }
+        return timing
     }
 
     // MARK: - Dot styling
