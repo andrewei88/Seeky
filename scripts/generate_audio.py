@@ -8,8 +8,8 @@ from pathlib import Path
 
 from elevenlabs import ElevenLabs
 
-VOCAB_PATH = Path(__file__).parent.parent / "ARYA" / "Resources" / "vocabulary.json"
-OUTPUT_DIR = Path(__file__).parent.parent / "ARYA" / "Resources" / "Vocabulary"
+VOCAB_PATH = Path(__file__).parent.parent / "Seeky" / "Resources" / "vocabulary.json"
+OUTPUT_DIR = Path(__file__).parent.parent / "Seeky" / "Resources" / "Vocabulary"
 
 def main():
     api_key = os.environ.get("ELEVENLABS_API_KEY")

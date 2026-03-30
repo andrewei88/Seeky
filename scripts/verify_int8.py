@@ -13,22 +13,22 @@ import coremltools as ct
 from torchvision import datasets, transforms
 
 PROJECT_ROOT = Path(__file__).parent.parent
-DATA_DIR = PROJECT_ROOT / "data" / "arya_training"
+DATA_DIR = PROJECT_ROOT / "data" / "seeky_training"
 MODEL_DIR = PROJECT_ROOT / "models"
-RESOURCES_DIR = PROJECT_ROOT / "ARYA" / "Resources"
+RESOURCES_DIR = PROJECT_ROOT / "Seeky" / "Resources"
 
 IMAGE_SIZE = 224
 
 # Load classes
-with open(MODEL_DIR / "arya_classes.json") as f:
+with open(MODEL_DIR / "seeky_classes.json") as f:
     classes = json.load(f)
 print(f"Classes: {len(classes)}")
 
 # Load INT8 CoreML model (what's actually deployed)
-int8_path = MODEL_DIR / "ARYAClassifier_int8.mlpackage"
+int8_path = MODEL_DIR / "SeekyClassifier_int8.mlpackage"
 if not int8_path.exists():
     # Check resources dir
-    int8_path = RESOURCES_DIR / "ARYAClassifier.mlpackage"
+    int8_path = RESOURCES_DIR / "SeekyClassifier.mlpackage"
 print(f"Loading CoreML model from: {int8_path}")
 coreml_model = ct.models.MLModel(str(int8_path))
 

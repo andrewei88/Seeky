@@ -10,7 +10,7 @@ except ImportError:
     print("Install textgrid: pip install textgrid")
     raise
 
-AUDIO_DIR = Path(__file__).parent.parent / "ARYA" / "Resources" / "Vocabulary"
+AUDIO_DIR = Path(__file__).parent.parent / "Seeky" / "Resources" / "Vocabulary"
 MAPPINGS_PATH = Path(__file__).parent / "phoneme_to_letter_mappings.json"
 
 def main():

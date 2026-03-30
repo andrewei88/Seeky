@@ -7,7 +7,7 @@ training data, re-splits train/val, and optionally retrains the model.
 
 Usage:
     # From exported zip (via share sheet in the app):
-    python scripts/ingest_phone_captures.py path/to/arya_training_captures.zip
+    python scripts/ingest_phone_captures.py path/to/seeky_training_captures.zip
 
     # From a folder already placed at data/phone_captures/:
     python scripts/ingest_phone_captures.py
@@ -29,7 +29,7 @@ from PIL import Image
 
 PROJECT_ROOT = Path(__file__).parent.parent
 CAPTURES_DIR = PROJECT_ROOT / "data" / "phone_captures"
-TRAINING_DIR = PROJECT_ROOT / "data" / "arya_training"
+TRAINING_DIR = PROJECT_ROOT / "data" / "seeky_training"
 CROP_SIZE = (256, 256)
 VAL_FRACTION = 0.15
 
@@ -185,7 +185,7 @@ def main():
         print("=" * 60)
         subprocess.run([sys.executable, "scripts/convert_to_coreml.py"], cwd=str(PROJECT_ROOT), check=True)
 
-        print("\nDone! New model is at ARYA/Resources/ARYAClassifier.mlpackage")
+        print("\nDone! New model is at Seeky/Resources/SeekyClassifier.mlpackage")
         print("Build and deploy to device to test.")
     else:
         print("\nCaptures ingested. To retrain:")

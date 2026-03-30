@@ -6,8 +6,8 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-VOCAB_PATH = Path(__file__).parent.parent / "ARYA" / "Resources" / "vocabulary.json"
-AUDIO_DIR = Path(__file__).parent.parent / "ARYA" / "Resources" / "Vocabulary"
+VOCAB_PATH = Path(__file__).parent.parent / "Seeky" / "Resources" / "vocabulary.json"
+AUDIO_DIR = Path(__file__).parent.parent / "Seeky" / "Resources" / "Vocabulary"
 
 def main():
     with open(VOCAB_PATH) as f:

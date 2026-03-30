@@ -27,7 +27,7 @@ from pathlib import Path
 from PIL import Image
 
 PROJECT_ROOT = Path(__file__).parent.parent
-OUTPUT_DIR = PROJECT_ROOT / "data" / "arya_training" / "all"
+OUTPUT_DIR = PROJECT_ROOT / "data" / "seeky_training" / "all"
 CROP_SIZE = (256, 256)
 
 # Priority home objects with targeted search queries.
@@ -36,6 +36,184 @@ CROP_SIZE = (256, 256)
 # - Various angles and distances
 # - Home lighting conditions
 HOME_OBJECT_QUERIES = {
+    # ── Priority: 16 weak household classes (below 85% val accuracy) ──────
+    # Queries designed to return phone-camera-perspective images:
+    # objects in rooms, various angles, home lighting, partial views.
+    "shelf": [
+        "bookshelf living room",
+        "shelf with books home",
+        "floating shelf wall",
+        "kitchen shelf",
+        "bathroom shelf towels",
+        "shelves home office",
+        "wall shelf decorations",
+        "open shelving kitchen",
+        "wooden shelf with plants",
+        "closet shelf clothes",
+        "garage shelf storage",
+        "shelf above desk",
+    ],
+    "table": [
+        "dining table home",
+        "kitchen table with food",
+        "coffee table living room",
+        "desk table home office",
+        "dining table set for dinner",
+        "wooden table close up",
+        "table with plates and cups",
+        "kitchen table from above",
+        "side table lamp nightstand",
+        "table legs wooden floor",
+    ],
+    "blanket": [
+        "blanket on bed",
+        "blanket on couch",
+        "throw blanket sofa",
+        "folded blanket on chair",
+        "blanket draped over couch arm",
+        "knit blanket on bed",
+        "baby blanket crib",
+        "fleece blanket couch",
+    ],
+    "couch": [
+        "couch living room",
+        "sofa in living room",
+        "couch from above",
+        "couch cushions home",
+        "couch with pillows",
+        "sectional sofa living room",
+        "leather couch room",
+        "couch armrest close up",
+        "sofa side angle room",
+    ],
+    "mirror": [
+        "mirror on wall bathroom",
+        "mirror bedroom",
+        "wall mirror home",
+        "mirror reflection room",
+        "bathroom vanity mirror",
+        "full length mirror bedroom",
+        "round mirror on wall",
+        "mirror above dresser",
+    ],
+    "window": [
+        "window inside home",
+        "window living room",
+        "bedroom window",
+        "kitchen window",
+        "window with curtains room",
+        "window sunlight room",
+        "window blinds home",
+        "window from inside looking out",
+    ],
+    "pillow": [
+        "pillow on bed",
+        "pillows on couch",
+        "throw pillow sofa",
+        "decorative pillow on chair",
+        "pillow on floor",
+        "bed pillows close up",
+        "couch cushion pillow",
+        "pillow pile on bed",
+    ],
+    "keyboard": [
+        "keyboard on desk",
+        "computer keyboard home office",
+        "wireless keyboard desk",
+        "keyboard and mouse setup",
+        "laptop keyboard close up",
+        "keyboard from above desk",
+        "mechanical keyboard desk",
+        "keyboard next to monitor",
+    ],
+    "book": [
+        "book on table",
+        "book on nightstand",
+        "open book on desk",
+        "stack of books on shelf",
+        "children's book on floor",
+        "book on couch",
+        "book next to coffee cup",
+        "book on bed",
+        "reading book in hand",
+        "book on kitchen counter",
+    ],
+    "towel": [
+        "towel hanging bathroom",
+        "towel rack bathroom",
+        "kitchen towel hanging",
+        "towel on hook bathroom",
+        "folded towels shelf",
+        "bath towel hanging door",
+        "hand towel bathroom sink",
+        "towel bar bathroom wall",
+    ],
+    "spoon": [
+        "spoon on table",
+        "spoon in bowl",
+        "spoon next to plate",
+        "wooden spoon kitchen counter",
+        "spoon in mug",
+        "baby spoon high chair",
+        "spoon on napkin",
+        "spoons in drawer",
+        "spoon cereal bowl",
+        "measuring spoons kitchen",
+    ],
+    "soap": [
+        "soap dispenser bathroom sink",
+        "bar of soap bathroom",
+        "hand soap sink counter",
+        "soap dish bathroom",
+        "liquid soap pump bottle bathroom",
+        "soap on bathroom shelf",
+        "dish soap kitchen sink",
+        "soap bar shower",
+    ],
+    "bottle": [
+        "water bottle on desk",
+        "bottle on table",
+        "water bottle kitchen counter",
+        "baby bottle on counter",
+        "bottle on nightstand",
+        "shampoo bottle bathroom",
+        "water bottle next to laptop",
+        "bottle on dining table",
+    ],
+    "chair": [
+        "chair at desk",
+        "dining chair table",
+        "office chair home",
+        "kitchen chair",
+        "chair in living room",
+        "wooden chair dining room",
+        "desk chair from behind",
+        "high chair kitchen",
+        "rocking chair nursery",
+    ],
+    "bowl": [
+        "bowl on table",
+        "cereal bowl on counter",
+        "bowl of soup on table",
+        "fruit bowl kitchen counter",
+        "bowl on dining table",
+        "mixing bowl kitchen",
+        "bowl next to spoon",
+        "empty bowl on table",
+        "salad bowl on counter",
+        "pet bowl on floor",
+    ],
+    "door": [
+        "door in house",
+        "front door interior",
+        "bedroom door open",
+        "door hallway home",
+        "bathroom door",
+        "closet door",
+        "door handle close up home",
+        "open door into room",
+    ],
+    # ── Other home objects (already had queries, keeping as-is) ───────────
     "speaker": [
         "bluetooth speaker on desk",
         "smart speaker living room",
@@ -49,16 +227,6 @@ HOME_OBJECT_QUERIES = {
         "bose speaker home",
         "small speaker on bookshelf",
         "speaker next to laptop",
-    ],
-    "shelf": [
-        "bookshelf living room",
-        "shelf with books home",
-        "floating shelf wall",
-        "kitchen shelf",
-        "bathroom shelf towels",
-        "shelves home office",
-        "wall shelf decorations",
-        "open shelving kitchen",
     ],
     "tv": [
         "tv on wall living room",
@@ -77,12 +245,6 @@ HOME_OBJECT_QUERIES = {
         "laptop home office",
         "laptop from above",
         "laptop side angle desk",
-    ],
-    "keyboard": [
-        "keyboard on desk",
-        "computer keyboard home office",
-        "wireless keyboard desk",
-        "keyboard and mouse setup",
     ],
     "microwave": [
         "microwave in kitchen",
@@ -104,24 +266,6 @@ HOME_OBJECT_QUERIES = {
         "oven door kitchen",
         "stove oven kitchen",
     ],
-    "couch": [
-        "couch living room",
-        "sofa in living room",
-        "couch from above",
-        "couch cushions home",
-    ],
-    "chair": [
-        "chair at desk",
-        "dining chair table",
-        "office chair home",
-        "kitchen chair",
-    ],
-    "table": [
-        "dining table home",
-        "kitchen table",
-        "coffee table living room",
-        "desk table home office",
-    ],
     "light": [
         "ceiling light room",
         "lamp on table",
@@ -130,28 +274,11 @@ HOME_OBJECT_QUERIES = {
         "floor lamp living room",
         "desk lamp home office",
     ],
-    "door": [
-        "door in house",
-        "front door interior",
-        "bedroom door open",
-        "door hallway home",
-    ],
-    "window": [
-        "window inside home",
-        "window living room",
-        "bedroom window",
-        "kitchen window",
-    ],
     "cup": [
         "coffee cup on table",
         "cup on kitchen counter",
         "mug on desk",
         "cup next to laptop",
-    ],
-    "bottle": [
-        "water bottle on desk",
-        "bottle on table",
-        "water bottle kitchen counter",
     ],
     "remote": [
         "tv remote on couch",
@@ -174,26 +301,6 @@ HOME_OBJECT_QUERIES = {
         "desk fan home",
         "standing fan living room",
     ],
-    "mirror": [
-        "mirror on wall bathroom",
-        "mirror bedroom",
-        "wall mirror home",
-    ],
-    "towel": [
-        "towel hanging bathroom",
-        "towel rack bathroom",
-        "kitchen towel hanging",
-    ],
-    "pillow": [
-        "pillow on bed",
-        "pillows on couch",
-        "throw pillow sofa",
-    ],
-    "blanket": [
-        "blanket on bed",
-        "blanket on couch",
-        "throw blanket sofa",
-    ],
 }
 
 
@@ -207,7 +314,7 @@ def download_bing_images(query: str, max_images: int = 50) -> list[Path]:
 
     import tempfile
 
-    tmp_dir = Path(tempfile.mkdtemp(prefix="arya_crawl_"))
+    tmp_dir = Path(tempfile.mkdtemp(prefix="seeky_crawl_"))
 
     crawler = BingImageCrawler(
         storage={"root_dir": str(tmp_dir)},
@@ -228,7 +335,7 @@ def download_duckduckgo_images(query: str, max_images: int = 50) -> list[Path]:
 
     import tempfile
 
-    tmp_dir = Path(tempfile.mkdtemp(prefix="arya_crawl_"))
+    tmp_dir = Path(tempfile.mkdtemp(prefix="seeky_crawl_"))
 
     import requests
 
@@ -348,9 +455,10 @@ def main():
             total += collect_for_word(word, queries, args.max_per_query, args.engine)
         print(f"\n=== DONE: {total} new images across {len(HOME_OBJECT_QUERIES)} words ===")
     else:
-        # Default: collect for the most critical home objects first
-        priority = ["speaker", "shelf", "tv", "laptop", "keyboard", "light",
-                     "microwave", "toaster", "fridge", "oven", "couch", "chair"]
+        # Default: collect for the 16 weakest household classes (below 85% val accuracy)
+        priority = ["shelf", "table", "blanket", "couch", "mirror", "window",
+                     "pillow", "keyboard", "book", "towel", "spoon", "soap",
+                     "bottle", "chair", "bowl", "door"]
         total = 0
         for word in priority:
             if word in HOME_OBJECT_QUERIES:

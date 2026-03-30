@@ -14,7 +14,7 @@ from pathlib import Path
 from collections import defaultdict
 
 PROJECT_ROOT = Path(__file__).parent.parent
-DATA_DIR = PROJECT_ROOT / "data" / "arya_training"
+DATA_DIR = PROJECT_ROOT / "data" / "seeky_training"
 MODEL_DIR = PROJECT_ROOT / "models"
 
 IMAGE_SIZE = 224
@@ -22,13 +22,13 @@ IMAGENET_MEAN = [0.485, 0.456, 0.406]
 IMAGENET_STD = [0.229, 0.224, 0.225]
 
 # Load classes
-with open(MODEL_DIR / "arya_classes.json") as f:
+with open(MODEL_DIR / "seeky_classes.json") as f:
     classes = json.load(f)
 num_classes = len(classes)
 print(f"Classes: {num_classes}")
 
 
-class ARYAClassifierFastViT(nn.Module):
+class SeekyClassifierFastViT(nn.Module):
     """FastViT-T12 backbone (current)."""
     def __init__(self, num_classes):
         super().__init__()
@@ -42,7 +42,7 @@ class ARYAClassifierFastViT(nn.Module):
         return logits, features
 
 
-class ARYAClassifierMobileNet(nn.Module):
+class SeekyClassifierMobileNet(nn.Module):
     """MobileNetV3-Small backbone (legacy)."""
     def __init__(self, num_classes):
         super().__init__()
@@ -65,14 +65,14 @@ class ARYAClassifierMobileNet(nn.Module):
 
 def load_model(num_classes, device):
     """Auto-detect and load the correct model architecture."""
-    state = torch.load(MODEL_DIR / "arya_classifier_best.pth", map_location=device, weights_only=True)
+    state = torch.load(MODEL_DIR / "seeky_classifier_best.pth", map_location=device, weights_only=True)
     # Detect architecture by checking for backbone vs features keys
     if any(k.startswith("backbone.") for k in state.keys()):
         print("Detected FastViT-T12 backbone")
-        model = ARYAClassifierFastViT(num_classes).to(device)
+        model = SeekyClassifierFastViT(num_classes).to(device)
     else:
         print("Detected MobileNetV3-Small backbone")
-        model = ARYAClassifierMobileNet(num_classes).to(device)
+        model = SeekyClassifierMobileNet(num_classes).to(device)
     model.load_state_dict(state)
     model.eval()
     return model

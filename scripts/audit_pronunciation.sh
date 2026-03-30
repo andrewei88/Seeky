@@ -11,7 +11,7 @@
 #
 # Flagged words are saved to scripts/pronunciation_flags.txt
 
-VOCAB_DIR="ARYA/Resources/Vocabulary"
+VOCAB_DIR="Seeky/Resources/Vocabulary"
 FLAGS_FILE="scripts/pronunciation_flags.txt"
 FLAGGED_ONLY=false
 START_FROM=""

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Convert trained ARYA FastViT-T12 to CoreML format.
+"""Convert trained Seeky FastViT-T12 to CoreML format.
 
 Produces two CoreML models:
-  1. ARYAClassifier.mlpackage — full model (classify + feature vector)
-  2. ARYAClassifier_int8.mlpackage — INT8 quantized version
+  1. SeekyClassifier.mlpackage — full model (classify + feature vector)
+  2. SeekyClassifier_int8.mlpackage — INT8 quantized version
 
 Includes verification: compares PyTorch vs CoreML outputs on a test image.
 
@@ -11,8 +11,8 @@ Usage:
     pip install coremltools torch timm Pillow numpy
     python scripts/convert_to_coreml.py
 
-Input:  models/arya_classifier_best.pth + models/arya_classes.json
-Output: ARYA/Resources/ARYAClassifier.mlpackage
+Input:  models/seeky_classifier_best.pth + models/seeky_classes.json
+Output: Seeky/Resources/SeekyClassifier.mlpackage
 """
 
 import json
@@ -28,7 +28,7 @@ from PIL import Image
 
 PROJECT_ROOT = Path(__file__).parent.parent
 MODEL_DIR = PROJECT_ROOT / "models"
-RESOURCES_DIR = PROJECT_ROOT / "ARYA" / "Resources"
+RESOURCES_DIR = PROJECT_ROOT / "Seeky" / "Resources"
 
 IMAGE_SIZE = 224
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
@@ -38,7 +38,7 @@ IMAGENET_STD = [0.229, 0.224, 0.225]
 BACKBONE = "fastvit_t12"
 
 
-class ARYAClassifier(nn.Module):
+class SeekyClassifier(nn.Module):
     """Must match train_classifier.py exactly."""
 
     def __init__(self, num_classes: int):
@@ -53,10 +53,10 @@ class ARYAClassifier(nn.Module):
         return logits, features
 
 
-class ARYAClassifierForExport(nn.Module):
+class SeekyClassifierForExport(nn.Module):
     """Wrapper that outputs (probabilities, normalized_features) for CoreML."""
 
-    def __init__(self, model: ARYAClassifier):
+    def __init__(self, model: SeekyClassifier):
         super().__init__()
         self.model = model
 
@@ -67,17 +67,17 @@ class ARYAClassifierForExport(nn.Module):
         return probabilities, normalized_features
 
 
-def load_model(num_classes: int) -> ARYAClassifier:
+def load_model(num_classes: int) -> SeekyClassifier:
     """Load trained PyTorch model."""
-    model = ARYAClassifier(num_classes)
-    weights_path = MODEL_DIR / "arya_classifier_best.pth"
+    model = SeekyClassifier(num_classes)
+    weights_path = MODEL_DIR / "seeky_classifier_best.pth"
     state_dict = torch.load(weights_path, map_location="cpu", weights_only=True)
     model.load_state_dict(state_dict)
     model.eval()
     return model
 
 
-def convert_to_coreml(model: ARYAClassifierForExport, classes: list[str]):
+def convert_to_coreml(model: SeekyClassifierForExport, classes: list[str]):
     """Convert with normalization baked into the model."""
 
     class NormalizedModel(nn.Module):
@@ -116,7 +116,7 @@ def convert_to_coreml(model: ARYAClassifierForExport, classes: list[str]):
     )
 
     # Add metadata
-    mlmodel.author = "ARYA"
+    mlmodel.author = "Seeky"
     mlmodel.short_description = (
         f"FastViT-T12 fine-tuned for {len(classes)}-word children's vocabulary. "
         "Outputs class probabilities and 1024-dim feature vector."
@@ -130,7 +130,7 @@ def convert_to_coreml(model: ARYAClassifierForExport, classes: list[str]):
     return mlmodel
 
 
-def verify_outputs(pytorch_model: ARYAClassifierForExport, coreml_model, classes: list[str]):
+def verify_outputs(pytorch_model: SeekyClassifierForExport, coreml_model, classes: list[str]):
     """Compare PyTorch and CoreML outputs on a synthetic test image."""
     print("\nVerifying PyTorch vs CoreML output consistency...")
 
@@ -193,19 +193,19 @@ def quantize_int8(model_path: Path, output_path: Path):
 
 
 def main():
-    classes_path = MODEL_DIR / "arya_classes.json"
+    classes_path = MODEL_DIR / "seeky_classes.json"
     with open(classes_path) as f:
         classes = json.load(f)
     print(f"Classes: {len(classes)}")
 
     print("Loading PyTorch model...")
     base_model = load_model(len(classes))
-    export_model = ARYAClassifierForExport(base_model)
+    export_model = SeekyClassifierForExport(base_model)
 
     print("Converting to CoreML...")
     mlmodel = convert_to_coreml(export_model, classes)
 
-    output_path = RESOURCES_DIR / "ARYAClassifier.mlpackage"
+    output_path = RESOURCES_DIR / "SeekyClassifier.mlpackage"
     mlmodel.save(str(output_path))
     print(f"Saved to: {output_path}")
 
@@ -214,8 +214,24 @@ def main():
 
     verify_outputs(export_model, mlmodel, classes)
 
-    int8_path = MODEL_DIR / "ARYAClassifier_int8.mlpackage"
+    int8_path = MODEL_DIR / "SeekyClassifier_int8.mlpackage"
     quantize_int8(output_path, int8_path)
+
+    # Auto-save versioned CoreML weights
+    import shutil
+    versions_dir = MODEL_DIR / "versions"
+    versions_dir.mkdir(exist_ok=True)
+    weight_bin = output_path / "Data" / "com.apple.CoreML" / "weights" / "weight.bin"
+    if weight_bin.exists():
+        existing = sorted(versions_dir.glob("weight_v*.bin"))
+        if existing:
+            last_num = int(existing[-1].stem.split("_v")[1].split("_")[0])
+            next_num = last_num + 1
+        else:
+            next_num = 0
+        version_path = versions_dir / f"weight_v{next_num}_fastvit.bin"
+        shutil.copy2(weight_bin, version_path)
+        print(f"\n  Versioned weights: {version_path}")
 
     print(f"\n{'='*60}")
     print("CONVERSION COMPLETE")

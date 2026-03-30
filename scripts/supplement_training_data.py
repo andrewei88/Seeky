@@ -17,7 +17,7 @@ from icrawler.builtin import BingImageCrawler
 from PIL import Image
 
 PROJECT_ROOT = Path(__file__).parent.parent
-OUTPUT_DIR = PROJECT_ROOT / "data" / "arya_training"
+OUTPUT_DIR = PROJECT_ROOT / "data" / "seeky_training"
 CROP_SIZE = (256, 256)
 VAL_FRACTION = 0.15
 IMAGES_PER_QUERY = 80  # Bing returns ~100 max per query

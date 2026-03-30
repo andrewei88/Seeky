@@ -31,7 +31,7 @@ from align_timing_from_energy import (
     find_phoneme_boundaries,
 )
 
-VOCAB_DIR = Path(__file__).parent.parent / "ARYA" / "Resources" / "Vocabulary"
+VOCAB_DIR = Path(__file__).parent.parent / "Seeky" / "Resources" / "Vocabulary"
 PROMPTS_DIR = VOCAB_DIR / "_prompts"
 
 # Phoneme-to-letter mappings for each category display name.

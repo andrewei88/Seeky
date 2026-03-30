@@ -12,7 +12,7 @@ from icrawler.builtin import BingImageCrawler
 from PIL import Image
 
 PROJECT_ROOT = Path(__file__).parent.parent
-OUTPUT_DIR = PROJECT_ROOT / "data" / "arya_training" / "all"
+OUTPUT_DIR = PROJECT_ROOT / "data" / "seeky_training" / "all"
 TMP_DIR = PROJECT_ROOT / "data" / "tmp_icrawl"
 TARGET = 500
 CROP_SIZE = (256, 256)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collect training images for the 107-word ARYA vocabulary.
+"""Collect training images for the Seeky vocabulary.
 
 Uses FiftyOne to pull cropped object images from Open Images V7 and COCO,
 organized into train/val splits for MobileNetV3 fine-tuning.
@@ -8,7 +8,7 @@ Usage:
     pip install fiftyone Pillow
     python scripts/collect_training_data.py
 
-Output: data/arya_training/{train,val}/{word}/  (~300-500 images per class)
+Output: data/seeky_training/{train,val}/{word}/  (~300-500 images per class)
 """
 
 import json
@@ -23,8 +23,8 @@ from PIL import Image
 
 # ── Config ──────────────────────────────────────────────────────────────────
 PROJECT_ROOT = Path(__file__).parent.parent
-VOCAB_PATH = PROJECT_ROOT / "ARYA" / "Resources" / "vocabulary.json"
-OUTPUT_DIR = PROJECT_ROOT / "data" / "arya_training"
+VOCAB_PATH = PROJECT_ROOT / "Seeky" / "Resources" / "vocabulary.json"
+OUTPUT_DIR = PROJECT_ROOT / "data" / "seeky_training"
 TARGET_PER_CLASS = 500       # aim for this many images per class
 MIN_PER_CLASS = 200          # warn if we get fewer than this
 VAL_FRACTION = 0.15          # 15% val split
@@ -32,7 +32,7 @@ CROP_SIZE = (256, 256)       # resize crops to this (slightly larger than 224 fo
 MIN_CROP_PX = 20             # skip tiny bounding boxes (< 20px on either side)
 
 # ── Word → Dataset Label Mapping ────────────────────────────────────────────
-# Maps each ARYA vocab word to a list of (dataset, label) tuples to query.
+# Maps each Seeky vocab word to a list of (dataset, label) tuples to query.
 # "oi7" = Open Images V7 detection labels
 # "coco" = COCO 2017 detection labels
 # Labels are case-sensitive and must match the dataset's label vocabulary exactly.

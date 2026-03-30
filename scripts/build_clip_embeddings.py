@@ -14,8 +14,8 @@ from pathlib import Path
 
 import numpy as np
 
-VOCAB_PATH = Path(__file__).parent.parent / "ARYA" / "Resources" / "vocabulary.json"
-OUTPUT_PATH = Path(__file__).parent.parent / "ARYA" / "Resources" / "text_embeddings.bin"
+VOCAB_PATH = Path(__file__).parent.parent / "Seeky" / "Resources" / "vocabulary.json"
+OUTPUT_PATH = Path(__file__).parent.parent / "Seeky" / "Resources" / "text_embeddings.bin"
 
 def main():
     with open(VOCAB_PATH) as f:

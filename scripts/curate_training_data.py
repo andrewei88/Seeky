@@ -28,7 +28,7 @@ from PIL import Image
 
 PROJECT_ROOT = Path(__file__).parent.parent
 MODEL_DIR = PROJECT_ROOT / "models"
-DATA_DIR = PROJECT_ROOT / "data" / "arya_training"
+DATA_DIR = PROJECT_ROOT / "data" / "seeky_training"
 ALL_DIR = DATA_DIR / "all"
 QUARANTINE_DIR = DATA_DIR / "quarantined"
 IMAGE_SIZE = 224
@@ -44,7 +44,7 @@ QUARANTINE_THRESHOLD = 0.70
 LOW_SELF_CONFIDENCE = 0.05
 
 
-class ARYAClassifier(nn.Module):
+class SeekyClassifier(nn.Module):
     """Must match train_classifier.py exactly."""
 
     def __init__(self, num_classes: int):
@@ -60,8 +60,8 @@ class ARYAClassifier(nn.Module):
 
 
 def load_model(num_classes: int):
-    model = ARYAClassifier(num_classes)
-    weights_path = MODEL_DIR / "arya_classifier_best.pth"
+    model = SeekyClassifier(num_classes)
+    weights_path = MODEL_DIR / "seeky_classifier_best.pth"
     state_dict = torch.load(weights_path, map_location="cpu", weights_only=True)
     model.load_state_dict(state_dict)
     model.eval()
@@ -96,7 +96,7 @@ def main():
     args = parser.parse_args()
 
     # Load classes
-    classes_path = MODEL_DIR / "arya_classes.json"
+    classes_path = MODEL_DIR / "seeky_classes.json"
     with open(classes_path) as f:
         classes = json.load(f)
     num_classes = len(classes)

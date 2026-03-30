@@ -17,7 +17,7 @@ from pathlib import Path
 
 from elevenlabs import ElevenLabs
 
-OUTPUT_DIR = Path(__file__).parent.parent / "ARYA" / "Resources" / "Vocabulary" / "_prompts"
+OUTPUT_DIR = Path(__file__).parent.parent / "Seeky" / "Resources" / "Vocabulary" / "_prompts"
 
 VOICE_ID = "cgSgspJ2msm6clMCkdW9"  # Jessica
 

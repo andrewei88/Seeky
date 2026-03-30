@@ -25,7 +25,7 @@ from typing import Optional
 import numpy as np
 from scipy.signal import medfilt
 
-AUDIO_DIR = Path(__file__).parent.parent / "ARYA" / "Resources" / "Vocabulary"
+AUDIO_DIR = Path(__file__).parent.parent / "Seeky" / "Resources" / "Vocabulary"
 MAPPINGS_PATH = Path(__file__).parent / "phoneme_to_letter_mappings.json"
 
 # Phoneme class properties for boundary refinement

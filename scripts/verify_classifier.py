@@ -22,11 +22,11 @@ from torchvision import datasets, models, transforms
 
 PROJECT_ROOT = Path(__file__).parent.parent
 MODEL_DIR = PROJECT_ROOT / "models"
-VAL_DIR = PROJECT_ROOT / "data" / "arya_training" / "val"
+VAL_DIR = PROJECT_ROOT / "data" / "seeky_training" / "val"
 IMAGE_SIZE = 224
 
 
-class ARYAClassifier(nn.Module):
+class SeekyClassifier(nn.Module):
     """Must match train_classifier.py exactly."""
 
     def __init__(self, num_classes: int):
@@ -51,8 +51,8 @@ class ARYAClassifier(nn.Module):
 
 
 def load_model(num_classes: int):
-    model = ARYAClassifier(num_classes)
-    weights_path = MODEL_DIR / "arya_classifier_best.pth"
+    model = SeekyClassifier(num_classes)
+    weights_path = MODEL_DIR / "seeky_classifier_best.pth"
     state_dict = torch.load(weights_path, map_location="cpu", weights_only=True)
     model.load_state_dict(state_dict)
     model.eval()
@@ -61,7 +61,7 @@ def load_model(num_classes: int):
 
 def main():
     # Load classes
-    classes_path = MODEL_DIR / "arya_classes.json"
+    classes_path = MODEL_DIR / "seeky_classes.json"
     with open(classes_path) as f:
         classes = json.load(f)
     num_classes = len(classes)
@@ -88,7 +88,7 @@ def main():
     # Verify class ordering matches
     folder_classes = val_dataset.classes
     if folder_classes != classes:
-        print(f"WARNING: Folder classes don't match arya_classes.json!")
+        print(f"WARNING: Folder classes don't match seeky_classes.json!")
         print(f"  Folder: {folder_classes[:5]}...")
         print(f"  JSON:   {classes[:5]}...")
 

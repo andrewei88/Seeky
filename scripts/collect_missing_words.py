@@ -19,7 +19,7 @@ from pathlib import Path
 from PIL import Image
 
 PROJECT_ROOT = Path(__file__).parent.parent
-OUTPUT_DIR = PROJECT_ROOT / "data" / "arya_training" / "all"
+OUTPUT_DIR = PROJECT_ROOT / "data" / "seeky_training" / "all"
 TARGET = 500
 CROP_SIZE = (256, 256)
 MIN_PX = 100  # minimum image dimension to keep

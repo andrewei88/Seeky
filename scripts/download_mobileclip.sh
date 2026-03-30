@@ -3,7 +3,7 @@
 
 set -e
 
-MODEL_DIR="$(dirname "$0")/../ARYA/Resources"
+MODEL_DIR="$(dirname "$0")/../Seeky/Resources"
 mkdir -p "$MODEL_DIR"
 
 echo "Downloading MobileCLIP S0 image encoder (CoreML)..."

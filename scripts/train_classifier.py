@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Train FastViT-T12 for ARYA's vocabulary.
+"""Train FastViT-T12 for Seeky's vocabulary.
 
 Two-phase training:
   Phase 1: Freeze backbone, train classifier head (5 epochs)
@@ -13,9 +13,9 @@ Usage:
     pip install torch torchvision timm
     python scripts/train_classifier.py
 
-Input:  data/arya_training/{train,val}/{word}/*.jpg
-Output: models/arya_classifier.pth (PyTorch weights)
-        models/arya_classes.json (ordered class list)
+Input:  data/seeky_training/{train,val}/{word}/*.jpg
+Output: models/seeky_classifier.pth (PyTorch weights)
+        models/seeky_classes.json (ordered class list)
 """
 
 import json
@@ -33,7 +33,7 @@ from collections import Counter
 
 # ── Config ──────────────────────────────────────────────────────────────────
 PROJECT_ROOT = Path(__file__).parent.parent
-DATA_DIR = PROJECT_ROOT / "data" / "arya_training"
+DATA_DIR = PROJECT_ROOT / "data" / "seeky_training"
 MODEL_DIR = PROJECT_ROOT / "models"
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -55,7 +55,7 @@ IMAGENET_MEAN = [0.485, 0.456, 0.406]
 IMAGENET_STD = [0.229, 0.224, 0.225]
 
 
-class ARYAClassifier(nn.Module):
+class SeekyClassifier(nn.Module):
     """FastViT-T12 with dual output: class probabilities + feature vector.
 
     The feature vector is the 1024-dim output of the backbone's global average pooling,
@@ -147,12 +147,12 @@ def get_data_loaders():
     # Save class ordering (folder names sorted alphabetically by ImageFolder)
     # Replace underscores with spaces to match vocabulary.json naming convention
     classes = [c.replace("_", " ") for c in train_dataset.classes]
-    with open(MODEL_DIR / "arya_classes.json", "w") as f:
+    with open(MODEL_DIR / "seeky_classes.json", "w") as f:
         json.dump(classes, f, indent=2)
     # Also copy to app Resources so the bundle stays in sync
-    resources_dir = PROJECT_ROOT / "ARYA" / "Resources"
+    resources_dir = PROJECT_ROOT / "Seeky" / "Resources"
     import shutil
-    shutil.copy2(MODEL_DIR / "arya_classes.json", resources_dir / "arya_classes.json")
+    shutil.copy2(MODEL_DIR / "seeky_classes.json", resources_dir / "seeky_classes.json")
     print(f"Classes ({len(classes)}): {classes[:5]}...{classes[-5:]}")
 
     train_loader = DataLoader(
@@ -232,7 +232,7 @@ def main():
 
     train_loader, val_loader, num_classes, train_dataset = get_data_loaders()
 
-    model = ARYAClassifier(num_classes).to(device)
+    model = SeekyClassifier(num_classes).to(device)
     print(f"Backbone: {BACKBONE} ({model.feat_dim}-dim features)")
     param_count = sum(p.numel() for p in model.parameters())
     print(f"Parameters: {param_count:,}")
@@ -271,7 +271,7 @@ def main():
 
         if val_acc > best_val_acc:
             best_val_acc = val_acc
-            torch.save(model.state_dict(), MODEL_DIR / "arya_classifier_best.pth")
+            torch.save(model.state_dict(), MODEL_DIR / "seeky_classifier_best.pth")
 
     # ── Phase 2: Unfreeze all, fine-tune ────────────────────────────────────
     print(f"\n{'='*60}")
@@ -299,18 +299,34 @@ def main():
 
         if val_acc > best_val_acc:
             best_val_acc = val_acc
-            torch.save(model.state_dict(), MODEL_DIR / "arya_classifier_best.pth")
+            torch.save(model.state_dict(), MODEL_DIR / "seeky_classifier_best.pth")
             print(f"    New best: {val_acc:.1%}")
 
     # Save final model too
-    torch.save(model.state_dict(), MODEL_DIR / "arya_classifier_final.pth")
+    torch.save(model.state_dict(), MODEL_DIR / "seeky_classifier_final.pth")
+
+    # Auto-save versioned checkpoint
+    versions_dir = MODEL_DIR / "versions"
+    versions_dir.mkdir(exist_ok=True)
+    existing = sorted(versions_dir.glob("seeky_classifier_v*.pth"))
+    if existing:
+        last_num = int(existing[-1].stem.split("_v")[1].split("_")[0])
+        next_num = last_num + 1
+    else:
+        next_num = 0
+    acc_str = f"{best_val_acc * 100:.1f}pct"
+    version_path = versions_dir / f"seeky_classifier_v{next_num}_{acc_str}.pth"
+    import shutil as _shutil
+    _shutil.copy2(MODEL_DIR / "seeky_classifier_best.pth", version_path)
+    print(f"\n  Versioned checkpoint: {version_path}")
 
     print(f"\n{'='*60}")
     print(f"TRAINING COMPLETE")
     print(f"  Backbone: {BACKBONE}")
     print(f"  Best validation accuracy: {best_val_acc:.1%}")
-    print(f"  Model saved to: {MODEL_DIR / 'arya_classifier_best.pth'}")
-    print(f"  Classes saved to: {MODEL_DIR / 'arya_classes.json'}")
+    print(f"  Model saved to: {MODEL_DIR / 'seeky_classifier_best.pth'}")
+    print(f"  Versioned copy: {version_path}")
+    print(f"  Classes saved to: {MODEL_DIR / 'seeky_classes.json'}")
     print(f"{'='*60}")
     print(f"\nNext: python scripts/convert_to_coreml.py")
 

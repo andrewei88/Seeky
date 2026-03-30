@@ -13,7 +13,7 @@ import subprocess
 import re
 from pathlib import Path
 
-VOCAB_DIR = Path(__file__).parent.parent / "ARYA" / "Resources" / "Vocabulary"
+VOCAB_DIR = Path(__file__).parent.parent / "Seeky" / "Resources" / "Vocabulary"
 
 
 def get_duration(audio_path: Path) -> float:
@@ -114,7 +114,7 @@ def rescale_timing(timing_data: dict, speech_start: float, speech_end: float) ->
 def main():
     # First, restore original timing data from git so we start from the known-good proportions
     import os
-    os.system("git checkout HEAD -- ARYA/Resources/Vocabulary/*/timing.json")
+    os.system("git checkout HEAD -- Seeky/Resources/Vocabulary/*/timing.json")
     print("Restored original timing.json files from git\n")
 
     word_dirs = sorted([d for d in VOCAB_DIR.iterdir() if d.is_dir()])

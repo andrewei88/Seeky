@@ -17,7 +17,7 @@ import fiftyone.zoo as foz
 from PIL import Image
 
 PROJECT_ROOT = Path(__file__).parent.parent
-OUTPUT_DIR = PROJECT_ROOT / "data" / "arya_training" / "all" / "tv"
+OUTPUT_DIR = PROJECT_ROOT / "data" / "seeky_training" / "all" / "tv"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 CROP_SIZE = (256, 256)

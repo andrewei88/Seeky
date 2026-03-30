@@ -7,7 +7,7 @@ from pathlib import Path
 
 from elevenlabs import ElevenLabs
 
-OUTPUT_DIR = Path(__file__).parent.parent / "ARYA" / "Resources" / "Vocabulary" / "_prompts"
+OUTPUT_DIR = Path(__file__).parent.parent / "Seeky" / "Resources" / "Vocabulary" / "_prompts"
 
 PHRASES = {
     "find_the": "Can you find the",
