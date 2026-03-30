@@ -15,7 +15,7 @@
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>NSCameraUsageDescription</key>
-    <string>ARYA uses the camera to help your child learn words by looking at objects around them.</string>
+    <string>Seeky uses the camera to help your child learn words by looking at objects around them.</string>
     <key>UILaunchScreen</key>
     <dict>
         <key>UIColorName</key>

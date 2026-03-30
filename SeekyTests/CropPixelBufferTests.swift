@@ -1,6 +1,6 @@
 import XCTest
 import CoreImage
-@testable import ARYA
+@testable import Seeky
 
 /// Tests that cropPixelBuffer correctly handles CIImage's bottom-left coordinate system.
 final class CropPixelBufferTests: XCTestCase {

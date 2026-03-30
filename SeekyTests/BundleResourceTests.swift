@@ -1,12 +1,12 @@
 import XCTest
 import AVFoundation
-@testable import ARYA
+@testable import Seeky
 
 /// Tests that verify bundle resources are accessible the way the app loads them.
 /// These catch path/naming mismatches that compilation can't detect.
 final class BundleResourceTests: XCTestCase {
 
-    // The test bundle (ARYATests.xctest) is hosted inside the app bundle,
+    // The test bundle (SeekyTests.xctest) is hosted inside the app bundle,
     // so Bundle.main in tests IS the app bundle. This mirrors runtime behavior.
 
     func testTimingDataLoadsForKnownWords() {

@@ -24,8 +24,8 @@ final class CustomClassifier {
 
     init?(bundle: Bundle = .main) {
         // Load ARYAClassifier.mlmodelc (compiled from .mlpackage by Xcode)
-        guard let modelURL = bundle.url(forResource: "ARYAClassifier", withExtension: "mlmodelc") else {
-            print("[CustomClassifier] ARYAClassifier.mlmodelc not found in bundle")
+        guard let modelURL = bundle.url(forResource: "SeekyClassifier", withExtension: "mlmodelc") else {
+            print("[CustomClassifier] SeekyClassifier.mlmodelc not found in bundle")
             return nil
         }
 
@@ -42,11 +42,11 @@ final class CustomClassifier {
         }
 
         // Load class list from model metadata or from bundled JSON
-        if let classesJSON = bundle.url(forResource: "arya_classes", withExtension: "json"),
+        if let classesJSON = bundle.url(forResource: "seeky_classes", withExtension: "json"),
            let data = try? Data(contentsOf: classesJSON),
            let decoded = try? JSONDecoder().decode([String].self, from: data) {
             self.classes = decoded
-            print("[CustomClassifier] Loaded \(decoded.count) classes from arya_classes.json")
+            print("[CustomClassifier] Loaded \(decoded.count) classes from seeky_classes.json")
         } else if let metadata = model.modelDescription.metadata[.init(rawValue: "classes")] as? String,
                   let data = metadata.data(using: .utf8),
                   let decoded = try? JSONDecoder().decode([String].self, from: data) {

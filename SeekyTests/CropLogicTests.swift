@@ -1,5 +1,5 @@
 import XCTest
-@testable import ARYA
+@testable import Seeky
 
 /// Tests for the cropping logic that feeds VNClassifyImageRequest.
 /// The core issue: segmentation bounding boxes are often very large (entire foreground),

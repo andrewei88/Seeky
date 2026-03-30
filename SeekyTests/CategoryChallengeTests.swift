@@ -1,5 +1,5 @@
 import XCTest
-@testable import ARYA
+@testable import Seeky
 
 @MainActor
 final class CategoryChallengeTests: XCTestCase {
@@ -48,10 +48,10 @@ final class CategoryChallengeTests: XCTestCase {
     }
 
     func testAllCategoryWordsAreClassifiable() {
-        // Category words must be in the classifier's vocabulary (arya_classes.json),
+        // Category words must be in the classifier's vocabulary (seeky_classes.json),
         // not necessarily in the seeded quiz pool. The classifier can output any of
         // its 151 classes, and category challenges accept all matches.
-        guard let url = Bundle.main.url(forResource: "arya_classes", withExtension: "json"),
+        guard let url = Bundle.main.url(forResource: "seeky_classes", withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let classes = try? JSONDecoder().decode([String].self, from: data) else {
             // Can't load classes in simulator — skip this check

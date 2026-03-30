@@ -1,6 +1,6 @@
 import XCTest
 import CoreGraphics
-@testable import ARYA
+@testable import Seeky
 
 final class InstanceTrackerTests: XCTestCase {
 

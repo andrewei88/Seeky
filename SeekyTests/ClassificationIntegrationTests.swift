@@ -1,13 +1,13 @@
 import XCTest
 import Vision
 import CoreImage
-@testable import ARYA
+@testable import Seeky
 
 /// Integration tests that run VNClassifyImageRequest on real images
 /// and verify the full pipeline: VN label → LabelMapper → child-friendly word.
 ///
 /// These tests MUST run on a physical device (VNClassifyImageRequest fails on simulator).
-/// Run with: xcodebuild test -scheme ARYA -destination 'id=<device_id>' -only-testing:ARYATests/ClassificationIntegrationTests
+/// Run with: xcodebuild test -scheme Seeky -destination 'id=<device_id>' -only-testing:SeekyTests/ClassificationIntegrationTests
 final class ClassificationIntegrationTests: XCTestCase {
 
     private var labelMapper: LabelMapper!
@@ -18,7 +18,7 @@ final class ClassificationIntegrationTests: XCTestCase {
         let projectPath = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
-            .appendingPathComponent("ARYA/Resources/label_mappings.json")
+            .appendingPathComponent("Seeky/Resources/label_mappings.json")
 
         guard let data = try? Data(contentsOf: projectPath),
               let raw = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {

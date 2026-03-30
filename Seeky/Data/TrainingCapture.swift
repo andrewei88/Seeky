@@ -79,7 +79,7 @@ final class TrainingCapture {
         guard total > 0 else { return nil }
 
         let tempDir = FileManager.default.temporaryDirectory
-        let zipURL = tempDir.appendingPathComponent("arya_training_captures.zip")
+        let zipURL = tempDir.appendingPathComponent("seeky_training_captures.zip")
 
         // Remove old export if it exists
         try? FileManager.default.removeItem(at: zipURL)

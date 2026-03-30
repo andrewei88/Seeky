@@ -14,8 +14,8 @@ enum CameraStatus {
 final class CameraManager: NSObject, ObservableObject {
     private let captureSession = AVCaptureSession()
     private let videoOutput = AVCaptureVideoDataOutput()
-    private let sessionQueue = DispatchQueue(label: "com.arya.camera.session")
-    private let outputQueue = DispatchQueue(label: "com.arya.camera.output")
+    private let sessionQueue = DispatchQueue(label: "com.seeky.camera.session")
+    private let outputQueue = DispatchQueue(label: "com.seeky.camera.output")
 
     weak var delegate: CameraManagerDelegate?
     @Published var status: CameraStatus = .notDetermined

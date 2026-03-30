@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct ARYAApp: App {
+struct SeekyApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

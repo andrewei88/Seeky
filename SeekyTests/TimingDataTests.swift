@@ -1,5 +1,5 @@
 import XCTest
-@testable import ARYA
+@testable import Seeky
 
 final class TimingDataTests: XCTestCase {
 

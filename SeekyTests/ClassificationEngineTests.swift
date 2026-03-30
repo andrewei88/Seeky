@@ -1,5 +1,5 @@
 import XCTest
-@testable import ARYA
+@testable import Seeky
 
 /// Tests for the classification path: label mapping, threshold logic, and confidence aggregation.
 /// We can't run the full Vision pipeline in unit tests, but we can verify
@@ -160,7 +160,7 @@ final class ClassificationEngineTests: XCTestCase {
         let projectPath = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
-            .appendingPathComponent("ARYA/Resources/label_mappings.json")
+            .appendingPathComponent("Seeky/Resources/label_mappings.json")
 
         guard let data = try? Data(contentsOf: projectPath),
               let raw = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
@@ -706,7 +706,7 @@ final class ClassificationEngineTests: XCTestCase {
         let projectPath = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
-            .appendingPathComponent("ARYA/Resources/label_mappings.json")
+            .appendingPathComponent("Seeky/Resources/label_mappings.json")
 
         guard let data = try? Data(contentsOf: projectPath),
               let raw = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
@@ -1440,5 +1440,41 @@ final class ClassificationEngineTests: XCTestCase {
         ])
         // stereo→speaker(0.092), speakers_music→speaker(0.019) = 0.111 aggregated
         XCTAssertEqual(result?.word, "speaker")
+    }
+
+    // MARK: - Per-Class Threshold Tests
+
+    func testPerClassThresholdBookAt0_50Rejected() {
+        // Book at 0.50 is above the default 0.40 threshold but below the per-class 0.75
+        let threshold = ClassificationEngine.perClassThresholds["book"]
+        XCTAssertNotNil(threshold, "Book should have a per-class threshold")
+        XCTAssertEqual(threshold, 0.75)
+        XCTAssertTrue(0.50 < threshold!, "0.50 should be below book's per-class threshold")
+    }
+
+    func testPerClassThresholdCouchAt0_50Rejected() {
+        let threshold = ClassificationEngine.perClassThresholds["couch"]
+        XCTAssertNotNil(threshold, "Couch should have a per-class threshold")
+        XCTAssertEqual(threshold, 0.70)
+    }
+
+    func testPerClassThresholdCupLowered() {
+        let threshold = ClassificationEngine.perClassThresholds["cup"]
+        XCTAssertNotNil(threshold, "Cup should have a per-class threshold")
+        XCTAssertEqual(threshold, 0.35)
+        XCTAssertTrue(0.36 >= threshold!, "0.36 should be accepted for cup")
+    }
+
+    func testPerClassThresholdMushroomRaised() {
+        let threshold = ClassificationEngine.perClassThresholds["mushroom"]
+        XCTAssertNotNil(threshold, "Mushroom should have a per-class threshold")
+        XCTAssertEqual(threshold, 0.90)
+        XCTAssertTrue(0.87 < threshold!, "0.87 should be below mushroom's per-class threshold")
+    }
+
+    func testPerClassThresholdDoesNotAffectOtherClasses() {
+        // Dog at 0.50 should use the default 0.40 threshold (no per-class override)
+        let threshold = ClassificationEngine.perClassThresholds["dog"]
+        XCTAssertNil(threshold, "Dog should not have a per-class threshold")
     }
 }

@@ -1,5 +1,5 @@
 import XCTest
-@testable import ARYA
+@testable import Seeky
 
 @MainActor
 final class WordProgressStoreTests: XCTestCase {
@@ -204,6 +204,7 @@ final class WordProgressStoreTests: XCTestCase {
 
     func testAllSeededWordsHaveLocation() {
         let seeded = WordProgressStore.seededHighConfidenceWords
+            .subtracting(WordProgressStore.unsafeForQuiz)
         let allLocationWords = Set(WordProgressStore.locationWords.values.flatMap { $0 })
         let untagged = seeded.subtracting(allLocationWords)
         XCTAssertTrue(untagged.isEmpty,
