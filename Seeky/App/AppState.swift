@@ -233,14 +233,9 @@ final class AppState: ObservableObject {
     @Published var showingCorrectionPicker = false
     @Published var showingParentSettings = false
 
-    /// Location for quiz word filtering. nil = use all locations.
-    @Published var selectedLocation: WordLocation? = nil {
-        didSet { UserDefaults.standard.set(selectedLocation?.rawValue, forKey: "selectedLocation") }
-    }
-
-    /// Parent-selected categories for focused hunts. Empty = all categories.
-    @Published var selectedCategories: Set<String> = [] {
-        didSet { UserDefaults.standard.set(Array(selectedCategories), forKey: "selectedCategories") }
+    /// Parent-selected category for focused hunts. nil = all categories.
+    @Published var selectedCategory: String? = nil {
+        didSet { UserDefaults.standard.set(selectedCategory, forKey: "selectedCategory") }
     }
 
     /// Generation counter to invalidate stale delayed callbacks (retry/advance).
@@ -256,13 +251,9 @@ final class AppState: ObservableObject {
         hasCompletedFirstTap = UserDefaults.standard.bool(forKey: Self.hasCompletedFirstTapKey)
         vocabularyStore = VocabularyStore.load()
 
-        // Restore persisted location and category selections
-        if let locRaw = UserDefaults.standard.string(forKey: "selectedLocation"),
-           let loc = WordLocation(rawValue: locRaw) {
-            selectedLocation = loc
-        }
-        if let cats = UserDefaults.standard.array(forKey: "selectedCategories") as? [String] {
-            selectedCategories = Set(cats)
+        // Restore persisted category selection
+        if let cat = UserDefaults.standard.string(forKey: "selectedCategory") {
+            selectedCategory = cat
         }
 
         classificationEngine = ClassificationEngine(
@@ -326,19 +317,13 @@ final class AppState: ObservableObject {
         // via videoRotationAngle=90. Convert: buffer(x,y) = (1 - device.y, device.x)
         let bufferPoint = CGPoint(x: 1.0 - imagePoint.y, y: imagePoint.x)
 
-        let cropRect = instanceAwareCropRect(tapPoint: bufferPoint, bufferWidth: bufW, bufferHeight: bufH)
-        print("[Tap] screen=\(screenPoint) → device=\(imagePoint) → buffer=\(bufferPoint), crop=\(cropRect)")
-
         Task {
-            let croppedBuffer = cropPixelBuffer(segResult.pixelBuffer, to: cropRect)
-
-            guard let croppedBuffer = croppedBuffer else {
-                print("[Tap] Failed to crop pixel buffer")
-                mode = .exploring
-                return
-            }
-
-            guard let result = await classificationEngine.classify(imageBuffer: croppedBuffer) else {
+            guard let (result, croppedBuffer) = await classifyWithDualCrop(
+                pixelBuffer: segResult.pixelBuffer,
+                tapPoint: bufferPoint,
+                bufferWidth: bufW,
+                bufferHeight: bufH
+            ) else {
                 print("[Tap] Classification returned nil (no features)")
                 let errorGenerator = UINotificationFeedbackGenerator()
                 errorGenerator.notificationOccurred(.error)
@@ -429,17 +414,14 @@ final class AppState: ObservableObject {
         let bufW = CVPixelBufferGetWidth(segResult.pixelBuffer)
         let bufH = CVPixelBufferGetHeight(segResult.pixelBuffer)
         let bufferPoint = CGPoint(x: 1.0 - imagePoint.y, y: imagePoint.x)
-        let cropRect = instanceAwareCropRect(tapPoint: bufferPoint, bufferWidth: bufW, bufferHeight: bufH)
 
         Task {
-            let croppedBuffer = cropPixelBuffer(segResult.pixelBuffer, to: cropRect)
-            guard let croppedBuffer = croppedBuffer else {
-                print("[Quiz] Failed to crop")
-                mode = .quizPrompting
-                return
-            }
-
-            guard let result = await classificationEngine.classify(imageBuffer: croppedBuffer) else {
+            guard let (result, croppedBuffer) = await classifyWithDualCrop(
+                pixelBuffer: segResult.pixelBuffer,
+                tapPoint: bufferPoint,
+                bufferWidth: bufW,
+                bufferHeight: bufH
+            ) else {
                 print("[Quiz] Classification returned nil")
                 session.attemptsOnCurrent += 1
                 session.lastResult = .wrong(actual: nil)
@@ -612,9 +594,9 @@ final class AppState: ObservableObject {
         let currentWords = Set(session.challenges.map(\.displayText))
         let excluded = currentWords.union(session.skippedWords)
 
-        let cats = selectedCategories.isEmpty ? nil : selectedCategories
+        let cats: Set<String>? = selectedCategory.map { Set([$0]) }
         let candidates = wordProgressStore.selectQuizWords(
-            count: 20, location: selectedLocation, categories: cats
+            count: 20, categories: cats
         ).filter { !excluded.contains($0) }
 
         guard let word = candidates.first else {
@@ -664,8 +646,8 @@ final class AppState: ObservableObject {
     /// Build a mixed session of word and category challenges.
     private func buildSessionChallenges() -> [Challenge] {
         let total = QuizSession.challengesPerSession
-        let cats = selectedCategories.isEmpty ? nil : selectedCategories
-        let words = wordProgressStore.selectQuizWords(count: total, location: selectedLocation, categories: cats)
+        let cats: Set<String>? = selectedCategory.map { Set([$0]) }
+        let words = wordProgressStore.selectQuizWords(count: total, categories: cats)
         guard !words.isEmpty else { return [] }
 
         // Pick 1-2 category challenges from eligible categories
@@ -700,22 +682,16 @@ final class AppState: ObservableObject {
         return challenges.shuffled()
     }
 
-    /// Categories eligible for this session, filtered by location and parent selection.
+    /// Categories eligible for this session, filtered by parent selection.
     private func availableCategoriesForSession() -> [String] {
         let quizzable = Set(wordProgressStore.quizEligibleWords())
-        let parentCats = selectedCategories
 
         return WordProgressStore.quizCategories.compactMap { category, words in
-            // If parent selected categories, only include those
-            if !parentCats.isEmpty && !parentCats.contains(category) { return nil }
+            // If parent selected a category, only include that one
+            if let selected = selectedCategory, selected != category { return nil }
 
-            // Need 3+ quizzable words in this category at the selected location
-            let matching = words.filter { word in
-                guard quizzable.contains(word) else { return false }
-                guard let loc = selectedLocation else { return true }
-                let wordLocs = WordProgressStore.wordLocations[word] ?? []
-                return wordLocs.contains(loc)
-            }
+            // Need 3+ quizzable words in this category
+            let matching = words.filter { quizzable.contains($0) }
             return matching.count >= 3 ? category : nil
         }
     }
@@ -771,7 +747,8 @@ final class AppState: ObservableObject {
     /// - No instance: fixed 270px crop (25% of 1080)
     /// - Instance bbox small: use bbox's larger dimension + 20% padding
     /// - Instance bbox large: cap at 500px (46% of 1080) so the object stays dominant
-    private func instanceAwareCropRect(tapPoint: CGPoint, bufferWidth: Int, bufferHeight: Int) -> CGRect {
+    /// Returns (cropRect, instanceBboxWidthPx). The bbox width is nil when no instance matched.
+    private func instanceAwareCropRect(tapPoint: CGPoint, bufferWidth: Int, bufferHeight: Int) -> (CGRect, CGFloat?) {
         let w = CGFloat(bufferWidth)
         let h = CGFloat(bufferHeight)
         let minDim = min(w, h)
@@ -780,12 +757,14 @@ final class AppState: ObservableObject {
         let maxCropFraction: CGFloat = 0.46    // ~500px on 1080 buffer
 
         var cropFraction = minCropFraction
+        var bboxWidthPx: CGFloat? = nil
 
         if let instance = instanceTracker.instance(at: tapPoint) {
             let bbox = instance.boundingBox
             // Use the larger bbox dimension (in pixels) to set crop size
             let bboxPxW = bbox.width * w
             let bboxPxH = bbox.height * h
+            bboxWidthPx = bboxPxW
             let bboxMaxPx = max(bboxPxW, bboxPxH)
             // Add 20% padding around the bbox dimension
             let desiredPx = bboxMaxPx * 1.2
@@ -798,8 +777,107 @@ final class AppState: ObservableObject {
             print("[Crop] No instance at tap point — using fixed \(Int(minCropFraction * minDim))px crop")
         }
 
-        return tapCenteredCropRect(tapPoint: tapPoint, cropFraction: cropFraction,
+        let rect = tapCenteredCropRect(tapPoint: tapPoint, cropFraction: cropFraction,
                                    bufferWidth: bufferWidth, bufferHeight: bufferHeight)
+        return (rect, bboxWidthPx)
+    }
+
+    /// When the instance crop is large (>400px), the segmentation may have captured an entire
+    /// surface (countertop, shelf) rather than an individual object. In that case, also try the
+    /// fixed 270px crop and use whichever gives the higher-confidence accepted result.
+    /// This fixes cups at distance being misidentified as "book" due to excessive context.
+    private func classifyWithDualCrop(
+        pixelBuffer: CVPixelBuffer,
+        tapPoint: CGPoint,
+        bufferWidth: Int,
+        bufferHeight: Int
+    ) async -> (result: ClassificationResult, croppedBuffer: CVPixelBuffer)? {
+        let (instanceCropRect, instanceBboxWidthPx) = instanceAwareCropRect(tapPoint: tapPoint, bufferWidth: bufferWidth, bufferHeight: bufferHeight)
+        print("[Tap] screen=\(tapScreenPoint ?? .zero) → buffer=\(tapPoint), crop=\(instanceCropRect)")
+
+        guard let instanceCrop = cropPixelBuffer(pixelBuffer, to: instanceCropRect) else {
+            return nil
+        }
+
+        guard let instanceResult = await classificationEngine.classify(imageBuffer: instanceCrop) else {
+            return nil
+        }
+
+        // If the instance crop is small (close to fixed size), no need for dual crop
+        let minDim = min(CGFloat(bufferWidth), CGFloat(bufferHeight))
+        let instanceCropPx = instanceCropRect.width * CGFloat(bufferWidth)
+        let fixedCropPx = 0.25 * minDim
+        let dualCropThreshold: CGFloat = 1.4  // only dual-crop if instance is 40%+ larger than fixed
+
+        guard instanceCropPx > fixedCropPx * dualCropThreshold else {
+            return (instanceResult, instanceCrop)
+        }
+
+        // Try fixed 270px crop as well
+        let fixedCropRect = tapCenteredCropRect(tapPoint: tapPoint, cropFraction: 0.25,
+                                                 bufferWidth: bufferWidth, bufferHeight: bufferHeight)
+        guard let fixedCrop = cropPixelBuffer(pixelBuffer, to: fixedCropRect) else {
+            return (instanceResult, instanceCrop)
+        }
+
+        guard let fixedResult = await classificationEngine.classify(imageBuffer: fixedCrop) else {
+            return (instanceResult, instanceCrop)
+        }
+
+        // Decision logic:
+        // 1. If instance accepted a word and fixed didn't → use instance
+        // 2. If fixed accepted a word and instance didn't → use fixed
+        // 3. If both accepted the SAME word → use the higher-confidence one
+        // 4. If both accepted DIFFERENT words → prefer fixed (tap-centered),
+        //    UNLESS instance has very high confidence (≥0.65) AND margin (≥25x),
+        //    indicating the instance sees one clear dominant object
+        // 5. If neither accepted → use instance (has features from larger context)
+        let instanceAccepted = instanceResult.word != nil
+        let fixedAccepted = fixedResult.word != nil
+
+        if instanceAccepted && !fixedAccepted {
+            print("[DualCrop] Instance won: '\(instanceResult.word!)' (\(String(format: "%.3f", instanceResult.confidence))) vs fixed rejected")
+            return (instanceResult, instanceCrop)
+        } else if fixedAccepted && !instanceAccepted {
+            print("[DualCrop] Fixed crop won: '\(fixedResult.word!)' (\(String(format: "%.3f", fixedResult.confidence))) vs instance rejected")
+            return (fixedResult, fixedCrop)
+        } else if instanceAccepted && fixedAccepted {
+            if instanceResult.word == fixedResult.word {
+                // Same word — pick higher confidence
+                if fixedResult.confidence > instanceResult.confidence {
+                    print("[DualCrop] Fixed crop won: '\(fixedResult.word!)' (\(String(format: "%.3f", fixedResult.confidence))) > instance '\(instanceResult.word!)' (\(String(format: "%.3f", instanceResult.confidence)))")
+                    return (fixedResult, fixedCrop)
+                } else {
+                    print("[DualCrop] Instance won: '\(instanceResult.word!)' (\(String(format: "%.3f", instanceResult.confidence))) >= fixed '\(fixedResult.word!)' (\(String(format: "%.3f", fixedResult.confidence)))")
+                    return (instanceResult, instanceCrop)
+                }
+            } else {
+                // Different words — prefer the fixed crop (tap-centered) by default.
+                // When a small object (cup) sits on a larger one (laptop), segmentation
+                // groups them, and the instance crop sees the dominant object. The fixed
+                // crop isolates the tap target.
+                //
+                // Exception: if the instance crop has very high confidence (≥0.65) AND
+                // very high margin (≥25x), it sees one clear dominant object, not a mixed
+                // scene. In that case, trust the instance — it likely represents the actual
+                // object better than the fixed crop's narrow view.
+                let instanceMargin = instanceResult.secondConfidence > 0
+                    ? instanceResult.confidence / instanceResult.secondConfidence
+                    : Double.infinity
+                let instanceDominant = instanceResult.confidence >= 0.65 && instanceMargin >= 25.0
+
+                if instanceDominant {
+                    print("[DualCrop] Instance won (dominant: conf=\(String(format: "%.3f", instanceResult.confidence)), margin=\(String(format: "%.1f", instanceMargin))): '\(instanceResult.word!)' vs fixed '\(fixedResult.word!)' (\(String(format: "%.3f", fixedResult.confidence)))")
+                    return (instanceResult, instanceCrop)
+                } else {
+                    print("[DualCrop] Fixed crop won (tap-centered): '\(fixedResult.word!)' (\(String(format: "%.3f", fixedResult.confidence))) vs instance '\(instanceResult.word!)' (\(String(format: "%.3f", instanceResult.confidence)), margin=\(String(format: "%.1f", instanceMargin)))")
+                    return (fixedResult, fixedCrop)
+                }
+            }
+        } else {
+            // Neither accepted
+            return (instanceResult, instanceCrop)
+        }
     }
 
     private func cropPixelBuffer(_ buffer: CVPixelBuffer, to normalizedRect: CGRect) -> CVPixelBuffer? {

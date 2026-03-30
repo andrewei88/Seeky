@@ -1,0 +1,71 @@
+{
+  "word": "tennis ball",
+  "phonemes": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.157
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ],
+      "start": 0.157,
+      "end": 0.336
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.336,
+      "end": 0.479
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.479,
+      "end": 0.658
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        5
+      ],
+      "start": 0.658,
+      "end": 0.801
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        7
+      ],
+      "start": 0.801,
+      "end": 0.908
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        8
+      ],
+      "start": 0.908,
+      "end": 1.123
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        9,
+        10
+      ],
+      "start": 1.123,
+      "end": 1.248
+    }
+  ]
+}

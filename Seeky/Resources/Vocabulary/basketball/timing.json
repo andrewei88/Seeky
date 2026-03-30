@@ -1,0 +1,78 @@
+{
+  "word": "basketball",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.152
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.152,
+      "end": 0.357
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2
+      ],
+      "start": 0.357,
+      "end": 0.494
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ],
+      "start": 0.494,
+      "end": 0.596
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.596,
+      "end": 0.767
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        5
+      ],
+      "start": 0.767,
+      "end": 0.869
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        6
+      ],
+      "start": 0.869,
+      "end": 0.971
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        7
+      ],
+      "start": 0.971,
+      "end": 1.176
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        8,
+        9
+      ],
+      "start": 1.176,
+      "end": 1.295
+    }
+  ]
+}

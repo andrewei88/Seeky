@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2B08535CBEB89D108D85ACE0"
-               BuildableName = "ARYA.app"
-               BlueprintName = "ARYA"
-               ReferencedContainer = "container:ARYA.xcodeproj">
+               BlueprintIdentifier = "6DAE6779B444B47A31F30B13"
+               BuildableName = "Seeky.app"
+               BlueprintName = "Seeky"
+               ReferencedContainer = "container:Seeky.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2B08535CBEB89D108D85ACE0"
-            BuildableName = "ARYA.app"
-            BlueprintName = "ARYA"
-            ReferencedContainer = "container:ARYA.xcodeproj">
+            BlueprintIdentifier = "6DAE6779B444B47A31F30B13"
+            BuildableName = "Seeky.app"
+            BlueprintName = "Seeky"
+            ReferencedContainer = "container:Seeky.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -44,10 +44,10 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1843146E876A0AB5CAC1F5B2"
-               BuildableName = "ARYATests.xctest"
-               BlueprintName = "ARYATests"
-               ReferencedContainer = "container:ARYA.xcodeproj">
+               BlueprintIdentifier = "C83787908E8FE2A594846527"
+               BuildableName = "SeekyTests.xctest"
+               BlueprintName = "SeekyTests"
+               ReferencedContainer = "container:Seeky.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -68,10 +68,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2B08535CBEB89D108D85ACE0"
-            BuildableName = "ARYA.app"
-            BlueprintName = "ARYA"
-            ReferencedContainer = "container:ARYA.xcodeproj">
+            BlueprintIdentifier = "6DAE6779B444B47A31F30B13"
+            BuildableName = "Seeky.app"
+            BlueprintName = "Seeky"
+            ReferencedContainer = "container:Seeky.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -87,10 +87,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2B08535CBEB89D108D85ACE0"
-            BuildableName = "ARYA.app"
-            BlueprintName = "ARYA"
-            ReferencedContainer = "container:ARYA.xcodeproj">
+            BlueprintIdentifier = "6DAE6779B444B47A31F30B13"
+            BuildableName = "Seeky.app"
+            BlueprintName = "Seeky"
+            ReferencedContainer = "container:Seeky.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>

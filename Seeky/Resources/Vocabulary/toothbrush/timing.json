@@ -6,8 +6,8 @@
       "letters": [
         0
       ],
-      "start": 0.08,
-      "end": 0.24
+      "start": 0.05,
+      "end": 0.181
     },
     {
       "phoneme": "UW",
@@ -15,8 +15,8 @@
         1,
         2
       ],
-      "start": 0.24,
-      "end": 0.41
+      "start": 0.181,
+      "end": 0.421
     },
     {
       "phoneme": "TH",
@@ -24,32 +24,32 @@
         3,
         4
       ],
-      "start": 0.41,
-      "end": 0.57
+      "start": 0.421,
+      "end": 0.596
     },
     {
       "phoneme": "B",
       "letters": [
         5
       ],
-      "start": 0.57,
-      "end": 0.74
+      "start": 0.596,
+      "end": 0.727
     },
     {
       "phoneme": "R",
       "letters": [
         6
       ],
-      "start": 0.74,
-      "end": 0.81
+      "start": 0.727,
+      "end": 0.88
     },
     {
       "phoneme": "AH",
       "letters": [
         7
       ],
-      "start": 0.81,
-      "end": 0.85
+      "start": 0.88,
+      "end": 1.099
     },
     {
       "phoneme": "SH",
@@ -57,8 +57,8 @@
         8,
         9
       ],
-      "start": 0.85,
-      "end": 0.93
+      "start": 1.099,
+      "end": 1.296
     }
   ]
 }

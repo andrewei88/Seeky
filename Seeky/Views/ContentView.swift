@@ -184,8 +184,7 @@ struct ContentView: View {
                     trainingCapture: appState.trainingCapture,
                     correctionStore: appState.correctionStore,
                     wordProgressStore: appState.wordProgressStore,
-                    selectedLocation: $appState.selectedLocation,
-                    selectedCategories: $appState.selectedCategories,
+                    selectedCategory: $appState.selectedCategory,
                     onStartQuiz: { appState.startScavengerHunt(); appState.showingParentSettings = false },
                     onExplore: { appState.switchToExplore(); appState.showingParentSettings = false },
                     onDismiss: { appState.showingParentSettings = false }

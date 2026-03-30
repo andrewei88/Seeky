@@ -1,0 +1,64 @@
+{
+  "word": "soccer ball",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.205
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ],
+      "start": 0.205,
+      "end": 0.437
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.437,
+      "end": 0.553
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.553,
+      "end": 0.766
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        7
+      ],
+      "start": 0.766,
+      "end": 0.882
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        8
+      ],
+      "start": 0.882,
+      "end": 1.114
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        9,
+        10
+      ],
+      "start": 1.114,
+      "end": 1.249
+    }
+  ]
+}

@@ -20,6 +20,10 @@
     "category": "food"
   },
   {
+    "word": "basketball",
+    "category": "sports"
+  },
+  {
     "word": "bathtub",
     "category": "bathroom"
   },
@@ -344,6 +348,10 @@
     "category": "home"
   },
   {
+    "word": "monitor",
+    "category": "electronics"
+  },
+  {
     "word": "monkey",
     "category": "animals"
   },
@@ -366,6 +374,10 @@
   {
     "word": "orange",
     "category": "food"
+  },
+  {
+    "word": "otter",
+    "category": "animals"
   },
   {
     "word": "oven",
@@ -508,6 +520,10 @@
     "category": "bathroom"
   },
   {
+    "word": "soccer ball",
+    "category": "sports"
+  },
+  {
     "word": "sock",
     "category": "clothing"
   },
@@ -552,6 +568,10 @@
     "category": "toys"
   },
   {
+    "word": "tennis ball",
+    "category": "sports"
+  },
+  {
     "word": "tiger",
     "category": "animals"
   },
@@ -586,10 +606,6 @@
   {
     "word": "turtle",
     "category": "animals"
-  },
-  {
-    "word": "monitor",
-    "category": "electronics"
   },
   {
     "word": "tv",

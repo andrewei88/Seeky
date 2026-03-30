@@ -23,7 +23,7 @@ final class CustomClassifier {
     private let classes: [String]  // ordered class list matching model output indices
 
     init?(bundle: Bundle = .main) {
-        // Load ARYAClassifier.mlmodelc (compiled from .mlpackage by Xcode)
+        // Load SeekyClassifier.mlmodelc (compiled from .mlpackage by Xcode)
         guard let modelURL = bundle.url(forResource: "SeekyClassifier", withExtension: "mlmodelc") else {
             print("[CustomClassifier] SeekyClassifier.mlmodelc not found in bundle")
             return nil

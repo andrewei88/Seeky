@@ -6,16 +6,16 @@
       "letters": [
         0
       ],
-      "start": 0.0,
-      "end": 0.18
+      "start": 0.05,
+      "end": 0.327
     },
     {
       "phoneme": "EY",
       "letters": [
         1
       ],
-      "start": 0.18,
-      "end": 0.37
+      "start": 0.327,
+      "end": 0.742
     },
     {
       "phoneme": "S",
@@ -23,8 +23,8 @@
         2,
         3
       ],
-      "start": 0.37,
-      "end": 0.67
+      "start": 0.742,
+      "end": 1.019
     }
   ]
 }

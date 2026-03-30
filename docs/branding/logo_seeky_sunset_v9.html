@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seeky Logo — Sunset v9 (per-letter backdrop)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+  }
+
+  /* Sunset gradient: soft pastel pink/lavender sky fading into dusky ocean blue */
+  .sunset-bg {
+    background: linear-gradient(180deg,
+      #E8A0B8 0%,
+      #D4A0C8 20%,
+      #B8A0D4 40%,
+      #9090BB 60%,
+      #6E8AAE 80%,
+      #5A7F9A 100%
+    );
+  }
+
+  .logo-main {
+    border-radius: 24px;
+    padding: 80px 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @keyframes bounce {
+    0%   { transform: translateY(0); }
+    15%  { transform: translateY(-30px); }
+    20%  { transform: translateY(-25px); }
+    25%  { transform: translateY(-28px); }
+    35%  { transform: translateY(-26px); }
+    50%  { transform: translateY(0); }
+    55%  { transform: translateY(4px); }
+    60%  { transform: translateY(0); }
+    100% { transform: translateY(0); }
+  }
+
+  @keyframes bounceSm {
+    0%   { transform: translateY(0); }
+    15%  { transform: translateY(-18px); }
+    20%  { transform: translateY(-15px); }
+    25%  { transform: translateY(-17px); }
+    35%  { transform: translateY(-16px); }
+    50%  { transform: translateY(0); }
+    55%  { transform: translateY(3px); }
+    60%  { transform: translateY(0); }
+    100% { transform: translateY(0); }
+  }
+
+  .seeky-word {
+    display: flex;
+    gap: 0.18em;
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', system-ui, sans-serif;
+    user-select: none;
+  }
+
+  .seeky-word .letter {
+    color: #FFD93D;
+    text-shadow:
+      0 0 20px rgba(255, 217, 61, 0.6),
+      0 0 40px rgba(255, 217, 61, 0.3),
+      0 0 60px rgba(255, 217, 61, 0.15);
+    filter:
+      drop-shadow(0 0 6px rgba(0, 0, 0, 0.3))
+      drop-shadow(0 0 14px rgba(0, 0, 0, 0.2))
+      drop-shadow(0 0 28px rgba(0, 0, 0, 0.1));
+  }
+
+  .seeky-word.large { font-size: 80px; }
+  .seeky-word.large .letter { animation: bounce 2.5s ease-in-out infinite; }
+
+  .seeky-word.medium { font-size: 56px; }
+  .seeky-word.medium .letter { animation: bounceSm 2.5s ease-in-out infinite; }
+
+  .seeky-word.static .letter { animation: none; }
+
+  .seeky-word .letter:nth-child(1) { animation-delay: 0s; }
+  .seeky-word .letter:nth-child(2) { animation-delay: 0.08s; }
+  .seeky-word .letter:nth-child(3) { animation-delay: 0.16s; }
+  .seeky-word .letter:nth-child(4) { animation-delay: 0.24s; }
+  .seeky-word .letter:nth-child(5) { animation-delay: 0.32s; }
+
+  .comparison {
+    display: flex;
+    gap: 60px;
+    margin-top: 20px;
+  }
+
+  .variant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .variant-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .variant-card {
+    border-radius: 20px;
+    padding: 50px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .camera-mockup {
+    border-radius: 20px;
+    padding: 50px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .camera-mockup::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 30%, rgba(255,255,255,0.06) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(255,255,255,0.03) 0%, transparent 40%);
+  }
+
+  .camera-mockup .seeky-word {
+    position: relative;
+    z-index: 1;
+  }
+
+  .icon-row {
+    display: flex;
+    gap: 40px;
+    align-items: flex-end;
+  }
+
+  .icon-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .icon-preview .label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .app-icon {
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(180deg,
+      #E8A0B8 0%,
+      #D4A0C8 25%,
+      #B8A0D4 50%,
+      #9090BB 70%,
+      #6E8AAE 100%
+    );
+  }
+
+  .app-icon.large { width: 120px; height: 120px; border-radius: 27px; }
+  .app-icon.medium { width: 60px; height: 60px; border-radius: 14px; }
+  .app-icon.small { width: 40px; height: 40px; border-radius: 9px; }
+
+  .app-icon .seeky-icon-text {
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', system-ui, sans-serif;
+    color: #FFD93D;
+    text-shadow:
+      0 0 8px rgba(255, 217, 61, 0.6),
+      0 0 16px rgba(255, 217, 61, 0.3);
+    filter:
+      drop-shadow(0 0 4px rgba(0, 0, 0, 0.3))
+      drop-shadow(0 0 8px rgba(0, 0, 0, 0.15));
+  }
+
+  .app-icon.large .seeky-icon-text { font-size: 36px; }
+  .app-icon.medium .seeky-icon-text { font-size: 18px; }
+  .app-icon.small .seeky-icon-text { font-size: 12px; }
+
+  .description {
+    max-width: 500px;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.6;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Seeky Logo — Sunset v9 (per-letter backdrop)</h1>
+
+<div class="logo-container">
+
+  <div>
+    <div class="logo-main sunset-bg">
+      <div class="seeky-word large">
+        <span class="letter">S</span>
+        <span class="letter">e</span>
+        <span class="letter">e</span>
+        <span class="letter">k</span>
+        <span class="letter">y</span>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="comparison">
+      <div class="variant">
+        <span class="variant-label">Static (print / store listing)</span>
+        <div class="variant-card sunset-bg">
+          <div class="seeky-word medium static">
+            <span class="letter">S</span>
+            <span class="letter">e</span>
+            <span class="letter">e</span>
+            <span class="letter">k</span>
+            <span class="letter">y</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant">
+        <span class="variant-label">Animated (splash / in-app)</span>
+        <div class="variant-card sunset-bg">
+          <div class="seeky-word medium">
+            <span class="letter">S</span>
+            <span class="letter">e</span>
+            <span class="letter">e</span>
+            <span class="letter">k</span>
+            <span class="letter">y</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="variant">
+    <span class="variant-label">On camera background</span>
+    <div class="camera-mockup sunset-bg">
+      <div class="seeky-word medium">
+        <span class="letter">S</span>
+        <span class="letter">e</span>
+        <span class="letter">e</span>
+        <span class="letter">k</span>
+        <span class="letter">y</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="variant">
+    <span class="variant-label">App icon sizes</span>
+    <div class="icon-row">
+      <div class="icon-preview">
+        <div class="app-icon large">
+          <span class="seeky-icon-text">Seeky</span>
+        </div>
+        <span class="label">120px</span>
+      </div>
+      <div class="icon-preview">
+        <div class="app-icon medium">
+          <span class="seeky-icon-text">Seeky</span>
+        </div>
+        <span class="label">60px</span>
+      </div>
+      <div class="icon-preview">
+        <div class="app-icon small">
+          <span class="seeky-icon-text">Seeky</span>
+        </div>
+        <span class="label">40px</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

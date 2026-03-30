@@ -7,32 +7,32 @@
         0,
         1
       ],
-      "start": 0.0,
-      "end": 0.13
+      "start": 0.05,
+      "end": 0.294
     },
     {
       "phoneme": "AA",
       "letters": [
         2
       ],
-      "start": 0.13,
-      "end": 0.34
+      "start": 0.294,
+      "end": 0.619
     },
     {
       "phoneme": "R",
       "letters": [
         3
       ],
-      "start": 0.34,
-      "end": 0.46
+      "start": 0.619,
+      "end": 0.809
     },
     {
       "phoneme": "K",
       "letters": [
         4
       ],
-      "start": 0.46,
-      "end": 0.59
+      "start": 0.809,
+      "end": 0.972
     }
   ]
 }

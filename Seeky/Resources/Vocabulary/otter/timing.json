@@ -1,0 +1,31 @@
+{
+  "word": "otter",
+  "phonemes": [
+    {
+      "phoneme": "AA",
+      "letters": [
+        0
+      ],
+      "start": 0.01,
+      "end": 0.2
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.2,
+      "end": 0.4
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.4,
+      "end": 0.61
+    }
+  ]
+}

@@ -1,13 +1,12 @@
 import SwiftUI
 
-/// Parent settings panel, accessible via long-press on the top-right corner.
-/// Shows training capture stats and provides export/clear actions.
+/// Parent settings panel, accessible via the gear icon.
+/// Simplified: category picker, action buttons, progress, collapsible data.
 struct ParentSettingsView: View {
     let trainingCapture: TrainingCapture
     let correctionStore: CorrectionStore
     @ObservedObject var wordProgressStore: WordProgressStore
-    @Binding var selectedLocation: WordLocation?
-    @Binding var selectedCategories: Set<String>
+    @Binding var selectedCategory: String?
     let onStartQuiz: () -> Void
     let onExplore: () -> Void
     let onDismiss: () -> Void
@@ -20,6 +19,8 @@ struct ParentSettingsView: View {
     @State private var showClearConfirm = false
     @State private var showDataSection = false
 
+    private let allCategories = WordProgressStore.quizCategories.keys.sorted()
+
     var body: some View {
         ZStack {
             // Dimmed background
@@ -29,7 +30,7 @@ struct ParentSettingsView: View {
             VStack(spacing: 0) {
                 // Header
                 HStack {
-                    Text("Parent Settings")
+                    Text("Settings")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
                         .foregroundColor(.white)
                     Spacer()
@@ -47,18 +48,60 @@ struct ParentSettingsView: View {
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
-                        // Quiz section
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Quiz Mode")
-                                .font(.system(size: 16, weight: .medium, design: .rounded))
-                                .foregroundColor(.white)
+                        // Category picker + action buttons
+                        VStack(alignment: .leading, spacing: 12) {
+                            // Category dropdown
+                            HStack {
+                                Text("Focus")
+                                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                                    .foregroundColor(.white)
 
+                                Spacer()
+
+                                Menu {
+                                    Button {
+                                        selectedCategory = nil
+                                    } label: {
+                                        HStack {
+                                            Text("All categories")
+                                            if selectedCategory == nil {
+                                                Image(systemName: "checkmark")
+                                            }
+                                        }
+                                    }
+
+                                    Divider()
+
+                                    ForEach(allCategories, id: \.self) { cat in
+                                        Button {
+                                            selectedCategory = cat
+                                        } label: {
+                                            HStack {
+                                                Text(cat.capitalized)
+                                                if selectedCategory == cat {
+                                                    Image(systemName: "checkmark")
+                                                }
+                                            }
+                                        }
+                                    }
+                                } label: {
+                                    HStack(spacing: 4) {
+                                        Text(selectedCategory?.capitalized ?? "All categories")
+                                            .font(.system(size: 15, design: .rounded))
+                                        Image(systemName: "chevron.up.chevron.down")
+                                            .font(.system(size: 10))
+                                    }
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 6)
+                                    .background(Color.white.opacity(0.12))
+                                    .cornerRadius(8)
+                                }
+                            }
+
+                            // Action buttons
                             let poolSize = wordProgressStore.quizPoolSize
                             if poolSize >= 3 {
-                                Text("\(poolSize) words ready for quizzing")
-                                    .font(.system(size: 14, design: .rounded))
-                                    .foregroundColor(.white.opacity(0.7))
-
                                 HStack(spacing: 8) {
                                     Button { onStartQuiz() } label: {
                                         HStack {
@@ -87,53 +130,13 @@ struct ParentSettingsView: View {
                                     }
                                 }
                             } else {
-                                Text("Keep exploring to unlock quiz mode. The app needs to reliably identify at least 3 words in your environment first (\(poolSize) so far).")
+                                Text("Keep exploring to unlock quiz mode (\(poolSize)/3 words identified).")
                                     .font(.system(size: 14, design: .rounded))
                                     .foregroundColor(.white.opacity(0.5))
                             }
                         }
 
-                        // Location picker
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Location")
-                                .font(.system(size: 16, weight: .medium, design: .rounded))
-                                .foregroundColor(.white)
-
-                            Text("Where are you? Only objects found at this location will appear.")
-                                .font(.system(size: 13, design: .rounded))
-                                .foregroundColor(.white.opacity(0.5))
-
-                            LazyVGrid(columns: [
-                                GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())
-                            ], spacing: 8) {
-                                locationButton(label: "All", location: nil, icon: "globe")
-                                ForEach(WordLocation.allCases, id: \.self) { loc in
-                                    locationButton(label: loc.rawValue, location: loc, icon: loc.icon)
-                                }
-                            }
-                        }
-
-                        // Category picker
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Categories")
-                                .font(.system(size: 16, weight: .medium, design: .rounded))
-                                .foregroundColor(.white)
-
-                            Text("Focus on specific types. Tap to toggle, or leave all off for a mixed hunt.")
-                                .font(.system(size: 13, design: .rounded))
-                                .foregroundColor(.white.opacity(0.5))
-
-                            let allCategories = WordProgressStore.quizCategories.keys.sorted()
-                            LazyVGrid(columns: [
-                                GridItem(.flexible()), GridItem(.flexible())
-                            ], spacing: 8) {
-                                ForEach(allCategories, id: \.self) { cat in
-                                    categoryButton(cat)
-                                }
-                            }
-                        }
-
-                        // Learning progress section
+                        // Learning progress
                         if wordProgressStore.wordsSeen > 0 {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Learning Progress")
@@ -160,7 +163,7 @@ struct ParentSettingsView: View {
                             }
                         }
 
-                        // Collapsible data section (captures, corrections, export/clear)
+                        // Collapsible data section
                         VStack(alignment: .leading, spacing: 8) {
                             Button {
                                 withAnimation(.easeInOut(duration: 0.2)) {
@@ -186,7 +189,6 @@ struct ParentSettingsView: View {
 
                             if showDataSection {
                                 VStack(alignment: .leading, spacing: 16) {
-                                    // Training captures
                                     if totalCaptures > 0 {
                                         VStack(alignment: .leading, spacing: 4) {
                                             Text("Training Captures")
@@ -213,7 +215,6 @@ struct ParentSettingsView: View {
                                         }
                                     }
 
-                                    // Corrections
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("Stored Corrections")
                                             .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -223,7 +224,6 @@ struct ParentSettingsView: View {
                                             .foregroundColor(.white.opacity(0.5))
                                     }
 
-                                    // Actions
                                     VStack(spacing: 12) {
                                         if totalCaptures > 0 {
                                             Button {
@@ -341,53 +341,6 @@ struct ParentSettingsView: View {
         case 2: return .yellow
         case 3: return .blue
         default: return .green
-        }
-    }
-
-    private func locationButton(label: String, location: WordLocation?, icon: String) -> some View {
-        let isSelected = selectedLocation == location
-        return Button {
-            selectedLocation = location
-        } label: {
-            VStack(spacing: 4) {
-                Image(systemName: icon)
-                    .font(.system(size: 16))
-                Text(label)
-                    .font(.system(size: 11, weight: isSelected ? .semibold : .regular, design: .rounded))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.8)
-            }
-            .foregroundColor(isSelected ? .white : .white.opacity(0.5))
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 8)
-            .background(isSelected ? Color.blue.opacity(0.5) : Color.white.opacity(0.08))
-            .cornerRadius(8)
-        }
-    }
-
-    private func categoryButton(_ category: String) -> some View {
-        let isSelected = selectedCategories.contains(category)
-        let count = WordProgressStore.quizCategories[category]?.count ?? 0
-        return Button {
-            if isSelected {
-                selectedCategories.remove(category)
-            } else {
-                selectedCategories.insert(category)
-            }
-        } label: {
-            HStack {
-                Text(category.capitalized)
-                    .font(.system(size: 13, weight: isSelected ? .semibold : .regular, design: .rounded))
-                Spacer()
-                Text("\(count)")
-                    .font(.system(size: 11, design: .monospaced))
-                    .foregroundColor(.white.opacity(0.4))
-            }
-            .foregroundColor(isSelected ? .white : .white.opacity(0.5))
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(isSelected ? Color.green.opacity(0.4) : Color.white.opacity(0.08))
-            .cornerRadius(8)
         }
     }
 

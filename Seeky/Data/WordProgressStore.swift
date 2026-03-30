@@ -72,9 +72,9 @@ final class WordProgressStore: ObservableObject {
     /// Level 0: always due, Level 1: 1h, Level 2: 8h, Level 3: 24h, Level 4: 72h
     static let reviewIntervals: [TimeInterval] = [0, 3600, 28800, 86400, 259200]
 
-    /// Words the model reliably recognizes (90%+ val accuracy).
-    /// Physical objects common in households, backyards, and neighborhoods.
-    /// Excludes: laptop/monitor (confusion pair), sun (harmful to look at)
+    /// Words the model reliably recognizes at time of seeding.
+    /// Accuracy percentages below are from the original model; current R2 model differs.
+    /// Words with degraded accuracy are moved to unsafeForQuiz rather than removed from here.
     static let seededHighConfidenceWords: Set<String> = [
         // 100% val accuracy
         "block", "bus", "butterfly", "can", "cat", "chicken", "clock", "cloud",
@@ -108,17 +108,22 @@ final class WordProgressStore: ObservableObject {
         // 90%+ val accuracy
         "apple", "bed", "teddy bear",
         // Household / environment objects (included for quiz)
-        "bathtub", "dishwasher", "knife", "microwave", "oven",
+        "bathtub", "dishwasher", "fridge", "knife", "microwave", "oven",
         "rain", "scissors", "snake", "stairs",
         "toaster", "toilet", "toilet paper",
         // Electronics (TV/monitor separated, both quiz-worthy)
         "laptop", "monitor", "tv",
+        // Sports balls (visually distinctive, new in v4)
+        "basketball", "soccer ball", "tennis ball",
     ]
 
     /// Objects excluded from quiz pool because they're unsafe or too unreliable for fair quizzing.
     /// These remain in the classifier for explore-mode identification but are never quiz targets.
     static let unsafeForQuiz: Set<String> = [
-        "sun",      // harmful to look at directly
+        "sun",        // harmful to look at directly
+        "book",       // model accuracy too low (72.4% val); per-class threshold at 0.75 blocks most IDs
+        "couch",      // model accuracy too low (72.8% val); never reaches 0.40 threshold on device
+        "mushroom",   // high false-positive rate on round textured surfaces (stuffed animals, cushions)
     ]
 
     /// Quiz-friendly category groups for category challenges ("Find an animal").
@@ -132,19 +137,19 @@ final class WordProgressStore: ObservableObject {
                    "whale", "zebra"],
         "fruit": ["apple", "banana", "cherry", "coconut", "grape", "lemon", "mango",
                   "orange", "peach", "pear", "pineapple", "strawberry", "watermelon"],
-        "food": ["avocado", "bread", "cake", "cheese", "cookie", "egg", "mushroom", "pizza"],
+        "food": ["avocado", "bread", "cake", "cheese", "cookie", "egg", "pizza"],
         "clothing": ["bag", "glasses", "hat", "jacket", "pants", "shirt", "shoe", "sock"],
         "kitchen item": ["bottle", "bowl", "cup", "cupboard", "dishwasher", "fork", "fridge",
                          "glass", "microwave", "pan", "plate", "pot",
                          "spoon", "toaster"],
-        "furniture": ["bed", "blanket", "chair", "clock", "couch", "door", "fan", "light",
+        "furniture": ["bed", "blanket", "chair", "clock", "door", "fan", "light",
                       "mirror", "picture", "pillow", "shelf", "stairs", "table", "towel",
                       "window"],
         "body part": ["ear", "eye", "face", "foot", "hand", "nose"],
         "vehicle": ["bus", "car", "truck"],
-        "toy": ["ball", "block", "doll", "teddy bear"],
+        "toy": ["ball", "basketball", "block", "doll", "soccer ball", "teddy bear", "tennis ball"],
         "bathroom item": ["bathtub", "sink", "soap", "toilet", "toilet paper", "toothbrush"],
-        "school supply": ["book", "crayon", "paper", "pen", "pencil"],
+        "school supply": ["crayon", "paper", "pen", "pencil"],
     ]
 
     /// Reverse lookup: word -> category name. Built lazily from quizCategories.
@@ -170,11 +175,11 @@ final class WordProgressStore: ObservableObject {
             "pineapple", "pizza", "plate", "pot", "spoon", "strawberry", "toaster",
             "watermelon",
             // Living room
-            "ball", "blanket", "block", "book", "box", "cat", "chair", "clock",
-            "couch", "doll", "dog", "door", "fan", "glasses",
+            "ball", "basketball", "blanket", "block", "box", "cat", "chair", "clock",
+            "doll", "dog", "door", "fan", "glasses", "soccer ball",
             "key", "laptop", "light", "mirror", "monitor",
             "phone", "picture", "pillow", "remote", "shelf", "shoe", "speaker",
-            "stairs", "table", "teddy bear", "tv", "umbrella", "window",
+            "stairs", "table", "teddy bear", "tennis ball", "tv", "umbrella", "window",
             // Bedroom
             "bag", "bed", "hat", "jacket", "pants", "shirt", "sock",
             // Bathroom
@@ -186,10 +191,10 @@ final class WordProgressStore: ObservableObject {
             "ear", "eye", "face", "foot", "hand", "nose",
         ],
         .backyard: [
-            "ball", "bird", "butterfly", "cat", "cloud", "dog", "door", "fence",
+            "ball", "basketball", "bird", "butterfly", "cat", "cloud", "dog", "door", "fence",
             "flower", "frog", "grass", "leaf", "light", "moon", "rabbit", "rock",
-            "snake", "squirrel", "star", "sunflower", "tree", "turtle", "umbrella",
-            "window",
+            "soccer ball", "snake", "squirrel", "star", "sunflower", "tennis ball",
+            "tree", "turtle", "umbrella", "window",
         ],
         .neighborhood: [
             "bench", "bird", "bus", "car", "cat", "cloud", "dog", "door", "duck",
