@@ -1,4 +1,4 @@
-# ARYA
+# Seeky
 
 A camera-based vocabulary learning app for toddlers. Point the phone at objects, tap them, and the app names what it sees. Think of it as a real-world picture dictionary that speaks.
 
@@ -8,11 +8,11 @@ The core loop: the child taps objects through the camera viewfinder. A custom-tr
 
 The app has two modes:
 
-**Scavenger Hunt (primary).** The app picks 5 objects from its vocabulary and prompts the child to find them one at a time ("Can you find the... chair?"). The child points the camera at the matching object and taps it. Correct answers get a celebration; wrong answers get gentle encouragement ("Keep looking!") and another try. Parents can filter by location (Home, Zoo, Beach, etc.) and category (animals, fruit, furniture, etc.).
+**Scavenger Hunt (primary).** The app picks 5 objects from its vocabulary and prompts the child to find them one at a time ("Can you find the... chair?"). The child points the camera at the matching object and taps it. Correct answers get a celebration; wrong answers get gentle encouragement ("Keep looking!") and another try. Parents can focus on a specific category (animals, fruit, furniture, etc.) or leave it on all for a mixed hunt.
 
 **Explore (secondary).** Free-roaming identification. Tap any object and the app tells you what it is. This is how the app learns what's in the child's environment and builds the quiz pool over time.
 
-Parents access settings via a gear icon: start hunts, switch to explore, pick locations/categories, view learning progress, export training captures for model retraining, and manage data.
+Parents access settings via a gear icon: start hunts, switch to explore, pick a focus category, view learning progress, export training captures for model retraining, and manage data.
 
 ## Architecture
 
@@ -74,12 +74,12 @@ Requirements:
 xcodegen generate
 
 # Build
-xcodebuild build -scheme ARYA -destination 'platform=iOS,name=<your device>'
+xcodebuild build -scheme Seeky -destination 'platform=iOS,name=<your device>'
 
 # Run tests (simulator)
-xcodebuild test -scheme ARYA \
+xcodebuild test -scheme Seeky \
   -destination 'platform=iOS Simulator,name=Test iPhone' \
-  -only-testing:ARYATests
+  -only-testing:SeekyTests
 ```
 
 Note: ClassificationIntegrationTests and BundleResourceTests only pass on a physical device. All other tests run on the simulator.
@@ -87,18 +87,18 @@ Note: ClassificationIntegrationTests and BundleResourceTests only pass on a phys
 ## Project Structure
 
 ```
-ARYA/
-  App/          AppState (central state machine), ARYAApp
+Seeky/
+  App/          AppState (central state machine), SeekyApp
   Data/         CorrectionStore, WordProgressStore, TrainingCapture, ImageUtils
   Detection/    ClassificationEngine, SegmentationEngine, InstanceTracker, MaskRenderer
   Speech/       WordSpeaker (AVAudioPlayer-based chained audio)
   Views/        ContentView, QuizOverlayView, ParentSettingsView, CameraPreviewView, ...
   Resources/
-    ARYAClassifier.mlpackage   CoreML model (149 classes, 12.9MB)
+    SeekyClassifier.mlpackage  CoreML model (149 classes, 12.9MB)
     Vocabulary/                155 words, each with audio.m4a + timing.json
       _prompts/                Hunt prompts, celebrations, encouragement clips
 
-ARYATests/      Unit tests for all major subsystems
+SeekyTests/     Unit tests for all major subsystems
 
 scripts/        Python training pipeline, audio generation, data collection
   train_classifier.py
@@ -110,7 +110,7 @@ scripts/        Python training pipeline, audio generation, data collection
 
 ## Vocabulary
 
-155 words across 9 locations (Home, Body, Backyard, Neighborhood, Zoo, Aquarium, Farm, Beach, Forest) and 11 categories (animal, fruit, food, clothing, kitchen item, furniture, body part, vehicle, toy, bathroom item, school supply).
+155 words across 11 categories (animal, fruit, food, clothing, kitchen item, furniture, body part, vehicle, toy, bathroom item, school supply).
 
 Each word has:
 - A pre-recorded `.m4a` audio file (ElevenLabs, Jessica voice)

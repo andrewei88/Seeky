@@ -1,4 +1,4 @@
-# ARYA Project Instructions
+# Seeky Project Instructions
 
 ## Development Process
 
@@ -37,7 +37,7 @@
 - Documenting a bug isn't enough — the fix must cover all call sites.
 
 ### Shared utilities live in `ImageUtils.swift`
-- `cosineSimilarity`, `resizePixelBuffer`, and `sharedCIContext` live in `ARYA/Data/ImageUtils.swift`.
+- `cosineSimilarity`, `resizePixelBuffer`, and `sharedCIContext` live in `Seeky/Data/ImageUtils.swift`.
 - Check there before writing image/vector math helpers. Add new shared utilities to the same file.
 
 ### Integration Verification
@@ -53,15 +53,27 @@
 - Prefer `git diff` or `git show` to inspect old versions without modifying the working tree
 - **Incident (2026-03-27):** `git checkout` destroyed the retrained CoreML model that had just been converted. PyTorch checkpoint survived only because it was in a different directory.
 
+### Model versioning
+- Every trained model gets saved as a named, timestamped copy in `models/versions/` before the next training run begins. Format: `weight_v{N}_fastvit_{description}_{accuracy}pct.bin` for CoreML weights, `seeky_classifier_v{N}_{description}_{accuracy}pct.pth` for PyTorch checkpoints.
+- The `convert_to_coreml.py` and `train_classifier.py` scripts should auto-save to versions. Never rely on manual copies.
+- Before retraining: save current deployed model weights AND PyTorch checkpoint to versions.
+- After retraining: save new checkpoint to versions, run accuracy analysis, compare with previous version, then decide which to deploy.
+- Version history as of 2026-03-29:
+  - v0: MobileNetV3-Small, 91.3% val (original model)
+  - v1: FastViT-T12, 95.2% val (pre-retraining baseline, web-only data)
+  - v2: FastViT-T12, 90.9% val (same as v1, after TV/monitor split)
+  - v3: FastViT-T12 R2, 89.1% val (retrained with home-context + close-up data)
+  - v4: FastViT-T12, 88.9% val (154 classes: +basketball, soccer_ball, tennis_ball; +cup distance data)
+
 ## Project-Specific Knowledge
 
 ### Architecture
-- iOS 17+, Swift 5.9, XcodeGen (`project.yml` → `ARYA.xcodeproj`)
+- iOS 17+, Swift 5.9, XcodeGen (`project.yml` → `Seeky.xcodeproj`)
 - Run `xcodegen generate` after adding/removing files
 - Five layers: Views → App (state) → Detection → Speech → Data
 - Single-model classification: Custom classifier (CoreML) with confidence threshold (0.40). CorrectionStore checked first.
 - VNClassifyImageRequest is NOT used. Removed from classification and environment detection. Vision framework used only for segmentation.
-- Custom classifier: ARYAClassifier.mlpackage (151 classes, 12.9MB). Input: 224x224 RGB. Outputs: softmax probabilities + 1024-dim feature vector
+- Custom classifier: SeekyClassifier.mlpackage (154 classes, 12.9MB). Input: 224x224 RGB. Outputs: softmax probabilities + 1024-dim feature vector
 - Backbone: FastViT-T12 (Apple, 6.7M params, 79.3% ImageNet). Val accuracy: 95.2% (top-5: 99.1%). Upgraded from MobileNetV3-Small (91.3% val). Training uses timm (`fastvit_t12`) with class-weighted loss.
 - MLMultiArray on ANE outputs Float16 — always use subscript access (`array[i].floatValue`), never `dataPointer.bindMemory(to: Float.self)`
 - Training pipeline: `collect_training_data.py` → `curate_training_data.py` → `train_classifier.py` → `convert_to_coreml.py` → `verify_classifier.py`
@@ -70,11 +82,9 @@
 - Quiz/scavenger hunt mode: Primary feature. 5 words/session from quiz pool. Child taps matching object. Parent pencil override in both directions.
 - Quiz pool: Seeded with high-confidence objects, expanded by explore mode identifications (2+ IDs, 0 corrections per word)
 - Explore mode: Secondary feature, accessible from scavenger hunt screen. Free-roaming object identification.
-- Parent settings: Gear icon in top-right corner. Shows quiz mode, learning progress, capture stats, export/clear actions.
+- Parent settings: Gear icon in top-right corner. Category focus dropdown (single-select), quiz/explore buttons, learning progress, capture stats, export/clear actions. Location filtering removed (camera gates physical presence).
 - ConsensusGate.swift deleted (VN removed from classification path, March 2026). LabelMapper.swift kept for test utilities.
 - MobileCLIP S0 files (CLIPEmbeddings.swift, MobileCLIPImageEncoder.mlpackage, text_embeddings.bin) are legacy — kept for fallback but no longer in the active classification path
-- **Planned rebrand: ARYA -> Seeky** (scavenger hunt concept: seek + playful suffix)
-
 ### Known Device Issues (March 2025)
 - **Laptop/monitor confusion**: Custom classifier splits ~0.52/0.47 when tapping screen portion. White screen content triggers it. Web val accuracy (94.2% laptop, 90.7% monitor) overstates real-world performance because web photos show distinctive hinges/keyboards.
 - **Light/moon VN confusion**: FIXED by removing VN from classification. Custom correctly identifies lights (0.81-0.88).
@@ -89,7 +99,7 @@
 - `AppState.bufferIsLandscape` is set from the first frame and drives coordinate mapping
 
 ### Audio
-- Pre-recorded ElevenLabs `.m4a` files at `Vocabulary/{word}/audio.m4a` (155 words)
+- Pre-recorded ElevenLabs `.m4a` files at `Vocabulary/{word}/audio.m4a` (158 words)
 - Phoneme timing at `Vocabulary/{word}/timing.json` (generated by Montreal Forced Aligner)
 - `WordSpeaker` uses `AVAudioPlayer`, NOT `AVSpeechSynthesizer`
 - Audio session must be `.playback` with `.mixWithOthers` (not `.ambient`, which is silenced by ringer)
@@ -124,7 +134,7 @@
 - MFA-based alignment also available via `scripts/align_audio.py` + `scripts/build_timing_data.py` (requires conda install of MFA)
 
 ### Testing
-- Tests in `ARYATests/` — run with: `xcodebuild test -scheme ARYA -destination 'platform=iOS Simulator,name=Test iPhone' -only-testing:ARYATests`
+- Tests in `SeekyTests/` — run with: `xcodebuild test -scheme Seeky -destination 'platform=iOS Simulator,name=Test iPhone' -only-testing:SeekyTests`
 - `BundleResourceTests` verifies all 155 audio + timing files are accessible in the built bundle (device-only)
 - `ClassificationEngineTests` verifies null-mapped label skipping, threshold logic, and confidence aggregation
 - `ConsensusGateTests` verifies dual-model consensus logic (agreement, CLIP override, thresholds)
