@@ -882,25 +882,26 @@ final class AppState: ObservableObject {
                     return (instanceResult, instanceCrop)
                 }
             } else {
-                // Different words — prefer the fixed crop (tap-centered) by default.
-                // When a small object (cup) sits on a larger one (laptop), segmentation
-                // groups them, and the instance crop sees the dominant object. The fixed
-                // crop isolates the tap target.
+                // Different words — the two crops see different objects.
                 //
-                // Exception: if the instance crop has very high confidence (≥0.65) AND
-                // very high margin (≥25x), it sees one clear dominant object, not a mixed
-                // scene. In that case, trust the instance — it likely represents the actual
-                // object better than the fixed crop's narrow view.
+                // Instance crop is segmentation-aware: it sees the object the user
+                // actually tapped. Fixed crop is a blind 270px window that can bleed
+                // into adjacent objects (e.g., tapping a bottle next to a can, the
+                // fixed crop captures part of the can and misclassifies).
+                //
+                // Trust the instance when it has a clear read (margin >= 3x). Only
+                // fall back to the fixed crop when the instance is genuinely confused
+                // (margin < 3x), which suggests the instance crop captured a mixed
+                // scene (e.g., small cup on a laptop surface).
                 let instanceMargin = instanceResult.secondConfidence > 0
                     ? instanceResult.confidence / instanceResult.secondConfidence
                     : Double.infinity
-                let instanceDominant = instanceResult.confidence >= 0.65 && instanceMargin >= 25.0
 
-                if instanceDominant {
-                    print("[DualCrop] Instance won (dominant: conf=\(String(format: "%.3f", instanceResult.confidence)), margin=\(String(format: "%.1f", instanceMargin))): '\(instanceResult.word!)' vs fixed '\(fixedResult.word!)' (\(String(format: "%.3f", fixedResult.confidence)))")
+                if instanceMargin >= 3.0 {
+                    print("[DualCrop] Instance won (margin=\(String(format: "%.1f", instanceMargin))): '\(instanceResult.word!)' (\(String(format: "%.3f", instanceResult.confidence))) vs fixed '\(fixedResult.word!)' (\(String(format: "%.3f", fixedResult.confidence)))")
                     return (instanceResult, instanceCrop)
                 } else {
-                    print("[DualCrop] Fixed crop won (tap-centered): '\(fixedResult.word!)' (\(String(format: "%.3f", fixedResult.confidence))) vs instance '\(instanceResult.word!)' (\(String(format: "%.3f", instanceResult.confidence)), margin=\(String(format: "%.1f", instanceMargin)))")
+                    print("[DualCrop] Fixed crop won (instance indecisive, margin=\(String(format: "%.1f", instanceMargin))): '\(fixedResult.word!)' (\(String(format: "%.3f", fixedResult.confidence))) vs instance '\(instanceResult.word!)' (\(String(format: "%.3f", instanceResult.confidence)))")
                     return (fixedResult, fixedCrop)
                 }
             }
