@@ -4,10 +4,6 @@ A camera-based vocabulary learning app for toddlers. Point the phone at objects,
 
 The child taps objects through the camera viewfinder. A custom-trained image classifier identifies the object, the app speaks the word aloud with letter-by-letter highlighting, and the child learns to connect real objects with their names. A scavenger hunt mode turns this into a game: "Can you find the... banana?"
 
-<!-- TODO: Add demo video/GIF here -->
-<!-- Record a 30-second screen capture of the scavenger hunt loop:
-     prompt → child taps object → golden glow + word → next prompt -->
-
 ## How It Works
 
 The app has two modes:
