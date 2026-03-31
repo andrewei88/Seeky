@@ -202,6 +202,31 @@ final class WordProgressStoreTests: XCTestCase {
         XCTAssertEqual(selected.count, 5)
     }
 
+    func testSkippedWordsDePrioritizedAcrossSessions() {
+        let store = freshStore()
+        // Simulate: select 5 words from furniture category, skip all of them
+        let session1 = store.selectQuizWords(count: 5, categories: Set(["furniture"]))
+        XCTAssertEqual(session1.count, 5)
+        for word in session1 {
+            store.recordQuizSkip(word: word)
+        }
+
+        // Session 2: should prefer unseen furniture words over just-skipped ones
+        let session2 = store.selectQuizWords(count: 5, categories: Set(["furniture"]))
+        XCTAssertEqual(session2.count, 5)
+
+        // At least some words should be different (drawn from the unseen portion)
+        let overlap = Set(session1).intersection(Set(session2))
+        let furniturePool = WordProgressStore.quizCategories["furniture"]!
+            .intersection(WordProgressStore.seededHighConfidenceWords)
+            .subtracting(WordProgressStore.unsafeForQuiz)
+        // If pool > session size, we should get at least some new words
+        if furniturePool.count > 5 {
+            XCTAssertTrue(overlap.count < 5,
+                "Session 2 should include at least one word not in session 1 (overlap: \(overlap))")
+        }
+    }
+
     func testAllSeededWordsHaveLocation() {
         let seeded = WordProgressStore.seededHighConfidenceWords
             .subtracting(WordProgressStore.unsafeForQuiz)

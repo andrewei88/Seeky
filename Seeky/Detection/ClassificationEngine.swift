@@ -20,7 +20,7 @@ final class ClassificationEngine {
     static let perClassThresholds: [String: Double] = [
         "book": 0.75,       // high false-positive rate on non-book objects (cups at distance)
         "couch": 0.70,      // confused with bed/blanket/pillow, rarely reaches threshold anyway
-        "cup": 0.35,        // cup is reliably top-1 at 0.35+ on real cups, never above 0.15 on non-cups
+        "cup": 0.30,        // cup is reliably top-1 at 0.30+ on real cups, never above 0.15 on non-cups
         "mushroom": 0.90,   // false positives on round textured surfaces (stuffed animals, cushions, rug patterns)
     ]
 

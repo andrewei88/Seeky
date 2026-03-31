@@ -1461,8 +1461,8 @@ final class ClassificationEngineTests: XCTestCase {
     func testPerClassThresholdCupLowered() {
         let threshold = ClassificationEngine.perClassThresholds["cup"]
         XCTAssertNotNil(threshold, "Cup should have a per-class threshold")
-        XCTAssertEqual(threshold, 0.35)
-        XCTAssertTrue(0.36 >= threshold!, "0.36 should be accepted for cup")
+        XCTAssertEqual(threshold, 0.30)
+        XCTAssertTrue(0.31 >= threshold!, "0.31 should be accepted for cup")
     }
 
     func testPerClassThresholdMushroomRaised() {

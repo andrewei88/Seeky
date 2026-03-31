@@ -232,6 +232,7 @@ final class AppState: ObservableObject {
 
     @Published var showingCorrectionPicker = false
     @Published var showingParentSettings = false
+    @Published private(set) var isClassifierReady = false
 
     /// Parent-selected category for focused hunts. nil = all categories.
     @Published var selectedCategory: String? = nil {
@@ -270,6 +271,7 @@ final class AppState: ObservableObject {
             let elapsed = CFAbsoluteTimeGetCurrent() - loadStart
             await MainActor.run {
                 self.classificationEngine.customClassifier = classifier
+                self.isClassifierReady = true
                 print("[AppState] Custom classifier ready in \(String(format: "%.2f", elapsed))s")
             }
         }

@@ -350,7 +350,9 @@ final class WordProgressStore: ObservableObject {
     /// 1. Due for review: words the child has actually answered (correct or wrong) and enough
     ///    time has passed based on mastery level. Skipped-only words are excluded.
     /// 2. Needs practice: words with wrong answers at low mastery.
-    /// 3. Never quizzed: words that have never been answered. Shuffled for variety.
+    /// 3a. Never seen: words that have never appeared in any quiz session. Shuffled for variety.
+    /// 3b. Skipped only: words that were skipped but never answered. Oldest-skipped first to
+    ///     maximize rotation when the pool is small (e.g., 12 furniture words).
     /// 4. Remaining: anything left, shuffled.
     private func selectFromPool(eligible: Set<String>, count: Int) -> [String] {
         guard !eligible.isEmpty else { return [] }
@@ -393,16 +395,23 @@ final class WordProgressStore: ObservableObject {
             .map(\.word)
         for word in needsPractice where selected.count < count { selected.append(word) }
 
-        // Tier 3: Never answered (no correct or wrong). Includes words only ever skipped.
-        // Shuffled so the child sees new words each session.
-        let neverAnswered = eligible
-            .filter { word in
-                guard !selected.contains(word) else { return false }
-                guard let entry = progress[word] else { return true }
-                return entry.quizCorrect == 0 && entry.quizWrong == 0
-            }
-            .shuffled()
-        for word in neverAnswered where selected.count < count { selected.append(word) }
+        // Tier 3a: Truly fresh — never appeared in any quiz session (no quizLastDate).
+        // Shuffled for variety. These get priority over previously-skipped words.
+        let neverAnswered = eligible.filter { word in
+            guard !selected.contains(word) else { return false }
+            guard let entry = progress[word] else { return true }
+            return entry.quizCorrect == 0 && entry.quizWrong == 0
+        }
+        let neverSeen = neverAnswered.filter { progress[$0]?.quizLastDate == nil }.shuffled()
+        for word in neverSeen where selected.count < count { selected.append(word) }
+
+        // Tier 3b: Skipped but never answered — sort by oldest quizLastDate first.
+        // This rotates through the pool: if you skip [A,B,C] in session 1,
+        // session 2 draws from unseen words first, then oldest-skipped.
+        let skippedOnly = neverAnswered
+            .filter { progress[$0]?.quizLastDate != nil && !selected.contains($0) }
+            .sorted { (progress[$0]?.quizLastDate ?? .distantPast) < (progress[$1]?.quizLastDate ?? .distantPast) }
+        for word in skippedOnly where selected.count < count { selected.append(word) }
 
         // Tier 4: Everything else, shuffled.
         let remaining = eligible.filter { !selected.contains($0) }.shuffled()

@@ -38,6 +38,28 @@ struct ContentView: View {
                     }
                 }
 
+            // Loading indicator while classifier initializes (~6s)
+            if !appState.isClassifierReady {
+                VStack {
+                    Spacer()
+                    HStack(spacing: 8) {
+                        ProgressView()
+                            .tint(.white.opacity(0.6))
+                            .scaleEffect(0.8)
+                        Text("Getting ready...")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.6))
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(Color.black.opacity(0.5))
+                    .cornerRadius(16)
+                    .padding(.bottom, 120)
+                }
+                .transition(.opacity)
+                .animation(.easeOut(duration: 0.3), value: appState.isClassifierReady)
+            }
+
             // Brief ripple at tap point (both explore and quiz mode)
             if appState.showTapRipple {
                 TapRippleView(screenPoint: appState.tapScreenPoint)
