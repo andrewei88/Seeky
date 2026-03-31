@@ -207,7 +207,16 @@ final class QuizSession: ObservableObject {
 final class AppState: ObservableObject {
     private static let hasCompletedFirstTapKey = "hasCompletedFirstTap"
 
-    @Published var mode: AppMode = .exploring
+    @Published var mode: AppMode = .exploring {
+        didSet {
+            if mode == .quizPrompting {
+                startQuizIdleTimer()
+            } else {
+                quizIdleTimer?.invalidate()
+                quizIdleTimer = nil
+            }
+        }
+    }
     @Published private(set) var hasCompletedFirstTap: Bool
 
     let cameraManager = CameraManager()
@@ -247,6 +256,21 @@ final class AppState: ObservableObject {
     /// Uses atomic storage so the camera delegate (nonisolated) can read it safely.
     private let idleTimeout: TimeInterval = 30
     private let _lastTapTime = OSAllocatedUnfairLock(initialState: Date())
+
+    /// Quiz idle: replay the audio prompt after 8s of no tap so a distracted child gets guidance.
+    private var quizIdleTimer: Timer?
+    private let quizIdleInterval: TimeInterval = 8
+
+    private func startQuizIdleTimer() {
+        quizIdleTimer?.invalidate()
+        quizIdleTimer = Timer.scheduledTimer(withTimeInterval: quizIdleInterval, repeats: false) { [weak self] _ in
+            Task { @MainActor in
+                guard let self, self.mode == .quizPrompting else { return }
+                print("[Quiz] Idle for \(Int(self.quizIdleInterval))s — replaying prompt")
+                self.replayQuizWord()
+            }
+        }
+    }
 
     init() {
         hasCompletedFirstTap = UserDefaults.standard.bool(forKey: Self.hasCompletedFirstTapKey)
@@ -617,6 +641,10 @@ final class AppState: ObservableObject {
     /// Replay the current quiz word's audio prompt.
     func replayQuizWord() {
         speakCurrentQuizWord()
+        // Restart idle timer so prompt repeats if child still doesn't tap
+        if mode == .quizPrompting {
+            startQuizIdleTimer()
+        }
     }
 
     /// Go back to the previous quiz word, or undo the last skip.

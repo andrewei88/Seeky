@@ -160,6 +160,7 @@ struct ContentView: View {
             }
 
             // Settings gear (top-right, always visible, subtle)
+            // 0.25 opacity is sufficient child-proofing; destructive actions have confirmation alerts.
             VStack {
                 HStack {
                     Spacer()
