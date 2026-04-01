@@ -1427,6 +1427,45 @@
       ]
     }
   ],
+  "dumbbell": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5,
+        6
+      ]
+    }
+  ],
   "ear": [
     {
       "phoneme": "IH",
@@ -4586,6 +4625,84 @@
       "phoneme": "AH",
       "letters": [
         4
+      ]
+    }
+  ],
+  "scale": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "trash can": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        3,
+        4
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        7
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        8
       ]
     }
   ]

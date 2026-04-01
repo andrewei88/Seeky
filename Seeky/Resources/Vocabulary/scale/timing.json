@@ -1,0 +1,38 @@
+{
+  "word": "scale",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.0,
+      "end": 0.2
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        1
+      ],
+      "start": 0.2,
+      "end": 0.41
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        2
+      ],
+      "start": 0.41,
+      "end": 0.59
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.59,
+      "end": 0.72
+    }
+  ]
+}

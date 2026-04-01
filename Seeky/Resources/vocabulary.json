@@ -480,6 +480,10 @@
     "category": "outdoors"
   },
   {
+    "word": "scale",
+    "category": "bathroom"
+  },
+  {
     "word": "scissors",
     "category": "school"
   },
@@ -594,6 +598,10 @@
   {
     "word": "towel",
     "category": "home"
+  },
+  {
+    "word": "trash can",
+    "category": "kitchen"
   },
   {
     "word": "tree",

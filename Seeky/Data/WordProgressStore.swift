@@ -109,8 +109,8 @@ final class WordProgressStore: ObservableObject {
         "apple", "bed", "teddy bear",
         // Household / environment objects (included for quiz)
         "bathtub", "dishwasher", "fridge", "knife", "microwave", "oven",
-        "rain", "scissors", "snake", "stairs",
-        "toaster", "toilet", "toilet paper",
+        "rain", "scale", "scissors", "snake", "stairs",
+        "toaster", "toilet", "toilet paper", "trash can",
         // Electronics (TV/monitor separated, both quiz-worthy)
         "laptop", "monitor", "tv",
         // Sports balls (visually distinctive, new in v4)
@@ -141,14 +141,14 @@ final class WordProgressStore: ObservableObject {
         "clothing": ["bag", "glasses", "hat", "jacket", "pants", "shirt", "shoe", "sock"],
         "kitchen item": ["bottle", "bowl", "cup", "cupboard", "dishwasher", "fork", "fridge",
                          "glass", "microwave", "pan", "plate", "pot",
-                         "spoon", "toaster"],
+                         "spoon", "toaster", "trash can"],
         "furniture": ["bed", "blanket", "chair", "clock", "door", "fan", "light",
                       "mirror", "picture", "pillow", "shelf", "stairs", "table", "towel",
                       "window"],
         "body part": ["ear", "eye", "face", "foot", "hand", "nose"],
         "vehicle": ["bus", "car", "truck"],
         "toy": ["ball", "basketball", "block", "doll", "soccer ball", "teddy bear", "tennis ball"],
-        "bathroom item": ["bathtub", "sink", "soap", "toilet", "toilet paper", "toothbrush"],
+        "bathroom item": ["bathtub", "scale", "sink", "soap", "toilet", "toilet paper", "toothbrush"],
         "school supply": ["crayon", "paper", "pen", "pencil"],
     ]
 
@@ -173,7 +173,7 @@ final class WordProgressStore: ObservableObject {
             "egg", "fork", "fridge", "glass", "grape", "knife", "lemon", "mango",
             "microwave", "mushroom", "orange", "oven", "pan", "peach", "pear",
             "pineapple", "pizza", "plate", "pot", "spoon", "strawberry", "toaster",
-            "watermelon",
+            "trash can", "watermelon",
             // Living room
             "ball", "basketball", "blanket", "block", "box", "cat", "chair", "clock",
             "doll", "dog", "door", "fan", "glasses", "soccer ball",
@@ -183,7 +183,7 @@ final class WordProgressStore: ObservableObject {
             // Bedroom
             "bag", "bed", "hat", "jacket", "pants", "shirt", "sock",
             // Bathroom
-            "bathtub", "sink", "soap", "toilet", "toilet paper", "toothbrush", "towel",
+            "bathtub", "scale", "sink", "soap", "toilet", "toilet paper", "toothbrush", "towel",
             // School supplies (found at home too)
             "crayon", "globe", "keyboard", "paper", "pen", "pencil", "scissors",
         ],

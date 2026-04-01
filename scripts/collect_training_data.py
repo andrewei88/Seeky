@@ -196,6 +196,11 @@ WORD_TO_SOURCES = {
     "sunflower":   [("oi7", "Sunflower")],
     "toaster":     [("oi7", "Toaster")],
     "whale":       [("oi7", "Whale"), ("oi7", "Blue whale")],
+    # ── New classes (v5) — problem classes + new objects ──────────────────
+    "scale":       [("oi7", "Scale")],
+    "trash can":   [],  # manual — "waste container" in OI7 is unreliable
+    # ── New classes (v6) — dumbbell ─────────────────────────────────────
+    "dumbbell":    [("oi7", "Dumbbell")],
 }
 
 # Words that need manual image collection
