@@ -136,6 +136,14 @@ struct QuizOverlayView: View {
                             .foregroundColor(.white.opacity(0.4))
                             .frame(width: 56, height: 56)
                     }
+                } else if mode == .quizResult {
+                    // Continue arrow (fallback when auto-advance callback is dropped)
+                    Button { onAdvance() } label: {
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 22, weight: .medium))
+                            .foregroundColor(.white.opacity(0.4))
+                            .frame(width: 56, height: 56)
+                    }
                 }
             }
             .padding(.horizontal, 24)

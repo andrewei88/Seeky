@@ -565,6 +565,7 @@ final class AppState: ObservableObject {
         session.advance()
 
         if session.isComplete {
+            mode = .quizResult
             print("[Quiz] Session complete: \(session.correctCount)/\(session.results.count)")
         } else {
             mode = .quizPrompting
