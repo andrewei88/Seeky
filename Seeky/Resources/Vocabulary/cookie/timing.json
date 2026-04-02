@@ -1,0 +1,39 @@
+{
+  "word": "cookie",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.234
+    },
+    {
+      "phoneme": "UH",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.234,
+      "end": 0.541
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ],
+      "start": 0.541,
+      "end": 0.725
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.725,
+      "end": 1.063
+    }
+  ]
+}

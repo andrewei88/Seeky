@@ -1,0 +1,29 @@
+{
+  "word": "pen",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.28
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ],
+      "start": 0.28,
+      "end": 0.664
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ],
+      "start": 0.664,
+      "end": 0.971
+    }
+  ]
+}

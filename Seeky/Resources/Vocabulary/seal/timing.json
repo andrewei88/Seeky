@@ -1,0 +1,30 @@
+{
+  "word": "seal",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.333
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.333,
+      "end": 0.723
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3
+      ],
+      "start": 0.723,
+      "end": 0.971
+    }
+  ]
+}

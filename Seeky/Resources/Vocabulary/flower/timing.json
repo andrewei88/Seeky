@@ -1,0 +1,39 @@
+{
+  "word": "flower",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.258
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ],
+      "start": 0.258,
+      "end": 0.44
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.44,
+      "end": 0.778
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.778,
+      "end": 1.064
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "word": "fox",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.267
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ],
+      "start": 0.267,
+      "end": 0.592
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ],
+      "start": 0.592,
+      "end": 0.755
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2
+      ],
+      "start": 0.755,
+      "end": 0.972
+    }
+  ]
+}

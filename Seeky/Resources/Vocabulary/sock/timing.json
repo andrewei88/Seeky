@@ -1,0 +1,30 @@
+{
+  "word": "sock",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.319
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ],
+      "start": 0.319,
+      "end": 0.723
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.723,
+      "end": 0.925
+    }
+  ]
+}

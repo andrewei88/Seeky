@@ -1,0 +1,30 @@
+{
+  "word": "foot",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.326
+    },
+    {
+      "phoneme": "UH",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.326,
+      "end": 0.671
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ],
+      "start": 0.671,
+      "end": 0.878
+    }
+  ]
+}

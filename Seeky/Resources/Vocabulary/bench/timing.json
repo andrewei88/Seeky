@@ -1,0 +1,38 @@
+{
+  "word": "bench",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.223
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ],
+      "start": 0.223,
+      "end": 0.511
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ],
+      "start": 0.511,
+      "end": 0.741
+    },
+    {
+      "phoneme": "CH",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.741,
+      "end": 0.971
+    }
+  ]
+}

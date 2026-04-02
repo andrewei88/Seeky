@@ -1,0 +1,37 @@
+{
+  "word": "star",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.273
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        1
+      ],
+      "start": 0.273,
+      "end": 0.44
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        2
+      ],
+      "start": 0.44,
+      "end": 0.775
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ],
+      "start": 0.775,
+      "end": 0.97
+    }
+  ]
+}

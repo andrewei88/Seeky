@@ -1,0 +1,53 @@
+{
+  "word": "banana",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.173
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ],
+      "start": 0.173,
+      "end": 0.378
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ],
+      "start": 0.378,
+      "end": 0.542
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        3
+      ],
+      "start": 0.542,
+      "end": 0.788
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        4
+      ],
+      "start": 0.788,
+      "end": 0.952
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ],
+      "start": 0.952,
+      "end": 1.157
+    }
+  ]
+}

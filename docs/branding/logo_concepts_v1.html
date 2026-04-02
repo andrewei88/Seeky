@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seeky Logo Concepts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d0d0d;
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', system-ui, sans-serif;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #FFD93D;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 48px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .card {
+    background: #161616;
+    border-radius: 16px;
+    border: 1px solid #2a2a2a;
+    overflow: hidden;
+  }
+  .logo-area {
+    width: 100%;
+    height: 400px;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .card-info {
+    padding: 20px 24px;
+    border-top: 1px solid #2a2a2a;
+  }
+  .card-info h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFD93D;
+    margin-bottom: 6px;
+  }
+  .card-info p {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.4;
+  }
+  .app-icon-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #222;
+  }
+  .app-icon-label {
+    font-size: 11px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .app-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* === CONCEPT A: Golden Glow Wordmark === */
+  .concept-a-text {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    user-select: none;
+  }
+  .concept-a-text .letter {
+    font-size: 72px;
+    font-weight: 800;
+    color: #FFD93D;
+    text-shadow:
+      0 0 20px rgba(255, 217, 61, 0.6),
+      0 0 40px rgba(255, 217, 61, 0.3),
+      0 0 80px rgba(255, 217, 61, 0.15);
+    line-height: 1;
+    font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;
+  }
+  .concept-a-text .eye-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 -2px;
+    position: relative;
+    top: -2px;
+  }
+  .eye {
+    width: 32px;
+    height: 32px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 0 16px rgba(255, 217, 61, 0.5),
+      0 0 40px rgba(255, 217, 61, 0.2),
+      inset 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+  }
+  .pupil {
+    width: 14px;
+    height: 14px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    position: relative;
+    top: 1px;
+    left: 2px;
+  }
+  .pupil::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #fff;
+    border-radius: 50%;
+    top: 2px;
+    right: 2px;
+  }
+
+  /* App icon A */
+  .app-icon-a {
+    background: linear-gradient(145deg, #1a1a1a 0%, #111 100%);
+    border: 1px solid #333;
+  }
+  .app-icon-a .mini-text {
+    font-size: 20px;
+    font-weight: 800;
+    color: #FFD93D;
+    text-shadow: 0 0 10px rgba(255, 217, 61, 0.6);
+    letter-spacing: -0.5px;
+  }
+  .app-icon-a .mini-eyes {
+    display: inline-flex;
+    gap: 1px;
+    position: relative;
+    top: -1px;
+  }
+  .app-icon-a .mini-eye {
+    width: 9px;
+    height: 9px;
+    background: #fff;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .app-icon-a .mini-pupil {
+    width: 4px;
+    height: 4px;
+    background: #1a1a1a;
+    border-radius: 50%;
+  }
+
+  /* === CONCEPT B: Owl Scout === */
+  .concept-b-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .owl {
+    position: relative;
+    width: 140px;
+    height: 130px;
+  }
+  .owl-body {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 110px;
+    background: linear-gradient(180deg, #5C4A3A 0%, #3E2F24 100%);
+    border-radius: 50% 50% 40% 40%;
+  }
+  .owl-belly {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 50px;
+    background: linear-gradient(180deg, #8B7355 0%, #6B5940 100%);
+    border-radius: 50%;
+  }
+  .owl-ear-left, .owl-ear-right {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+  }
+  .owl-ear-left {
+    left: 18px;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 28px solid #5C4A3A;
+    transform: rotate(-10deg);
+  }
+  .owl-ear-right {
+    right: 18px;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 28px solid #5C4A3A;
+    transform: rotate(10deg);
+  }
+  .owl-eye-ring {
+    position: absolute;
+    top: 28px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #7A6650 0%, #5C4A3A 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .owl-eye-ring.left { left: 14px; }
+  .owl-eye-ring.right { right: 14px; }
+  .owl-eyeball {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #FFD93D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 12px rgba(255, 217, 61, 0.4);
+  }
+  .owl-pupil-b {
+    width: 14px;
+    height: 14px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    position: relative;
+  }
+  .owl-pupil-b::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    top: 2px;
+    right: 2px;
+  }
+  .owl-beak {
+    position: absolute;
+    top: 58px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid #E8A840;
+  }
+  .owl-feet {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+  }
+  .owl-foot {
+    width: 20px;
+    height: 8px;
+    background: #E8A840;
+    border-radius: 0 0 50% 50%;
+  }
+  .concept-b-text {
+    font-size: 48px;
+    font-weight: 800;
+    color: #FFD93D;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px rgba(255, 217, 61, 0.3);
+  }
+
+  /* App icon B */
+  .app-icon-b {
+    background: linear-gradient(145deg, #3E2F24 0%, #2A1F17 100%);
+    border: 1px solid #5C4A3A;
+    position: relative;
+  }
+  .mini-owl {
+    position: relative;
+    width: 36px;
+    height: 36px;
+  }
+  .mini-owl-body {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 28px;
+    background: #5C4A3A;
+    border-radius: 50% 50% 40% 40%;
+  }
+  .mini-owl-eyes {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+  }
+  .mini-owl-eye {
+    width: 11px;
+    height: 11px;
+    background: #FFD93D;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mini-owl-eye-dot {
+    width: 5px;
+    height: 5px;
+    background: #1a1a1a;
+    border-radius: 50%;
+  }
+  .mini-owl-ear-l, .mini-owl-ear-r {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid #5C4A3A;
+  }
+  .mini-owl-ear-l { left: 4px; transform: rotate(-8deg); }
+  .mini-owl-ear-r { right: 4px; transform: rotate(8deg); }
+
+  /* === CONCEPT C: Magnifying Glass === */
+  .concept-c-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+  .concept-c-text {
+    font-size: 64px;
+    font-weight: 800;
+    color: #FFD93D;
+    letter-spacing: 1px;
+    position: relative;
+  }
+  .mag-glass {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-left: -8px;
+  }
+  .mag-lens {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 6px solid #FFD93D;
+    background: rgba(255, 217, 61, 0.06);
+    box-shadow:
+      0 0 16px rgba(255, 217, 61, 0.25),
+      inset 0 0 20px rgba(255, 217, 61, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .mag-face {
+    position: relative;
+    width: 50px;
+    height: 36px;
+  }
+  .mag-eye-l, .mag-eye-r {
+    position: absolute;
+    top: 4px;
+    width: 8px;
+    height: 8px;
+    background: #FFD93D;
+    border-radius: 50%;
+  }
+  .mag-eye-l { left: 10px; }
+  .mag-eye-r { right: 10px; }
+  .mag-smile {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 11px;
+    border-bottom: 3px solid #FFD93D;
+    border-radius: 0 0 50% 50%;
+  }
+  .mag-handle {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 42px;
+    height: 10px;
+    background: linear-gradient(90deg, #C4A830 0%, #FFD93D 50%, #C4A830 100%);
+    border-radius: 5px;
+    transform: rotate(45deg);
+    transform-origin: left center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  }
+  .mag-handle::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: -2px;
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(145deg, #B89A28 0%, #FFD93D 100%);
+    border-radius: 4px;
+  }
+  .mag-lens-glare {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    width: 18px;
+    height: 10px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 50%;
+    transform: rotate(-30deg);
+  }
+
+  /* App icon C */
+  .app-icon-c {
+    background: linear-gradient(145deg, #1a1a1a 0%, #111 100%);
+    border: 1px solid #333;
+  }
+  .mini-mag {
+    position: relative;
+    width: 34px;
+    height: 34px;
+  }
+  .mini-mag-lens {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #FFD93D;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mini-mag-face-eyes {
+    display: flex;
+    gap: 5px;
+    position: relative;
+    top: -2px;
+  }
+  .mini-mag-face-eye {
+    width: 3px;
+    height: 3px;
+    background: #FFD93D;
+    border-radius: 50%;
+  }
+  .mini-mag-handle {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 14px;
+    height: 4px;
+    background: #FFD93D;
+    border-radius: 2px;
+    transform: rotate(45deg);
+  }
+
+  /* === CONCEPT D: Celebration Wordmark === */
+  .concept-d-wrap {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 120px;
+  }
+  .concept-d-letter {
+    font-size: 72px;
+    font-weight: 800;
+    display: inline-block;
+    line-height: 1;
+    position: relative;
+  }
+  .concept-d-letter:nth-child(1) {
+    color: #FFD93D;
+    transform: translateY(-8px) rotate(-3deg);
+    text-shadow: 0 2px 0 #C4A830;
+  }
+  .concept-d-letter:nth-child(2) {
+    color: #FFE066;
+    transform: translateY(-18px) rotate(2deg);
+    text-shadow: 0 2px 0 #D4B840;
+  }
+  .concept-d-letter:nth-child(3) {
+    color: #FFD93D;
+    transform: translateY(-24px) rotate(-1deg);
+    text-shadow: 0 2px 0 #C4A830;
+  }
+  .concept-d-letter:nth-child(4) {
+    color: #FFE880;
+    transform: translateY(-14px) rotate(3deg);
+    text-shadow: 0 2px 0 #D4B840;
+  }
+  .concept-d-letter:nth-child(5) {
+    color: #FFD93D;
+    transform: translateY(-6px) rotate(-2deg);
+    text-shadow: 0 2px 0 #C4A830;
+  }
+  .concept-d-letter::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(170deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 50%);
+    pointer-events: none;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  .sparkles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+  .sparkle {
+    position: absolute;
+    color: #FFD93D;
+    font-size: 14px;
+    opacity: 0.7;
+    animation: twinkle 2s ease-in-out infinite;
+  }
+  .sparkle:nth-child(1) { top: 10%; left: 12%; animation-delay: 0s; font-size: 16px; }
+  .sparkle:nth-child(2) { top: 5%; right: 18%; animation-delay: 0.7s; font-size: 12px; }
+  .sparkle:nth-child(3) { top: 25%; left: 5%; animation-delay: 1.3s; }
+  .sparkle:nth-child(4) { top: 15%; right: 8%; animation-delay: 0.4s; font-size: 10px; }
+  .sparkle:nth-child(5) { bottom: 30%; left: 10%; animation-delay: 1s; font-size: 18px; }
+  .sparkle:nth-child(6) { bottom: 20%; right: 12%; animation-delay: 0.2s; }
+  .sparkle:nth-child(7) { top: 30%; left: 30%; animation-delay: 1.6s; font-size: 11px; }
+  .sparkle:nth-child(8) { top: 8%; left: 40%; animation-delay: 0.9s; font-size: 13px; }
+  .sparkle:nth-child(9) { bottom: 35%; right: 25%; animation-delay: 1.1s; font-size: 9px; }
+  .sparkle:nth-child(10) { bottom: 15%; left: 35%; animation-delay: 0.5s; font-size: 15px; }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* Shimmer overlay for concept D letters */
+  .shimmer-wrap {
+    position: relative;
+    display: inline-block;
+  }
+  .shimmer-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes shimmer {
+    0% { left: -60%; }
+    100% { left: 160%; }
+  }
+
+  /* App icon D */
+  .app-icon-d {
+    background: linear-gradient(145deg, #1a1a1a 0%, #111 100%);
+    border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+  }
+  .app-icon-d .mini-s {
+    font-size: 34px;
+    font-weight: 800;
+    color: #FFD93D;
+    text-shadow: 0 1px 0 #C4A830;
+    transform: rotate(-3deg);
+  }
+  .app-icon-d .mini-sparkle {
+    position: absolute;
+    color: #FFD93D;
+    font-size: 8px;
+    opacity: 0.6;
+  }
+  .app-icon-d .mini-sparkle:nth-child(2) { top: 8px; right: 10px; }
+  .app-icon-d .mini-sparkle:nth-child(3) { bottom: 10px; left: 8px; }
+  .app-icon-d .mini-sparkle:nth-child(4) { top: 12px; left: 12px; font-size: 6px; }
+</style>
+</head>
+<body>
+
+<h1>Seeky Logo Concepts</h1>
+<p class="subtitle">Camera-based scavenger hunt vocabulary app for toddlers</p>
+
+<div class="grid">
+
+  <!-- CONCEPT A -->
+  <div class="card">
+    <div class="logo-area">
+      <div class="concept-a-text">
+        <span class="letter">S</span>
+        <span class="eye-container">
+          <span class="eye"><span class="pupil"></span></span>
+          <span class="eye"><span class="pupil"></span></span>
+        </span>
+        <span class="letter">k</span>
+        <span class="letter">y</span>
+      </div>
+    </div>
+    <div class="card-info">
+      <h2>Concept A: Golden Glow Wordmark</h2>
+      <p>Glowing gold letters with the "ee" rendered as wide-open eyes, capturing the discovery moment.</p>
+      <div class="app-icon-row">
+        <span class="app-icon-label">App Icon</span>
+        <div class="app-icon app-icon-a">
+          <span class="mini-text">S<span class="mini-eyes"><span class="mini-eye"><span class="mini-pupil"></span></span><span class="mini-eye"><span class="mini-pupil"></span></span></span>ky</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT B -->
+  <div class="card">
+    <div class="logo-area">
+      <div class="concept-b-wrap">
+        <div class="owl">
+          <div class="owl-ear-left"></div>
+          <div class="owl-ear-right"></div>
+          <div class="owl-body">
+            <div class="owl-belly"></div>
+          </div>
+          <div class="owl-eye-ring left">
+            <div class="owl-eyeball"><div class="owl-pupil-b"></div></div>
+          </div>
+          <div class="owl-eye-ring right">
+            <div class="owl-eyeball"><div class="owl-pupil-b"></div></div>
+          </div>
+          <div class="owl-beak"></div>
+          <div class="owl-feet">
+            <div class="owl-foot"></div>
+            <div class="owl-foot"></div>
+          </div>
+        </div>
+        <div class="concept-b-text">Seeky</div>
+      </div>
+    </div>
+    <div class="card-info">
+      <h2>Concept B: Owl Scout</h2>
+      <p>Geometric owl mascot with golden binocular-eyes, warm earth tones grounded in nature.</p>
+      <div class="app-icon-row">
+        <span class="app-icon-label">App Icon</span>
+        <div class="app-icon app-icon-b">
+          <div class="mini-owl">
+            <div class="mini-owl-ear-l"></div>
+            <div class="mini-owl-ear-r"></div>
+            <div class="mini-owl-body"></div>
+            <div class="mini-owl-eyes">
+              <div class="mini-owl-eye"><div class="mini-owl-eye-dot"></div></div>
+              <div class="mini-owl-eye"><div class="mini-owl-eye-dot"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT C -->
+  <div class="card">
+    <div class="logo-area">
+      <div class="concept-c-wrap">
+        <span class="concept-c-text">S</span>
+        <div class="mag-glass">
+          <div class="mag-lens">
+            <div class="mag-lens-glare"></div>
+            <div class="mag-face">
+              <div class="mag-eye-l"></div>
+              <div class="mag-eye-r"></div>
+              <div class="mag-smile"></div>
+            </div>
+          </div>
+          <div class="mag-handle"></div>
+        </div>
+        <span class="concept-c-text" style="margin-left: -14px;">ky</span>
+      </div>
+    </div>
+    <div class="card-info">
+      <h2>Concept C: Magnifying Glass Character</h2>
+      <p>Friendly magnifying glass replaces "ee", turning search into a smiling character.</p>
+      <div class="app-icon-row">
+        <span class="app-icon-label">App Icon</span>
+        <div class="app-icon app-icon-c">
+          <div class="mini-mag">
+            <div class="mini-mag-lens">
+              <div class="mini-mag-face-eyes">
+                <div class="mini-mag-face-eye"></div>
+                <div class="mini-mag-face-eye"></div>
+              </div>
+            </div>
+            <div class="mini-mag-handle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT D -->
+  <div class="card">
+    <div class="logo-area">
+      <div class="sparkles">
+        <span class="sparkle">&#10022;</span>
+        <span class="sparkle">&#10022;</span>
+        <span class="sparkle">&#10038;</span>
+        <span class="sparkle">&#10022;</span>
+        <span class="sparkle">&#10038;</span>
+        <span class="sparkle">&#10022;</span>
+        <span class="sparkle">&#10022;</span>
+        <span class="sparkle">&#10038;</span>
+        <span class="sparkle">&#10022;</span>
+        <span class="sparkle">&#10038;</span>
+      </div>
+      <div class="concept-d-wrap shimmer-wrap">
+        <span class="concept-d-letter">S</span>
+        <span class="concept-d-letter">e</span>
+        <span class="concept-d-letter">e</span>
+        <span class="concept-d-letter">k</span>
+        <span class="concept-d-letter">y</span>
+      </div>
+    </div>
+    <div class="card-info">
+      <h2>Concept D: Celebration Wordmark</h2>
+      <p>Bouncing letters with shimmer highlights and twinkling sparkles, pure energy and joy.</p>
+      <div class="app-icon-row">
+        <span class="app-icon-label">App Icon</span>
+        <div class="app-icon app-icon-d">
+          <span class="mini-s">S</span>
+          <span class="mini-sparkle">&#10022;</span>
+          <span class="mini-sparkle">&#10022;</span>
+          <span class="mini-sparkle">&#10038;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

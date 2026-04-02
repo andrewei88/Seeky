@@ -1,0 +1,53 @@
+{
+  "word": "cactus",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.206
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.206,
+      "end": 0.518
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ],
+      "start": 0.518,
+      "end": 0.674
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ],
+      "start": 0.674,
+      "end": 0.83
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.83,
+      "end": 1.09
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        5
+      ],
+      "start": 1.09,
+      "end": 1.298
+    }
+  ]
+}

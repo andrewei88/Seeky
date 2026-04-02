@@ -1,0 +1,37 @@
+{
+  "word": "box",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.232
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ],
+      "start": 0.232,
+      "end": 0.595
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ],
+      "start": 0.595,
+      "end": 0.777
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2
+      ],
+      "start": 0.777,
+      "end": 1.019
+    }
+  ]
+}

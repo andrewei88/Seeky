@@ -1,0 +1,64 @@
+{
+  "word": "dishwasher",
+  "phonemes": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.166
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ],
+      "start": 0.166,
+      "end": 0.34
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.34,
+      "end": 0.514
+    },
+    {
+      "phoneme": "W",
+      "letters": [
+        4
+      ],
+      "start": 0.514,
+      "end": 0.63
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        5
+      ],
+      "start": 0.63,
+      "end": 0.862
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        6,
+        7
+      ],
+      "start": 0.862,
+      "end": 1.036
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        8,
+        9
+      ],
+      "start": 1.036,
+      "end": 1.249
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+# Xcode
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+**/xcuserdata/
+DerivedData/
+build/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Dependencies
+Pods/
+Carthage/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Project
+.env
+.superpowers/
+/data/
+/models/
+/voice_comparison/
+.playwright-mcp/
+
+# Private notes (local only)
+ANDREWNOTES.md
+FORANDREW.md
+ARTICLE.md
+
+# Historical planning docs
+docs/superpowers/

@@ -1,0 +1,630 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06ACCC5A859A691640968FFD /* CropLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4ED926880ADA81ECE0141E /* CropLogicTests.swift */; };
+		1062ADE065FD94D483B20C23 /* ClassificationEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88799E0F5828B2B92A090BE /* ClassificationEngineTests.swift */; };
+		12C6F23C0D8B2A8F4E77C6F2 /* CropPixelBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E24A297FCEA060046EFFDD1 /* CropPixelBufferTests.swift */; };
+		1FFDB7BCB3685D14709C6524 /* LearningOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3955AD2354A19A663E71CC74 /* LearningOverlayView.swift */; };
+		20E37197C0CCEEC5102FFB64 /* label_mappings.json in Resources */ = {isa = PBXBuildFile; fileRef = 2F809ECEE9CBC4016B411573 /* label_mappings.json */; };
+		2EA3AF83935A3013C5E7CE6C /* LabelMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519F098F4026F9367082EE0 /* LabelMapperTests.swift */; };
+		2FF8E4012810D53E107D0AB9 /* CorrectionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3776F776CB14FC7E71F2720D /* CorrectionStoreTests.swift */; };
+		31AADF4606D56D0C166C531F /* WordProgressStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC9E5B6EECB0956C320E8F2 /* WordProgressStoreTests.swift */; };
+		323C4204D1073C333516C1C1 /* CustomClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6736CEE624BF5C668DB118 /* CustomClassifier.swift */; };
+		3AA43464268C08345959185F /* PlaceholderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB5BCE777E584B530AAC4C4 /* PlaceholderTests.swift */; };
+		3F92EF6F0AEC6DD294B72AF3 /* vocabulary.json in Resources */ = {isa = PBXBuildFile; fileRef = 8615E74903F1C2413249D760 /* vocabulary.json */; };
+		42349D6BC97A99EC460A7FD9 /* ParentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB64734910FA8E6BADB804D /* ParentSettingsView.swift */; };
+		4A092D91432D4E893CABBE2D /* LetterHighlighterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A936CF0682CD213950E7BF /* LetterHighlighterTests.swift */; };
+		4AA70B5358088A881C521ADE /* WordDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7779D348F7DC330EF72AAD /* WordDisplayView.swift */; };
+		564F077B0903358B676EF2BA /* ClassificationIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEFD09AAB920E6C6E9F8F71 /* ClassificationIntegrationTests.swift */; };
+		5D0C8065B7390E873D318286 /* WordProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7AC600E6659DBB597EADC4 /* WordProgressStore.swift */; };
+		62BF57A0D3036A5969246752 /* InstanceTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772B83FD33D2B305D56234F /* InstanceTracker.swift */; };
+		647F5EA95CEE492722FA8080 /* TapGlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1348E038C5CE4FC70CE83589 /* TapGlowView.swift */; };
+		6D94BE64989DAA3E4D3F2B3D /* SeekyClassifier.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = EAE7418BBADA3E9C14723F2A /* SeekyClassifier.mlpackage */; };
+		70054E538A3DE896E9E93C92 /* Vocabulary in Resources */ = {isa = PBXBuildFile; fileRef = 848C409040D2D2739F592FFF /* Vocabulary */; };
+		80AA053F2C4F9ADC6BA02574 /* TrainingCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF149111722124B299D22426 /* TrainingCapture.swift */; };
+		811B447FD829AEBA1A665FCF /* QuizOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A4A904972EB7BEE2EFBB4 /* QuizOverlayView.swift */; };
+		8645F4860424792010252CA0 /* SegmentationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4D38C05F76DE2AA92B7139 /* SegmentationEngine.swift */; };
+		88294C64B3E95137202F5DAF /* OnboardingHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD294E723015621A2B22359D /* OnboardingHintView.swift */; };
+		8ABF13AC53CA243572BB578F /* TrainingCaptureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBDA5540EFBDC5374E15BB5 /* TrainingCaptureTests.swift */; };
+		9854F0DAF52291EC5A958606 /* InstanceTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47D2CEF43CD3E26B7E9B0EE /* InstanceTrackerTests.swift */; };
+		9E18930FE0AD12517E57BEBC /* TimingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF59208402FB0E50216556 /* TimingData.swift */; };
+		A26D822CBEA638C396267CA8 /* BundleResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA9E4CF9CA8A7519379C65F /* BundleResourceTests.swift */; };
+		A777D4D44A0F6755A00C776C /* WordSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962A165B578C40ED6D9397C3 /* WordSpeaker.swift */; };
+		B3777F486F3808EDA31ACC5E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C648FF88426B2DC99336AD /* ContentView.swift */; };
+		BA1280E3BD10776C9DD7CC97 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B80A414836597FF16DD1D4 /* ImageUtils.swift */; };
+		C46CBED78264E9AA5FD8F0F7 /* LabelMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BD75FF1C8072D0E6089059 /* LabelMapper.swift */; };
+		C7C8B3D2BB1CB89109B22081 /* CorrectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33B38E3524958AC0C3ACE92 /* CorrectionStore.swift */; };
+		D1800CD11B0F241BC85418DB /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CB8CE10ACB08E83BF30280 /* AppState.swift */; };
+		D56E5DA67447C176C4033FFA /* LetterHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247CAB479C7B78AEBAB57CD6 /* LetterHighlighter.swift */; };
+		DF43EDAD10146014C9E4D067 /* ClassificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC75722D66B7371FD9FF094 /* ClassificationEngine.swift */; };
+		E34EB973C73AA3F781A8BF3A /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1363E6B6447416F4C3F53A53 /* CameraManager.swift */; };
+		EA4A11A34FAA5CBC2DBB6B93 /* CorrectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6219C7A2BBFEDAED76541408 /* CorrectionPickerView.swift */; };
+		EA82829A8C0B026EA4D4635D /* CategoryChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1219D78208601B77F2D3E7 /* CategoryChallengeTests.swift */; };
+		F173E476DEE99F487957DDBF /* SeekyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F4240C4D47648103B79296 /* SeekyApp.swift */; };
+		F44DD27478F20A0F6E0617A4 /* TimingDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99625A14BBEBB4B2C4EBF5A6 /* TimingDataTests.swift */; };
+		F65DEF62E00DB836F162E6CA /* VocabularyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59320036958CBC1795826E3 /* VocabularyStore.swift */; };
+		FA5CC194386BC3A2E6E180F8 /* seeky_classes.json in Resources */ = {isa = PBXBuildFile; fileRef = F86DDB5E8A4D757B667EB3F6 /* seeky_classes.json */; };
+		FC7080CB4691A1E2F9A6BF9E /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1F363679D425143401875E /* CameraPreviewView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AB968CDE251F6BCB6A946A66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5EBDCECB8DF428372FC762FE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6DAE6779B444B47A31F30B13;
+			remoteInfo = Seeky;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0B1219D78208601B77F2D3E7 /* CategoryChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChallengeTests.swift; sourceTree = "<group>"; };
+		1348E038C5CE4FC70CE83589 /* TapGlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGlowView.swift; sourceTree = "<group>"; };
+		1363E6B6447416F4C3F53A53 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		1CB5BCE777E584B530AAC4C4 /* PlaceholderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTests.swift; sourceTree = "<group>"; };
+		247CAB479C7B78AEBAB57CD6 /* LetterHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterHighlighter.swift; sourceTree = "<group>"; };
+		2C4ED926880ADA81ECE0141E /* CropLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropLogicTests.swift; sourceTree = "<group>"; };
+		2CC9E5B6EECB0956C320E8F2 /* WordProgressStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordProgressStoreTests.swift; sourceTree = "<group>"; };
+		2F809ECEE9CBC4016B411573 /* label_mappings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = label_mappings.json; sourceTree = "<group>"; };
+		3776F776CB14FC7E71F2720D /* CorrectionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionStoreTests.swift; sourceTree = "<group>"; };
+		3955AD2354A19A663E71CC74 /* LearningOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningOverlayView.swift; sourceTree = "<group>"; };
+		3EA9E4CF9CA8A7519379C65F /* BundleResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleResourceTests.swift; sourceTree = "<group>"; };
+		41C648FF88426B2DC99336AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4C4D38C05F76DE2AA92B7139 /* SegmentationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentationEngine.swift; sourceTree = "<group>"; };
+		4CBDA5540EFBDC5374E15BB5 /* TrainingCaptureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingCaptureTests.swift; sourceTree = "<group>"; };
+		4F8A4A904972EB7BEE2EFBB4 /* QuizOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizOverlayView.swift; sourceTree = "<group>"; };
+		4FC75722D66B7371FD9FF094 /* ClassificationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationEngine.swift; sourceTree = "<group>"; };
+		56B80A414836597FF16DD1D4 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
+		5A7779D348F7DC330EF72AAD /* WordDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDisplayView.swift; sourceTree = "<group>"; };
+		6219C7A2BBFEDAED76541408 /* CorrectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionPickerView.swift; sourceTree = "<group>"; };
+		62CB8CE10ACB08E83BF30280 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		6519F098F4026F9367082EE0 /* LabelMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMapperTests.swift; sourceTree = "<group>"; };
+		6CFA51DE6BC10109162ABF6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		74A936CF0682CD213950E7BF /* LetterHighlighterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterHighlighterTests.swift; sourceTree = "<group>"; };
+		7E24A297FCEA060046EFFDD1 /* CropPixelBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropPixelBufferTests.swift; sourceTree = "<group>"; };
+		848C409040D2D2739F592FFF /* Vocabulary */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Vocabulary; path = Seeky/Resources/Vocabulary; sourceTree = SOURCE_ROOT; };
+		8615E74903F1C2413249D760 /* vocabulary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vocabulary.json; sourceTree = "<group>"; };
+		962A165B578C40ED6D9397C3 /* WordSpeaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSpeaker.swift; sourceTree = "<group>"; };
+		97E60F0782204CCFBDA98B3A /* SeekyTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SeekyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		99625A14BBEBB4B2C4EBF5A6 /* TimingDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingDataTests.swift; sourceTree = "<group>"; };
+		9E6736CEE624BF5C668DB118 /* CustomClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomClassifier.swift; sourceTree = "<group>"; };
+		9EAF59208402FB0E50216556 /* TimingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingData.swift; sourceTree = "<group>"; };
+		A59320036958CBC1795826E3 /* VocabularyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyStore.swift; sourceTree = "<group>"; };
+		AC1F363679D425143401875E /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		B16884CFC4E3634F1357E2E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B47D2CEF43CD3E26B7E9B0EE /* InstanceTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceTrackerTests.swift; sourceTree = "<group>"; };
+		BBB64734910FA8E6BADB804D /* ParentSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentSettingsView.swift; sourceTree = "<group>"; };
+		BFEFD09AAB920E6C6E9F8F71 /* ClassificationIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationIntegrationTests.swift; sourceTree = "<group>"; };
+		C5BD75FF1C8072D0E6089059 /* LabelMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMapper.swift; sourceTree = "<group>"; };
+		D3F4240C4D47648103B79296 /* SeekyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekyApp.swift; sourceTree = "<group>"; };
+		DF149111722124B299D22426 /* TrainingCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingCapture.swift; sourceTree = "<group>"; };
+		E33B38E3524958AC0C3ACE92 /* CorrectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionStore.swift; sourceTree = "<group>"; };
+		E772B83FD33D2B305D56234F /* InstanceTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceTracker.swift; sourceTree = "<group>"; };
+		EAE7418BBADA3E9C14723F2A /* SeekyClassifier.mlpackage */ = {isa = PBXFileReference; path = SeekyClassifier.mlpackage; sourceTree = "<group>"; };
+		EC945B673DCDFC45FFDF5443 /* Seeky.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Seeky.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F86DDB5E8A4D757B667EB3F6 /* seeky_classes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = seeky_classes.json; sourceTree = "<group>"; };
+		F88799E0F5828B2B92A090BE /* ClassificationEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationEngineTests.swift; sourceTree = "<group>"; };
+		FB7AC600E6659DBB597EADC4 /* WordProgressStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordProgressStore.swift; sourceTree = "<group>"; };
+		FD294E723015621A2B22359D /* OnboardingHintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHintView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0CA1DC02035305AFA21B5508 /* Seeky */ = {
+			isa = PBXGroup;
+			children = (
+				6CFA51DE6BC10109162ABF6B /* Info.plist */,
+				4BB678E4198F0EFBB428CB8E /* App */,
+				B63A917379E843FE45A1B0C2 /* Data */,
+				5BC9850DA85CA62742E5684D /* Detection */,
+				7913041BF87AC1EEAF8602E9 /* Resources */,
+				DE6C856598982943737137D9 /* Speech */,
+				A79B98D79FF8B7CA0B021209 /* Views */,
+			);
+			path = Seeky;
+			sourceTree = "<group>";
+		};
+		306038CFBC0428828890734E = {
+			isa = PBXGroup;
+			children = (
+				848C409040D2D2739F592FFF /* Vocabulary */,
+				0CA1DC02035305AFA21B5508 /* Seeky */,
+				CE5B5F817FFF0DD51D21C748 /* SeekyTests */,
+				434C72E0D35DEBE4DF71343E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		434C72E0D35DEBE4DF71343E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC945B673DCDFC45FFDF5443 /* Seeky.app */,
+				97E60F0782204CCFBDA98B3A /* SeekyTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4BB678E4198F0EFBB428CB8E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				62CB8CE10ACB08E83BF30280 /* AppState.swift */,
+				D3F4240C4D47648103B79296 /* SeekyApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		5BC9850DA85CA62742E5684D /* Detection */ = {
+			isa = PBXGroup;
+			children = (
+				1363E6B6447416F4C3F53A53 /* CameraManager.swift */,
+				4FC75722D66B7371FD9FF094 /* ClassificationEngine.swift */,
+				9E6736CEE624BF5C668DB118 /* CustomClassifier.swift */,
+				E772B83FD33D2B305D56234F /* InstanceTracker.swift */,
+				4C4D38C05F76DE2AA92B7139 /* SegmentationEngine.swift */,
+			);
+			path = Detection;
+			sourceTree = "<group>";
+		};
+		7913041BF87AC1EEAF8602E9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2F809ECEE9CBC4016B411573 /* label_mappings.json */,
+				F86DDB5E8A4D757B667EB3F6 /* seeky_classes.json */,
+				EAE7418BBADA3E9C14723F2A /* SeekyClassifier.mlpackage */,
+				8615E74903F1C2413249D760 /* vocabulary.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A79B98D79FF8B7CA0B021209 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AC1F363679D425143401875E /* CameraPreviewView.swift */,
+				41C648FF88426B2DC99336AD /* ContentView.swift */,
+				6219C7A2BBFEDAED76541408 /* CorrectionPickerView.swift */,
+				3955AD2354A19A663E71CC74 /* LearningOverlayView.swift */,
+				FD294E723015621A2B22359D /* OnboardingHintView.swift */,
+				BBB64734910FA8E6BADB804D /* ParentSettingsView.swift */,
+				4F8A4A904972EB7BEE2EFBB4 /* QuizOverlayView.swift */,
+				1348E038C5CE4FC70CE83589 /* TapGlowView.swift */,
+				5A7779D348F7DC330EF72AAD /* WordDisplayView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B63A917379E843FE45A1B0C2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E33B38E3524958AC0C3ACE92 /* CorrectionStore.swift */,
+				56B80A414836597FF16DD1D4 /* ImageUtils.swift */,
+				C5BD75FF1C8072D0E6089059 /* LabelMapper.swift */,
+				9EAF59208402FB0E50216556 /* TimingData.swift */,
+				DF149111722124B299D22426 /* TrainingCapture.swift */,
+				A59320036958CBC1795826E3 /* VocabularyStore.swift */,
+				FB7AC600E6659DBB597EADC4 /* WordProgressStore.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		CE5B5F817FFF0DD51D21C748 /* SeekyTests */ = {
+			isa = PBXGroup;
+			children = (
+				3EA9E4CF9CA8A7519379C65F /* BundleResourceTests.swift */,
+				0B1219D78208601B77F2D3E7 /* CategoryChallengeTests.swift */,
+				F88799E0F5828B2B92A090BE /* ClassificationEngineTests.swift */,
+				BFEFD09AAB920E6C6E9F8F71 /* ClassificationIntegrationTests.swift */,
+				3776F776CB14FC7E71F2720D /* CorrectionStoreTests.swift */,
+				2C4ED926880ADA81ECE0141E /* CropLogicTests.swift */,
+				7E24A297FCEA060046EFFDD1 /* CropPixelBufferTests.swift */,
+				B16884CFC4E3634F1357E2E7 /* Info.plist */,
+				B47D2CEF43CD3E26B7E9B0EE /* InstanceTrackerTests.swift */,
+				6519F098F4026F9367082EE0 /* LabelMapperTests.swift */,
+				74A936CF0682CD213950E7BF /* LetterHighlighterTests.swift */,
+				1CB5BCE777E584B530AAC4C4 /* PlaceholderTests.swift */,
+				99625A14BBEBB4B2C4EBF5A6 /* TimingDataTests.swift */,
+				4CBDA5540EFBDC5374E15BB5 /* TrainingCaptureTests.swift */,
+				2CC9E5B6EECB0956C320E8F2 /* WordProgressStoreTests.swift */,
+			);
+			path = SeekyTests;
+			sourceTree = "<group>";
+		};
+		DE6C856598982943737137D9 /* Speech */ = {
+			isa = PBXGroup;
+			children = (
+				247CAB479C7B78AEBAB57CD6 /* LetterHighlighter.swift */,
+				962A165B578C40ED6D9397C3 /* WordSpeaker.swift */,
+			);
+			path = Speech;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6DAE6779B444B47A31F30B13 /* Seeky */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 06F46F32E85AC692088833AB /* Build configuration list for PBXNativeTarget "Seeky" */;
+			buildPhases = (
+				AC9FE58F0B70ECEB60C5EC05 /* Sources */,
+				905AFA4490AA8592191B7EC9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Seeky;
+			packageProductDependencies = (
+			);
+			productName = Seeky;
+			productReference = EC945B673DCDFC45FFDF5443 /* Seeky.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C83787908E8FE2A594846527 /* SeekyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 587A657C283F2666DA1EDF37 /* Build configuration list for PBXNativeTarget "SeekyTests" */;
+			buildPhases = (
+				A5CFE40C824F4F0E1D94D64F /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9C77800DB89C76633AD79E9B /* PBXTargetDependency */,
+			);
+			name = SeekyTests;
+			packageProductDependencies = (
+			);
+			productName = SeekyTests;
+			productReference = 97E60F0782204CCFBDA98B3A /* SeekyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5EBDCECB8DF428372FC762FE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					6DAE6779B444B47A31F30B13 = {
+						DevelopmentTeam = U5U8CN6FA9;
+						ProvisioningStyle = Automatic;
+					};
+					C83787908E8FE2A594846527 = {
+						DevelopmentTeam = U5U8CN6FA9;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 5A96C48AE914BAD2B642075E /* Build configuration list for PBXProject "Seeky" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 306038CFBC0428828890734E;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 434C72E0D35DEBE4DF71343E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6DAE6779B444B47A31F30B13 /* Seeky */,
+				C83787908E8FE2A594846527 /* SeekyTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		905AFA4490AA8592191B7EC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70054E538A3DE896E9E93C92 /* Vocabulary in Resources */,
+				20E37197C0CCEEC5102FFB64 /* label_mappings.json in Resources */,
+				FA5CC194386BC3A2E6E180F8 /* seeky_classes.json in Resources */,
+				3F92EF6F0AEC6DD294B72AF3 /* vocabulary.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A5CFE40C824F4F0E1D94D64F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A26D822CBEA638C396267CA8 /* BundleResourceTests.swift in Sources */,
+				EA82829A8C0B026EA4D4635D /* CategoryChallengeTests.swift in Sources */,
+				1062ADE065FD94D483B20C23 /* ClassificationEngineTests.swift in Sources */,
+				564F077B0903358B676EF2BA /* ClassificationIntegrationTests.swift in Sources */,
+				2FF8E4012810D53E107D0AB9 /* CorrectionStoreTests.swift in Sources */,
+				06ACCC5A859A691640968FFD /* CropLogicTests.swift in Sources */,
+				12C6F23C0D8B2A8F4E77C6F2 /* CropPixelBufferTests.swift in Sources */,
+				9854F0DAF52291EC5A958606 /* InstanceTrackerTests.swift in Sources */,
+				2EA3AF83935A3013C5E7CE6C /* LabelMapperTests.swift in Sources */,
+				4A092D91432D4E893CABBE2D /* LetterHighlighterTests.swift in Sources */,
+				3AA43464268C08345959185F /* PlaceholderTests.swift in Sources */,
+				F44DD27478F20A0F6E0617A4 /* TimingDataTests.swift in Sources */,
+				8ABF13AC53CA243572BB578F /* TrainingCaptureTests.swift in Sources */,
+				31AADF4606D56D0C166C531F /* WordProgressStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC9FE58F0B70ECEB60C5EC05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1800CD11B0F241BC85418DB /* AppState.swift in Sources */,
+				E34EB973C73AA3F781A8BF3A /* CameraManager.swift in Sources */,
+				FC7080CB4691A1E2F9A6BF9E /* CameraPreviewView.swift in Sources */,
+				DF43EDAD10146014C9E4D067 /* ClassificationEngine.swift in Sources */,
+				B3777F486F3808EDA31ACC5E /* ContentView.swift in Sources */,
+				EA4A11A34FAA5CBC2DBB6B93 /* CorrectionPickerView.swift in Sources */,
+				C7C8B3D2BB1CB89109B22081 /* CorrectionStore.swift in Sources */,
+				323C4204D1073C333516C1C1 /* CustomClassifier.swift in Sources */,
+				BA1280E3BD10776C9DD7CC97 /* ImageUtils.swift in Sources */,
+				62BF57A0D3036A5969246752 /* InstanceTracker.swift in Sources */,
+				C46CBED78264E9AA5FD8F0F7 /* LabelMapper.swift in Sources */,
+				1FFDB7BCB3685D14709C6524 /* LearningOverlayView.swift in Sources */,
+				D56E5DA67447C176C4033FFA /* LetterHighlighter.swift in Sources */,
+				88294C64B3E95137202F5DAF /* OnboardingHintView.swift in Sources */,
+				42349D6BC97A99EC460A7FD9 /* ParentSettingsView.swift in Sources */,
+				811B447FD829AEBA1A665FCF /* QuizOverlayView.swift in Sources */,
+				F173E476DEE99F487957DDBF /* SeekyApp.swift in Sources */,
+				6D94BE64989DAA3E4D3F2B3D /* SeekyClassifier.mlpackage in Sources */,
+				8645F4860424792010252CA0 /* SegmentationEngine.swift in Sources */,
+				647F5EA95CEE492722FA8080 /* TapGlowView.swift in Sources */,
+				9E18930FE0AD12517E57BEBC /* TimingData.swift in Sources */,
+				80AA053F2C4F9ADC6BA02574 /* TrainingCapture.swift in Sources */,
+				F65DEF62E00DB836F162E6CA /* VocabularyStore.swift in Sources */,
+				4AA70B5358088A881C521ADE /* WordDisplayView.swift in Sources */,
+				5D0C8065B7390E873D318286 /* WordProgressStore.swift in Sources */,
+				A777D4D44A0F6755A00C776C /* WordSpeaker.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9C77800DB89C76633AD79E9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6DAE6779B444B47A31F30B13 /* Seeky */;
+			targetProxy = AB968CDE251F6BCB6A946A66 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		38CF456E7E514DD0F3EC921E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U5U8CN6FA9;
+				INFOPLIST_FILE = SeekyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.seeky.SeekyTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Seeky.app/Seeky";
+			};
+			name = Debug;
+		};
+		39C7ED9536F3DC5133034E62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		420C93DB78F3327FB82A1BF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U5U8CN6FA9;
+				INFOPLIST_FILE = Seeky/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.seeky.objectlearning;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		62CF13FF7764C36D2ECD918B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U5U8CN6FA9;
+				INFOPLIST_FILE = Seeky/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.seeky.objectlearning;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		665C6391821881BD259FE6F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		AD7216313C74CDEBF2A691FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U5U8CN6FA9;
+				INFOPLIST_FILE = SeekyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.seeky.SeekyTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Seeky.app/Seeky";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		06F46F32E85AC692088833AB /* Build configuration list for PBXNativeTarget "Seeky" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62CF13FF7764C36D2ECD918B /* Debug */,
+				420C93DB78F3327FB82A1BF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		587A657C283F2666DA1EDF37 /* Build configuration list for PBXNativeTarget "SeekyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38CF456E7E514DD0F3EC921E /* Debug */,
+				AD7216313C74CDEBF2A691FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5A96C48AE914BAD2B642075E /* Build configuration list for PBXProject "Seeky" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				39C7ED9536F3DC5133034E62 /* Debug */,
+				665C6391821881BD259FE6F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5EBDCECB8DF428372FC762FE /* Project object */;
+}

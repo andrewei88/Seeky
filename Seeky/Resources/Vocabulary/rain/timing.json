@@ -1,0 +1,30 @@
+{
+  "word": "rain",
+  "phonemes": [
+    {
+      "phoneme": "R",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.289
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        1
+      ],
+      "start": 0.289,
+      "end": 0.698
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.698,
+      "end": 0.971
+    }
+  ]
+}

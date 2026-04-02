@@ -1,0 +1,63 @@
+{
+  "word": "raspberry",
+  "phonemes": [
+    {
+      "phoneme": "R",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.193
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.193,
+      "end": 0.438
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        2
+      ],
+      "start": 0.438,
+      "end": 0.601
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.601,
+      "end": 0.724
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        5
+      ],
+      "start": 0.724,
+      "end": 0.928
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        6
+      ],
+      "start": 0.928,
+      "end": 1.071
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        7,
+        8
+      ],
+      "start": 1.071,
+      "end": 1.296
+    }
+  ]
+}

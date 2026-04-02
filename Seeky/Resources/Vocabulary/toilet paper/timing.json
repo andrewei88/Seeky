@@ -1,0 +1,80 @@
+{
+  "word": "toilet paper",
+  "phonemes": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.158
+    },
+    {
+      "phoneme": "OY",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.158,
+      "end": 0.392
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3
+      ],
+      "start": 0.392,
+      "end": 0.518
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.518,
+      "end": 0.698
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        5
+      ],
+      "start": 0.698,
+      "end": 0.806
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        7
+      ],
+      "start": 0.806,
+      "end": 0.914
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        8
+      ],
+      "start": 0.914,
+      "end": 1.13
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        9
+      ],
+      "start": 1.13,
+      "end": 1.238
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        6,
+        10,
+        11
+      ],
+      "start": 1.238,
+      "end": 1.436
+    }
+  ]
+}

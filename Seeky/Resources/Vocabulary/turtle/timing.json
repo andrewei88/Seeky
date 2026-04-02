@@ -1,0 +1,46 @@
+{
+  "word": "turtle",
+  "phonemes": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.188
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.188,
+      "end": 0.441
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ],
+      "start": 0.441,
+      "end": 0.579
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.579,
+      "end": 0.809
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5
+      ],
+      "start": 0.809,
+      "end": 0.97
+    }
+  ]
+}

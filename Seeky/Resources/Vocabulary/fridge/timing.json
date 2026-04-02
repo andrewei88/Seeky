@@ -1,0 +1,39 @@
+{
+  "word": "fridge",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.292
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ],
+      "start": 0.292,
+      "end": 0.504
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        2
+      ],
+      "start": 0.504,
+      "end": 0.776
+    },
+    {
+      "phoneme": "JH",
+      "letters": [
+        3,
+        4,
+        5
+      ],
+      "start": 0.776,
+      "end": 1.018
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "word": "furniture",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.01,
+      "end": 0.17
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.17,
+      "end": 0.33
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        3
+      ],
+      "start": 0.33,
+      "end": 0.49
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        4
+      ],
+      "start": 0.49,
+      "end": 0.57
+    },
+    {
+      "phoneme": "CH",
+      "letters": [
+        5
+      ],
+      "start": 0.57,
+      "end": 0.66
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        6,
+        7,
+        8
+      ],
+      "start": 0.66,
+      "end": 0.81
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "word": "moon",
+  "phonemes": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.337
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.337,
+      "end": 0.731
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        3
+      ],
+      "start": 0.731,
+      "end": 1.018
+    }
+  ]
+}

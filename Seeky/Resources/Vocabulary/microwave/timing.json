@@ -1,0 +1,70 @@
+{
+  "word": "microwave",
+  "phonemes": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.192
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        1
+      ],
+      "start": 0.192,
+      "end": 0.423
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ],
+      "start": 0.423,
+      "end": 0.53
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ],
+      "start": 0.53,
+      "end": 0.655
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.655,
+      "end": 0.833
+    },
+    {
+      "phoneme": "W",
+      "letters": [
+        5
+      ],
+      "start": 0.833,
+      "end": 0.94
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        6
+      ],
+      "start": 0.94,
+      "end": 1.154
+    },
+    {
+      "phoneme": "V",
+      "letters": [
+        7,
+        8
+      ],
+      "start": 1.154,
+      "end": 1.296
+    }
+  ]
+}

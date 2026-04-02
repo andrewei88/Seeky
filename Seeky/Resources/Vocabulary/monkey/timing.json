@@ -1,0 +1,46 @@
+{
+  "word": "monkey",
+  "phonemes": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.23
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ],
+      "start": 0.23,
+      "end": 0.455
+    },
+    {
+      "phoneme": "NG",
+      "letters": [
+        2
+      ],
+      "start": 0.455,
+      "end": 0.635
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ],
+      "start": 0.635,
+      "end": 0.77
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.77,
+      "end": 1.018
+    }
+  ]
+}

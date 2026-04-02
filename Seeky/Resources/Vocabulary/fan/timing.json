@@ -1,0 +1,29 @@
+{
+  "word": "fan",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.3
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.3,
+      "end": 0.675
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ],
+      "start": 0.675,
+      "end": 0.925
+    }
+  ]
+}

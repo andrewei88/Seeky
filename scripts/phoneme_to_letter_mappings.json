@@ -1,0 +1,4709 @@
+{
+  "apple": [
+    {
+      "phoneme": "AE",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "avocado": [
+    {
+      "phoneme": "AH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "V",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        6
+      ]
+    }
+  ],
+  "bag": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "banana": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ]
+    }
+  ],
+  "basketball": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        7
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        8,
+        9
+      ]
+    }
+  ],
+  "bathtub": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "TH",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        6
+      ]
+    }
+  ],
+  "bear": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "bed": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "bench": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "CH",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "bird": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "blackberry": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3,
+        4
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        7
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        8,
+        9
+      ]
+    }
+  ],
+  "blanket": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "NG",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        6
+      ]
+    }
+  ],
+  "block": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "blueberry": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        7,
+        8
+      ]
+    }
+  ],
+  "book": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "UH",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "bottle": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5
+      ]
+    }
+  ],
+  "bowl": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "box": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "bread": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "bus": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "butterfly": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3,
+        4
+      ]
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        7,
+        8
+      ]
+    }
+  ],
+  "cactus": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        5
+      ]
+    }
+  ],
+  "cake": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "camel": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "can": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "car": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "cat": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "chair": [
+    {
+      "phoneme": "CH",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "cheese": [
+    {
+      "phoneme": "CH",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "cherry": [
+    {
+      "phoneme": "CH",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "chicken": [
+    {
+      "phoneme": "CH",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        5,
+        6
+      ]
+    }
+  ],
+  "clock": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "cloud": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "coconut": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        6
+      ]
+    }
+  ],
+  "cookie": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "UH",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "couch": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "CH",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "cow": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        1,
+        2
+      ]
+    }
+  ],
+  "crab": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "crayon": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "cup": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "cupboard": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5
+      ]
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        6,
+        7
+      ]
+    }
+  ],
+  "deer": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "dishwasher": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "W",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        6,
+        7
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        8,
+        9
+      ]
+    }
+  ],
+  "dog": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "doll": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "dolphin": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        3,
+        4
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        6
+      ]
+    }
+  ],
+  "door": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "duck": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "dumbbell": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5,
+        6
+      ]
+    }
+  ],
+  "ear": [
+    {
+      "phoneme": "IH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1,
+        2
+      ]
+    }
+  ],
+  "egg": [
+    {
+      "phoneme": "EH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        1,
+        2
+      ]
+    }
+  ],
+  "elephant": [
+    {
+      "phoneme": "EH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        3,
+        4
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        7
+      ]
+    }
+  ],
+  "eye": [
+    {
+      "phoneme": "AY",
+      "letters": [
+        0,
+        1,
+        2
+      ]
+    }
+  ],
+  "face": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "fan": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "fence": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "fish": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "flower": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "foot": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "UH",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "fork": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "fox": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "fridge": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "JH",
+      "letters": [
+        3,
+        4,
+        5
+      ]
+    }
+  ],
+  "frog": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "giraffe": [
+    {
+      "phoneme": "JH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        4,
+        5,
+        6
+      ]
+    }
+  ],
+  "glass": [
+    {
+      "phoneme": "G",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "glasses": [
+    {
+      "phoneme": "G",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        3,
+        4
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        6
+      ]
+    }
+  ],
+  "goat": [
+    {
+      "phoneme": "G",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "grape": [
+    {
+      "phoneme": "G",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "grass": [
+    {
+      "phoneme": "G",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "hand": [
+    {
+      "phoneme": "HH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "hat": [
+    {
+      "phoneme": "HH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "hippo": [
+    {
+      "phoneme": "HH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "horse": [
+    {
+      "phoneme": "HH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "jacket": [
+    {
+      "phoneme": "JH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "jellyfish": [
+    {
+      "phoneme": "JH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        7,
+        8
+      ]
+    }
+  ],
+  "key": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1,
+        2
+      ]
+    }
+  ],
+  "keyboard": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        4,
+        5
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        7
+      ]
+    }
+  ],
+  "kiwi": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "W",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "knife": [
+    {
+      "phoneme": "N",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "lamp": [
+    {
+      "phoneme": "L",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "laptop": [
+    {
+      "phoneme": "L",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        5
+      ]
+    }
+  ],
+  "leaf": [
+    {
+      "phoneme": "L",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "lemon": [
+    {
+      "phoneme": "L",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "light": [
+    {
+      "phoneme": "L",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "lion": [
+    {
+      "phoneme": "L",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "mango": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "NG",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "microwave": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "W",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "V",
+      "letters": [
+        7,
+        8
+      ]
+    }
+  ],
+  "mirror": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "monkey": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "NG",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "moon": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "mushroom": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        5,
+        6
+      ]
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        7
+      ]
+    }
+  ],
+  "nose": [
+    {
+      "phoneme": "N",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "octopus": [
+    {
+      "phoneme": "AA",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        6
+      ]
+    }
+  ],
+  "orange": [
+    {
+      "phoneme": "AO",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "JH",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "otter": [
+    {
+      "phoneme": "AA",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "oven": [
+    {
+      "phoneme": "AH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "V",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "owl": [
+    {
+      "phoneme": "AW",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "pan": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "panda": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "pants": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "paper": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "parrot": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        5
+      ]
+    }
+  ],
+  "peach": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "CH",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "pear": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "pen": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "pencil": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5
+      ]
+    }
+  ],
+  "penguin": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "NG",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "W",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        6
+      ]
+    }
+  ],
+  "phone": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "pig": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "pillow": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "pineapple": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        7,
+        8
+      ]
+    }
+  ],
+  "pizza": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "plate": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "pot": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "rabbit": [
+    {
+      "phoneme": "R",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        5
+      ]
+    }
+  ],
+  "rain": [
+    {
+      "phoneme": "R",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "raspberry": [
+    {
+      "phoneme": "R",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        3,
+        4
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        7,
+        8
+      ]
+    }
+  ],
+  "remote": [
+    {
+      "phoneme": "R",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "rock": [
+    {
+      "phoneme": "R",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "scissors": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5
+      ]
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        6,
+        7
+      ]
+    }
+  ],
+  "seal": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "shark": [
+    {
+      "phoneme": "SH",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "sheep": [
+    {
+      "phoneme": "SH",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "shelf": [
+    {
+      "phoneme": "SH",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "shirt": [
+    {
+      "phoneme": "SH",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "shoe": [
+    {
+      "phoneme": "SH",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "sink": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "NG",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "snake": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "soap": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "soccer ball": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        7
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        8
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        9,
+        10
+      ]
+    }
+  ],
+  "sock": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "spoon": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "squirrel": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "W",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3,
+        4
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        6,
+        7
+      ]
+    }
+  ],
+  "stairs": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "star": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ]
+    }
+  ],
+  "strawberry": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        4,
+        5
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        7
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        8,
+        9
+      ]
+    }
+  ],
+  "sun": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    }
+  ],
+  "sunflower": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        6,
+        7,
+        8
+      ]
+    }
+  ],
+  "table": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "teddy bear": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        7
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        5,
+        8,
+        9
+      ]
+    }
+  ],
+  "tennis ball": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2,
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        7
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        8
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        9,
+        10
+      ]
+    }
+  ],
+  "tiger": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "toaster": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5,
+        6
+      ]
+    }
+  ],
+  "toilet": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "OY",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        5
+      ]
+    }
+  ],
+  "toilet paper": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "OY",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        7
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        8
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        9
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        6,
+        10,
+        11
+      ]
+    }
+  ],
+  "toothbrush": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "TH",
+      "letters": [
+        3,
+        4
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        7
+      ]
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        8,
+        9
+      ]
+    }
+  ],
+  "towel": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "tree": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        2,
+        3
+      ]
+    }
+  ],
+  "truck": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "turtle": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        1,
+        2
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5
+      ]
+    }
+  ],
+  "tv": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "V",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1
+      ]
+    }
+  ],
+  "umbrella": [
+    {
+      "phoneme": "AH",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5,
+        6
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        7
+      ]
+    }
+  ],
+  "watermelon": [
+    {
+      "phoneme": "W",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        4
+      ]
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        7
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        8,
+        9
+      ]
+    }
+  ],
+  "whale": [
+    {
+      "phoneme": "W",
+      "letters": [
+        0,
+        1
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "window": [
+    {
+      "phoneme": "W",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        4,
+        5
+      ]
+    }
+  ],
+  "zebra": [
+    {
+      "phoneme": "Z",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ]
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ]
+    }
+  ],
+  "scale": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "EY",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        3,
+        4
+      ]
+    }
+  ],
+  "trash can": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ]
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2
+      ]
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        3,
+        4
+      ]
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        5
+      ]
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        6
+      ]
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        7
+      ]
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        8
+      ]
+    }
+  ]
+}

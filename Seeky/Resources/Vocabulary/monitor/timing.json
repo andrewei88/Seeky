@@ -1,0 +1,11 @@
+{
+  "word": "monitor",
+  "phonemes": [
+    {"phoneme": "M", "letters": [0], "start": 0.0, "end": 0.15},
+    {"phoneme": "AA", "letters": [1], "start": 0.15, "end": 0.35},
+    {"phoneme": "N", "letters": [2], "start": 0.35, "end": 0.50},
+    {"phoneme": "IH", "letters": [3], "start": 0.50, "end": 0.65},
+    {"phoneme": "T", "letters": [4], "start": 0.65, "end": 0.80},
+    {"phoneme": "ER", "letters": [5, 6], "start": 0.80, "end": 1.05}
+  ]
+}

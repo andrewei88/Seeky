@@ -1,0 +1,22 @@
+{
+  "word": "cow",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.326
+    },
+    {
+      "phoneme": "AW",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.326,
+      "end": 0.925
+    }
+  ]
+}

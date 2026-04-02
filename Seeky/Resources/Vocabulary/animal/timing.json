@@ -1,0 +1,53 @@
+{
+  "word": "animal",
+  "phonemes": [
+    {
+      "phoneme": "AE",
+      "letters": [
+        0
+      ],
+      "start": 0.0,
+      "end": 0.1
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        1
+      ],
+      "start": 0.1,
+      "end": 0.21
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ],
+      "start": 0.21,
+      "end": 0.31
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        3
+      ],
+      "start": 0.31,
+      "end": 0.42
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.42,
+      "end": 0.52
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5
+      ],
+      "start": 0.52,
+      "end": 0.63
+    }
+  ]
+}

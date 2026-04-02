@@ -1,0 +1,38 @@
+{
+  "word": "shark",
+  "phonemes": [
+    {
+      "phoneme": "SH",
+      "letters": [
+        0,
+        1
+      ],
+      "start": 0.05,
+      "end": 0.294
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        2
+      ],
+      "start": 0.294,
+      "end": 0.619
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ],
+      "start": 0.619,
+      "end": 0.809
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        4
+      ],
+      "start": 0.809,
+      "end": 0.972
+    }
+  ]
+}

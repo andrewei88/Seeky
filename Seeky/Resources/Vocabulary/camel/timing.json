@@ -1,0 +1,45 @@
+{
+  "word": "camel",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.191
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.191,
+      "end": 0.474
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        2
+      ],
+      "start": 0.474,
+      "end": 0.663
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ],
+      "start": 0.663,
+      "end": 0.899
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        4
+      ],
+      "start": 0.899,
+      "end": 1.064
+    }
+  ]
+}

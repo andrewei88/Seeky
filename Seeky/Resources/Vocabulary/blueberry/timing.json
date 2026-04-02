@@ -1,0 +1,63 @@
+{
+  "word": "blueberry",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.174
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        1
+      ],
+      "start": 0.174,
+      "end": 0.319
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.319,
+      "end": 0.547
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        4
+      ],
+      "start": 0.547,
+      "end": 0.671
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        5
+      ],
+      "start": 0.671,
+      "end": 0.878
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        6
+      ],
+      "start": 0.878,
+      "end": 1.023
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        7,
+        8
+      ],
+      "start": 1.023,
+      "end": 1.251
+    }
+  ]
+}

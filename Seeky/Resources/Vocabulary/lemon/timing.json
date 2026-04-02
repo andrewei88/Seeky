@@ -1,0 +1,45 @@
+{
+  "word": "lemon",
+  "phonemes": [
+    {
+      "phoneme": "L",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.2
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ],
+      "start": 0.2,
+      "end": 0.414
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        2
+      ],
+      "start": 0.414,
+      "end": 0.585
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ],
+      "start": 0.585,
+      "end": 0.799
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        4
+      ],
+      "start": 0.799,
+      "end": 0.97
+    }
+  ]
+}

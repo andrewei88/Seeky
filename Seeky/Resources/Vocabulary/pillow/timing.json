@@ -1,0 +1,39 @@
+{
+  "word": "pillow",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.213
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ],
+      "start": 0.213,
+      "end": 0.457
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.457,
+      "end": 0.647
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.647,
+      "end": 0.972
+    }
+  ]
+}

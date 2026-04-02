@@ -1,0 +1,46 @@
+{
+  "word": "bottle",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.192
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ],
+      "start": 0.192,
+      "end": 0.475
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.475,
+      "end": 0.617
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.617,
+      "end": 0.853
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5
+      ],
+      "start": 0.853,
+      "end": 1.018
+    }
+  ]
+}

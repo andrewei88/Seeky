@@ -1,0 +1,30 @@
+{
+  "word": "rock",
+  "phonemes": [
+    {
+      "phoneme": "R",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.282
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ],
+      "start": 0.282,
+      "end": 0.68
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.68,
+      "end": 0.879
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "word": "pizza",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.219
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1
+      ],
+      "start": 0.219,
+      "end": 0.529
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.529,
+      "end": 0.698
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.698,
+      "end": 0.923
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        4
+      ],
+      "start": 0.923,
+      "end": 1.204
+    }
+  ]
+}

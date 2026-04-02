@@ -1,0 +1,61 @@
+{
+  "word": "coconut",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.169
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        1
+      ],
+      "start": 0.169,
+      "end": 0.408
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ],
+      "start": 0.408,
+      "end": 0.527
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ],
+      "start": 0.527,
+      "end": 0.726
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        4
+      ],
+      "start": 0.726,
+      "end": 0.885
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ],
+      "start": 0.885,
+      "end": 1.084
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        6
+      ],
+      "start": 1.084,
+      "end": 1.203
+    }
+  ]
+}

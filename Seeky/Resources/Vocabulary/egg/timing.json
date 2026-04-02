@@ -1,0 +1,22 @@
+{
+  "word": "egg",
+  "phonemes": [
+    {
+      "phoneme": "EH",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.539
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.539,
+      "end": 0.832
+    }
+  ]
+}

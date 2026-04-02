@@ -1,0 +1,29 @@
+{
+  "word": "pot",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.269
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ],
+      "start": 0.269,
+      "end": 0.707
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2
+      ],
+      "start": 0.707,
+      "end": 0.926
+    }
+  ]
+}

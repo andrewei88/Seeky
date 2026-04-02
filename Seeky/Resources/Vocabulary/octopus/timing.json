@@ -1,0 +1,61 @@
+{
+  "word": "octopus",
+  "phonemes": [
+    {
+      "phoneme": "AA",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.289
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        1
+      ],
+      "start": 0.289,
+      "end": 0.408
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2
+      ],
+      "start": 0.408,
+      "end": 0.527
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ],
+      "start": 0.527,
+      "end": 0.726
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        4
+      ],
+      "start": 0.726,
+      "end": 0.845
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        5
+      ],
+      "start": 0.845,
+      "end": 1.044
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        6
+      ],
+      "start": 1.044,
+      "end": 1.203
+    }
+  ]
+}

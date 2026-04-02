@@ -1,0 +1,55 @@
+{
+  "word": "keyboard",
+  "phonemes": [
+    {
+      "phoneme": "K",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.177
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.177,
+      "end": 0.409
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        3
+      ],
+      "start": 0.409,
+      "end": 0.536
+    },
+    {
+      "phoneme": "AO",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.536,
+      "end": 0.789
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        6
+      ],
+      "start": 0.789,
+      "end": 0.937
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        7
+      ],
+      "start": 0.937,
+      "end": 1.064
+    }
+  ]
+}

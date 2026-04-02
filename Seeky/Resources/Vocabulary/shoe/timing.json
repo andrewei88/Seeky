@@ -1,0 +1,23 @@
+{
+  "word": "shoe",
+  "phonemes": [
+    {
+      "phoneme": "SH",
+      "letters": [
+        0,
+        1
+      ],
+      "start": 0.05,
+      "end": 0.527
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.527,
+      "end": 1.111
+    }
+  ]
+}

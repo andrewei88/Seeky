@@ -1,0 +1,22 @@
+{
+  "word": "ear",
+  "phonemes": [
+    {
+      "phoneme": "IH",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.464
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.464,
+      "end": 0.786
+    }
+  ]
+}

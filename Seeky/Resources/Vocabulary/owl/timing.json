@@ -1,0 +1,22 @@
+{
+  "word": "owl",
+  "phonemes": [
+    {
+      "phoneme": "AW",
+      "letters": [
+        0,
+        1
+      ],
+      "start": 0.05,
+      "end": 0.589
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        2
+      ],
+      "start": 0.589,
+      "end": 0.879
+    }
+  ]
+}

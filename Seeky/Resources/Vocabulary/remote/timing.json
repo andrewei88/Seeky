@@ -1,0 +1,46 @@
+{
+  "word": "remote",
+  "phonemes": [
+    {
+      "phoneme": "R",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.211
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ],
+      "start": 0.211,
+      "end": 0.418
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        2
+      ],
+      "start": 0.418,
+      "end": 0.602
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        3
+      ],
+      "start": 0.602,
+      "end": 0.879
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.879,
+      "end": 1.017
+    }
+  ]
+}

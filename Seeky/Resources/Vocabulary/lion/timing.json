@@ -1,0 +1,37 @@
+{
+  "word": "lion",
+  "phonemes": [
+    {
+      "phoneme": "L",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.228
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        1
+      ],
+      "start": 0.228,
+      "end": 0.559
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ],
+      "start": 0.559,
+      "end": 0.814
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        3
+      ],
+      "start": 0.814,
+      "end": 1.018
+    }
+  ]
+}

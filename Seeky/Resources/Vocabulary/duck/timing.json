@@ -1,0 +1,30 @@
+{
+  "word": "duck",
+  "phonemes": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.276
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ],
+      "start": 0.276,
+      "end": 0.653
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.653,
+      "end": 0.879
+    }
+  ]
+}

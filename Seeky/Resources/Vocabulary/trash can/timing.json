@@ -1,0 +1,70 @@
+{
+  "word": "trash can",
+  "phonemes": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ],
+      "start": 0.08,
+      "end": 0.19
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ],
+      "start": 0.19,
+      "end": 0.3
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        2
+      ],
+      "start": 0.3,
+      "end": 0.41
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.41,
+      "end": 0.52
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        5
+      ],
+      "start": 0.52,
+      "end": 0.63
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        6
+      ],
+      "start": 0.63,
+      "end": 0.74
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        7
+      ],
+      "start": 0.74,
+      "end": 0.85
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        8
+      ],
+      "start": 0.85,
+      "end": 0.97
+    }
+  ]
+}

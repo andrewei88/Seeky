@@ -1,0 +1,31 @@
+{
+  "word": "shirt",
+  "phonemes": [
+    {
+      "phoneme": "SH",
+      "letters": [
+        0,
+        1
+      ],
+      "start": 0.05,
+      "end": 0.353
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.353,
+      "end": 0.723
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        4
+      ],
+      "start": 0.723,
+      "end": 0.925
+    }
+  ]
+}

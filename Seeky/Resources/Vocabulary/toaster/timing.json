@@ -1,0 +1,47 @@
+{
+  "word": "toaster",
+  "phonemes": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.198
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        1
+      ],
+      "start": 0.198,
+      "end": 0.494
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        2
+      ],
+      "start": 0.494,
+      "end": 0.691
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        3
+      ],
+      "start": 0.691,
+      "end": 0.839
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        4,
+        5,
+        6
+      ],
+      "start": 0.839,
+      "end": 1.11
+    }
+  ]
+}

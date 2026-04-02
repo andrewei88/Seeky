@@ -1,0 +1,30 @@
+{
+  "word": "pear",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.266
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.266,
+      "end": 0.626
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        3
+      ],
+      "start": 0.626,
+      "end": 0.878
+    }
+  ]
+}

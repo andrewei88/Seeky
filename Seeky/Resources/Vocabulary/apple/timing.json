@@ -1,0 +1,38 @@
+{
+  "word": "apple",
+  "phonemes": [
+    {
+      "phoneme": "AE",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.366
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.366,
+      "end": 0.524
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ],
+      "start": 0.524,
+      "end": 0.787
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        4
+      ],
+      "start": 0.787,
+      "end": 0.971
+    }
+  ]
+}

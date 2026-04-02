@@ -1,0 +1,15 @@
+{
+  "word": "eye",
+  "phonemes": [
+    {
+      "phoneme": "AY",
+      "letters": [
+        0,
+        1,
+        2
+      ],
+      "start": 0.05,
+      "end": 0.832
+    }
+  ]
+}

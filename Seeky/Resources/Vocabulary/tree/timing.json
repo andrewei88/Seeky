@@ -1,0 +1,30 @@
+{
+  "word": "tree",
+  "phonemes": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.257
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        1
+      ],
+      "start": 0.257,
+      "end": 0.499
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.499,
+      "end": 0.879
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "word": "sun",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.405
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ],
+      "start": 0.405,
+      "end": 0.849
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        2
+      ],
+      "start": 0.849,
+      "end": 1.204
+    }
+  ]
+}

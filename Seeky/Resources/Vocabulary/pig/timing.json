@@ -1,0 +1,29 @@
+{
+  "word": "pig",
+  "phonemes": [
+    {
+      "phoneme": "P",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.287
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ],
+      "start": 0.287,
+      "end": 0.642
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        2
+      ],
+      "start": 0.642,
+      "end": 0.879
+    }
+  ]
+}

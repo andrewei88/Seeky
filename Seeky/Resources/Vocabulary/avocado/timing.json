@@ -1,0 +1,61 @@
+{
+  "word": "avocado",
+  "phonemes": [
+    {
+      "phoneme": "AH",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.245
+    },
+    {
+      "phoneme": "V",
+      "letters": [
+        1
+      ],
+      "start": 0.245,
+      "end": 0.401
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        2
+      ],
+      "start": 0.401,
+      "end": 0.596
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ],
+      "start": 0.596,
+      "end": 0.713
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        4
+      ],
+      "start": 0.713,
+      "end": 0.947
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        5
+      ],
+      "start": 0.947,
+      "end": 1.064
+    },
+    {
+      "phoneme": "OW",
+      "letters": [
+        6
+      ],
+      "start": 1.064,
+      "end": 1.298
+    }
+  ]
+}

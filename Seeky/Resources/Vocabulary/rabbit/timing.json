@@ -1,0 +1,46 @@
+{
+  "word": "rabbit",
+  "phonemes": [
+    {
+      "phoneme": "R",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.219
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.219,
+      "end": 0.509
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.509,
+      "end": 0.654
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        4
+      ],
+      "start": 0.654,
+      "end": 0.872
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        5
+      ],
+      "start": 0.872,
+      "end": 1.017
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "word": "mushroom",
+  "phonemes": [
+    {
+      "phoneme": "M",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.217
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ],
+      "start": 0.217,
+      "end": 0.426
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.426,
+      "end": 0.614
+    },
+    {
+      "phoneme": "R",
+      "letters": [
+        4
+      ],
+      "start": 0.614,
+      "end": 0.76
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        5,
+        6
+      ],
+      "start": 0.76,
+      "end": 0.99
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        7
+      ],
+      "start": 0.99,
+      "end": 1.157
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "word": "spoon",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.307
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        1
+      ],
+      "start": 0.307,
+      "end": 0.5
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.5,
+      "end": 0.854
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        4
+      ],
+      "start": 0.854,
+      "end": 1.111
+    }
+  ]
+}

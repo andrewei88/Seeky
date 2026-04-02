@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seeky Logo — Background Options</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+  }
+
+  @keyframes bounce {
+    0%   { transform: translateY(0); }
+    15%  { transform: translateY(-20px); }
+    20%  { transform: translateY(-16px); }
+    25%  { transform: translateY(-18px); }
+    35%  { transform: translateY(-17px); }
+    50%  { transform: translateY(0); }
+    55%  { transform: translateY(3px); }
+    60%  { transform: translateY(0); }
+    100% { transform: translateY(0); }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1100px;
+  }
+
+  .option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .option-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  .option-card {
+    border-radius: 20px;
+    padding: 50px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height: 200px;
+  }
+
+  .seeky {
+    display: flex;
+    gap: 0.18em;
+    font-size: 52px;
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', system-ui, sans-serif;
+    user-select: none;
+  }
+
+  .seeky .letter {
+    animation: bounce 2.5s ease-in-out infinite;
+  }
+
+  .seeky .letter:nth-child(1) { animation-delay: 0s; }
+  .seeky .letter:nth-child(2) { animation-delay: 0.08s; }
+  .seeky .letter:nth-child(3) { animation-delay: 0.16s; }
+  .seeky .letter:nth-child(4) { animation-delay: 0.24s; }
+  .seeky .letter:nth-child(5) { animation-delay: 0.32s; }
+
+  /* Gold on dark — the v2 baseline */
+  .bg-black .seeky .letter {
+    color: #FFD93D;
+    text-shadow: 0 0 20px rgba(255, 217, 61, 0.6), 0 0 40px rgba(255, 217, 61, 0.3);
+  }
+
+  /* Gold on deep forest green */
+  .bg-forest {
+    background: linear-gradient(145deg, #1a4a2e, #0f3320);
+  }
+  .bg-forest .seeky .letter {
+    color: #FFD93D;
+    text-shadow: 0 0 20px rgba(255, 217, 61, 0.5), 0 0 40px rgba(255, 217, 61, 0.25);
+  }
+
+  /* Gold on soft green */
+  .bg-green {
+    background: linear-gradient(145deg, #4CAF50, #388E3C);
+  }
+  .bg-green .seeky .letter {
+    color: #FFD93D;
+    text-shadow: 0 0 16px rgba(255, 217, 61, 0.5), 0 0 30px rgba(255, 217, 61, 0.2);
+  }
+
+  /* Gold on sky blue */
+  .bg-sky {
+    background: linear-gradient(145deg, #42A5F5, #1E88E5);
+  }
+  .bg-sky .seeky .letter {
+    color: #FFD93D;
+    text-shadow: 0 0 16px rgba(255, 217, 61, 0.4), 0 0 30px rgba(255, 217, 61, 0.2);
+  }
+
+  /* Gold on deep navy */
+  .bg-navy {
+    background: linear-gradient(145deg, #1a2744, #0f1a30);
+  }
+  .bg-navy .seeky .letter {
+    color: #FFD93D;
+    text-shadow: 0 0 20px rgba(255, 217, 61, 0.6), 0 0 40px rgba(255, 217, 61, 0.3);
+  }
+
+  /* White on coral/warm */
+  .bg-coral {
+    background: linear-gradient(145deg, #FF7043, #E64A19);
+  }
+  .bg-coral .seeky .letter {
+    color: #FFF8E1;
+    text-shadow: 0 0 16px rgba(255, 248, 225, 0.4), 0 0 30px rgba(255, 248, 225, 0.2);
+  }
+
+  /* Gold on soft purple */
+  .bg-purple {
+    background: linear-gradient(145deg, #7E57C2, #5E35B1);
+  }
+  .bg-purple .seeky .letter {
+    color: #FFD93D;
+    text-shadow: 0 0 16px rgba(255, 217, 61, 0.5), 0 0 30px rgba(255, 217, 61, 0.25);
+  }
+
+  /* Gold on warm teal */
+  .bg-teal {
+    background: linear-gradient(145deg, #26A69A, #00897B);
+  }
+  .bg-teal .seeky .letter {
+    color: #FFD93D;
+    text-shadow: 0 0 16px rgba(255, 217, 61, 0.5), 0 0 30px rgba(255, 217, 61, 0.2);
+  }
+
+  /* Gold on midnight (almost black but with color) */
+  .bg-midnight {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+  }
+  .bg-midnight .seeky .letter {
+    color: #FFD93D;
+    text-shadow: 0 0 20px rgba(255, 217, 61, 0.6), 0 0 40px rgba(255, 217, 61, 0.3);
+  }
+
+  /* App icon comparison row */
+  .icon-section {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .icon-row {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+  }
+
+  .icon-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .icon-option .label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .app-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', system-ui, sans-serif;
+  }
+
+  .app-icon.dark {
+    background: #1a1a1a;
+    color: #FFD93D;
+    text-shadow: 0 0 8px rgba(255, 217, 61, 0.6);
+  }
+
+  .app-icon.forest {
+    background: linear-gradient(145deg, #1a4a2e, #0f3320);
+    color: #FFD93D;
+    text-shadow: 0 0 8px rgba(255, 217, 61, 0.5);
+  }
+
+  .app-icon.green {
+    background: linear-gradient(145deg, #4CAF50, #388E3C);
+    color: #FFD93D;
+    text-shadow: 0 0 8px rgba(255, 217, 61, 0.4);
+  }
+
+  .app-icon.sky {
+    background: linear-gradient(145deg, #42A5F5, #1E88E5);
+    color: #FFD93D;
+    text-shadow: 0 0 8px rgba(255, 217, 61, 0.4);
+  }
+
+  .app-icon.navy {
+    background: linear-gradient(145deg, #1a2744, #0f1a30);
+    color: #FFD93D;
+    text-shadow: 0 0 8px rgba(255, 217, 61, 0.6);
+  }
+
+  .app-icon.coral {
+    background: linear-gradient(145deg, #FF7043, #E64A19);
+    color: #FFF8E1;
+    text-shadow: 0 0 8px rgba(255, 248, 225, 0.4);
+  }
+
+  .app-icon.purple {
+    background: linear-gradient(145deg, #7E57C2, #5E35B1);
+    color: #FFD93D;
+    text-shadow: 0 0 8px rgba(255, 217, 61, 0.5);
+  }
+
+  .app-icon.teal {
+    background: linear-gradient(145deg, #26A69A, #00897B);
+    color: #FFD93D;
+    text-shadow: 0 0 8px rgba(255, 217, 61, 0.4);
+  }
+
+  .app-icon.midnight {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    color: #FFD93D;
+    text-shadow: 0 0 8px rgba(255, 217, 61, 0.6);
+  }
+
+  .section-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Seeky — Background Options</h1>
+
+<div class="grid">
+
+  <div class="option">
+    <span class="option-label">A. Black (v2 baseline)</span>
+    <div class="option-card bg-black" style="background: #1a1a1a;">
+      <div class="seeky">
+        <span class="letter">S</span><span class="letter">e</span><span class="letter">e</span><span class="letter">k</span><span class="letter">y</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option">
+    <span class="option-label">B. Deep Forest</span>
+    <div class="option-card bg-forest">
+      <div class="seeky">
+        <span class="letter">S</span><span class="letter">e</span><span class="letter">e</span><span class="letter">k</span><span class="letter">y</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option">
+    <span class="option-label">C. Soft Green</span>
+    <div class="option-card bg-green">
+      <div class="seeky">
+        <span class="letter">S</span><span class="letter">e</span><span class="letter">e</span><span class="letter">k</span><span class="letter">y</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option">
+    <span class="option-label">D. Sky Blue</span>
+    <div class="option-card bg-sky">
+      <div class="seeky">
+        <span class="letter">S</span><span class="letter">e</span><span class="letter">e</span><span class="letter">k</span><span class="letter">y</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option">
+    <span class="option-label">E. Deep Navy</span>
+    <div class="option-card bg-navy">
+      <div class="seeky">
+        <span class="letter">S</span><span class="letter">e</span><span class="letter">e</span><span class="letter">k</span><span class="letter">y</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option">
+    <span class="option-label">F. Warm Coral</span>
+    <div class="option-card bg-coral">
+      <div class="seeky">
+        <span class="letter">S</span><span class="letter">e</span><span class="letter">e</span><span class="letter">k</span><span class="letter">y</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option">
+    <span class="option-label">G. Purple</span>
+    <div class="option-card bg-purple">
+      <div class="seeky">
+        <span class="letter">S</span><span class="letter">e</span><span class="letter">e</span><span class="letter">k</span><span class="letter">y</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option">
+    <span class="option-label">H. Teal</span>
+    <div class="option-card bg-teal">
+      <div class="seeky">
+        <span class="letter">S</span><span class="letter">e</span><span class="letter">e</span><span class="letter">k</span><span class="letter">y</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option">
+    <span class="option-label">I. Midnight Blue</span>
+    <div class="option-card bg-midnight">
+      <div class="seeky">
+        <span class="letter">S</span><span class="letter">e</span><span class="letter">e</span><span class="letter">k</span><span class="letter">y</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- App icon comparison -->
+<div class="icon-section">
+  <span class="section-label">As app icons</span>
+  <div class="icon-row">
+    <div class="icon-option">
+      <div class="app-icon dark">Seeky</div>
+      <span class="label">Black</span>
+    </div>
+    <div class="icon-option">
+      <div class="app-icon forest">Seeky</div>
+      <span class="label">Forest</span>
+    </div>
+    <div class="icon-option">
+      <div class="app-icon green">Seeky</div>
+      <span class="label">Green</span>
+    </div>
+    <div class="icon-option">
+      <div class="app-icon sky">Seeky</div>
+      <span class="label">Sky</span>
+    </div>
+    <div class="icon-option">
+      <div class="app-icon navy">Seeky</div>
+      <span class="label">Navy</span>
+    </div>
+    <div class="icon-option">
+      <div class="app-icon coral">Seeky</div>
+      <span class="label">Coral</span>
+    </div>
+    <div class="icon-option">
+      <div class="app-icon purple">Seeky</div>
+      <span class="label">Purple</span>
+    </div>
+    <div class="icon-option">
+      <div class="app-icon teal">Seeky</div>
+      <span class="label">Teal</span>
+    </div>
+    <div class="icon-option">
+      <div class="app-icon midnight">Seeky</div>
+      <span class="label">Midnight</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

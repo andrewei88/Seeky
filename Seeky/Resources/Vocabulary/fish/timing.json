@@ -1,0 +1,30 @@
+{
+  "word": "fish",
+  "phonemes": [
+    {
+      "phoneme": "F",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.405
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        1
+      ],
+      "start": 0.405,
+      "end": 0.804
+    },
+    {
+      "phoneme": "SH",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.804,
+      "end": 1.203
+    }
+  ]
+}

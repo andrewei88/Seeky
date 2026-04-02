@@ -1,0 +1,54 @@
+{
+  "word": "dolphin",
+  "phonemes": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.166
+    },
+    {
+      "phoneme": "AA",
+      "letters": [
+        1
+      ],
+      "start": 0.166,
+      "end": 0.398
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        2
+      ],
+      "start": 0.398,
+      "end": 0.534
+    },
+    {
+      "phoneme": "F",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.534,
+      "end": 0.689
+    },
+    {
+      "phoneme": "IH",
+      "letters": [
+        5
+      ],
+      "start": 0.689,
+      "end": 0.863
+    },
+    {
+      "phoneme": "N",
+      "letters": [
+        6
+      ],
+      "start": 0.863,
+      "end": 1.018
+    }
+  ]
+}

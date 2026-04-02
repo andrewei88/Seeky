@@ -1,0 +1,30 @@
+{
+  "word": "book",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.263
+    },
+    {
+      "phoneme": "UH",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.263,
+      "end": 0.618
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        3
+      ],
+      "start": 0.618,
+      "end": 0.831
+    }
+  ]
+}

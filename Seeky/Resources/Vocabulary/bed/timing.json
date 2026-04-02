@@ -1,0 +1,29 @@
+{
+  "word": "bed",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.276
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        1
+      ],
+      "start": 0.276,
+      "end": 0.653
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        2
+      ],
+      "start": 0.653,
+      "end": 0.879
+    }
+  ]
+}

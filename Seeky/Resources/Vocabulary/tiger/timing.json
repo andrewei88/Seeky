@@ -1,0 +1,38 @@
+{
+  "word": "tiger",
+  "phonemes": [
+    {
+      "phoneme": "T",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.203
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        1
+      ],
+      "start": 0.203,
+      "end": 0.536
+    },
+    {
+      "phoneme": "G",
+      "letters": [
+        2
+      ],
+      "start": 0.536,
+      "end": 0.689
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.689,
+      "end": 0.97
+    }
+  ]
+}

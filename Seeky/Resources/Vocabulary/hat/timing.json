@@ -1,0 +1,29 @@
+{
+  "word": "hat",
+  "phonemes": [
+    {
+      "phoneme": "HH",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.282
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.282,
+      "end": 0.68
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        2
+      ],
+      "start": 0.68,
+      "end": 0.879
+    }
+  ]
+}

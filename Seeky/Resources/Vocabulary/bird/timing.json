@@ -1,0 +1,30 @@
+{
+  "word": "bird",
+  "phonemes": [
+    {
+      "phoneme": "B",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.278
+    },
+    {
+      "phoneme": "ER",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.278,
+      "end": 0.696
+    },
+    {
+      "phoneme": "D",
+      "letters": [
+        3
+      ],
+      "start": 0.696,
+      "end": 0.924
+    }
+  ]
+}

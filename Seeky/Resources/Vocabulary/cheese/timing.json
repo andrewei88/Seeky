@@ -1,0 +1,32 @@
+{
+  "word": "cheese",
+  "phonemes": [
+    {
+      "phoneme": "CH",
+      "letters": [
+        0,
+        1
+      ],
+      "start": 0.05,
+      "end": 0.364
+    },
+    {
+      "phoneme": "IY",
+      "letters": [
+        2,
+        3
+      ],
+      "start": 0.364,
+      "end": 0.796
+    },
+    {
+      "phoneme": "Z",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.796,
+      "end": 1.11
+    }
+  ]
+}

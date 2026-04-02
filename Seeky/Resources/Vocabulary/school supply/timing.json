@@ -1,0 +1,80 @@
+{
+  "word": "school supply",
+  "phonemes": [
+    {
+      "phoneme": "S",
+      "letters": [
+        0
+      ],
+      "start": 0.0,
+      "end": 0.09
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        1,
+        2
+      ],
+      "start": 0.09,
+      "end": 0.18
+    },
+    {
+      "phoneme": "UW",
+      "letters": [
+        3,
+        4
+      ],
+      "start": 0.18,
+      "end": 0.27
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5
+      ],
+      "start": 0.27,
+      "end": 0.36
+    },
+    {
+      "phoneme": "S",
+      "letters": [
+        7
+      ],
+      "start": 0.36,
+      "end": 0.45
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        8
+      ],
+      "start": 0.45,
+      "end": 0.6
+    },
+    {
+      "phoneme": "P",
+      "letters": [
+        9,
+        10
+      ],
+      "start": 0.6,
+      "end": 0.76
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        11
+      ],
+      "start": 0.76,
+      "end": 0.92
+    },
+    {
+      "phoneme": "AY",
+      "letters": [
+        12
+      ],
+      "start": 0.92,
+      "end": 1.08
+    }
+  ]
+}

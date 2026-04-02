@@ -1,0 +1,46 @@
+{
+  "word": "jacket",
+  "phonemes": [
+    {
+      "phoneme": "JH",
+      "letters": [
+        0
+      ],
+      "start": 0.05,
+      "end": 0.252
+    },
+    {
+      "phoneme": "AE",
+      "letters": [
+        1
+      ],
+      "start": 0.252,
+      "end": 0.555
+    },
+    {
+      "phoneme": "K",
+      "letters": [
+        2
+      ],
+      "start": 0.555,
+      "end": 0.707
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        3
+      ],
+      "start": 0.707,
+      "end": 0.96
+    },
+    {
+      "phoneme": "T",
+      "letters": [
+        4,
+        5
+      ],
+      "start": 0.96,
+      "end": 1.112
+    }
+  ]
+}
