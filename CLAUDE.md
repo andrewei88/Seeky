@@ -58,12 +58,14 @@
 - The `convert_to_coreml.py` and `train_classifier.py` scripts should auto-save to versions. Never rely on manual copies.
 - Before retraining: save current deployed model weights AND PyTorch checkpoint to versions.
 - After retraining: save new checkpoint to versions, run accuracy analysis, compare with previous version, then decide which to deploy.
-- Version history as of 2026-03-29:
+- Version history as of 2026-04-02:
   - v0: MobileNetV3-Small, 91.3% val (original model)
   - v1: FastViT-T12, 95.2% val (pre-retraining baseline, web-only data)
   - v2: FastViT-T12, 90.9% val (same as v1, after TV/monitor split)
   - v3: FastViT-T12 R2, 89.1% val (retrained with home-context + close-up data)
   - v4: FastViT-T12, 88.9% val (154 classes: +basketball, soccer_ball, tennis_ball; +cup distance data)
+  - v8: FastViT-T12, 87.3% val (158 classes: +dumbbell, panda textile fix)
+  - v9: FastViT-T12, 96.4% val (top-5: 99.0%, +plate/bowl/chair phone-perspective data)
 
 ## Project-Specific Knowledge
 
@@ -74,7 +76,7 @@
 - Single-model classification: Custom classifier (CoreML) with confidence threshold (0.40). CorrectionStore checked first.
 - VNClassifyImageRequest is NOT used. Removed from classification and environment detection. Vision framework used only for segmentation.
 - Custom classifier: SeekyClassifier.mlpackage (154 classes, 12.9MB). Input: 224x224 RGB. Outputs: softmax probabilities + 1024-dim feature vector
-- Backbone: FastViT-T12 (Apple, 6.7M params, 79.3% ImageNet). Val accuracy: 95.2% (top-5: 99.1%). Upgraded from MobileNetV3-Small (91.3% val). Training uses timm (`fastvit_t12`) with class-weighted loss.
+- Backbone: FastViT-T12 (Apple, 6.7M params, 79.3% ImageNet). Val accuracy: 96.4% (top-5: 99.0%). Upgraded from MobileNetV3-Small (91.3% val). Training uses timm (`fastvit_t12`) with class-weighted loss.
 - MLMultiArray on ANE outputs Float16 — always use subscript access (`array[i].floatValue`), never `dataPointer.bindMemory(to: Float.self)`
 - Training pipeline: `collect_training_data.py` → `curate_training_data.py` → `train_classifier.py` → `convert_to_coreml.py` → `verify_classifier.py`
 - Retraining pipeline: Parent exports captures from app → `ingest_phone_captures.py [zip]` → `train_classifier.py` → `convert_to_coreml.py`
