@@ -147,7 +147,7 @@ final class WordProgressStore: ObservableObject {
                       "window"],
         "body part": ["ear", "eye", "face", "foot", "hand", "nose"],
         "vehicle": ["bus", "car", "truck"],
-        "toy": ["ball", "basketball", "block", "doll", "soccer ball", "teddy bear", "tennis ball"],
+        "toy": ["ball", "basketball", "block", "doll", "dumbbell", "soccer ball", "teddy bear", "tennis ball"],
         "bathroom item": ["bathtub", "scale", "sink", "soap", "toilet", "toilet paper", "toothbrush"],
         "school supply": ["crayon", "paper", "pen", "pencil"],
     ]
@@ -176,7 +176,7 @@ final class WordProgressStore: ObservableObject {
             "trash can", "watermelon",
             // Living room
             "ball", "basketball", "blanket", "block", "box", "cat", "chair", "clock",
-            "doll", "dog", "door", "fan", "glasses", "soccer ball",
+            "doll", "dog", "door", "dumbbell", "fan", "glasses", "soccer ball",
             "key", "laptop", "light", "mirror", "monitor",
             "phone", "picture", "pillow", "remote", "shelf", "shoe", "speaker",
             "stairs", "table", "teddy bear", "tennis ball", "tv", "umbrella", "window",

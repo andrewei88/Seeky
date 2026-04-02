@@ -1,0 +1,54 @@
+{
+  "word": "dumbbell",
+  "phonemes": [
+    {
+      "phoneme": "D",
+      "letters": [
+        0
+      ],
+      "start": 0.07,
+      "end": 0.13
+    },
+    {
+      "phoneme": "AH",
+      "letters": [
+        1
+      ],
+      "start": 0.13,
+      "end": 0.29
+    },
+    {
+      "phoneme": "M",
+      "letters": [
+        2
+      ],
+      "start": 0.29,
+      "end": 0.37
+    },
+    {
+      "phoneme": "B",
+      "letters": [
+        3
+      ],
+      "start": 0.37,
+      "end": 0.46
+    },
+    {
+      "phoneme": "EH",
+      "letters": [
+        4
+      ],
+      "start": 0.46,
+      "end": 0.63
+    },
+    {
+      "phoneme": "L",
+      "letters": [
+        5,
+        6
+      ],
+      "start": 0.63,
+      "end": 0.8
+    }
+  ]
+}
