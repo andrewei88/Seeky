@@ -432,6 +432,13 @@ final class AppState: ObservableObject {
         triggerTapRipple()
         mode = .quizClassifying
 
+        // Safety timeout: if classification takes too long, return to prompting
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [weak self] in
+            guard let self, self.quizGeneration == gen, self.mode == .quizClassifying else { return }
+            print("[Quiz] Classification timed out — returning to prompting")
+            self.mode = .quizPrompting
+        }
+
         guard let segResult = liveSegmentation else {
             print("[Quiz] No segmentation data")
             mode = .quizPrompting
@@ -609,6 +616,7 @@ final class AppState: ObservableObject {
 
         if session.isComplete {
             wordSpeaker.stop()
+            mode = .quizResult
             print("[Quiz] Session complete: \(session.correctCount)/\(session.results.count)")
         } else {
             mode = .quizPrompting

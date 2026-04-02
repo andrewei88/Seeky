@@ -128,17 +128,17 @@ struct QuizOverlayView: View {
 
                 Spacer()
 
-                if mode == .quizPrompting {
-                    // Skip arrow
-                    Button { onSkip() } label: {
+                if mode == .quizResult {
+                    // Continue arrow (fallback when auto-advance callback is dropped)
+                    Button { onAdvance() } label: {
                         Image(systemName: "chevron.right")
                             .font(.system(size: 22, weight: .medium))
                             .foregroundColor(.white.opacity(0.4))
                             .frame(width: 56, height: 56)
                     }
-                } else if mode == .quizResult {
-                    // Continue arrow (fallback when auto-advance callback is dropped)
-                    Button { onAdvance() } label: {
+                } else {
+                    // Skip arrow (visible in prompting AND classifying so user is never stuck)
+                    Button { onSkip() } label: {
                         Image(systemName: "chevron.right")
                             .font(.system(size: 22, weight: .medium))
                             .foregroundColor(.white.opacity(0.4))
