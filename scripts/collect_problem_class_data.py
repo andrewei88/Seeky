@@ -370,6 +370,115 @@ PROBLEM_CLASS_QUERIES = {
         "panda throw pillow flat on couch",
     ],
 
+    # ── Plate: phone-camera perspective, empty plates on surfaces ────────
+    # Only 435 train images (lowest kitchen class). Model sees plates with
+    # food in web data, but phone reality is often empty plates on counters.
+    # Confused with toilet (round white shape from above) and spoon.
+    "plate": [
+        # Empty plates on tables/counters (the gap — training data has food)
+        "empty plate on table",
+        "empty white plate on table",
+        "empty plate on counter top",
+        "clean plate on kitchen counter",
+        "plate on table no food",
+        "white dinner plate on table",
+        "plate on wooden table from above",
+        "empty plate on dining table",
+        # Phone-camera angle: looking down at plate
+        "plate on table from above",
+        "plate on counter from above",
+        "plate top view on table",
+        "dinner plate overhead view",
+        "plate bird eye view",
+        # Stacked/multiple plates
+        "stacked plates on counter",
+        "plates in dish rack",
+        "plates in dishwasher",
+        "stack of plates kitchen",
+        "plates on shelf kitchen",
+        # Various plate types
+        "ceramic plate on table",
+        "paper plate on table",
+        "small plate on table",
+        "plate and fork on table",
+        "plate on placemat dining table",
+        # In context (where kids see plates)
+        "dinner plate at table setting",
+        "plate on high chair tray",
+        "plate on kids table",
+    ],
+
+    # ── Bowl: phone-camera perspective, empty bowls ──────────────────────
+    # 86.2% val but heavy confusion with spoon (12 errors). Phone reality
+    # is empty bowls on counters/tables. Model trained on bowls with food.
+    "bowl": [
+        # Empty bowls on surfaces
+        "empty bowl on table",
+        "empty bowl on counter",
+        "empty cereal bowl on table",
+        "clean bowl on kitchen counter",
+        "white bowl on table",
+        "empty bowl from above",
+        "bowl on table no food",
+        # Phone-camera angle: looking down
+        "bowl on table from above",
+        "bowl top view on counter",
+        "bowl overhead view kitchen",
+        "bowl bird eye view on table",
+        # In context (kitchen/dining)
+        "bowl on dining table",
+        "bowl next to plate on table",
+        "mixing bowl on counter",
+        "bowl in kitchen sink",
+        "bowl in dishwasher",
+        "bowls stacked on counter",
+        "bowl on kitchen shelf",
+        # Various bowl types
+        "cereal bowl on table",
+        "soup bowl on table",
+        "small bowl on counter",
+        "wooden bowl on table",
+        "ceramic bowl on counter",
+        # Kids context
+        "kids bowl on high chair",
+        "toddler bowl on table",
+        "colorful bowl on kids table",
+    ],
+
+    # ── Chair: phone-camera angle, partially occluded by table ───────────
+    # 85.8% val, confused with table (9 errors). Web photos show isolated
+    # chairs. Real homes have chairs tucked under/at tables, seen from
+    # across the room at phone height.
+    "chair": [
+        # Chairs at tables (the primary real-world view)
+        "chair at dining table",
+        "chairs around dining table",
+        "chair pushed in at table",
+        "chair tucked under table",
+        "dining chair at table home",
+        "kitchen chair at table",
+        "chair at kitchen table",
+        # Phone-camera perspectives
+        "chair in kitchen phone photo",
+        "dining room chair from across room",
+        "chair in room home photo",
+        "wooden chair at table home",
+        # Various chair types in home context
+        "wooden dining chair",
+        "kitchen chair wooden",
+        "desk chair in room",
+        "office chair at desk home",
+        "folding chair in room",
+        "high chair in kitchen",
+        # Partial views (what you actually see)
+        "chair back at table",
+        "chair partially under table",
+        "empty chair at table",
+        "chair next to table home",
+        "chair in living room",
+        "chair at desk home office",
+    ],
+
     # ── Scale: NEW CLASS — bathroom scales, top-down angle ───────────────
     # Not in the 154-class model. Phone-camera angle is looking straight
     # down at a flat rectangle on a bathroom floor. Confusable with laptop,
